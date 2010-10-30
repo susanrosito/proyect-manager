@@ -70,9 +70,21 @@ public class TareaSimple extends Tarea {
 	public void setCount(int count) {
 		this.count = count;
 	}
-	public static void main(String[] args) {
-		
-			
-	}
-
+    public boolean verificarSiEstaPausada()
+    { return this.getEstado().verificarSiEstaPausada(); }
+   
+    public boolean verificarSiEstaIniciada()
+    { return this.getEstado().verificarSiEstaIniciada(); }
+   
+    public boolean verificarSiEstaCerrada()
+    { return this.getEstado().verificarSiEstaCerrada(); }
+   
+    public boolean verificarSiEstaEnTrabajo()
+    { return this.getEstado().verificarSiEstaEnTrabajo(); }
+   
+    public boolean verificarSiEstaFinalizada()
+    { return this.getEstado().verificarSiEstaFinalizada(); }
+   
+    public boolean verificarSiEstaCreada()
+    { return this.getEstado().verificarSiEstaCreada(); }
 }
