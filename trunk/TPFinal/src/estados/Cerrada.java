@@ -1,5 +1,5 @@
 package estados;
-import tareas.TareaSimple;
+
 public class Cerrada extends Estado {
 	
 	private static Cerrada instance = null;
@@ -13,7 +13,10 @@ public class Cerrada extends Estado {
 	 
 	     return instance;
 	   }
-	public void iniciada(TareaSimple tarea) {
-		tarea.setEstado(Iniciada.GetInstance());
+	
+	   public boolean verificarSiEstaCerrada()
+	    { return true; }
+
+		   
 	}
-}
+	   

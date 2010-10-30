@@ -28,9 +28,7 @@ public class EnTrabajo extends Estado {
 		   
 	   }
 	   
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
+  public boolean verificarSiEstaEnTrabajo()
+  { return true; }
 
 }

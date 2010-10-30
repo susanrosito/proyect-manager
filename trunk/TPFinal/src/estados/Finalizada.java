@@ -13,6 +13,7 @@ public class Finalizada extends Estado {
 	 
 	     return instance;
 	   }
-	
+	   public boolean verificarSiEstaFinalizada()
+	    { return true; }
 
 }

@@ -26,4 +26,7 @@ public class Pausada extends Estado {
 		   unaTarea.setEstado(Finalizada.GetInstance());
 		   
 	   }
+  public boolean verificarSiEstaPausada()
+  { return true; }
 }
+
