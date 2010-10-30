@@ -33,13 +33,13 @@ public abstract class Tarea implements AdministradorTarea{
 	public abstract void cerrate();
 
 	public boolean estaEnTiempo() {
-		
-		return ;
+		/* TODO */
+		return false;
 	}
 
 	public boolean estaProximaAVencer() {
-		"tengo que definirlo"
-		return null;
+		/* TODO */
+		return false;
 	}
 
 	public Fecha getFechaCreacion() {
