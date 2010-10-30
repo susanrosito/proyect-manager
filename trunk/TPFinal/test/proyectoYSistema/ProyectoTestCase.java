@@ -177,7 +177,7 @@ public class ProyectoTestCase extends TestCase {
 		this.getProyecto().asignarMiembroATarea(getMiembro1(), getTarea());
 		
 		// compruebo dentro de la tarea si el miembro asignado es el mismo
-		assertSame(this.getMiembro1(), this.getTarea().getMiembro());
+		assertSame(this.getMiembro1(), this.getTarea().getMiembroAsignado());
 	
 	}
 	
