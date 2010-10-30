@@ -2,58 +2,121 @@ package tareas;
 
 import estados.Estado;
 
-public class OrganizadorTarea implements AdministradorTarea{
-		private Tarea tarea;
-		private Tarea tareaAnterior;
+/**
+ * Esta clase va a representar en contenedor con las tareas con orden. Por eso va a conocer
+ * a la tarea y a su anterior para mantener el orden.
+ */
+public class OrganizadorTarea implements AdministradorTarea  {
+
+	protected AdministradorTarea tarea;
+	protected AdministradorTarea tareaAnterior;
 	
-		public OrganizadorTarea(){
-			
-		}
-	public Estado verEstado() {
-		// TODO Auto-generated method stub
-		return null;
+	/**
+	 * El constructor recibe dos parametros de cualquier clase que utilice la
+	 * interfaz administradorTarea, por lo tanto puede ser de la clase tareaSimple, 
+	 * TareaCompuesta o tambien de la clase OrganizadorTarea.
+	 * El primer parametro es para la tarea que es la anterior (o sea, la que debe
+	 * estar finalizada antes de que se pueda comenzar a trabajar en la otra) y el
+	 * otro parametro es para la tarea en cuestion.
+	 */
+	
+	public OrganizadorTarea(AdministradorTarea tareaAnterior, AdministradorTarea tarea)
+	{
+		this.setTarea(tarea);
+		this.setTareaAnterior(tareaAnterior);
+		
+	}
+	
+	protected boolean puedeTrabajarseEnElla()
+	{
+	  return this.getTareaAnterior().verificarSiEstaFinalizada();
+		
+	}
+	
+	public void cerrate() {
+		this.getTarea().cerrate();
+		
 	}
 
 	
 	public boolean estaEnTiempo() {
-		// TODO Auto-generated method stub
-		return false;
+		return this.getTarea().estaEnTiempo();
 	}
 
-	@Override
+	
 	public boolean estaProximaAVencer() {
-		// TODO Auto-generated method stub
-		return false;
+		return this.getTarea().estaProximaAVencer();
 	}
 
-	@Override
-	public void cerrate() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
+	
 	public void reAbrite() {
-		// TODO Auto-generated method stub
+		this.getTarea().reAbrite();
 		
 	}
 
-	@Override
+	
 	public boolean tieneOrden() {
-		// TODO Auto-generated method stub
-		return false;
+		
+		return true;
 	}
-	public void setTarea(Tarea tarea) {
-		this.tarea = tarea;
+
+	
+	public Estado verEstado() {
+		
+		return this.getTarea().verEstado();
 	}
-	public Tarea getTarea() {
+
+	
+	public boolean verificarSiEstaCerrada() {
+		return this.getTarea().verificarSiEstaCerrada();
+	}
+
+
+	public boolean verificarSiEstaCreada() {
+		
+		return this.getTarea().verificarSiEstaCreada();
+	}
+
+	
+	public boolean verificarSiEstaEnTrabajo() {
+	
+		return this.getTarea().verificarSiEstaEnTrabajo();
+	}
+
+	
+	public boolean verificarSiEstaFinalizada() {
+		
+		return this.getTarea().verificarSiEstaFinalizada();
+	}
+
+	
+	public boolean verificarSiEstaIniciada() {
+		
+		return this.getTarea().verificarSiEstaIniciada();
+	}
+
+	
+	public boolean verificarSiEstaPausada() {
+		
+		return this.getTarea().verificarSiEstaPausada();
+	}
+	public AdministradorTarea getTarea() {
 		return tarea;
 	}
-	public void setTareaAnterior(Tarea tareaAnterior) {
-		this.tareaAnterior = tareaAnterior;
+
+	public void setTarea(AdministradorTarea tarea) {
+		this.tarea = tarea;
 	}
-	public Tarea getTareaAnterior() {
+
+	public AdministradorTarea getTareaAnterior() {
 		return tareaAnterior;
 	}
 
+	public void setTareaAnterior(AdministradorTarea tareaAnterior) {
+		this.tareaAnterior = tareaAnterior;
+	}
+
+	
+
+	
 }
