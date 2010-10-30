@@ -25,9 +25,7 @@ public class Creada extends Estado {
     }
 	
 	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
+	public boolean verificarSiEstaCreada()
+    { return true; }
 
 }
