@@ -73,7 +73,7 @@ public class TestTareaSimple extends TestCase {
 		this.rol = "Tester";
 		this.nuevoRol = "Desarrollador";
 
-		// cree un miembro Mock.
+		// cree un miembro Mock. 
 
 		this.miembro = createMock(Miembro.class);
 
