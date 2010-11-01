@@ -5,9 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-
 import estados.Estado;
-
 
 import tareas.*;
 import usuarioMiembroYFecha.*;
@@ -15,19 +13,19 @@ import usuarioMiembroYFecha.*;
 public class Proyecto {
 	private String nombre;
 	private String descripcion;
-	private Miembro creador; 
+	private Miembro creador;
 	private List<Tarea> listaTareas;
-	private  List<Miembro> listaDeMiembros;
+	private List<Miembro> listaDeMiembros;
 
-			//el constructor de la clase proyecto
+	// el constructor de la clase proyecto
 	public Proyecto(String nombre, String descripcion, Usuario usuario) {
-		
+
 		this.setNombre(nombre);
 		this.setDescripcion(descripcion);
 		this.setCreador(new Miembro(usuario, "creador"));
 		this.setListaTareas(new LinkedList<Tarea>());
 		this.setListaDeMiembros(new LinkedList<Miembro>());
-		
+
 	}
 
 	// getters y setters
@@ -47,7 +45,7 @@ public class Proyecto {
 	public void setListaTareas(List<Tarea> listaTareas) {
 		this.listaTareas = listaTareas;
 	}
-	
+
 	public String getNombre() {
 
 		return this.nombre;
@@ -64,105 +62,97 @@ public class Proyecto {
 	}
 
 	public List<Tarea> getListaTareas() {
-		
+
 		return this.listaTareas;
 	}
 
 	public List<Miembro> getListaDeMiembros() {
-		
-		return  this.listaDeMiembros;
+
+		return this.listaDeMiembros;
 	}
-	
+
 	public void setListaDeMiembros(List<Miembro> listaDeMiembros) {
 		this.listaDeMiembros = listaDeMiembros;
 	}
 
-	
-	 
 	public void agregarTarea(Tarea tarea) {
-		//agrega a la lista de tareas del proyecto 
-		//una tarea pasada x parametro
-	this.getListaTareas().add(tarea);
-		
+		// agrega a la lista de tareas del proyecto
+		// una tarea pasada x parametro
+		this.getListaTareas().add(tarea);
+
 	}
 
 	public void agregarMiembro(Usuario usuario, String rol) {
-		//agrega a la lista de miembros un miembro nuevo
-		//creado a partir de un usuario y un rol,ambos pasados por parametro
-		
+		// agrega a la lista de miembros un miembro nuevo
+		// creado a partir de un usuario y un rol,ambos pasados por parametro
+
 		this.getListaDeMiembros().add(new Miembro(usuario, rol));
 	}
 
-	
 	public void asignarMiembroATarea(Miembro miembro, TareaSimple tarea) {
-		
+
 		// a una tarea se le asigna miembro
-		
-		tarea.modificarMiembroAsignado(miembro);		
+
+		tarea.modificarMiembroAsignado(miembro);
 	}
 
 	public void eliminarTarea(Tarea tarea) {
-		//elimina una tarea
-		
-	this.getListaTareas().remove(tarea);
-		
+		// elimina una tarea
+
+		this.getListaTareas().remove(tarea);
+
 	}
 
 	public void cerrarTarea(Tarea tarea) {
 		tarea.cerrate();
-		
+
 	}
 
-	
-
 	public void cerrarProyecto() {
-	
+
 		for (Tarea t : this.getListaTareas()) {
-			
+
 			this.cerrarTarea(t);
 		}
-		
+
 	}
 
 	public void reabrirUnaTarea(Tarea tarea) {
-	
+
 		tarea.reAbrite();
 	}
 
-	
 	public Map<Tarea, Estado> obtenerTareasYEstados() {
 
 		Map<Tarea, Estado> aux = new HashMap<Tarea, Estado>();
-			
+
 		for (Tarea t : this.getListaTareas()) {
-		
+
 			aux.put(t, t.verEstado());
 		}
 		return aux;
 	}
 
 	public Map<Miembro, String> obtenerMiembrosConRoles() {
-		
+
 		Map<Miembro, String> aux = new HashMap<Miembro, String>();
-		
+
 		for (Miembro m : this.getListaDeMiembros()) {
-		
+
 			aux.put(m, m.getRol());
 		}
 		return aux;
 	}
 
 	public int hsTotalesTrabajadas() {
-		int contador= 0;
-		
+		int contador = 0;
+
 		for (Miembro m : this.getListaDeMiembros()) {
-			
-		contador = contador + m.getHsTrabajadas();	
+
+			contador = contador + m.getHsTrabajadas();
 		}
-		
+
 		return contador;
 	}
-
-
 
 }
