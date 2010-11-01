@@ -183,7 +183,7 @@ public class ProyectoTestCase extends TestCase {
 	
 	public void testObtenerTareasYEstados() {
 		//creo un map y agrego tareas
-		Map<Tarea,Estado> diccionarioPrueba = new HashMap<Tarea, Estado>();
+		Map<Tarea,String> diccionarioPrueba = new HashMap<Tarea, String>();
 		diccionarioPrueba.put(this.getTarea(), this.getTarea().verEstado());
 		diccionarioPrueba.put(this.getTarea2(), this.getTarea2().verEstado());
 		
@@ -192,7 +192,7 @@ public class ProyectoTestCase extends TestCase {
 		this.getProyecto().agregarTarea(this.getTarea2());
 		
 		// ejecuto el metodo
-		Map<Tarea,Estado> resultado = this.getProyecto().obtenerTareasYEstados();
+		Map<Tarea,String> resultado = this.getProyecto().obtenerTareasYEstados();
 			
 		// ??   debo chequear si las claves del resultado se encuentran 
 		//       dentro de las claves del diccionario para testear
