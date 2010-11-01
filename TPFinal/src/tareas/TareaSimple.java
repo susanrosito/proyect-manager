@@ -2,32 +2,62 @@ package tareas;
 
 import usuarioMiembroYFecha.Miembro;
 import usuarioMiembroYFecha.Fecha;
-
 import estados.Estado;
+import estados.NoPuedeCambiarseElEstadoExcepccion;
 
 public class TareaSimple extends Tarea {
 	private Miembro miembroAsignado;
-	private int count; 
-	
 
-	public TareaSimple(String nombre, String descrip,Fecha fechaEstFinalizacion) {
+	/**
+	 * Constructor
+	 * 
+	 * @param nombre
+	 *            String
+	 * @param descrip
+	 *            String
+	 * @param fechaEstFinalizacion
+	 *            Fecha
+	 */
+	public TareaSimple(String nombre, String descrip, Fecha fechaEstFinalizacion) {
 		super(nombre, descrip, fechaEstFinalizacion);
-		this.count = 0;
 	}
 
-	public void poneteEnTrabajo() {
+	/**
+	 * Cambia el estado de la Tarea,a EnTrabajo. si no puede Tira una
+	 * excepeccion.
+	 * 
+	 * @throws NoPuedeCambiarseElEstadoExcepccion
+	 */
+	public void poneteEnTrabajo() throws NoPuedeCambiarseElEstadoExcepccion {
 		this.getEstado().enTrabajo(this);
 	}
 
-	public void iniciate() {
+	/**
+	 * Cambia el estado de la Tarea,a Iniciada. si no puede Tira una
+	 * excepeccion.
+	 * 
+	 * @throws NoPuedeCambiarseElEstadoExcepccion
+	 */
+	public void iniciate() throws NoPuedeCambiarseElEstadoExcepccion {
 		this.getEstado().iniciada(this);
 	}
 
-	public void finalizate() {
+	/**
+	 * Cambia el estado de la Tarea,a Finalizate. si no puede Tira una
+	 * excepeccion.
+	 * 
+	 * @throws NoPuedeCambiarseElEstadoExcepccion
+	 */
+	public void finalizate() throws NoPuedeCambiarseElEstadoExcepccion {
 		this.getEstado().finalizada(this);
 	}
 
-	public void pausate() {
+	/**
+	 * Cambia el estado de la Tarea,a Pausate. si no puede Tira una excepeccion.
+	 * 
+	 * @throws NoPuedeCambiarseElEstadoExcepccion
+	 */
+	public void pausate() throws NoPuedeCambiarseElEstadoExcepccion {
 		this.getEstado().pausada(this);
 	}
 
@@ -40,21 +70,59 @@ public class TareaSimple extends Tarea {
 	}
 
 	public void reAbrite() {
-		this.getEstado().iniciada(this);
-		
+		try {
+			this.iniciate();
+		} catch (NoPuedeCambiarseElEstadoExcepccion ex) {
+			
+			ex.printStackTrace();
+		}
+
 	}
-	public void modificarMiembroAsignado(Miembro miembro) {
-		if(this.getCount() == 0){
-		   this.iniciate();
-		   this.setCount(getCount()+1);
+
+	/**
+	 * Este metodo modifica el miembro actual, por el del parametro.
+	 * 
+	 * @param miembro
+	 *            Miembro
+	 * @throws NoPuedeCambiarseElEstadoExcepccion
+	 */
+	public void modificarMiembroAsignado(Miembro miembro)
+			throws NoPuedeCambiarseElEstadoExcepccion {
+		if (this.getMiembroAsignado() == null) {
+			this.iniciate();
 		}
 		this.setMiembroAsignado(miembro);
 	}
 
 	public boolean tieneOrden() {
 
-		return true;
+		return false;
 	}
+
+	public boolean verificarSiEstaPausada() {
+		return this.getEstado().verificarSiEstaPausada();
+	}
+
+	public boolean verificarSiEstaIniciada() {
+		return this.getEstado().verificarSiEstaIniciada();
+	}
+
+	public boolean verificarSiEstaCerrada() {
+		return this.getEstado().verificarSiEstaCerrada();
+	}
+
+	public boolean verificarSiEstaEnTrabajo() {
+		return this.getEstado().verificarSiEstaEnTrabajo();
+	}
+
+	public boolean verificarSiEstaFinalizada() {
+		return this.getEstado().verificarSiEstaFinalizada();
+	}
+
+	public boolean verificarSiEstaCreada() {
+		return this.getEstado().verificarSiEstaCreada();
+	}
+
 	public void setMiembroAsignado(Miembro miembro) {
 		this.miembroAsignado = miembro;
 
@@ -63,28 +131,5 @@ public class TareaSimple extends Tarea {
 	public Miembro getMiembroAsignado() {
 		return this.miembroAsignado;
 	}
-	public int getCount() {
-		return count;
-	}
 
-	public void setCount(int count) {
-		this.count = count;
-	}
-    public boolean verificarSiEstaPausada()
-    { return this.getEstado().verificarSiEstaPausada(); }
-   
-    public boolean verificarSiEstaIniciada()
-    { return this.getEstado().verificarSiEstaIniciada(); }
-   
-    public boolean verificarSiEstaCerrada()
-    { return this.getEstado().verificarSiEstaCerrada(); }
-   
-    public boolean verificarSiEstaEnTrabajo()
-    { return this.getEstado().verificarSiEstaEnTrabajo(); }
-   
-    public boolean verificarSiEstaFinalizada()
-    { return this.getEstado().verificarSiEstaFinalizada(); }
-   
-    public boolean verificarSiEstaCreada()
-    { return this.getEstado().verificarSiEstaCreada(); }
 }

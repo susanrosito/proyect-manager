@@ -1,8 +1,8 @@
 package tareas;
 
-import java.util.Date;
 import usuarioMiembroYFecha.Fecha;
 import estados.*;
+import tareas.AdministradorTarea;
 
 public abstract class Tarea implements AdministradorTarea{
 	private String nombre;
@@ -13,7 +13,12 @@ public abstract class Tarea implements AdministradorTarea{
 	private Fecha fechaEstimadaFinalizacion;
 	private Fecha fechaFinalizacion;
 	private float porcentajeFinalizacion;
-
+	/**
+	 * Constructor 
+	 * @param nombre tipo String
+	 * @param descrip tipo String
+	 * @param fechaEstFinalizacion tipo Fecha
+	 */
 	public Tarea(String nombre, String descrip,Fecha fechaEstFinalizacion) {
 		this.setDescripcion(descrip);
 		this.setNombre(nombre);
@@ -23,25 +28,61 @@ public abstract class Tarea implements AdministradorTarea{
 		this.estado = Creada.GetInstance();
 		this.porcentajeFinalizacion = 0;
 	}
-
+	/**
+	 * Se fija si la Tarea esta en estado Pausada por medio de un booleano. 
+	 */
+	public abstract boolean verificarSiEstaPausada();
+	/**
+	 * Se fija si la Tarea esta en estado Cerrada por medio de un booleano.
+	 */
+	public abstract boolean verificarSiEstaCerrada();
+	/**
+	 * Se fija si la Tarea esta en estado Creada por medio de un booleano.
+	 */
+	public abstract boolean verificarSiEstaCreada();
+	/**
+	 * Se fija si la Tarea esta en estado Finalizada por medio de un booleano.
+	 */
+	public abstract boolean verificarSiEstaFinalizada();
+	/**
+	 * Se fija si la Tarea esta en estado Iniciada por medio de un booleano.
+	 */
+	public abstract boolean verificarSiEstaIniciada();
+	/**
+	 * Se fija si la Tarea esta en estado EnTrabajo por medio de un booleano.
+	 */
+	public abstract boolean verificarSiEstaEnTrabajo();
+	/**
+	 * Muestra en que estado se encuentra la Tarea.
+	 */
 	public abstract Estado verEstado();
-
+	/**
+	 * Este metodo reAbre una tarea. 
+	 */
 	public abstract void reAbrite();
-
+	/**
+	 * Se fija si tiene orden o no, la tarea, por medio de un booleano.
+	 */
 	public abstract boolean tieneOrden();
-
+	/**
+	 * Este metodo Cierra una tarea.
+	 */
 	public abstract void cerrate();
-
+	/**
+	 * Verifica si la Tarea esta a tiempo para seguir realizandola.
+	 */
 	public boolean estaEnTiempo() {
 		/* TODO */
 		return false;
 	}
-
+	/**
+	 * Se fija si la Tarea se esta aproximando a la fecha estimada de finalizacion.
+	 */
 	public boolean estaProximaAVencer() {
 		/* TODO */
 		return false;
 	}
-
+	
 	public Fecha getFechaCreacion() {
 		return fechaCreacion;
 	}
