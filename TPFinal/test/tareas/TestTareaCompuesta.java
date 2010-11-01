@@ -1,17 +1,10 @@
 package tareas;
 
 import static org.easymock.EasyMock.createMock;
-import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.*;
 
-import java.util.List;
 
 import junit.framework.TestCase;
-
-import estados.Cerrada;
-import estados.EnTrabajo;
-import estados.Finalizada;
-import estados.Pausada;
-
 
 
 
@@ -28,6 +21,13 @@ public class TestTareaCompuesta extends TestCase{
 	TareaCompuesta tareaC;
 	String descripccionTC = "La descripccion";
 	String nombreTC= "Un Nombre";
+	TareaCompuesta tareaCompuestaEnTrabajo;
+	TareaCompuesta tareaCompuestaIniciada;
+	TareaCompuesta tareaCompuestaCerrada;
+	TareaCompuesta tareaCompuestaFinalizada;
+	TareaCompuesta tareaCompuestaCreada;
+	TareaCompuesta tareaCompuestaPausada;
+	
 	
 	
 	public void setUp()
@@ -52,7 +52,19 @@ public class TestTareaCompuesta extends TestCase{
 		
 		this.tareaC = new TareaCompuesta(this.nombreTC,this.descripccionTC , null);
 		
+		this.tareaCompuestaEnTrabajo=new TareaCompuesta(null,null,null);
+		tareaCompuestaEnTrabajo.agregarTarea(this.getTareaSCreada());
+		tareaCompuestaEnTrabajo.agregarTarea(this.getTareaSEnTrabajo());
+		tareaCompuestaEnTrabajo.agregarTarea(this.getTareSFinalizada());
+		tareaCompuestaEnTrabajo.agregarTarea(this.getTareaSEnTrabajo());
+		tareaCompuestaEnTrabajo.agregarTarea(this.getTareaSIniciada());
 		
+		/*this.tareaCompuestaIniciada=new TareaCompuesta(null,null,null);
+		
+		this.tareaCompuestaCerrada=new TareaCompuesta(null,null,null);
+		this.tareaCompuestaFinalizada=new TareaCompuesta(null,null,null);
+		this.tareaCompuestaCreada=new TareaCompuesta(null,null,null);
+		this.tareaCompuestaPausada=new TareaCompuesta(null,null,null);*/
 	}
        
 	public void testConstructor (){
@@ -91,14 +103,40 @@ public class TestTareaCompuesta extends TestCase{
      
      
 	
-	/*   public void testVerificarSiEstaPausada() {
-		
-		this.getTareaC().agregarTarea(this.getTareaSEnTrabajo());
-		this.getTareaC().agregarTarea(this.getTareaSCreada());
-		this.getTareaC().agregarTarea(this.getTareaSPausada());
-		
-		
-	}*/
+	   public void testVerificarSiEstaEnTrabajo() {
+		 
+		   expect(tareSFinalizada.verificarSiEstaEnTrabajo()).andReturn(false);
+		   expect(tareSFinalizada.verificarSiEstaIniciada()).andReturn(false);
+		   expect(tareSFinalizada.verificarSiEstaCreada()).andReturn(false);
+		   expect(tareSFinalizada.verificarSiEstaFinalizada()).andReturn(true);
+		   replay(tareSFinalizada);		
+           
+           expect(tareaSEnTrabajo.verificarSiEstaEnTrabajo()).andReturn(true);
+		   expect(tareaSEnTrabajo.verificarSiEstaIniciada()).andReturn(false);
+		   expect(tareaSEnTrabajo.verificarSiEstaCreada()).andReturn(false);
+		   expect(tareaSEnTrabajo.verificarSiEstaFinalizada()).andReturn(false);
+		   expect(tareaSEnTrabajo.verificarSiEstaEnTrabajo()).andReturn(true);
+		   expect(tareaSEnTrabajo.verificarSiEstaIniciada()).andReturn(false);
+		   expect(tareaSEnTrabajo.verificarSiEstaCreada()).andReturn(false);
+		   expect(tareaSEnTrabajo.verificarSiEstaFinalizada()).andReturn(false);
+           replay(tareaSEnTrabajo);
+           
+           expect(tareaSCreada.verificarSiEstaEnTrabajo()).andReturn(false);
+		   expect(tareaSCreada.verificarSiEstaIniciada()).andReturn(false);
+		   expect(tareaSCreada.verificarSiEstaCreada()).andReturn(true);
+		   expect(tareaSCreada.verificarSiEstaFinalizada()).andReturn(false);
+           replay(tareaSCreada);
+           
+   		   expect(tareaSIniciada.verificarSiEstaEnTrabajo()).andReturn(false);
+		   expect(tareaSIniciada.verificarSiEstaIniciada()).andReturn(true);
+		   expect(tareaSIniciada.verificarSiEstaCreada()).andReturn(false);
+		   expect(tareaSIniciada.verificarSiEstaFinalizada()).andReturn(false);
+   		   replay(tareaSIniciada);
+   		
+   		   assertTrue("Confirma que el estado de la tareaCompuestaEnTrabajo efectivamente sea enTrabajo.", 
+				this.getTareaCompuestaEnTrabajo().verificarSiEstaEnTrabajo());
+   		   
+	}
 
 	public TareaSimple getTareaSCerrada() {
 		return tareaSCerrada;
@@ -171,6 +209,56 @@ public class TestTareaCompuesta extends TestCase{
 	public void setTareaC(TareaCompuesta tareaC) {
 		this.tareaC = tareaC;
 	}
+
+	public TareaCompuesta getTareaCompuestaEnTrabajo() {
+		return tareaCompuestaEnTrabajo;
+	}
+
+	public void setTareaCompuestaEnTrabajo(TareaCompuesta tareaCompuestaEnTrabajo) {
+		this.tareaCompuestaEnTrabajo = tareaCompuestaEnTrabajo;
+	}
+
+	public TareaCompuesta getTareaCompuestaIniciada() {
+		return tareaCompuestaIniciada;
+	}
+
+	public void setTareaCompuestaIniciada(TareaCompuesta tareaCompuestaIniciada) {
+		this.tareaCompuestaIniciada = tareaCompuestaIniciada;
+	}
+
+	public TareaCompuesta getTareaCompuestaCerrada() {
+		return tareaCompuestaCerrada;
+	}
+
+	public void setTareaCompuestaCerrada(TareaCompuesta tareaCompuestaCerrada) {
+		this.tareaCompuestaCerrada = tareaCompuestaCerrada;
+	}
+
+	public TareaCompuesta getTareaCompuestaFinalizada() {
+		return tareaCompuestaFinalizada;
+	}
+
+	public void setTareaCompuestaFinalizada(TareaCompuesta tareaCompuestaFinalizada) {
+		this.tareaCompuestaFinalizada = tareaCompuestaFinalizada;
+	}
+
+	public TareaCompuesta getTareaCompuestaCreada() {
+		return tareaCompuestaCreada;
+	}
+
+	public void setTareaCompuestaCreada(TareaCompuesta tareaCompuestaCreada) {
+		this.tareaCompuestaCreada = tareaCompuestaCreada;
+	}
+
+	public TareaCompuesta getTareaCompuestaPausada() {
+		return tareaCompuestaPausada;
+	}
+
+	public void setTareaCompuestaPausada(TareaCompuesta tareaCompuestaPausada) {
+		this.tareaCompuestaPausada = tareaCompuestaPausada;
+	}
+
+
 
 
 }
