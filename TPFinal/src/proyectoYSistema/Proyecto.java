@@ -17,7 +17,12 @@ public class Proyecto {
 	private List<Tarea> listaTareas;
 	private List<Miembro> listaDeMiembros;
 
-	// el constructor de la clase proyecto
+	/**
+	 * el constructor de la clase proyecto
+	 * @param nombre
+	 * @param descripcion
+	 * @param usuario
+	 */
 	public Proyecto(String nombre, String descripcion, Usuario usuario) {
 
 		this.setNombre(nombre);
@@ -84,33 +89,44 @@ public class Proyecto {
 		this.getListaTareas().add(tarea);
 
 	}
-
+/**
+ * agrega a la lista de miembros un miembro nuevo
+ * creado a partir de un usuario y un rol,ambos pasados por parametro
+ * @param usuario
+ * @param rol
+ */
 	public void agregarMiembro(Usuario usuario, String rol) {
-		// agrega a la lista de miembros un miembro nuevo
-		// creado a partir de un usuario y un rol,ambos pasados por parametro
-
 		this.getListaDeMiembros().add(new Miembro(usuario, rol));
 	}
-
+	
+/**
+ * Le asigna un Miembro a una TareaSimple 
+ * @param miembro
+ * @param tarea
+ */	
 	public void asignarMiembroATarea(Miembro miembro, TareaSimple tarea) {
-
-		// a una tarea se le asigna miembro
-
 		tarea.modificarMiembroAsignado(miembro);
 	}
 
+	/**
+	 * elimina una tarea recibida por parametro
+	 * @param tarea
+	 */
 	public void eliminarTarea(Tarea tarea) {
-		// elimina una tarea
-
 		this.getListaTareas().remove(tarea);
-
 	}
 
+	/**
+	 * cierra una tarea especifica
+	 * @param tarea
+	 */
 	public void cerrarTarea(Tarea tarea) {
 		tarea.cerrate();
 
 	}
-
+/**
+ * cierra el proyecto y todas sus tareas
+ */
 	public void cerrarProyecto() {
 
 		for (Tarea t : this.getListaTareas()) {
@@ -119,12 +135,20 @@ public class Proyecto {
 		}
 
 	}
-
+/**
+ * A recibida por parametro la reabre siendo su estado cerrada y le agrega
+ * un comentario a la descripcion de la tarea
+ * @param tarea
+ * @param comentario
+ */
 	public void reabrirUnaTarea(Tarea tarea,String comentario) {
 
 		tarea.reAbrite(comentario);
 	}
-
+/**
+ * retorna un HasMap con una tarea como clave y un string que es el estado como clave
+ * @return
+ */
 	public Map<Tarea, String> obtenerTareasYEstados() {
 
 		Map<Tarea, String> aux = new HashMap<Tarea, String>();
