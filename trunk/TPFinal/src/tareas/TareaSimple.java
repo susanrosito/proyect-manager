@@ -86,10 +86,14 @@ public class TareaSimple extends Tarea {
 	 *            Miembro
 	 * @throws NoPuedeCambiarseElEstadoExcepccion
 	 */
-	public void modificarMiembroAsignado(Miembro miembro)
-			throws NoPuedeCambiarseElEstadoExcepccion {
+	public void modificarMiembroAsignado(Miembro miembro) {
 		if (this.getMiembroAsignado() == null) {
-			this.iniciate();
+			try {
+				this.iniciate();
+			} catch (NoPuedeCambiarseElEstadoExcepccion e) {
+				
+				e.printStackTrace();
+			}
 		}
 		this.setMiembroAsignado(miembro);
 	}
