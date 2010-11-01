@@ -75,9 +75,12 @@ public class Proyecto {
 		this.listaDeMiembros = listaDeMiembros;
 	}
 
+	/**
+	 agrega a la lista de tareas del proyecto
+	 una tarea pasada x parametro
+	 * 
+	 */
 	public void agregarTarea(Tarea tarea) {
-		// agrega a la lista de tareas del proyecto
-		// una tarea pasada x parametro
 		this.getListaTareas().add(tarea);
 
 	}
@@ -117,14 +120,14 @@ public class Proyecto {
 
 	}
 
-	public void reabrirUnaTarea(Tarea tarea) {
+	public void reabrirUnaTarea(Tarea tarea,String comentario) {
 
-		tarea.reAbrite();
+		tarea.reAbrite(comentario);
 	}
 
-	public Map<Tarea, Estado> obtenerTareasYEstados() {
+	public Map<Tarea, String> obtenerTareasYEstados() {
 
-		Map<Tarea, Estado> aux = new HashMap<Tarea, Estado>();
+		Map<Tarea, String> aux = new HashMap<Tarea, String>();
 
 		for (Tarea t : this.getListaTareas()) {
 
