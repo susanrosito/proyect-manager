@@ -1,7 +1,7 @@
 package tareas;
 
 import estados.Estado;
-import estados.NoPuedeCambiarseElEstadoExcepccion;
+
 
 public interface AdministradorTarea {
 	
