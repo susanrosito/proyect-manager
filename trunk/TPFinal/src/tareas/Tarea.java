@@ -59,7 +59,7 @@ public abstract class Tarea implements AdministradorTarea{
 	/**
 	 * Este metodo reAbre una tarea. 
 	 */
-	public abstract void reAbrite();
+	public abstract void reAbrite(String note);
 	/**
 	 * Se fija si tiene orden o no, la tarea, por medio de un booleano.
 	 */

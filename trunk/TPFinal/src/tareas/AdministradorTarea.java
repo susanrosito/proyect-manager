@@ -9,7 +9,7 @@ public interface AdministradorTarea {
 	public boolean estaEnTiempo();
 	public boolean estaProximaAVencer();
 	public void cerrate();
-	public void reAbrite();
+	public void reAbrite(String note);
 	public boolean tieneOrden();
 	public boolean verificarSiEstaPausada();
 	public boolean verificarSiEstaIniciada();

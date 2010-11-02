@@ -49,8 +49,8 @@ public class OrganizadorTarea implements AdministradorTarea  {
 	}
 
 	
-	public void reAbrite() {
-		this.getTarea().reAbrite();
+	public void reAbrite(String note) {
+		this.getTarea().reAbrite(note);
 		
 	}
 

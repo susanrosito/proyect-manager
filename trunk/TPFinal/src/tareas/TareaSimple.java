@@ -24,7 +24,7 @@ public class TareaSimple extends Tarea {
 
 	/**
 	 * Cambia el estado de la Tarea,a EnTrabajo. si no puede Tira una
-	 * excepeccion.
+	 * excepcion.
 	 * 
 	 * @throws NoPuedeCambiarseElEstadoExcepccion
 	 */
@@ -34,7 +34,7 @@ public class TareaSimple extends Tarea {
 
 	/**
 	 * Cambia el estado de la Tarea,a Iniciada. si no puede Tira una
-	 * excepeccion.
+	 * excepcion.
 	 * 
 	 * @throws NoPuedeCambiarseElEstadoExcepccion
 	 */
@@ -44,7 +44,7 @@ public class TareaSimple extends Tarea {
 
 	/**
 	 * Cambia el estado de la Tarea,a Finalizate. si no puede Tira una
-	 * excepeccion.
+	 * excepcion.
 	 * 
 	 * @throws NoPuedeCambiarseElEstadoExcepccion
 	 */
@@ -53,7 +53,7 @@ public class TareaSimple extends Tarea {
 	}
 
 	/**
-	 * Cambia el estado de la Tarea,a Pausate. si no puede Tira una excepeccion.
+	 * Cambia el estado de la Tarea a Pausate. si no puede tira una excepcion.
 	 * 
 	 * @throws NoPuedeCambiarseElEstadoExcepccion
 	 */
@@ -69,9 +69,10 @@ public class TareaSimple extends Tarea {
 		return super.getEstado();
 	}
 
-	public void reAbrite() {
+	public void reAbrite(String note) {
 		try {
 			this.iniciate();
+			this.setDescripcion(note+" "+this.getDescripcion());
 		} catch (NoPuedeCambiarseElEstadoExcepccion ex) {
 			
 			ex.printStackTrace();
