@@ -2,7 +2,6 @@ package tareas;
 
 import usuarioMiembroYFecha.Miembro;
 import usuarioMiembroYFecha.Fecha;
-import estados.Estado;
 import estados.NoPuedeCambiarseElEstadoExcepccion;
 
 public class TareaSimple extends Tarea {
