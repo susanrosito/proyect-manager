@@ -80,20 +80,14 @@ import junit.framework.TestCase;
        verify(this.getTarea());;}
 	
 	public void testFinalizada()throws NoPuedeCambiarseElEstadoExcepccion {
+		this.getTarea().setEstado(Finalizada.GetInstance());           
+        replay(this.getTarea());               
+	
+       this.getEstado().finalizada(this.getTarea()); 
 
-		expect(TSConEstadoQueNoCambia.getEstado()).andReturn(this.estado);
-		replay(TSConEstadoQueNoCambia); 
-		
-		
-		 try {
-		        this.getEstado().finalizada(TSConEstadoQueNoCambia);	
-		        fail("No exception caught :(");
-		    }
-		    catch (Exception NoPuedeCambiarseElEstadoExcepccion) {
-		       // assertEquals(this.getTSConEstadoQueNoCambia().getEstado()., NoPuedeCambiarseElEstadoExcepccion.getCause().getClass());
-		        //assertEquals("Message",NoPuedeCambiarseElEstadoExcepccion.getMessage());
-		    }
-	}
+       verify(this.getTarea());;
+       }
+	
 	
 	public void testPausada()throws NoPuedeCambiarseElEstadoExcepccion {
 				

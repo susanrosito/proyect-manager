@@ -18,6 +18,8 @@ public class TestOrganizadorTarea extends TestCase{
 	protected OrganizadorTarea orgConTareaC;
 	protected OrganizadorTarea orgConTareaS;
 	
+	protected String stringMotivo;
+	
 	
 	public void setUp()
 	{
@@ -27,6 +29,8 @@ public class TestOrganizadorTarea extends TestCase{
 		
 		this.orgConTareaC= new OrganizadorTarea(this.tareaAnterior, this.tareaC );
 		this.orgConTareaS= new OrganizadorTarea(this.tareaAnterior, this.tareaS );
+		
+		this.stringMotivo= "Se re abre la tarea porque...";
 		
 	}
 	
@@ -106,20 +110,20 @@ public class TestOrganizadorTarea extends TestCase{
 	
 	public void testReAbriteTareaSimple() {
 		
-		this.getTareaS().reAbrite();           
+		this.getTareaS().reAbrite(stringMotivo);           
         replay(this.getTareaS());               
 	
-       this.getOrgConTareaS().reAbrite(); 
+       this.getOrgConTareaS().reAbrite(stringMotivo); 
 
        verify(this.getTareaS());;
        }
 		
    public void testReAbriteTareaCompuesta() {
 		
-		this.getTareaC().reAbrite();           
+		this.getTareaC().reAbrite(stringMotivo);           
         replay(this.getTareaC());               
 	
-       this.getOrgConTareaC().reAbrite(); 
+       this.getOrgConTareaC().reAbrite(stringMotivo); 
 
        verify(this.getTareaC());;
        }

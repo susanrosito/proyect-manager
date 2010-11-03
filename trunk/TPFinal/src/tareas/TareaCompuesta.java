@@ -5,6 +5,7 @@
 	import java.util.List;
 
 import usuarioMiembroYFecha.Fecha;
+import usuarioMiembroYFecha.Miembro;
 
 
 
@@ -54,10 +55,10 @@ import estados.Estado;
 		 * Este mensaje se encarga de reabrir todas las sub tareas de
 		 * la tarea compuesta.
 		 */
-		public void reAbrite() {
+		public void reAbrite(String a) {
 			
 			for ( AdministradorTarea at : this.getTareasQueLaComponenen())
-			{ at.reAbrite();}
+			{ at.reAbrite(a);}
 			
 		}
 
@@ -170,6 +171,14 @@ import estados.Estado;
 			
 		}
 		
+		
+		public boolean contieneMiembro(Miembro miembro) {
+			
+			boolean contieneAlMiembro=false;
+			for ( AdministradorTarea at : this.getTareasQueLaComponenen())
+			{ contieneAlMiembro= contieneAlMiembro  | at.contieneMiembro(miembro);  }
+			return contieneAlMiembro;
+		}
 
 
 		public void setTareasQueLaComponenen(List <AdministradorTarea> tareasQueLaComponenen) {
@@ -180,6 +189,7 @@ import estados.Estado;
 		public List <AdministradorTarea> getTareasQueLaComponenen() {
 			return tareasQueLaComponenen;
 		}
+
 
 	
 
