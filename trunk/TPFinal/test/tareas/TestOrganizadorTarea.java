@@ -79,7 +79,8 @@ public class TestOrganizadorTarea extends TestCase{
 		
 		expect(this.getTareaS().estaEnTiempo()).andReturn(true);     
 		replay(this.getTareaS());
-	      assertTrue(this.getOrgConTareaS().estaEnTiempo());
+	      assertTrue("Se fija que el metodo retorne exactamente lo que retornaria" +
+	      		"la tarea el enviarle el mismo metodo.",this.getOrgConTareaS().estaEnTiempo());
 	       
 	}
 
@@ -140,7 +141,7 @@ public class TestOrganizadorTarea extends TestCase{
 		expect(this.getTareaS().verEstado()).andReturn(Cerrada.GetInstance().toString());     
 		replay(this.getTareaS());
 	      assertSame("Se fija que realmente retorne el estado que tiene la tarea dentro del organizador, " +
-	      		"en este caso: Cerrada", this.getOrgConTareaS().verEstado(), Cerrada.GetInstance());
+	      		"en este caso: Cerrada", this.getOrgConTareaS().verEstado(), Cerrada.GetInstance().toString());
 		
 	}
 
@@ -149,7 +150,7 @@ public class TestOrganizadorTarea extends TestCase{
 		expect(this.getTareaC().verEstado()).andReturn(EnTrabajo.GetInstance().toString());     
 		replay(this.getTareaC());
 	      assertSame("Se fija que realmente retorne el estado que tiene la tarea dentro del organizador, " +
-	      		"en este caso: EnTrabajo", this.getOrgConTareaC().verEstado(), EnTrabajo.GetInstance());
+	      		"en este caso: EnTrabajo", this.getOrgConTareaC().verEstado(), EnTrabajo.GetInstance()toString());
 		
 	}
 	public TareaSimple getTareaS() {

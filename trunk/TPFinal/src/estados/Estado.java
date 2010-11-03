@@ -11,7 +11,7 @@ public abstract class Estado {
 	
 	/**
 	 * Este metodo cambia el estado si es posible a enTrabajo.
-	 * Si no lo es, lanza una esepcción.
+	 * Si no lo es, lanza una excepcción.
 	 * @throws NoPuedeCambiarseElEstadoExcepccion 
 	 */
 	public void enTrabajo(TareaSimple unaTarea) throws NoPuedeCambiarseElEstadoExcepccion  
@@ -19,7 +19,7 @@ public abstract class Estado {
 	
 	/**
 	 * Este metodo cambia el estado si es posible a iniciada.
-	 * Si no lo es, lanza una esepcción.
+	 * Si no lo es, lanza una excepcción.
 	 * @throws NoPuedeCambiarseElEstadoExcepccion 
 	 */
 	public void iniciada(TareaSimple unaTarea)throws NoPuedeCambiarseElEstadoExcepccion  
@@ -27,14 +27,14 @@ public abstract class Estado {
 	
 	/**
 	 * Este metodo cambia el estado a cerrada.
-	 * Ya que siempre es posible hacerlo, nunca genera ninguna esepccion.
+	 * Ya que siempre es posible hacerlo, nunca genera ninguna excepcción.
 	 */
 	public void cerrada(TareaSimple unaTarea)	
 	{unaTarea.setEstado(Cerrada.GetInstance());}
 	
 	/**
 	 * Este metodo cambia el estado si es posible a finalizada.
-	 * Si no lo es, lanza una esepcción.
+	 * Si no lo es, lanza una excepcción.
 	 * @throws NoPuedeCambiarseElEstadoExcepccion 
 	 */
 	public void finalizada(TareaSimple unaTarea) 
@@ -42,7 +42,7 @@ public abstract class Estado {
 	
 	/**
 	 * Este metodo cambia el estado si es posible a pausada.
-	 * Si no lo es, lanza una esepcción.
+	 * Si no lo es, lanza una excepcción.
 	 * @throws NoPuedeCambiarseElEstadoExcepccion 
 	 */
 	public void pausada(TareaSimple unaTarea)throws NoPuedeCambiarseElEstadoExcepccion  
@@ -50,7 +50,7 @@ public abstract class Estado {
 	
 	/**
 	 * Este metodo cambia el estado si es posible a creada.
-	 * Si no lo es, lanza una esepcción.
+	 * Si no lo es, lanza una excepcción.
 	 * @throws NoPuedeCambiarseElEstadoExcepccion 
 	 */
     protected void creada(TareaSimple unaTarea)throws NoPuedeCambiarseElEstadoExcepccion  
