@@ -194,4 +194,10 @@ public class Proyecto {
 		return contador;
 	}
 
+	public void asignarMiembroATarea(Miembro miembro1, TareaSimple tarea) {
+
+		tarea.modificarMiembroAsignado(miembro1);
+
+	}
+
 }
