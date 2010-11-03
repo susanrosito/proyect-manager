@@ -56,7 +56,7 @@ public abstract class Tarea implements AdministradorTarea{
 	/**
 	 * Muestra en que estado se encuentra la Tarea.
 	 */
-	public abstract Estado verEstado();
+	public abstract String verEstado();
 	/**
 	 * Este metodo reAbre una tarea. 
 	 */
