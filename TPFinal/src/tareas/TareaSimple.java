@@ -1,5 +1,7 @@
 package tareas;
 
+import java.util.List;
+import java.util.ArrayList;
 import usuarioMiembroYFecha.Miembro;
 import usuarioMiembroYFecha.Fecha;
 import estados.NoPuedeCambiarseElEstadoExcepccion;
@@ -108,7 +110,12 @@ public class TareaSimple extends Tarea {
 
 		return false;
 	}
-
+	
+	public List<Miembro> obtenerMiembros() {
+		List<Miembro> listaMiembro = new ArrayList<Miembro>();
+		listaMiembro.add(this.getMiembroAsignado());
+		return listaMiembro;
+	}
 	public boolean verificarSiEstaPausada() {
 		return this.getEstado().verificarSiEstaPausada();
 	}

@@ -38,7 +38,7 @@ public class TestTareaSimple extends TestCase {
 	protected void setUp() throws Exception {
 		super.setUp();
 
-		// instancio una tareaSimple, con estos parametros.
+	// instancio una tareaSimple, con estos parametros.
 
 		this.nombreTs = "Realizar Un Test";
 		this.descripcionTs = "Para una clase especifica, en este caso la clase TareaSimple";
