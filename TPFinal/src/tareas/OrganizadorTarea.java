@@ -42,14 +42,7 @@ public class OrganizadorTarea implements AdministradorTarea  {
 		
 	}
 	
-	/**
-	 * Ya que el organizador comunica los mensajes a la tarea que contiene
-	 * este metodo retorna lo que retornaria enviarle en mensaje 
-	 * contieneMiembro(Miembro miembro) a la tarea.
-	 */
-	public boolean contieneMiembro(Miembro miembro) {
-		return this.getTarea().contieneMiembro(miembro);
-	}
+		
 	
 	/**
 	 * Ya que el organizador comunica los mensajes a la tarea que contiene

@@ -190,22 +190,7 @@ public class TareaCompuesta extends Tarea {
 
 	}
 
-	/**
-	 * Verifica si el miembro se encuentra en la Tarea,por medio de un booleano,
-	 * buscando en todas sus subtareas.
-	 * 
-	 * @param miembro
-	 *            Miembro
-	 * @return boolean
-	 */
-	public boolean contieneMiembro(Miembro miembro) {
 
-		boolean contieneAlMiembro = false;
-		for (AdministradorTarea at : this.getTareasQueLaComponenen()) {
-			contieneAlMiembro = contieneAlMiembro | at.contieneMiembro(miembro);
-		}
-		return contieneAlMiembro;
-	}
 
 	/**
 	 * Este metodo retorna una lista con todos los miembros de la
