@@ -1,6 +1,6 @@
 package tareas;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 import usuarioMiembroYFecha.Miembro;

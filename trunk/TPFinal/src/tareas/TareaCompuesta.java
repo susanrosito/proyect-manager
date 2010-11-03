@@ -182,9 +182,9 @@ import usuarioMiembroYFecha.Miembro;
 		{
 			List<Miembro> miembros=new LinkedList<Miembro>();
 			
-			for ( AdministradorTarea at : this.getTareasQueLaComponenen())
-			{ miembros= miembros.addAll(at.obtenerMiembros());  
+			for ( AdministradorTarea at : this.getTareasQueLaComponenen()){
 				
+				miembros.addAll(at.obtenerMiembros());	
 			}
 						
 			return miembros;
