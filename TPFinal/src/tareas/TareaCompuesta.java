@@ -175,12 +175,17 @@ import usuarioMiembroYFecha.Miembro;
 			return contieneAlMiembro;
 		}
 
+		/**
+		 * Este metodo retorna una lista con todos los miembros de la tareaCompuesta.
+		 */
 		public List<Miembro> obtenerMiembros()
 		{
 			List<Miembro> miembros=new LinkedList<Miembro>();
 			
 			for ( AdministradorTarea at : this.getTareasQueLaComponenen())
-			{ miembros= miembros.addAll(at.obtenerMiembros());  }
+			{ miembros= miembros.addAll(at.obtenerMiembros());  
+				
+			}
 						
 			return miembros;
 			
