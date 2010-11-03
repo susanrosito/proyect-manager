@@ -107,8 +107,17 @@ public class Proyecto {
 	 * @param miembro
 	 * @param tarea
 	 */
-	public void asignarMiembroATarea(Miembro miembro, TareaSimple tarea) {
-		tarea.modificarMiembroAsignado(miembro);
+	public void asignarMiembroATarea(Miembro miembro, TareaSimple tarea)
+			throws NoTieneQueEstarEnOtraTareaException {
+
+		if (this.miembroYaEstaAsignado(miembro)) {
+
+			throw new NoTieneQueEstarEnOtraTareaException();
+
+		} else {
+			tarea.modificarMiembroAsignado(miembro);
+		}
+
 	}
 
 	/**
@@ -193,7 +202,7 @@ public class Proyecto {
 		return contador;
 	}
 
-	public boolean estaMiembroAsignado(Miembro m) {
+	public boolean miembroYaEstaAsignado(Miembro m) {
 
 		boolean existe = false;
 
