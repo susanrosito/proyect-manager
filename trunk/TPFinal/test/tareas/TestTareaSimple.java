@@ -169,7 +169,7 @@ public class TestTareaSimple extends TestCase {
 	 * Test reAbrite para TareaSimple
 	 */
 	public void testReAbrite() {
-		
+		String motivo = "Reabro esta Tarea por que necesita ser finalizada";
 		this.creada.cerrada(this.tareaSimple);
 		replay(this.creada);
 		this.tareaSimple.cerrate();
@@ -177,7 +177,7 @@ public class TestTareaSimple extends TestCase {
 		this.tareaSimple.setEstado(this.cerrada);
 		this.cerrada.iniciada(this.tareaSimple);
 		replay(this.cerrada);
-		this.tareaSimple.reAbrite();
+		this.tareaSimple.reAbrite(motivo);
 		verify(this.cerrada);
 		//Assert.assertSame(this.iniciada, this.tareaSimple.verEstado());
 		}
@@ -206,6 +206,15 @@ public class TestTareaSimple extends TestCase {
 	 * Test finalizate para TareaSimple
 	 */
 	public void testFinalizate() {
+		/*
+		 try {
+		        this.getEstado().enTrabajo(TSConEstadoQueNoCambia);	
+		        fail("No exception caught :(");
+		    }
+		    catch (Exception NoPuedeCambiarseElEstadoExcepccion) {
+		       // assertEquals(this.getTSConEstadoQueNoCambia().getEstado()., NoPuedeCambiarseElEstadoExcepccion.getCause().getClass());
+		        //assertEquals("Message",NoPuedeCambiarseElEstadoExcepccion.getMessage());
+		    }*/
 		this.creada.finalizada(this.tareaSimple);
 		replay(this.creada);
 		this.tareaSimple.finalizate();

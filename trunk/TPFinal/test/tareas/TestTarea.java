@@ -1,5 +1,7 @@
 package tareas;
 
-public class TestTarea {
+import junit.framework.TestCase;
+
+public class TestTarea extends TestCase{
 	
 }
