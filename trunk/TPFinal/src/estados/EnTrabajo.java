@@ -30,5 +30,8 @@ public class EnTrabajo extends Estado {
 	   
   public boolean verificarSiEstaEnTrabajo()
   { return true; }
-
+  
+  public String toString(){
+	   return "En Trabajo";
+  }
 }

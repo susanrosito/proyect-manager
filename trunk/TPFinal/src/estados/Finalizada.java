@@ -16,4 +16,7 @@ public class Finalizada extends Estado {
 	   public boolean verificarSiEstaFinalizada()
 	    { return true; }
 
+	   public String toString(){
+		   return "Finalizada";
+	   }
 }
