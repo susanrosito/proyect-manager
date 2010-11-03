@@ -48,7 +48,7 @@ public class TareaSimple extends Tarea {
 	 * 
 	 * @throws NoPuedeCambiarseElEstadoExcepccion
 	 */
-	public void finalizate() throws NoPuedeCambiarseElEstadoExcepccion {
+	public void finalizate(){
 		this.getEstado().finalizada(this);
 	}
 
@@ -65,8 +65,8 @@ public class TareaSimple extends Tarea {
 		this.getEstado().cerrada(this);
 	}
 
-	public Estado verEstado() {
-		return super.getEstado();
+	public String verEstado() {
+		return super.getEstado().toString();
 	}
 
 	public void reAbrite(String note) {
@@ -138,7 +138,6 @@ public class TareaSimple extends Tarea {
 		this.miembroAsignado = miembro;
 
 	}
-
 	public Miembro getMiembroAsignado() {
 		return this.miembroAsignado;
 	}

@@ -245,11 +245,26 @@ public class TestTareaSimple extends TestCase {
 	 * Test iniciate para TareaSimple
 	 */
 	public void testIniciate() {
-		this.creada.iniciada(this.tareaSimple);
-		replay(this.creada);
-		this.tareaSimple.iniciate();
-		verify(this.creada);
-		// Assert.assertSame(this.tareaSimple.getEstado(), this.iniciada);
+		/*
+		 try {
+		        this.getEstado().enTrabajo(TSConEstadoQueNoCambia);	
+		        fail("No exception caught :(");
+		    }
+		    catch (Exception NoPuedeCambiarseElEstadoExcepccion) {
+		       // assertEquals(this.getTSConEstadoQueNoCambia().getEstado()., NoPuedeCambiarseElEstadoExcepccion.getCause().getClass());
+		        //assertEquals("Message",NoPuedeCambiarseElEstadoExcepccion.getMessage());
+		    }*/
+		
+		try {
+			this.creada.iniciada(this.tareaSimple);
+			replay(this.creada);
+			this.tareaSimple.iniciate();
+			verify(this.creada);
+			//Assert.assertSame(this.tareaSimple.getEstado(), this.iniciada);
+			fail("fallo");
+		} catch (NoPuedeCambiarseElEstadoExcepccion e) {
+			e.printStackTrace();
+		}
 		// este me parece que no va
 		this.iniciada.iniciada(this.tareaSimpleConMiembro);
 		replay(this.iniciada);
