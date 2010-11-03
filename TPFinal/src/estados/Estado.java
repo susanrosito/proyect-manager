@@ -37,8 +37,8 @@ public abstract class Estado {
 	 * Si no lo es, lanza una esepcción.
 	 * @throws NoPuedeCambiarseElEstadoExcepccion 
 	 */
-	public void finalizada(TareaSimple unaTarea)throws NoPuedeCambiarseElEstadoExcepccion  
-	{ throw new NoPuedeCambiarseElEstadoExcepccion(); }
+	public void finalizada(TareaSimple unaTarea) 
+	{ unaTarea.setEstado(Finalizada.GetInstance()); }
 	
 	/**
 	 * Este metodo cambia el estado si es posible a pausada.

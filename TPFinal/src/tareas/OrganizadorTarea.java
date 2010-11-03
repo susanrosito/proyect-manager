@@ -1,5 +1,6 @@
 package tareas;
 
+import usuarioMiembroYFecha.Miembro;
 import estados.Estado;
 
 /**
@@ -27,46 +28,87 @@ public class OrganizadorTarea implements AdministradorTarea  {
 		
 	}
 	
+	/**
+	 * Ya que el organizador comunica los mensajes a la tarea que contiene
+	 * este metodo retorna lo que retornaria enviarle en mensaje 
+	 * puedeTrabajarseEnElla() a la tarea.
+	 */
 	protected boolean puedeTrabajarseEnElla()
 	{
 	  return this.getTareaAnterior().verificarSiEstaFinalizada();
 		
 	}
 	
+	/**
+	 * Ya que el organizador comunica los mensajes a la tarea que contiene
+	 * este metodo retorna lo que retornaria enviarle en mensaje 
+	 * contieneMiembro(Miembro miembro) a la tarea.
+	 */
+	public boolean contieneMiembro(Miembro miembro) {
+		return this.getTarea().contieneMiembro(miembro);
+	}
+	
+	/**
+	 * Ya que el organizador comunica los mensajes a la tarea que contiene
+	 * este metodo tiene el mismo efecto que enviarle el mensaje a cerrate()
+	 * a la tarea.
+	 */
 	public void cerrate() {
 		this.getTarea().cerrate();
 		
 	}
 
-	
+	/**
+	 * Ya que el organizador comunica los mensajes a la tarea que contiene
+	 * este metodo retorna lo que retornaria enviarle en mensaje 
+	 * estaEnTiempo() a la tarea.
+	 */
 	public boolean estaEnTiempo() {
 		return this.getTarea().estaEnTiempo();
 	}
 
-	
+	/**
+	 * Ya que el organizador comunica los mensajes a la tarea que contiene
+	 * este metodo retorna lo que retornaria enviarle en mensaje 
+	 * estaProximaAVencer() a la tarea.
+	 */
 	public boolean estaProximaAVencer() {
 		return this.getTarea().estaProximaAVencer();
 	}
 
-	
+	/**
+	 * Ya que el organizador comunica los mensajes a la tarea que contiene
+	 * este metodo tiene el mismo efecto que enviarle el mensaje a cerrate()
+	 * a la tarea.
+	 */
 	public void reAbrite(String note) {
 		this.getTarea().reAbrite(note);
 		
 	}
 
-	
+	/**
+	 * Ya que el organizador justamente se utiliza para crear un orden entre
+	 * las tareas al preguntarle si tiene orden respondera true.
+	 */
 	public boolean tieneOrden() {
 		
 		return true;
 	}
 
-	
+	/**
+	 * Ya que el organizador de tarea comunica a los otros objetos con la tarea
+	 * este metodo justamente retornara el estado en el que se encuentra la tarea.
+	 */
 	public Estado verEstado() {
 		
 		return this.getTarea().verEstado();
 	}
 
-	
+
+	/**
+	 * Ya que el organizador de tarea comunica a los otros objetos con la tarea
+	 * este metodo justamente retornara lo que retornaria
+	 */
 	public boolean verificarSiEstaCerrada() {
 		return this.getTarea().verificarSiEstaCerrada();
 	}
