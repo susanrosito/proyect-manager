@@ -39,18 +39,6 @@ import estados.Estado;
 		}
 
 		 
-		 
-		public boolean estaEnTiempo() {
-			
-			return false;
-		}
-
-		
-		public boolean estaProximaAVencer() {
-			
-			return false;
-		}
-
 		/**
 		 * Este mensaje se encarga de reabrir todas las sub tareas de
 		 * la tarea compuesta.
@@ -171,7 +159,12 @@ import estados.Estado;
 			
 		}
 		
-		
+		/**
+		 * Verifica si el miembro se encuentra en la Tarea,por medio de un booleano, 
+		 * buscando en todas sus subtareas.
+		 * @param miembro Miembro
+		 * @return boolean
+		 */
 		public boolean contieneMiembro(Miembro miembro) {
 			
 			boolean contieneAlMiembro=false;

@@ -107,37 +107,58 @@ public class OrganizadorTarea implements AdministradorTarea  {
 
 	/**
 	 * Ya que el organizador de tarea comunica a los otros objetos con la tarea
-	 * este metodo justamente retornara lo que retornaria
+	 * este metodo justamente retornara lo que retornaria enviarle en mensaje
+	 * verificarSiEstaCerrada() a la tarea.
 	 */
 	public boolean verificarSiEstaCerrada() {
 		return this.getTarea().verificarSiEstaCerrada();
 	}
 
-
+	/**
+	 * Ya que el organizador de tarea comunica a los otros objetos con la tarea
+	 * este metodo justamente retornara lo que retornaria enviarle en mensaje
+	 * verificarSiEstaCreada() a la tarea.
+	 */
 	public boolean verificarSiEstaCreada() {
 		
 		return this.getTarea().verificarSiEstaCreada();
 	}
 
-	
+	/**
+	 * Ya que el organizador de tarea comunica a los otros objetos con la tarea
+	 * este metodo justamente retornara lo que retornaria enviarle en mensaje
+	 * verificarSiEstaEnTrabajo() a la tarea.
+	 */
 	public boolean verificarSiEstaEnTrabajo() {
 	
 		return this.getTarea().verificarSiEstaEnTrabajo();
 	}
 
-	
+	/**
+	 * Ya que el organizador de tarea comunica a los otros objetos con la tarea
+	 * este metodo justamente retornara lo que retornaria enviarle en mensaje
+	 * verificarSiEstaFinalizada() a la tarea.
+	 */
 	public boolean verificarSiEstaFinalizada() {
 		
 		return this.getTarea().verificarSiEstaFinalizada();
 	}
 
-	
+	/**
+	 * Ya que el organizador de tarea comunica a los otros objetos con la tarea
+	 * este metodo justamente retornara lo que retornaria enviarle en mensaje
+	 * verificarSiEstaIniciada() a la tarea.
+	 */
 	public boolean verificarSiEstaIniciada() {
 		
 		return this.getTarea().verificarSiEstaIniciada();
 	}
 
-	
+	/**
+	 * Ya que el organizador de tarea comunica a los otros objetos con la tarea
+	 * este metodo justamente retornara lo que retornaria enviarle en mensaje
+	 * verificarSiEstaPausada() a la tarea.
+	 */
 	public boolean verificarSiEstaPausada() {
 		
 		return this.getTarea().verificarSiEstaPausada();
