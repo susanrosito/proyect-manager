@@ -1,5 +1,6 @@
 package tareas;
 
+import usuarioMiembroYFecha.Miembro;
 import estados.Estado;
 
 
@@ -17,5 +18,5 @@ public interface AdministradorTarea {
 	public boolean verificarSiEstaEnTrabajo();
 	public boolean verificarSiEstaFinalizada();
 	public boolean verificarSiEstaCreada();
-	 
+	public boolean contieneMiembro(Miembro miembro);
 }
