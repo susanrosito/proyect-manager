@@ -21,5 +21,4 @@ public interface AdministradorTarea {
 	public boolean verificarSiEstaEnTrabajo();
 	public boolean verificarSiEstaFinalizada();
 	public boolean verificarSiEstaCreada();
-	public boolean contieneMiembro(Miembro miembro);
 }

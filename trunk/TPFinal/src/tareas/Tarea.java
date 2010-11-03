@@ -90,7 +90,6 @@ public abstract class Tarea implements AdministradorTarea{
 	 * @param miembro Miembro
 	 * @return boolean
 	 */
-	public abstract boolean contieneMiembro(Miembro miembro);
 	
 	public Fecha getFechaCreacion() {
 		return fechaCreacion;

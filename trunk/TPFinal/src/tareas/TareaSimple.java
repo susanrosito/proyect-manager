@@ -80,13 +80,6 @@ public class TareaSimple extends Tarea {
 		}
 
 	}
-	
-	public boolean contieneMiembro(Miembro miembro) {
-		if(this.getMiembroAsignado().equals(miembro)){
-			return true;
-		}
-		return false;
-	}
 	/**
 	 * Este metodo modifica el miembro actual, por el del parametro.
 	 * 
