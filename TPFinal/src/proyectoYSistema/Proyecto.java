@@ -33,8 +33,7 @@ public class Proyecto {
 		this.setListaDeMiembros(new LinkedList<Miembro>());
 
 	}
-
-	// getters y setters
+	
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
@@ -109,7 +108,7 @@ public class Proyecto {
 	 */
 	public void asignarMiembroATarea(Miembro miembro, TareaSimple tarea)
 			throws NoTieneQueEstarEnOtraTareaException {
-
+***
 		if (this.miembroYaEstaAsignado(miembro)) {
 
 			throw new NoTieneQueEstarEnOtraTareaException();
@@ -180,6 +179,13 @@ public class Proyecto {
 		return aux;
 	}
 
+	/**
+	 * Se recorre la lista de miembros del proyecto retorna un HashMap
+	 * <Miembro,String>
+	 * 
+	 * @return HashMap <Miembro,String>
+	 */
+
 	public Map<Miembro, String> obtenerMiembrosConRoles() {
 
 		Map<Miembro, String> aux = new HashMap<Miembro, String>();
@@ -191,6 +197,11 @@ public class Proyecto {
 		return aux;
 	}
 
+	/**
+	 * recorre la coleccion de miembros del proyecto
+	 * 
+	 * @return cantidadHorasTotalesTrabajadas
+	 */
 	public int hsTotalesTrabajadas() {
 		int contador = 0;
 
@@ -202,8 +213,13 @@ public class Proyecto {
 		return contador;
 	}
 
+	/**
+	 * 
+	 * @param m
+	 * @return miembro
+	 */
 	public boolean miembroYaEstaAsignado(Miembro m) {
-
+***
 		boolean existe = false;
 
 		for (Tarea t : this.getListaTareas()) {
