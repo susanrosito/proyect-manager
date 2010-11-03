@@ -150,7 +150,7 @@ public class TestOrganizadorTarea extends TestCase{
 		expect(this.getTareaC().verEstado()).andReturn(EnTrabajo.GetInstance().toString());     
 		replay(this.getTareaC());
 	      assertSame("Se fija que realmente retorne el estado que tiene la tarea dentro del organizador, " +
-	      		"en este caso: EnTrabajo", this.getOrgConTareaC().verEstado(), EnTrabajo.GetInstance()toString());
+	      		"en este caso: EnTrabajo", this.getOrgConTareaC().verEstado(), EnTrabajo.GetInstance().toString());
 		
 	}
 	public TareaSimple getTareaS() {

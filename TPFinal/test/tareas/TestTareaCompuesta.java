@@ -120,21 +120,19 @@ public class TestTareaCompuesta extends TestCase{
 		   expect(tareSFinalizada.verificarSiEstaFinalizada()).andReturn(true);
 		   replay(tareSFinalizada);		
            
-           expect(tareaSEnTrabajo.verificarSiEstaEnTrabajo()).andReturn(true);
-		   expect(tareaSEnTrabajo.verificarSiEstaIniciada()).andReturn(false);
-		   expect(tareaSEnTrabajo.verificarSiEstaCreada()).andReturn(false);
-		   expect(tareaSEnTrabajo.verificarSiEstaFinalizada()).andReturn(false);
-		   expect(tareaSEnTrabajo.verificarSiEstaEnTrabajo()).andReturn(true);
-		   expect(tareaSEnTrabajo.verificarSiEstaIniciada()).andReturn(false);
-		   expect(tareaSEnTrabajo.verificarSiEstaCreada()).andReturn(false);
-		   expect(tareaSEnTrabajo.verificarSiEstaFinalizada()).andReturn(false);
+           expect(tareaSEnTrabajo.verificarSiEstaEnTrabajo()).andReturn(true).times(2);
+           expect(tareaSEnTrabajo.verificarSiEstaIniciada()).andReturn(false).times(2);
+		   expect(tareaSEnTrabajo.verificarSiEstaCreada()).andReturn(false).times(2);
+		   expect(tareaSEnTrabajo.verificarSiEstaFinalizada()).andReturn(false).times(2);
+		   
            replay(tareaSEnTrabajo);
            
            expect(tareaSCreada.verificarSiEstaEnTrabajo()).andReturn(false);
 		   expect(tareaSCreada.verificarSiEstaIniciada()).andReturn(false);
 		   expect(tareaSCreada.verificarSiEstaCreada()).andReturn(true);
 		   expect(tareaSCreada.verificarSiEstaFinalizada()).andReturn(false);
-           replay(tareaSCreada);
+           
+		   replay(tareaSCreada);
            
    		   expect(tareaSIniciada.verificarSiEstaEnTrabajo()).andReturn(false);
 		   expect(tareaSIniciada.verificarSiEstaIniciada()).andReturn(true);
@@ -153,11 +151,10 @@ public class TestTareaCompuesta extends TestCase{
 		             
    		   
 		   expect(tareaSIniciada.verificarSiEstaIniciada()).andReturn(true);
+		   expectLastCall().anyTimes();
 		   expect(tareaSIniciada.verificarSiEstaCreada()).andReturn(false);
-		   expect(tareaSIniciada.verificarSiEstaIniciada()).andReturn(true);
-		   expect(tareaSIniciada.verificarSiEstaCreada()).andReturn(false);
-		   expect(tareaSIniciada.verificarSiEstaIniciada()).andReturn(true);
-		   expect(tareaSIniciada.verificarSiEstaCreada()).andReturn(false);
+		   expectLastCall().anyTimes();
+		   
 		   
   		  replay(tareaSIniciada);
    		
@@ -170,8 +167,7 @@ public class TestTareaCompuesta extends TestCase{
 			 		             
    		   		   
 		   expect(tareSFinalizada.verificarSiEstaFinalizada()).andReturn(true);
-		   expect(tareSFinalizada.verificarSiEstaFinalizada()).andReturn(true);
-		   expect(tareSFinalizada.verificarSiEstaFinalizada()).andReturn(true);
+		   expectLastCall().anyTimes();
 		    replay(tareSFinalizada);
    		
    		   assertTrue("Confirma que el estado de la tareaCompuestaFinalizada efectivamente sea finalizada.", 
@@ -183,8 +179,7 @@ public class TestTareaCompuesta extends TestCase{
       
 		   
 	   expect(tareaSCerrada.verificarSiEstaCerrada()).andReturn(true);
-	   expect(tareaSCerrada.verificarSiEstaCerrada()).andReturn(true);
-	   expect(tareaSCerrada.verificarSiEstaCerrada()).andReturn(true);
+	   expectLastCall().anyTimes();
 	    replay(tareaSCerrada);
 		
 		   assertTrue("Confirma que el estado de la tareaCompuestaCerrada efectivamente sea cerrada.", 
@@ -196,8 +191,7 @@ public class TestTareaCompuesta extends TestCase{
      
 	   
 	   expect(tareaSCreada.verificarSiEstaCreada()).andReturn(true);
-	   expect(tareaSCreada.verificarSiEstaCreada()).andReturn(true);
-	   expect(tareaSCreada.verificarSiEstaCreada()).andReturn(true);
+	   expectLastCall().anyTimes();
 	    replay(tareaSCreada);
 		
 		   assertTrue("Confirma que el estado de la tareaCompuestaCerrada efectivamente sea cerrada.", 
