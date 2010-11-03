@@ -19,6 +19,7 @@ public class Proyecto {
 
 	/**
 	 * el constructor de la clase proyecto
+	 * 
 	 * @param nombre
 	 * @param descripcion
 	 * @param usuario
@@ -81,35 +82,38 @@ public class Proyecto {
 	}
 
 	/**
-	 agrega a la lista de tareas del proyecto
-	 una tarea pasada x parametro
+	 * agrega a la lista de tareas del proyecto una tarea pasada x parametro
 	 * 
 	 */
 	public void agregarTarea(Tarea tarea) {
 		this.getListaTareas().add(tarea);
 
 	}
-/**
- * agrega a la lista de miembros un miembro nuevo
- * creado a partir de un usuario y un rol,ambos pasados por parametro
- * @param usuario
- * @param rol
- */
+
+	/**
+	 * agrega a la lista de miembros un miembro nuevo creado a partir de un
+	 * usuario y un rol,ambos pasados por parametro
+	 * 
+	 * @param usuario
+	 * @param rol
+	 */
 	public void agregarMiembro(Usuario usuario, String rol) {
 		this.getListaDeMiembros().add(new Miembro(usuario, rol));
 	}
-	
-/**
- * Le asigna un Miembro a una TareaSimple 
- * @param miembro
- * @param tarea
- */	
+
+	/**
+	 * Le asigna un Miembro a una TareaSimple
+	 * 
+	 * @param miembro
+	 * @param tarea
+	 */
 	public void asignarMiembroATarea(Miembro miembro, TareaSimple tarea) {
 		tarea.modificarMiembroAsignado(miembro);
 	}
 
 	/**
 	 * elimina una tarea recibida por parametro
+	 * 
 	 * @param tarea
 	 */
 	public void eliminarTarea(Tarea tarea) {
@@ -118,15 +122,17 @@ public class Proyecto {
 
 	/**
 	 * cierra una tarea especifica
+	 * 
 	 * @param tarea
 	 */
 	public void cerrarTarea(Tarea tarea) {
 		tarea.cerrate();
 
 	}
-/**
- * cierra el proyecto y todas sus tareas
- */
+
+	/**
+	 * cierra el proyecto y todas sus tareas
+	 */
 	public void cerrarProyecto() {
 
 		for (Tarea t : this.getListaTareas()) {
@@ -135,20 +141,25 @@ public class Proyecto {
 		}
 
 	}
-/**
- * A recibida por parametro la reabre siendo su estado cerrada y le agrega
- * un comentario a la descripcion de la tarea
- * @param tarea
- * @param comentario
- */
-	public void reabrirUnaTarea(Tarea tarea,String comentario) {
+
+	/**
+	 * A recibida por parametro la reabre siendo su estado cerrada y le agrega
+	 * un comentario a la descripcion de la tarea
+	 * 
+	 * @param tarea
+	 * @param comentario
+	 */
+	public void reabrirUnaTarea(Tarea tarea, String comentario) {
 
 		tarea.reAbrite(comentario);
 	}
-/**
- * retorna un HasMap con una tarea como clave y un string que es el estado como clave
- * @return
- */
+
+	/**
+	 * retorna un HasMap con una tarea como clave y un string que es el estado
+	 * como clave
+	 * 
+	 * @return
+	 */
 	public Map<Tarea, String> obtenerTareasYEstados() {
 
 		Map<Tarea, String> aux = new HashMap<Tarea, String>();
@@ -182,4 +193,17 @@ public class Proyecto {
 		return contador;
 	}
 
+	public boolean estaMiembroAsignado(Miembro m) {
+
+		boolean existe = false;
+
+		for (Tarea t : this.getListaTareas()) {
+
+			if (t.contieneMiembro(m)) {
+				existe = true;
+			}
+		}
+
+		return existe;
+	}
 }
