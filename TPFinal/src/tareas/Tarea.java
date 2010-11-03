@@ -1,6 +1,7 @@
 package tareas;
 
 import usuarioMiembroYFecha.Fecha;
+import usuarioMiembroYFecha.Miembro;
 import estados.*;
 import tareas.AdministradorTarea;
 
@@ -82,6 +83,12 @@ public abstract class Tarea implements AdministradorTarea{
 		/* TODO */
 		return false;
 	}
+	/**
+	 * Verifica si el miembro se encuentra en la Tarea,por medio de un booleano.
+	 * @param miembro Miembro
+	 * @return boolean
+	 */
+	public abstract boolean contieneMiembro(Miembro miembro);
 	
 	public Fecha getFechaCreacion() {
 		return fechaCreacion;
