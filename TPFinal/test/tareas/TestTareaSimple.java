@@ -96,12 +96,12 @@ public class TestTareaSimple extends TestCase {
 		// seteandolo para que funcione todo, pero en realidad, deberia de
 		// mandarle el mensaje no? )
 
-		this.tareaSimpleConMiembro.setMiembroAsignado(this.miembro);
+		//this.tareaSimpleConMiembro.setMiembroAsignado(this.miembro);
 
 		// le seteo el estado, ya que cuando uno asigna un Miembro, tiene que
 		// pasar a iniciada.
 
-		this.tareaSimpleConMiembro.setEstado(iniciada);
+		//this.tareaSimpleConMiembro.setEstado(iniciada);
 
 		// cree otro usuario mock -- lo cree por el metodo
 		// modificarMiembroAsignado
@@ -128,15 +128,18 @@ public class TestTareaSimple extends TestCase {
 	 * de 10!! xD
 	 */
 	public void testConstructor() {
-		String nombreEstado = this.creada.toString();
+		
 		Assert.assertEquals("El nombre no fue el esperado", this.nombreTs,
 				this.tareaSimple.getNombre());
 		Assert.assertEquals("No coinciden las Fechas", this.fechaTs,
 				this.tareaSimple.getFechaEstimadaFinalizacion());
 		Assert.assertEquals("la descripcion no coincide", this.descripcionTs,
 				this.tareaSimple.getDescripcion());
-		Assert.assertSame("El Estado no es creada", this.creada,
-				this.tareaSimple.verEstado());
+		expect(this.creada.verificarSiEstaCreada()).andReturn(true).anyTimes();
+		replay(this.creada);
+		this.tareaSimple.verificarSiEstaCreada();
+		Assert.assertTrue("",this.tareaSimple.verificarSiEstaCreada());
+		verify(this.creada);
 	}
 
 	/**
@@ -144,9 +147,11 @@ public class TestTareaSimple extends TestCase {
 	 * funciona bien, o como se espera
 	 */
 	public void testVerEstado() {
-		Assert.assertEquals("el estado no es creada", this.creada,
+		String nombreIniciada = "Iniciada";
+		String nombreCreada = "Creada";
+		Assert.assertEquals("el estado no es creada",nombreCreada,
 				this.tareaSimple.verEstado());
-		Assert.assertSame("el estado no es iniciada", this.iniciada,
+		Assert.assertEquals("el estado no es iniciada",nombreIniciada,
 				this.tareaSimpleConMiembro.verEstado());
 	}
 
@@ -171,25 +176,18 @@ public class TestTareaSimple extends TestCase {
 	public void testReAbrite() {
 		String motivo = "Reabro esta Tarea por que necesita ser finalizada";
 		this.creada.cerrada(this.tareaSimple);
-		replay(this.creada);
-		this.tareaSimple.cerrate();
-		verify(this.creada);
-		this.tareaSimple.setEstado(this.cerrada);
+		expect(this.cerrada.verificarSiEstaCerrada()).andReturn(true).anyTimes();
 		this.cerrada.iniciada(this.tareaSimple);
-		replay(this.cerrada);
+		expect(this.iniciada.verificarSiEstaIniciada()).andReturn(true).anyTimes();
+		replay(this.creada,this.cerrada,this.iniciada);
+		this.tareaSimple.cerrate();
+		this.tareaSimple.setEstado(this.cerrada);
+		this.tareaSimple.verificarSiEstaCerrada();
 		this.tareaSimple.reAbrite(motivo);
-		verify(this.cerrada);
-		//Assert.assertSame(this.iniciada, this.tareaSimple.verEstado());
-		}
-
-	/**
-	 * Test miembroAsignado de una TareaSimple con miembro
-	 */
-	public void testMiembroAsignado() {
-		Assert.assertEquals("el miembro no es el mismo", this.miembro,
-				this.tareaSimpleConMiembro.getMiembroAsignado());
+		this.tareaSimple.setEstado(this.iniciada);
+		this.tareaSimple.verificarSiEstaIniciada();
+		verify(this.creada,this.cerrada,this.iniciada);
 	}
-
 	/**
 	 * Test modificarMiembroAsignado para TareaSimple
 	 */
@@ -198,8 +196,10 @@ public class TestTareaSimple extends TestCase {
 		this.tareaSimpleConMiembro.modificarMiembroAsignado(this.nuevoMiembro);
 		Assert.assertSame("el miembro no es el mismo", this.nuevoMiembro,
 				this.tareaSimpleConMiembro.getMiembroAsignado());
-		Assert.assertSame("el estado no fue iniciada", this.iniciada,
-				this.tareaSimpleConMiembro.verEstado());
+		expect(this.iniciada.verificarSiEstaCreada()).andReturn(true);
+		replay(this.creada);
+		this.tareaSimple.verificarSiEstaCreada();
+		verify(this.creada);
 	}
 
 	/**
