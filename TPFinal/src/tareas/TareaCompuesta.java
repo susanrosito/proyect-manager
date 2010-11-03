@@ -43,10 +43,10 @@ import usuarioMiembroYFecha.Miembro;
 		 * Este mensaje se encarga de reabrir todas las sub tareas de
 		 * la tarea compuesta.
 		 */
-		public void reAbrite(String a) {
-			
+		public void reAbrite(String note) {
+			this.setDescripcion(note+"\n"+this.getDescripcion());
 			for ( AdministradorTarea at : this.getTareasQueLaComponenen())
-			{ at.reAbrite(a);}
+			{ at.reAbrite(note);}
 			
 		}
 
