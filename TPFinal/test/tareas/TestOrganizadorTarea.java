@@ -137,7 +137,7 @@ public class TestOrganizadorTarea extends TestCase{
 	
 	public void testVerEstadoTareaSimple() {
 		
-		expect(this.getTareaS().verEstado()).andReturn(Cerrada.GetInstance());     
+		expect(this.getTareaS().verEstado()).andReturn(Cerrada.GetInstance().toString());     
 		replay(this.getTareaS());
 	      assertSame("Se fija que realmente retorne el estado que tiene la tarea dentro del organizador, " +
 	      		"en este caso: Cerrada", this.getOrgConTareaS().verEstado(), Cerrada.GetInstance());
@@ -146,7 +146,7 @@ public class TestOrganizadorTarea extends TestCase{
 
       public void testVerEstadoTareaCompuesta() {
 		
-		expect(this.getTareaC().verEstado()).andReturn(EnTrabajo.GetInstance());     
+		expect(this.getTareaC().verEstado()).andReturn(EnTrabajo.GetInstance().toString());     
 		replay(this.getTareaC());
 	      assertSame("Se fija que realmente retorne el estado que tiene la tarea dentro del organizador, " +
 	      		"en este caso: EnTrabajo", this.getOrgConTareaC().verEstado(), EnTrabajo.GetInstance());
