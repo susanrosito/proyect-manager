@@ -33,7 +33,7 @@ public class Proyecto {
 		this.setListaDeMiembros(new LinkedList<Miembro>());
 
 	}
-	
+
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
@@ -104,11 +104,11 @@ public class Proyecto {
 	 * Le asigna un Miembro a una TareaSimple
 	 * 
 	 * @param miembro
-	 * @param tarea
+	 * @param tareaSimple
 	 */
 	public void asignarMiembroATarea(Miembro miembro, TareaSimple tarea)
-			throws NoTieneQueEstarEnOtraTareaException {
-***
+							throws NoTieneQueEstarEnOtraTareaException {
+
 		if (this.miembroYaEstaAsignado(miembro)) {
 
 			throw new NoTieneQueEstarEnOtraTareaException();
@@ -219,7 +219,7 @@ public class Proyecto {
 	 * @return miembro
 	 */
 	public boolean miembroYaEstaAsignado(Miembro m) {
-***
+
 		boolean existe = false;
 
 		for (Tarea t : this.getListaTareas()) {
