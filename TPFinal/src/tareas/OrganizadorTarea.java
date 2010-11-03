@@ -1,5 +1,8 @@
 package tareas;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import usuarioMiembroYFecha.Miembro;
 
 
@@ -107,7 +110,7 @@ public class OrganizadorTarea implements AdministradorTarea  {
 
 	/**
 	 * Ya que el organizador de tarea comunica a los otros objetos con la tarea
-	 * este metodo justamente retornara lo que retornaria enviarle en mensaje
+	 * este metodo justamente retornara lo que retornaria enviarle el mensaje
 	 * verificarSiEstaCerrada() a la tarea.
 	 */
 	public boolean verificarSiEstaCerrada() {
@@ -116,7 +119,7 @@ public class OrganizadorTarea implements AdministradorTarea  {
 
 	/**
 	 * Ya que el organizador de tarea comunica a los otros objetos con la tarea
-	 * este metodo justamente retornara lo que retornaria enviarle en mensaje
+	 * este metodo justamente retornara lo que retornaria enviarle el mensaje
 	 * verificarSiEstaCreada() a la tarea.
 	 */
 	public boolean verificarSiEstaCreada() {
@@ -126,7 +129,7 @@ public class OrganizadorTarea implements AdministradorTarea  {
 
 	/**
 	 * Ya que el organizador de tarea comunica a los otros objetos con la tarea
-	 * este metodo justamente retornara lo que retornaria enviarle en mensaje
+	 * este metodo justamente retornara lo que retornaria enviarle el mensaje
 	 * verificarSiEstaEnTrabajo() a la tarea.
 	 */
 	public boolean verificarSiEstaEnTrabajo() {
@@ -136,7 +139,7 @@ public class OrganizadorTarea implements AdministradorTarea  {
 
 	/**
 	 * Ya que el organizador de tarea comunica a los otros objetos con la tarea
-	 * este metodo justamente retornara lo que retornaria enviarle en mensaje
+	 * este metodo justamente retornara lo que retornaria enviarle el mensaje
 	 * verificarSiEstaFinalizada() a la tarea.
 	 */
 	public boolean verificarSiEstaFinalizada() {
@@ -146,7 +149,7 @@ public class OrganizadorTarea implements AdministradorTarea  {
 
 	/**
 	 * Ya que el organizador de tarea comunica a los otros objetos con la tarea
-	 * este metodo justamente retornara lo que retornaria enviarle en mensaje
+	 * este metodo justamente retornara lo que retornaria enviarle el mensaje
 	 * verificarSiEstaIniciada() a la tarea.
 	 */
 	public boolean verificarSiEstaIniciada() {
@@ -156,12 +159,23 @@ public class OrganizadorTarea implements AdministradorTarea  {
 
 	/**
 	 * Ya que el organizador de tarea comunica a los otros objetos con la tarea
-	 * este metodo justamente retornara lo que retornaria enviarle en mensaje
+	 * este metodo justamente retornara lo que retornaria enviarle el mensaje
 	 * verificarSiEstaPausada() a la tarea.
 	 */
 	public boolean verificarSiEstaPausada() {
 		
 		return this.getTarea().verificarSiEstaPausada();
+	}
+	
+	/**
+	 * Ya que el organizador de tarea comunica a los otros objetos con la tarea
+	 * este metodo justamente retornara lo que retornaria enviarle el mensaje
+	 * obtenerMiembros() a la tarea.
+	 */
+	public List<Miembro> obtenerMiembros()
+	{
+		return this.getTarea().obtenerMiembros();
+		
 	}
 	public AdministradorTarea getTarea() {
 		return tarea;

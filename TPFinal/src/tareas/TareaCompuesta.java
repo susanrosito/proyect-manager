@@ -2,6 +2,7 @@
 	package tareas;
 
 	import java.util.ArrayList;
+import java.util.LinkedList;
 	import java.util.List;
 
 import usuarioMiembroYFecha.Fecha;
@@ -93,6 +94,7 @@ import usuarioMiembroYFecha.Miembro;
 			boolean estaCreada=true;
 			for ( AdministradorTarea at : this.getTareasQueLaComponenen())
 			{ estaCreada= estaCreada && at.verificarSiEstaCreada();}
+			
 			return estaCreada;
 		}
 
@@ -173,6 +175,16 @@ import usuarioMiembroYFecha.Miembro;
 			return contieneAlMiembro;
 		}
 
+		public List<Miembro> obtenerMiembros()
+		{
+			List<Miembro> miembros=new LinkedList<Miembro>();
+			
+//			for ( AdministradorTarea at : this.getTareasQueLaComponenen()){}
+//			{ miembros= miembros.addAll(at.obtenerMiembros());  }
+						
+			return miembros;
+			
+		}
 
 		public void setTareasQueLaComponenen(List <AdministradorTarea> tareasQueLaComponenen) {
 			this.tareasQueLaComponenen = tareasQueLaComponenen;
@@ -185,9 +197,16 @@ import usuarioMiembroYFecha.Miembro;
 
 
 	
-
+ public static void main(String[] args) {
+	TareaSimple t= new TareaSimple(null, null, null);
+	TareaCompuesta tc= new TareaCompuesta(null, null,null);
+	
+	tc.agregarTarea(t);
+	tc.obtenerMiembros();
+}
 
 
 	}
 
+	
 
