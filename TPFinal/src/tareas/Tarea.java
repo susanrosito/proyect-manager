@@ -1,5 +1,7 @@
 package tareas;
 
+import java.util.List;
+
 import usuarioMiembroYFecha.Fecha;
 import usuarioMiembroYFecha.Miembro;
 import estados.*;
@@ -93,7 +95,7 @@ public abstract class Tarea implements AdministradorTarea{
 	public Fecha getFechaCreacion() {
 		return fechaCreacion;
 	}
-
+	public abstract List<Miembro> obtenerMiembros();
 	public void setFechaCreacion(Fecha fechaCreacion) {
 		this.fechaCreacion = fechaCreacion;
 	}

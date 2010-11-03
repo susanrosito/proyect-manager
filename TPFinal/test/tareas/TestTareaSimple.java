@@ -128,7 +128,7 @@ public class TestTareaSimple extends TestCase {
 	 * de 10!! xD
 	 */
 	public void testConstructor() {
-
+		String nombreEstado = this.creada.toString();
 		Assert.assertEquals("El nombre no fue el esperado", this.nombreTs,
 				this.tareaSimple.getNombre());
 		Assert.assertEquals("No coinciden las Fechas", this.fechaTs,
