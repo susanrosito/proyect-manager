@@ -10,7 +10,7 @@ import usuarioMiembroYFecha.Miembro;
 
 
 
-import estados.Estado;
+
 	/**
 	 * La clase tareaCompuesta se va a encargar de englobar las tareas
 	 * que posean sub tareas y deban ser reflejadas en la modalidad del

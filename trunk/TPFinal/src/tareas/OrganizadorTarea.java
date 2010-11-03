@@ -1,7 +1,7 @@
 package tareas;
 
 import usuarioMiembroYFecha.Miembro;
-import estados.Estado;
+
 
 /**
  * Esta clase va a representar en contenedor con las tareas con orden. Por eso va a conocer
