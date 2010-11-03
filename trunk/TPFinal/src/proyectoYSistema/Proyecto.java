@@ -101,25 +101,6 @@ public class Proyecto {
 	}
 
 	/**
-	 * Le asigna un Miembro a una TareaSimple
-	 * 
-	 * @param miembro
-	 * @param tareaSimple
-	 */
-	public void asignarMiembroATarea(Miembro miembro, TareaSimple tarea)
-							throws NoTieneQueEstarEnOtraTareaException {
-
-		if (this.miembroYaEstaAsignado(miembro)) {
-
-			throw new NoTieneQueEstarEnOtraTareaException();
-
-		} else {
-			tarea.modificarMiembroAsignado(miembro);
-		}
-
-	}
-
-	/**
 	 * elimina una tarea recibida por parametro
 	 * 
 	 * @param tarea
@@ -213,22 +194,4 @@ public class Proyecto {
 		return contador;
 	}
 
-	/**
-	 * 
-	 * @param m
-	 * @return miembro
-	 */
-	public boolean miembroYaEstaAsignado(Miembro m) {
-
-		boolean existe = false;
-
-		for (Tarea t : this.getListaTareas()) {
-
-			if (t.contieneMiembro(m)) {
-				existe = true;
-			}
-		}
-
-		return existe;
-	}
 }
