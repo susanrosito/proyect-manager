@@ -141,7 +141,7 @@ import estados.Estado;
 		 * de sus subtareas.
 		 */
 		
-		public Estado verEstado() {
+		public String verEstado() {
 			
 			return null;
 		}

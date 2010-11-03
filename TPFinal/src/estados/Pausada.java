@@ -28,5 +28,9 @@ public class Pausada extends Estado {
 	   }
   public boolean verificarSiEstaPausada()
   { return true; }
+  
+  public String toString(){
+	   return "Pausada";
+  }
 }
 

@@ -98,6 +98,7 @@ public abstract class Estado {
     public boolean verificarSiEstaCreada()
     { return false; }
     
+
 	
 	
 	

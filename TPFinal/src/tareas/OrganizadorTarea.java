@@ -99,9 +99,9 @@ public class OrganizadorTarea implements AdministradorTarea  {
 	 * Ya que el organizador de tarea comunica a los otros objetos con la tarea
 	 * este metodo justamente retornara el estado en el que se encuentra la tarea.
 	 */
-	public Estado verEstado() {
+	public String verEstado() {
 		
-		return this.getTarea().verEstado();
+		return this.getTarea().verEstado().toString();
 	}
 
 

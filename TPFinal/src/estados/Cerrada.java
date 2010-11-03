@@ -22,7 +22,10 @@ public class Cerrada extends Estado {
 	   }
 	   public boolean verificarSiEstaCerrada()
 	    { return true; }
-
+	  
+	   public String toString(){
+		   return "Cerrada";
+	   }
 		   
 	}
 	   

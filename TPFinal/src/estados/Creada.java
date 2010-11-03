@@ -27,5 +27,8 @@ public class Creada extends Estado {
 	
 	public boolean verificarSiEstaCreada()
     { return true; }
-
+	
+	public String toString(){
+		   return "Creada";
+	   }
 }
