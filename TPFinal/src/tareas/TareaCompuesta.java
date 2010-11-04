@@ -111,6 +111,7 @@ public class TareaCompuesta extends Tarea {
 	 */
 	public boolean verificarSiEstaEnTrabajo() {
 
+		boolean algunaEstaEnTrabajo = false;
 		boolean estaEnTrabajo = true;
 		for (AdministradorTarea at : this.getTareasQueLaComponenen()) {
 			estaEnTrabajo = estaEnTrabajo
@@ -118,9 +119,12 @@ public class TareaCompuesta extends Tarea {
 							| at.verificarSiEstaFinalizada()
 							| at.verificarSiEstaCreada() | at
 							.verificarSiEstaIniciada());
+			algunaEstaEnTrabajo = algunaEstaEnTrabajo
+			|| (at.verificarSiEstaEnTrabajo());
 		}
-		return estaEnTrabajo;
-	}
+		return estaEnTrabajo&&algunaEstaEnTrabajo;}
+		
+	
 
 	/**
 	 * Este mensaje retorna si el estado de la tarea compuesta es iniciada.
@@ -130,13 +134,16 @@ public class TareaCompuesta extends Tarea {
 
 	public boolean verificarSiEstaIniciada() {
 
-		boolean estaIniciada = false;
+		boolean algunaEstaIniciada = false;
+		{boolean estaIniciada = true;
 		for (AdministradorTarea at : this.getTareasQueLaComponenen()) {
 			estaIniciada = estaIniciada
-					&& (at.verificarSiEstaIniciada() | at
-							.verificarSiEstaCreada());
+					&& (at.verificarSiEstaIniciada() | at.verificarSiEstaCreada());
+			algunaEstaIniciada = algunaEstaIniciada
+			|| (at.verificarSiEstaIniciada());
 		}
-		return estaIniciada;
+		return estaIniciada && algunaEstaIniciada;}
+		
 	}
 
 	/**
@@ -196,6 +203,7 @@ public class TareaCompuesta extends Tarea {
 	 * Este metodo retorna una lista con todos los miembros de la
 	 * tareaCompuesta.
 	 */
+	
 	public List<Miembro> obtenerMiembros() {
 		List<Miembro> miembros = new LinkedList<Miembro>();
 

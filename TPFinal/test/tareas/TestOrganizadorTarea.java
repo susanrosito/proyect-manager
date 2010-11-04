@@ -153,7 +153,9 @@ public class TestOrganizadorTarea extends TestCase{
 	      		"en este caso: EnTrabajo", this.getOrgConTareaC().verEstado(), EnTrabajo.GetInstance().toString());
 		
 	}
-	public TareaSimple getTareaS() {
+	
+      
+      public TareaSimple getTareaS() {
 		return tareaS;
 	}
 
