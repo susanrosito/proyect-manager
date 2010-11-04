@@ -2,12 +2,10 @@ package tareas;
 
 import static org.easymock.EasyMock.createMock;
 import static org.easymock.EasyMock.*;
+import estados.*;
 
 
 import junit.framework.TestCase;
-
-
-
 
 public class TestTareaCompuesta extends TestCase{
 	
@@ -33,11 +31,91 @@ public class TestTareaCompuesta extends TestCase{
 	public void setUp()
 	{
 		this.tareaSCerrada = createMock(TareaSimple.class);
+		expect(tareaSCerrada.verificarSiEstaIniciada()).andReturn(false);
+		expectLastCall().anyTimes();
+		expect(tareaSCerrada.verificarSiEstaCreada()).andReturn(false);
+		expectLastCall().anyTimes();
+		expect(tareaSCerrada.verificarSiEstaEnTrabajo()).andReturn(false);
+		expectLastCall().anyTimes();
+		expect(tareaSCerrada.verificarSiEstaFinalizada()).andReturn(false);
+		expectLastCall().anyTimes();
+		expect(tareaSCerrada.verificarSiEstaCerrada()).andReturn(true);
+		expectLastCall().anyTimes();
+		expect(tareaSCerrada.verificarSiEstaPausada()).andReturn(false);
+		expectLastCall().anyTimes();
+		
 		this.tareSFinalizada = createMock(TareaSimple.class);
+		expect(tareSFinalizada.verificarSiEstaIniciada()).andReturn(false);
+		expectLastCall().anyTimes();
+		expect(tareSFinalizada.verificarSiEstaCreada()).andReturn(false);
+		expectLastCall().anyTimes();
+		expect(tareSFinalizada.verificarSiEstaEnTrabajo()).andReturn(false);
+		expectLastCall().anyTimes();
+		expect(tareSFinalizada.verificarSiEstaFinalizada()).andReturn(true);
+		expectLastCall().anyTimes();
+		expect(tareSFinalizada.verificarSiEstaCerrada()).andReturn(false);
+		expectLastCall().anyTimes();
+		expect(tareSFinalizada.verificarSiEstaPausada()).andReturn(false);
+		expectLastCall().anyTimes();
+		
 		this.tareaSEnTrabajo = createMock(TareaSimple.class);
+		expect(tareaSEnTrabajo.verificarSiEstaIniciada()).andReturn(false);
+		expectLastCall().anyTimes();
+		expect(tareaSEnTrabajo.verificarSiEstaCreada()).andReturn(false);
+		expectLastCall().anyTimes();
+		expect(tareaSEnTrabajo.verificarSiEstaEnTrabajo()).andReturn(true);
+		expectLastCall().anyTimes();
+		expect(tareaSEnTrabajo.verificarSiEstaFinalizada()).andReturn(false);
+		expectLastCall().anyTimes();
+		expect(tareaSEnTrabajo.verificarSiEstaCerrada()).andReturn(false);
+		expectLastCall().anyTimes();
+		expect(tareaSEnTrabajo.verificarSiEstaPausada()).andReturn(false);
+		expectLastCall().anyTimes();
+		
 		this.tareaSPausada = createMock(TareaSimple.class);
+		expect(tareaSPausada.verificarSiEstaIniciada()).andReturn(false);
+		expectLastCall().anyTimes();
+		expect(tareaSPausada.verificarSiEstaCreada()).andReturn(false);
+		expectLastCall().anyTimes();
+		expect(tareaSPausada.verificarSiEstaEnTrabajo()).andReturn(false);
+		expectLastCall().anyTimes();
+		expect(tareaSPausada.verificarSiEstaFinalizada()).andReturn(false);
+		expectLastCall().anyTimes();
+		expect(tareaSPausada.verificarSiEstaCerrada()).andReturn(false);
+		expectLastCall().anyTimes();
+		expect(tareaSPausada.verificarSiEstaPausada()).andReturn(true);
+		expectLastCall().anyTimes();
+		
 		this.tareaSCreada = createMock(TareaSimple.class);
+		expect(tareaSCreada.verificarSiEstaIniciada()).andReturn(false);
+		expectLastCall().anyTimes();
+		expect(tareaSCreada.verificarSiEstaCreada()).andReturn(true);
+		expectLastCall().anyTimes();
+		expect(tareaSCreada.verificarSiEstaEnTrabajo()).andReturn(false);
+		expectLastCall().anyTimes();
+		expect(tareaSCreada.verificarSiEstaFinalizada()).andReturn(false);
+		expectLastCall().anyTimes();
+		expect(tareaSCreada.verificarSiEstaCerrada()).andReturn(false);
+		expectLastCall().anyTimes();
+		expect(tareaSCreada.verificarSiEstaPausada()).andReturn(false);
+		expectLastCall().anyTimes();
+		
 		this.tareaSIniciada = createMock(TareaSimple.class);
+		expect(tareaSIniciada.verificarSiEstaIniciada()).andReturn(true);
+		expectLastCall().anyTimes();
+		expect(tareaSIniciada.verificarSiEstaCreada()).andReturn(false);
+		expectLastCall().anyTimes();
+		expect(tareaSIniciada.verificarSiEstaEnTrabajo()).andReturn(false);
+		expectLastCall().anyTimes();
+		expect(tareaSIniciada.verificarSiEstaFinalizada()).andReturn(false);
+		expectLastCall().anyTimes();
+		expect(tareaSIniciada.verificarSiEstaCerrada()).andReturn(false);
+		expectLastCall().anyTimes();
+		expect(tareaSIniciada.verificarSiEstaPausada()).andReturn(false);
+		expectLastCall().anyTimes();
+		
+		
+		replay(tareaSIniciada, tareSFinalizada, tareaSCreada, tareaSCerrada, tareaSEnTrabajo, tareaSPausada );
 			
 		this.tareaC = new TareaCompuesta(this.nombreTC,this.descripccionTC , null);
 		
@@ -110,109 +188,185 @@ public class TestTareaCompuesta extends TestCase{
 		
 		}
      
-     
-	
-	   public void testVerificarSiEstaEnTrabajo() {
+     	
+	   public void testVerificarSiEstaEnTrabajoCuandoEstaEnTrabajo() {
 		 
-		   expect(tareSFinalizada.verificarSiEstaEnTrabajo()).andReturn(false);
-		   expect(tareSFinalizada.verificarSiEstaIniciada()).andReturn(false);
-		   expect(tareSFinalizada.verificarSiEstaCreada()).andReturn(false);
-		   expect(tareSFinalizada.verificarSiEstaFinalizada()).andReturn(true);
-		   replay(tareSFinalizada);		
-           
-           expect(tareaSEnTrabajo.verificarSiEstaEnTrabajo()).andReturn(true).times(2);
-           expect(tareaSEnTrabajo.verificarSiEstaIniciada()).andReturn(false).times(2);
-		   expect(tareaSEnTrabajo.verificarSiEstaCreada()).andReturn(false).times(2);
-		   expect(tareaSEnTrabajo.verificarSiEstaFinalizada()).andReturn(false).times(2);
-		   
-           replay(tareaSEnTrabajo);
-           
-           expect(tareaSCreada.verificarSiEstaEnTrabajo()).andReturn(false);
-		   expect(tareaSCreada.verificarSiEstaIniciada()).andReturn(false);
-		   expect(tareaSCreada.verificarSiEstaCreada()).andReturn(true);
-		   expect(tareaSCreada.verificarSiEstaFinalizada()).andReturn(false);
-           
-		   replay(tareaSCreada);
-           
-   		   expect(tareaSIniciada.verificarSiEstaEnTrabajo()).andReturn(false);
-		   expect(tareaSIniciada.verificarSiEstaIniciada()).andReturn(true);
-		   expect(tareaSIniciada.verificarSiEstaCreada()).andReturn(false);
-		   expect(tareaSIniciada.verificarSiEstaFinalizada()).andReturn(false);
-   		   replay(tareaSIniciada);
-   		
+		   		
    		   assertTrue("Confirma que el estado de la tareaCompuestaEnTrabajo efectivamente sea enTrabajo.", 
 				this.getTareaCompuestaEnTrabajo().verificarSiEstaEnTrabajo());
    		  
 	}
 
-	   
-	   public void testVerificarSiEstaIniciada() {
+	   public void testVerificarSiEstaEnTrabajoCuandoNOEstaEnTrabajo() {
 			 
-		             
-   		   
-		   expect(tareaSIniciada.verificarSiEstaIniciada()).andReturn(true);
-		   expectLastCall().anyTimes();
-		   expect(tareaSIniciada.verificarSiEstaCreada()).andReturn(false);
-		   expectLastCall().anyTimes();
-		   
-		   
-  		  replay(tareaSIniciada);
+	   		
+   		   assertFalse("Confirma que el estado de la tareaCompuestaCerrada no sea enTrabajo.", 
+				this.getTareaCompuestaCerrada().verificarSiEstaEnTrabajo());
+   		   assertFalse("Confirma que el estado de la tareaCompuestaIniciada no sea enTrabajo.", 
+				this.getTareaCompuestaIniciada().verificarSiEstaEnTrabajo());
+   		   assertFalse("Confirma que el estado de la tareaCompuestaCreada no sea enTrabajo.", 
+				this.getTareaCompuestaCreada().verificarSiEstaEnTrabajo());
+   		   assertFalse("Confirma que el estado de la tareaCompuestaPausada no sea enTrabajo.", 
+				this.getTareaCompuestaPausada().verificarSiEstaEnTrabajo());
+   		   assertFalse("Confirma que el estado de la tareaCompuestaFinalizada no sea enTrabajo.", 
+				this.getTareaCompuestaFinalizada().verificarSiEstaEnTrabajo());
+   		  
+	}
+	   
+	   public void testVerificarSiEstaIniciadaCuandoEstaIniciada() {
+			 	            
    		
    		   assertTrue("Confirma que el estado de la tareaCompuestaIniciada efectivamente sea Iniciada.", 
 				this.getTareaCompuestaIniciada().verificarSiEstaIniciada());
    		  
 	}
 	   
- public void testVerificarSiEstaFinalizada() {
+	   public void testVerificarSiEstaIniciadaCuandoNOEstaIniciada() {
+			 
+	   		
+   		   assertFalse("Confirma que el estado de la tareaCompuestaCerrada no sea Iniciada.", 
+				this.getTareaCompuestaCerrada().verificarSiEstaIniciada());
+   		   assertFalse("Confirma que el estado de la tareaCompuestaEntrabajo no sea Iniciada.", 
+				this.getTareaCompuestaEnTrabajo().verificarSiEstaIniciada());
+   		   assertFalse("Confirma que el estado de la tareaCompuestaCreada no sea Iniciada.", 
+				this.getTareaCompuestaCreada().verificarSiEstaIniciada());
+   		   assertFalse("Confirma que el estado de la tareaCompuestaPausada no sea Iniciada.", 
+				this.getTareaCompuestaPausada().verificarSiEstaIniciada());
+   		   assertFalse("Confirma que el estado de la tareaCompuestaFinalizada no sea Iniciada.", 
+				this.getTareaCompuestaFinalizada().verificarSiEstaIniciada());
+   		  
+	}
+	   
+ public void testVerificarSiEstaFinalizadaCuandoEstaFinalizada() {
 			 		             
-   		   		   
-		   expect(tareSFinalizada.verificarSiEstaFinalizada()).andReturn(true);
-		   expectLastCall().anyTimes();
-		    replay(tareSFinalizada);
-   		
+   	
    		   assertTrue("Confirma que el estado de la tareaCompuestaFinalizada efectivamente sea finalizada.", 
 				this.getTareaCompuestaFinalizada().verificarSiEstaFinalizada());
    		  
 	}
  
- public void testVerificarSiEstaCerrada() {
+ public void testVerificarSiEstaFinalizadaCuandoNOEstaFinalizada() {
       
-		   
-	   expect(tareaSCerrada.verificarSiEstaCerrada()).andReturn(true);
-	   expectLastCall().anyTimes();
-	    replay(tareaSCerrada);
-		
+	       assertFalse("Confirma que el estado de la tareaCompuestaCerrada no sea Finalizada.", 
+				this.getTareaCompuestaCerrada().verificarSiEstaFinalizada());
+		   assertFalse("Confirma que el estado de la tareaCompuestaEntrabajo no sea Finalizada.", 
+				this.getTareaCompuestaEnTrabajo().verificarSiEstaFinalizada());
+		   assertFalse("Confirma que el estado de la tareaCompuestaCreada no sea Finalizada.", 
+				this.getTareaCompuestaCreada().verificarSiEstaFinalizada());
+		   assertFalse("Confirma que el estado de la tareaCompuestaPausada no sea Finalizada.", 
+				this.getTareaCompuestaPausada().verificarSiEstaFinalizada());
+		   assertFalse("Confirma que el estado de la tareaCompuestaIniciada no sea Finalizada.", 
+				this.getTareaCompuestaIniciada().verificarSiEstaFinalizada());
+		  
+}
+ 
+ public void testVerificarSiEstaCerradaCuandoEstaCerrada() {
+      
+	
 		   assertTrue("Confirma que el estado de la tareaCompuestaCerrada efectivamente sea cerrada.", 
 			this.getTareaCompuestaCerrada().verificarSiEstaCerrada());
 		  
 }
  
- public void testVerificarSiEstaCreada() {
+ public void testVerificarSiEstaCerradaCuandoNOEstaCerrada() {
      
-	   
-	   expect(tareaSCreada.verificarSiEstaCreada()).andReturn(true);
-	   expectLastCall().anyTimes();
-	    replay(tareaSCreada);
 		
+	       assertFalse("Confirma que el estado de la tareaCompuestaFinalizada no sea Cerrada.", 
+				this.getTareaCompuestaFinalizada().verificarSiEstaCerrada());
+		   assertFalse("Confirma que el estado de la tareaCompuestaEntrabajo no sea Cerrada.", 
+				this.getTareaCompuestaEnTrabajo().verificarSiEstaCerrada());
+		   assertFalse("Confirma que el estado de la tareaCompuestaCreada no sea Cerrada.", 
+				this.getTareaCompuestaCreada().verificarSiEstaCerrada());
+		   assertFalse("Confirma que el estado de la tareaCompuestaPausada no sea Cerrada.", 
+				this.getTareaCompuestaPausada().verificarSiEstaCerrada());
+		   assertFalse("Confirma que el estado de la tareaCompuestaIniciada no sea Cerrada.", 
+				this.getTareaCompuestaIniciada().verificarSiEstaCerrada());
+	  
+}
+ public void testVerificarSiEstaCreadaCuandoEstaCreada() {
+     
+	
 		   assertTrue("Confirma que el estado de la tareaCompuestaCerrada efectivamente sea cerrada.", 
 			this.getTareaCompuestaCreada().verificarSiEstaCreada());
 		  
 }
  
- public void testVerificarSiEstaPausada() {
+ public void testVerificarSiEstaCerradaCuandoNOEstaCreada() {
      
-	   
-	   expect(tareaSPausada.verificarSiEstaPausada()).andReturn(true);
-	   replay(tareaSPausada);
-	   expect(tareaSCreada.verificarSiEstaPausada()).andReturn(false);
-	   replay(tareaSCreada);
-	   expect(tareaSEnTrabajo.verificarSiEstaPausada()).andReturn(false);
-	   replay(tareaSEnTrabajo);
 		
-		   assertTrue("Confirma que el estado de la tareaCompuestaCerrada efectivamente sea cerrada.", 
-			this.getTareaCompuestaPausada().verificarSiEstaPausada());
+       assertFalse("Confirma que el estado de la tareaCompuestaFinalizada no sea Creada.", 
+			this.getTareaCompuestaFinalizada().verificarSiEstaCreada());
+	   assertFalse("Confirma que el estado de la tareaCompuestaEntrabajo no sea Creada.", 
+			this.getTareaCompuestaEnTrabajo().verificarSiEstaCreada());
+	   assertFalse("Confirma que el estado de la tareaCompuestaCerrada no sea Creada.", 
+			this.getTareaCompuestaCerrada().verificarSiEstaCreada());
+	   assertFalse("Confirma que el estado de la tareaCompuestaPausada no sea Creada.", 
+			this.getTareaCompuestaPausada().verificarSiEstaCreada());
+	   assertFalse("Confirma que el estado de la tareaCompuestaIniciada no sea Creada.", 
+			this.getTareaCompuestaIniciada().verificarSiEstaCreada());
+
+}
+ public void testVerificarSiEstaPausadaCuandoEstaPausada() {
+	     
+	 
+	 assertTrue("Confirma que el estado de la tareaCompuestaCerrada efectivamente sea cerrada.", 
+		this.getTareaCompuestaPausada().verificarSiEstaPausada());
+ 
 		  
 }
+ 
+ public void testVerificarSiEstaPausadaCuandoNOEstaPausada() {
+     
+		assertFalse("Confirma que el estado de la tareaCompuestaFinalizada no sea Pausada.", 
+				this.getTareaCompuestaFinalizada().verificarSiEstaPausada());
+		   assertFalse("Confirma que el estado de la tareaCompuestaEntrabajo no sea Pausada.", 
+				this.getTareaCompuestaEnTrabajo().verificarSiEstaPausada());
+		   assertFalse("Confirma que el estado de la tareaCompuestaCerrada no sea Pausada.", 
+				this.getTareaCompuestaCerrada().verificarSiEstaPausada());
+		   assertFalse("Confirma que el estado de la tareaCompuestaCreada no sea Pausada.", 
+				this.getTareaCompuestaCreada().verificarSiEstaPausada());
+		   assertFalse("Confirma que el estado de la tareaCompuestaIniciada no sea Pausada.", 
+				this.getTareaCompuestaIniciada().verificarSiEstaPausada());
+	  
+}
+ 
+ public void testVerEstadoTareaEnTrabajo() {
+	 assertEquals("Confirma que el estado de la tareaCompuestaEntrabajo es EnTrabajo.", 
+				EnTrabajo.GetInstance().toString(),this.getTareaCompuestaEnTrabajo().verEstado());
+	 
+ }
+ 
+ public void testVerEstadoTareaIniciada() {
+	 assertEquals("Confirma que el estado de la tareaCompuestaIniciada es Iniciada.", 
+				Iniciada.GetInstance().toString(),this.getTareaCompuestaIniciada().verEstado());
+	 
+ }
+ 
+ public void testVerEstadoTareaPausada() {
+	 assertEquals("Confirma que el estado de la tareaCompuestaEntrabajo es Pausada.", 
+			 Pausada.GetInstance().toString(),this.getTareaCompuestaPausada().verEstado());
+	 
+ }
+ 
+ public void testVerEstadoTareaCreada() {
+	 assertEquals("Confirma que el estado de la tareaCompuestaCreada es Creada.", 
+			 Creada.GetInstance().toString(),this.getTareaCompuestaCreada().verEstado());
+	 
+ }
+ 
+ public void testVerEstadoTareaCerrada() {
+	 assertEquals("Confirma que el estado de la tareaCompuestaCerrada es Cerrada.", 
+			 Cerrada.GetInstance().toString(),this.getTareaCompuestaCerrada().verEstado());
+	 
+ }
+ 
+ public void testVerEstadoTareaFinalizada() {
+	 assertEquals("Confirma que el estado de la tareaCompuestaFinalizada es Finalizada.", 
+			 Finalizada.GetInstance().toString(),this.getTareaCompuestaFinalizada().verEstado());
+	 
+ }
+ 
+ 
 	public TareaSimple getTareaSCerrada() {
 		return tareaSCerrada;
 	}
