@@ -213,30 +213,18 @@ public class ProyectoTestCase extends TestCase {
 
 	public void testReabrirUnaTarea() {
 		//******* USO MOCK
-		
-		
-		expect(tarea.getMiembroAsignado()).andReturn(miembro1);
-		replay(tarea);
-		
-		
-		expect(tarea.cerrate());
-		replay(tarea);
-		//expect(miembro1.getUsuario()).andReturn(usuario1);
-		
-		// cierro la tarea agregada
-		this.getProyecto().cerrarTarea(this.getTarea());
-		
-		// 1ro verifico si la tarea esta actualmente cerrada ?? hace falta?
-		assertEquals(Cerrada.GetInstance().toString(),this.getTarea().verEstado());
-		
-		//
 		String comentario = "se reabre porque ahora ahi luz";
 		
+		tarea.reAbrite(comentario);
+		expect(tarea.getEstado()).andReturn(Cerrada.GetInstance());
 		
+		replay(tarea);
+
 		// envio el mensaje para reabrir la tarea lo que modificaria su estado
 		//a iniciada
 		this.getProyecto().reabrirUnaTarea(getTarea(), comentario);
 		
+	
 		//verifico si se le cambio el estado de la tarea a iniciada
 		assertSame(Cerrada.GetInstance(),getTarea().getEstado());
 		assertEquals(getTarea().getDescripcion()+comentario, getTarea().getDescripcion());
