@@ -129,19 +129,32 @@ public class TestOrganizadorTarea extends TestCase{
        
        
 }
+	/**
+	 * Este test comprueba que el organizador de tareas envíe el mensaje estaProximaAVencer() a la tareaSimple
+	 * que contiene y retorne lo que esta retornaría,cuando lo recibe.
+	 */
 	public void testEstaProximaAVencerTareaSimple() {
 		expect(this.getTareaS().estaProximaAVencer()).andReturn(false);     
 		replay(this.getTareaS());
 	      assertFalse(this.getOrgConTareaS().estaProximaAVencer());
 	}
 	
+
+	/**
+	 * Este test comprueba que el organizador de tareas envíe el mensaje estaProximaAVencer() a la tareaCompuesta
+	 * que contiene y retorne lo que esta retornaría,cuando lo recibe.
+	 */
 	public void testEstaProximaAVencerTareaCompuesta() {
 		expect(this.getTareaC().estaProximaAVencer()).andReturn(false);     
 		replay(this.getTareaC());
 	      assertFalse(this.getOrgConTareaC().estaProximaAVencer());
 	}
 
-	
+
+	/**
+	 * Este test comprueba que el organizador de tareas envíe el mensaje reAbrite() a la tareaSimple
+	 * que contiene.
+	 */
 	public void testReAbriteTareaSimple() {
 		
 		this.getTareaS().reAbrite(stringMotivo);           
@@ -152,6 +165,10 @@ public class TestOrganizadorTarea extends TestCase{
        verify(this.getTareaS());;
        }
 		
+	/**
+	 * Este test comprueba que el organizador de tareas envíe el mensaje reAbrite() a la tareaCompuesta
+	 * que contiene.
+	 */
    public void testReAbriteTareaCompuesta() {
 		
 		this.getTareaC().reAbrite(stringMotivo);           
@@ -162,13 +179,20 @@ public class TestOrganizadorTarea extends TestCase{
        verify(this.getTareaC());;
        }
 	
+   /**
+	 * Este test comprueba que el organizador de tareas contenga una tarea simple o una tarea compuesta siempre
+	 * retorna True al enviarle el mensaje tieneOrden().
+	 */
 	public void testTieneOrden() {
 		
 		assertTrue("Se fija que devuelva true cuando contiene una tarea simple.",this.getOrgConTareaS().tieneOrden());
 		assertTrue("Se fija que devuelva true cuando contiene una tarea compuesta.",this.getOrgConTareaS().tieneOrden());
 	}
 
-	
+	/**
+	 * Este test comprueba que el organizador de tareas envíe el mensaje verEstado() a la tareaSimple
+	 * que contiene y retorne lo que esta retornaría al enviarselo. 
+	 */
 	public void testVerEstadoTareaSimple() {
 		
 		expect(this.getTareaS().verEstado()).andReturn(Cerrada.GetInstance().toString());     
@@ -178,6 +202,10 @@ public class TestOrganizadorTarea extends TestCase{
 		
 	}
 
+	/**
+	 * Este test comprueba que el organizador de tareas envíe el mensaje verEstado() a la tareaCompuesta
+	 * que contiene y retorne lo que esta retornaría al enviarselo. 
+	 */
       public void testVerEstadoTareaCompuesta() {
 		
 		expect(this.getTareaC().verEstado()).andReturn(EnTrabajo.GetInstance().toString());     
