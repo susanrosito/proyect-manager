@@ -14,7 +14,10 @@ public class TestUsuario extends TestCase {
 		this.otroUsuario=new Usuario("Tatiana Molinari", "m.tati@yahoo.com.ar");
 		
 	}
-	
+	/**
+	 * Este test verifica que el constructor guarde correctamente en las variables los
+	 * objetos pasados por parametro.
+	 */
 	public void testConstructor()
 	{
 		Assert.assertNotSame(this.getUnUsuario(), this.getOtroUsuario());

@@ -3,6 +3,8 @@ package usuarioMiembroYFecha;
 
 import junit.framework.Assert;
 import junit.framework.TestCase;
+import static org.easymock.EasyMock.createMock;
+
 
 public class TestMiembro extends TestCase {
 
@@ -14,14 +16,17 @@ public class TestMiembro extends TestCase {
 	
 	public void setUp()
 	{
-		this.unUsuario=new Usuario("Ignacio Negrette", "i_neg@yahoo.com.ar");
-		this.otroUsuario=new Usuario("Tatiana Molinari", "m.tati@yahoo.com.ar");
-		
+		this.unUsuario= createMock(Usuario.class);
+		this.otroUsuario= createMock(Usuario.class);
+				
 		this.unMiembro=new Miembro(this.unUsuario, "Desarrollador");
 		this.otroMiembro=new Miembro(this.otroUsuario, "Tester");
 		
 	}
-	
+	/**
+	 * Este test comprueba que los valores pasados por parametros se guarden correctamente en
+	 * las variables del Miembro.
+	 */
 	public void testConstructor()
 	{
 		Assert.assertEquals(0,this.getUnMiembro().getHsTrabajadas());
@@ -35,35 +40,42 @@ public class TestMiembro extends TestCase {
 		
 		
 	}
-	
+	/**
+	 * Este test comprueba que al cambiar de rol a un miembro se cree una nueva instancia
+	 * de miembro y cambie solo el rol.
+	 */
 	public void testCambiarRol(){
 		
-		
+		//Guarda los roles anteriores de ambas instancias
 		String rolAnteriorUnMiembro=this.getUnMiembro().getRol();
 		String rolAnteriorOtroMiembro=this.getOtroMiembro().getRol();
-		//Guarda los roles anteriores de ambas instancias
 		
+		//Comprueba que son los mismos	
 		Assert.assertEquals(rolAnteriorUnMiembro,this.getUnMiembro().getRol());
 		Assert.assertEquals(rolAnteriorOtroMiembro,this.getOtroMiembro().getRol());
-		//Comprueba que son los mismos		
-		
+			
+		//Cambia los roles con otros pasados por parametros
 		Miembro nuevoMiembro1=this.getUnMiembro().cambiarRol("Barrendero");
 		Miembro nuevoMiembro2=this.getOtroMiembro().cambiarRol("Trapeadora");
-		//Cambia los rolos con otros pasados por parametros
 		
+		/*
+		 * Comprueba que las instancias luego de cambiar los nombres son
+		 * Diferentes a las originales
+		 */
 		Assert.assertNotSame(nuevoMiembro1, this.getUnMiembro());
 		Assert.assertNotSame(nuevoMiembro2, this.getOtroMiembro());
-		//Comprueba que las instancias luego de cambiar los nombres son
-		//Diferentes a las originales
 		
+		/*
+		 * Comprueba que los roles anteriores no estan en las nuevas instancias
+		 * y comprueba que los roles pasados por paramentrso son los que estan
+		 * en las nuevas instancias.
+		 */ 
 		Assert.assertFalse(nuevoMiembro1.getRol()==rolAnteriorUnMiembro);		
 		Assert.assertEquals("Barrendero",nuevoMiembro1.getRol());
 				
 		Assert.assertFalse(nuevoMiembro2.getRol()==rolAnteriorOtroMiembro);
 		Assert.assertEquals("Trapeadora",nuevoMiembro2.getRol());
-		//Comprueba que los roles anteriores no estan en las nuevas instancias
-		// y comprueba que los roles pasados por paramentrso son los que estan
-		// en las nuevas instancias.
+		
 		
 		
 		
