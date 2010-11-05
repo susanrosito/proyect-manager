@@ -194,6 +194,12 @@ public class Proyecto {
 		return contador;
 	}
 
+	/**
+	 * le asigna a una tarea simple un miembro
+	 * 
+	 * @param miembro1
+	 * @param tarea
+	 */
 	public void asignarMiembroATarea(Miembro miembro1, TareaSimple tarea) {
 
 		tarea.modificarMiembroAsignado(miembro1);
