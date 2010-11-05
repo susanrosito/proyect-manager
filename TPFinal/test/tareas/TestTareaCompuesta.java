@@ -52,7 +52,27 @@ public class TestTareaCompuesta extends TestCase{
 	
 	public void setUp()
 	{	
+		/* Setea el String que representa el motivo por el cual se reabre la TareaCompuesta en el test
+		 * Reabrir tarea */
 		this.stringMotivo= "Se re abre la tarea porque...";
+		
+		/*A continuación se setean todos las tareas simples que son todos mock objects capaces de
+		 * responder a los mensajes:
+		 * 
+		 * verificarSiEstaIniciada()
+		 * verificarSiEstaCreada()
+		 * verificarSiEstaEnTrabajo()
+		 * verificarSiEstaFinalizada()
+		 * verificarSiEstaCerrada()
+		 * verificarSiEstaPausada()
+		 * 
+		 * Solo algunas esperan el mensaje cerrate() para testear ese mismo metodo en la clase TareaCompuesta
+		 * y sólo la tarea simple que representa a la tarea cerrada espera el mensaje reAbrite(this.unMotivo)
+		 * para testear tambien ese mismo metodo en la clase TareaCompuesta.
+		 * */
+		
+		//Setea la vaiable tareaSCerrada que por medio de un mockObject representa
+		//a una tareaSimple con estado Cerrada.
 		this.tareaSCerrada = createMock(TareaSimple.class);
 		expect(tareaSCerrada.verificarSiEstaIniciada()).andReturn(false);
 		expectLastCall().anyTimes();
@@ -67,10 +87,10 @@ public class TestTareaCompuesta extends TestCase{
 		expect(tareaSCerrada.verificarSiEstaPausada()).andReturn(false);
 		expectLastCall().anyTimes();
 		this.tareaSCerrada.reAbrite(this.stringMotivo);
-		
 		expectLastCall().anyTimes();
 		
-		
+		//Setea la vaiable tareSFinalizada que por medio de un mockObject representa
+		//a una tareaSimple con estado Finalizada.
 		this.tareSFinalizada = createMock(TareaSimple.class);
 		expect(tareSFinalizada.verificarSiEstaIniciada()).andReturn(false);
 		expectLastCall().anyTimes();
@@ -85,6 +105,8 @@ public class TestTareaCompuesta extends TestCase{
 		expect(tareSFinalizada.verificarSiEstaPausada()).andReturn(false);
 		expectLastCall().anyTimes();
 		
+		//Setea la vaiable tareaSEnTrabajo que por medio de un mockObject representa
+		//a una tareaSimple con estado EnTrabajo.
 		this.tareaSEnTrabajo = createMock(TareaSimple.class);
 		expect(tareaSEnTrabajo.verificarSiEstaIniciada()).andReturn(false);
 		expectLastCall().anyTimes();
@@ -100,6 +122,8 @@ public class TestTareaCompuesta extends TestCase{
 		expectLastCall().anyTimes();
 		this.tareaSEnTrabajo.cerrate();
 		
+		//Setea la vaiable tareaSEnTrabajo que por medio de un mockObject representa
+		//a una tareaSimple con estado EnTrabajo.
 		this.tareaSPausada = createMock(TareaSimple.class);
 		expect(tareaSPausada.verificarSiEstaIniciada()).andReturn(false);
 		expectLastCall().anyTimes();
@@ -114,6 +138,8 @@ public class TestTareaCompuesta extends TestCase{
 		expect(tareaSPausada.verificarSiEstaPausada()).andReturn(true);
 		expectLastCall().anyTimes();
 		
+		//Setea la vaiable tareaSCreada que por medio de un mockObject representa
+		//a una tareaSimple con estado Creada.
 		this.tareaSCreada = createMock(TareaSimple.class);
 		expect(tareaSCreada.verificarSiEstaIniciada()).andReturn(false);
 		expectLastCall().anyTimes();
@@ -129,6 +155,8 @@ public class TestTareaCompuesta extends TestCase{
 		expectLastCall().anyTimes();
 		this.tareaSCreada.cerrate();
 		
+		//Setea la vaiable tareaSIniciada que por medio de un mockObject representa
+		//a una tareaSimple con estado Iniciada.
 		this.tareaSIniciada = createMock(TareaSimple.class);
 		expect(tareaSIniciada.verificarSiEstaIniciada()).andReturn(true);
 		expectLastCall().anyTimes();
@@ -144,10 +172,15 @@ public class TestTareaCompuesta extends TestCase{
 		expectLastCall().anyTimes();
 		this.tareaSIniciada.cerrate();
 		
+		//Confirma que esos mockObjects solo esperan esos mensajes.
 		replay(tareaSIniciada, tareSFinalizada, tareaSCreada, tareaSCerrada, tareaSEnTrabajo, tareaSPausada );
-			
+		
+		//Setea la variable tareaC que va a ser usada para testear el costructor.
 		this.tareaC = new TareaCompuesta(this.nombreTC,this.descripccionTC , null);
 		
+		/* A continuacion se setean todas las variables de TareaCompuesta donde cada una representa
+		 * una tarea compuesta con cada estado, como describe su nombre. 
+		 */
 		
 		this.tareaCompuestaEnTrabajo=new TareaCompuesta(null,null,null);
 		tareaCompuestaEnTrabajo.agregarTarea(this.getTareaSCreada());
@@ -181,7 +214,10 @@ public class TestTareaCompuesta extends TestCase{
 		tareaCompuestaPausada.agregarTarea(this.getTareaSEnTrabajo());
 		tareaCompuestaPausada.agregarTarea(this.getTareaSPausada());
 		
-				
+		/* A Continuacion se setean solo las variables que representan los miembros de la tarea
+		 * compuesta que se agregaran a cualquiera de los mock objects de las tareas simples para
+		 * comprobar que el metodo obtenerMiembros() funciona correctamente. 		
+		 */
 		miembroTareaS1= createMock(Miembro.class);
 		listaTareaS1 = new LinkedList<Miembro>();
 		listaTareaS1.add(miembroTareaS1);
@@ -212,6 +248,11 @@ public class TestTareaCompuesta extends TestCase{
 	}
        
 	protected void tearDown() {}
+	
+	/**
+	 * El test del constructor verifica que en todas las variables se guardaron correctamente los objetos 
+	 * pasados por parametro.
+	 */
 	public void testConstructor (){
 		
 		assertSame("Confirma que la descripcción enviada por parametro se guardo correctamente " +
@@ -225,6 +266,10 @@ public class TestTareaCompuesta extends TestCase{
 		
 	}
 	
+	/**
+	 * Este test verifica que cuando utilizamos el metodo agregarTarea(unaTarea) efectivamente la tarea
+	 * pasada por parametro se guarda correctamente en las tareas que componen a la tarea compuesta.
+	 */
 	public void testAgregarTarea()
 	{
 		TareaCompuesta tC= this.getTareaC();
@@ -239,15 +284,22 @@ public class TestTareaCompuesta extends TestCase{
 		
 	}
 	
-  
+  /**
+   * Esta test verifica que siempre que se le envie el mensaje tieneOrden() a una TareaCompuesta
+   * retorne falso.
+   */
      public void testTieneOrden() {
 		
 		assertFalse("Comprueba que el metodo retorne falso.", this.getTareaC().tieneOrden());
 		
 		}
      
-     	
-	   public void testVerificarSiEstaEnTrabajoCuandoEstaEnTrabajo() {
+     /**
+      * Este test verifica que cuando una tarea compuesta esta en trabajo, retorne true, basandose
+      * en que una tarea esta en trabajo cuando todas sus subtareas estan en trabajo o alguna de ellas esta
+      * creada, iniciada o finalizada y el resto en trabajo.
+      */
+       public void testVerificarSiEstaEnTrabajoCuandoEstaEnTrabajo() {
 		 
 		   		
    		   assertTrue("Confirma que el estado de la tareaCompuestaEnTrabajo efectivamente sea enTrabajo.", 
@@ -255,6 +307,11 @@ public class TestTareaCompuesta extends TestCase{
    		  
 	}
 
+       /**
+        * Este test verifica que en caso contrario a todos los anteriores, es decir cuando una tarea NO
+        * esta en trabajo, retorne false. Para ello se lo enviamos a las tareas que estan en todos los otros
+        * estados.
+        */
 	   public void testVerificarSiEstaEnTrabajoCuandoNOEstaEnTrabajo() {
 			 
 	   		
@@ -271,6 +328,10 @@ public class TestTareaCompuesta extends TestCase{
    		  
 	}
 	   
+	   /**
+	    * Este test verifica que cuando una tarea compuesta esta iniciada, retorne true, basandose en que
+	    * de las sub tareas por lo menos una esta iniciada y el resto creadas, o todas iniciadas.
+	    */
 	   public void testVerificarSiEstaIniciadaCuandoEstaIniciada() {
 			 	            
    		
@@ -279,6 +340,11 @@ public class TestTareaCompuesta extends TestCase{
    		  
 	}
 	   
+	   /**
+        * Este test verifica que en caso contrario a todos los anteriores, es decir cuando una tarea NO
+        * esta inciada, retorne false. Para ello se lo enviamos a las tareas que estan en todos los otros
+        * estados.
+        */
 	   public void testVerificarSiEstaIniciadaCuandoNOEstaIniciada() {
 			 
 	   		
@@ -295,15 +361,24 @@ public class TestTareaCompuesta extends TestCase{
    		  
 	}
 	   
- public void testVerificarSiEstaFinalizadaCuandoEstaFinalizada() {
+	   /**
+	    * Este test verifica que cuando una tarea compuesta esta fenalizada el metodo verificarSiEstaFinalizada()
+	    * devuelva true, basandose en que todas sus sub tareas deben estar finalizadas.
+	    */
+   public void testVerificarSiEstaFinalizadaCuandoEstaFinalizada() {
 			 		             
    	
    		   assertTrue("Confirma que el estado de la tareaCompuestaFinalizada efectivamente sea finalizada.", 
 				this.getTareaCompuestaFinalizada().verificarSiEstaFinalizada());
    		  
 	}
- 
- public void testVerificarSiEstaFinalizadaCuandoNOEstaFinalizada() {
+   
+   /**
+    * Este test verifica que en caso contrario a todos los anteriores, es decir cuando una tarea NO
+    * esta finalizada, retorne false. Para ello se lo enviamos a las tareas que estan en todos los otros
+    * estados.
+    */
+   public void testVerificarSiEstaFinalizadaCuandoNOEstaFinalizada() {
       
 	       assertFalse("Confirma que el estado de la tareaCompuestaCerrada no sea Finalizada.", 
 				this.getTareaCompuestaCerrada().verificarSiEstaFinalizada());
@@ -318,6 +393,11 @@ public class TestTareaCompuesta extends TestCase{
 		  
 }
  
+   /**
+    * Este test verifica que una tarea compuesta en estado cerrada al recibir el metodo
+    * verificarSiEstaCerrada() retorne true, basandose en que todas sus subtareas tienen
+    * como estado cerrada.
+    */
  public void testVerificarSiEstaCerradaCuandoEstaCerrada() {
       
 	
@@ -326,6 +406,11 @@ public class TestTareaCompuesta extends TestCase{
 		  
 }
  
+ /**
+  * Este test verifica que en caso contrario a todos los anteriores, es decir cuando una tarea NO
+  * esta cerrada, retorne false. Para ello se lo enviamos a las tareas que estan en todos los otros
+  * estados.
+  */
  public void testVerificarSiEstaCerradaCuandoNOEstaCerrada() {
      
 		
@@ -341,14 +426,23 @@ public class TestTareaCompuesta extends TestCase{
 				this.getTareaCompuestaIniciada().verificarSiEstaCerrada());
 	  
 }
+ /**
+  * Este test verifica que cuando una tarea compuesta con todas sus subtareas en estado creada
+  * retorne true.
+  */
  public void testVerificarSiEstaCreadaCuandoEstaCreada() {
      
 	
-		   assertTrue("Confirma que el estado de la tareaCompuestaCerrada efectivamente sea cerrada.", 
+		   assertTrue("Confirma que el estado de la tareaCompuestaCerrada efectivamente sea creada.", 
 			this.getTareaCompuestaCreada().verificarSiEstaCreada());
 		  
 }
  
+ /**
+  * Este test verifica que en caso contrario a todos los anteriores, es decir cuando una tarea NO
+  * esta creada, retorne false. Para ello se lo enviamos a las tareas que estan en todos los otros
+  * estados.
+  */
  public void testVerificarSiEstaCerradaCuandoNOEstaCreada() {
      
 		
@@ -364,6 +458,10 @@ public class TestTareaCompuesta extends TestCase{
 			this.getTareaCompuestaIniciada().verificarSiEstaCreada());
 
 }
+ /**
+  * Esta test verifica que cuando una tarea posee alguna sub tarea en estado pausada y recibe el
+  * mensaje verificarSiEstaPausada() retorne true.
+  */
  public void testVerificarSiEstaPausadaCuandoEstaPausada() {
 	     
 	 
@@ -373,6 +471,11 @@ public class TestTareaCompuesta extends TestCase{
 		  
 }
  
+ /**
+  * Este test verifica que en caso contrario a todos los anteriores, es decir cuando una tarea NO
+  * esta pausada, retorne false. Para ello se lo enviamos a las tareas que estan en todos los otros
+  * estados.
+  */
  public void testVerificarSiEstaPausadaCuandoNOEstaPausada() {
      
 		assertFalse("Confirma que el estado de la tareaCompuestaFinalizada no sea Pausada.", 
@@ -388,36 +491,61 @@ public class TestTareaCompuesta extends TestCase{
 	  
 }
  
+ /**
+  * Este test verifica que cuando la tarea compuesta esta en trabajo y se le envia el mensaje
+  * verEstado(), retorne en trabajo.
+  */
  public void testVerEstadoTareaEnTrabajo() {
 	 assertEquals("Confirma que el estado de la tareaCompuestaEntrabajo es EnTrabajo.", 
 				EnTrabajo.GetInstance().toString(),this.getTareaCompuestaEnTrabajo().verEstado());
 	 
  }
  
+ /**
+  * Este test verifica que cuando la tarea compuesta esta iniciada y se le envia el mensaje
+  * verEstado(), retorne iniciada.
+  */
  public void testVerEstadoTareaIniciada() {
 	 assertEquals("Confirma que el estado de la tareaCompuestaIniciada es Iniciada.", 
 				Iniciada.GetInstance().toString(),this.getTareaCompuestaIniciada().verEstado());
 	 
  }
  
+ /**
+  * Este test verifica que cuando la tarea compuesta esta pausada y se le envia el mensaje
+  * verEstado(), retorne pausada.
+  */
  public void testVerEstadoTareaPausada() {
 	 assertEquals("Confirma que el estado de la tareaCompuestaEntrabajo es Pausada.", 
 			 Pausada.GetInstance().toString(),this.getTareaCompuestaPausada().verEstado());
 	 
  }
  
+ /**
+  * Este test verifica que cuando la tarea compuesta esta creada y se le envia el mensaje
+  * verEstado(), retorne creada.
+  */
  public void testVerEstadoTareaCreada() {
 	 assertEquals("Confirma que el estado de la tareaCompuestaCreada es Creada.", 
 			 Creada.GetInstance().toString(),this.getTareaCompuestaCreada().verEstado());
 	 
  }
  
+ 
+ /**
+  * Este test verifica que cuando la tarea compuesta esta cerrada y se le envia el mensaje
+  * verEstado(), retorne cerrada.
+  */
  public void testVerEstadoTareaCerrada() {
 	 assertEquals("Confirma que el estado de la tareaCompuestaCerrada es Cerrada.", 
 			 Cerrada.GetInstance().toString(),this.getTareaCompuestaCerrada().verEstado());
 	 
  }
  
+ /**
+  * Este test verifica que cuando la tarea compuesta esta finalizada y se le envia el mensaje
+  * verEstado(), retorne finalizada.
+  */
  public void testVerEstadoTareaFinalizada() {
 	 assertEquals("Confirma que el estado de la tareaCompuestaFinalizada es Finalizada.", 
 			 Finalizada.GetInstance().toString(),this.getTareaCompuestaFinalizada().verEstado());
@@ -435,6 +563,10 @@ public class TestTareaCompuesta extends TestCase{
 	 
  }*/
  
+ /**
+  * Este test verifica que cuando a una tarea de esta cerrado se le dice reabrite(motivo) efectivamente
+  * se reabra, y lo hace verificando que a todas sus subtareas les llegue el mensaje reabrite(motivo).
+  */
  public void testReAbrite() 
  {
 	
@@ -449,6 +581,10 @@ public class TestTareaCompuesta extends TestCase{
 	 
  }
  
+ /**
+  * Este test verifica que cuando se le dice a una tarea compuesta cerrate(), efectivamente se cierra enviandole
+  * el mismo mensaje a todas sus subtareas.
+  */
  public void testCerrate() 
  {
 	 this.tareaC.agregarTarea(this.tareaSEnTrabajo);
