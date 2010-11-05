@@ -18,7 +18,7 @@ public class TestEnTrabajo extends TestEstado {
 			this.setUnaInstancia(EnTrabajo.GetInstance());
 			this.setOtraInstancia(EnTrabajo.GetInstance());
 			this.setEstado(EnTrabajo.GetInstance());
-			this.setEstadoQueNoDebeCambiar(EnTrabajo.GetInstance());
+			
 		}
 
 		public void testPausada() throws NoPuedeCambiarseElEstadoExcepccion {

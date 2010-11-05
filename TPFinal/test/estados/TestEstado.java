@@ -15,7 +15,7 @@ import junit.framework.TestCase;
 	private Estado unaInstancia;
 	private Estado otraInstancia;
 	protected Estado estado;
-	protected Estado estadoQueNoDebeCambiar;
+	
 	
 	protected TareaSimple TSConEstadoQueNoCambia;
 	protected TareaSimple tarea;
@@ -25,17 +25,20 @@ import junit.framework.TestCase;
 		this.TSConEstadoQueNoCambia = createMock(TareaSimple.class);
 				
 			}
-	
+	/**
+	 * Testea que ambas instancias de Cerrada sean las mismas ya que es
+	 * un singleton.
+	 */
+		
 	public void testConstructor (){
 		
-		//Testea que ambas instancias de Cerrada sean las mismas ya que es
-		//un singleton.
+		
 		Assert.assertSame(this.getUnaInstancia(), this.getOtraInstancia());
 		Assert.assertSame(this.getOtraInstancia(), this.getUnaInstancia());
 		
 	}
 	
-	//@(expected = NoPuedeCambiarseElEstadoExcepccion.class)  
+	
 	public void testEnTrabajo()throws NoPuedeCambiarseElEstadoExcepccion  {
 		
 		
@@ -45,7 +48,7 @@ import junit.framework.TestCase;
 		
 		 try {
 		        this.getEstado().enTrabajo(TSConEstadoQueNoCambia);	
-		        fail("No exception caught :(");
+		        fail("No capto la excepccion :(");
 		    }
 		    catch (Exception NoPuedeCambiarseElEstadoExcepccion) {
 		       // assertEquals(this.getTSConEstadoQueNoCambia().getEstado()., NoPuedeCambiarseElEstadoExcepccion.getCause().getClass());
@@ -62,8 +65,7 @@ import junit.framework.TestCase;
 		
 		 try {
 		        this.getEstado().iniciada(TSConEstadoQueNoCambia);	
-		        fail("No exception caught :(");
-		    }
+		        fail("No capto la excepccion :(");		    }
 		    catch (Exception NoPuedeCambiarseElEstadoExcepccion) {
 		       // assertEquals(this.getTSConEstadoQueNoCambia().getEstado()., NoPuedeCambiarseElEstadoExcepccion.getCause().getClass());
 		        //assertEquals("Message",NoPuedeCambiarseElEstadoExcepccion.getMessage());
@@ -99,8 +101,7 @@ import junit.framework.TestCase;
 		
 		 try {
 		        this.getEstado().pausada(TSConEstadoQueNoCambia);	
-		        fail("No exception caught :(");
-		    }
+		        fail("No capto la excepccion :(");		    }
 		    catch (Exception NoPuedeCambiarseElEstadoExcepccion) {
 		       // assertEquals(this.getTSConEstadoQueNoCambia().getEstado()., NoPuedeCambiarseElEstadoExcepccion.getCause().getClass());
 		        //assertEquals("Message",NoPuedeCambiarseElEstadoExcepccion.getMessage());
@@ -115,8 +116,7 @@ import junit.framework.TestCase;
 		
 		 try {
 		        this.getEstado().creada(TSConEstadoQueNoCambia);	
-		        fail("No exception caught :(");
-		    }
+		        fail("No capto la excepccion :(");		    }
 		    catch (Exception NoPuedeCambiarseElEstadoExcepccion) {
 		       // assertEquals(this.getTSConEstadoQueNoCambia().getEstado()., NoPuedeCambiarseElEstadoExcepccion.getCause().getClass());
 		        //assertEquals("Message",NoPuedeCambiarseElEstadoExcepccion.getMessage());
@@ -176,13 +176,6 @@ import junit.framework.TestCase;
 		this.estado = estado;
 	}
 
-	public Estado getEstadoQueNoDebeCambiar() {
-		return estadoQueNoDebeCambiar;
-	}
-
-	public void setEstadoQueNoDebeCambiar(Estado estadoQueNoDebeCambiar) {
-		this.estadoQueNoDebeCambiar = estadoQueNoDebeCambiar;
-	}
 
 	public TareaSimple getTSConEstadoQueNoCambia() {
 		return TSConEstadoQueNoCambia;

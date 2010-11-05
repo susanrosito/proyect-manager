@@ -43,7 +43,7 @@ public class TestPausada extends TestEstado {
 		verify(this.getTarea());
 	}
     public void testVerificarSiEstaPausada()
-    { assertFalse(this.getEstado().verificarSiEstaPausada()); }
+    { assertTrue(this.getEstado().verificarSiEstaPausada()); }
 	
 
 }
