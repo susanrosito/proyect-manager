@@ -1,7 +1,12 @@
 package tareas;
 
-import static org.easymock.EasyMock.createMock;
 import static org.easymock.EasyMock.*;
+
+import java.util.LinkedList;
+import java.util.List;
+
+import usuarioMiembroYFecha.Miembro;
+
 import estados.*;
 
 
@@ -26,10 +31,28 @@ public class TestTareaCompuesta extends TestCase{
 	TareaCompuesta tareaCompuestaCreada;
 	TareaCompuesta tareaCompuestaPausada;
 	
+	TareaCompuesta otraTareaCompuesta;
+	
+	Miembro miembroTareaS1;
+	List<Miembro> listaTareaS1;
+
+	Miembro miembroTareaS2 ;
+	List<Miembro> listaTareaS2;
+		
+	Miembro miembroTareaC1;
+	Miembro miembro2TareaC1;
+	Miembro miembro3TareaC1;
+	List<Miembro> listaTareaC1;
+	
+	List<Miembro> listaConTodosLosMiembros;
+	
+	String stringMotivo;
+	
 	
 	
 	public void setUp()
-	{
+	{	
+		this.stringMotivo= "Se re abre la tarea porque...";
 		this.tareaSCerrada = createMock(TareaSimple.class);
 		expect(tareaSCerrada.verificarSiEstaIniciada()).andReturn(false);
 		expectLastCall().anyTimes();
@@ -43,6 +66,10 @@ public class TestTareaCompuesta extends TestCase{
 		expectLastCall().anyTimes();
 		expect(tareaSCerrada.verificarSiEstaPausada()).andReturn(false);
 		expectLastCall().anyTimes();
+		this.tareaSCerrada.reAbrite(this.stringMotivo);
+		
+		expectLastCall().anyTimes();
+		
 		
 		this.tareSFinalizada = createMock(TareaSimple.class);
 		expect(tareSFinalizada.verificarSiEstaIniciada()).andReturn(false);
@@ -71,6 +98,7 @@ public class TestTareaCompuesta extends TestCase{
 		expectLastCall().anyTimes();
 		expect(tareaSEnTrabajo.verificarSiEstaPausada()).andReturn(false);
 		expectLastCall().anyTimes();
+		this.tareaSEnTrabajo.cerrate();
 		
 		this.tareaSPausada = createMock(TareaSimple.class);
 		expect(tareaSPausada.verificarSiEstaIniciada()).andReturn(false);
@@ -99,6 +127,7 @@ public class TestTareaCompuesta extends TestCase{
 		expectLastCall().anyTimes();
 		expect(tareaSCreada.verificarSiEstaPausada()).andReturn(false);
 		expectLastCall().anyTimes();
+		this.tareaSCreada.cerrate();
 		
 		this.tareaSIniciada = createMock(TareaSimple.class);
 		expect(tareaSIniciada.verificarSiEstaIniciada()).andReturn(true);
@@ -113,11 +142,12 @@ public class TestTareaCompuesta extends TestCase{
 		expectLastCall().anyTimes();
 		expect(tareaSIniciada.verificarSiEstaPausada()).andReturn(false);
 		expectLastCall().anyTimes();
-		
+		this.tareaSIniciada.cerrate();
 		
 		replay(tareaSIniciada, tareSFinalizada, tareaSCreada, tareaSCerrada, tareaSEnTrabajo, tareaSPausada );
 			
 		this.tareaC = new TareaCompuesta(this.nombreTC,this.descripccionTC , null);
+		
 		
 		this.tareaCompuestaEnTrabajo=new TareaCompuesta(null,null,null);
 		tareaCompuestaEnTrabajo.agregarTarea(this.getTareaSCreada());
@@ -150,6 +180,34 @@ public class TestTareaCompuesta extends TestCase{
 		tareaCompuestaPausada.agregarTarea(this.getTareaSCreada());
 		tareaCompuestaPausada.agregarTarea(this.getTareaSEnTrabajo());
 		tareaCompuestaPausada.agregarTarea(this.getTareaSPausada());
+		
+				
+		miembroTareaS1= createMock(Miembro.class);
+		listaTareaS1 = new LinkedList<Miembro>();
+		listaTareaS1.add(miembroTareaS1);
+		
+		miembroTareaS2= createMock(Miembro.class);
+		listaTareaS2 = new LinkedList<Miembro>();
+		listaTareaS2.add(miembroTareaS2);
+		
+		miembroTareaC1= createMock(Miembro.class);
+		miembro2TareaC1= createMock(Miembro.class);
+		miembro3TareaC1= createMock(Miembro.class);
+		listaTareaC1 = new LinkedList<Miembro>();
+		listaTareaC1.add(miembroTareaC1);
+		listaTareaC1.add(miembro2TareaC1);
+		listaTareaC1.add(miembro3TareaC1);
+		
+		listaConTodosLosMiembros= new LinkedList<Miembro>();
+		listaConTodosLosMiembros.add(miembroTareaC1);
+		listaConTodosLosMiembros.add(miembro2TareaC1);
+		listaConTodosLosMiembros.add(miembro3TareaC1);
+		listaConTodosLosMiembros.add(miembroTareaS2);
+		listaConTodosLosMiembros.add(miembroTareaS1);
+		
+		this.otraTareaCompuesta= new TareaCompuesta(null,null,null);
+
+		
 		
 	}
        
@@ -366,6 +424,45 @@ public class TestTareaCompuesta extends TestCase{
 	 
  }
  
+ /*public void testObtenerMiembros(){
+	
+	 this.tareaC.agregarTarea(this.tareaSEnTrabajo);
+	 this.tareaC.agregarTarea(this.tareaSCreada);
+	 this.tareaC.agregarTarea(this.otraTareaCompuesta);
+	 
+	// expect(this.tareaSEnTrabajo.obtenerMiembros()).andReturn(this.listaTareaS1);
+	 
+	 
+ }*/
+ 
+ public void testReAbrite() 
+ {
+	
+	 this.tareaC.agregarTarea(this.tareaSCerrada);
+	 this.tareaC.agregarTarea(this.tareaSCerrada);
+	 this.tareaC.agregarTarea(this.tareaSCerrada);
+	 
+	 
+	 this.tareaC.reAbrite(this.stringMotivo);
+	
+     verify(this.tareaSCerrada);
+	 
+ }
+ 
+ public void testCerrate() 
+ {
+	 this.tareaC.agregarTarea(this.tareaSEnTrabajo);
+	 this.tareaC.agregarTarea(this.tareaSCreada);
+	 this.tareaC.agregarTarea(this.tareaSIniciada);
+	 
+	    
+		
+	this.tareaC.cerrate();
+	verify(this.tareaSEnTrabajo);
+	verify(this.tareaSCreada);
+    verify(this.tareaSIniciada);
+	 
+ }
  
 	public TareaSimple getTareaSCerrada() {
 		return tareaSCerrada;
@@ -485,6 +582,78 @@ public class TestTareaCompuesta extends TestCase{
 
 	public void setTareaCompuestaPausada(TareaCompuesta tareaCompuestaPausada) {
 		this.tareaCompuestaPausada = tareaCompuestaPausada;
+	}
+
+	public Miembro getMiembroTareaS1() {
+		return miembroTareaS1;
+	}
+
+	public void setMiembroTareaS1(Miembro miembroTareaS1) {
+		this.miembroTareaS1 = miembroTareaS1;
+	}
+
+	public List<Miembro> getListaTareaS1() {
+		return listaTareaS1;
+	}
+
+	public void setListaTareaS1(List<Miembro> listaTareaS1) {
+		this.listaTareaS1 = listaTareaS1;
+	}
+
+	public Miembro getMiembroTareaS2() {
+		return miembroTareaS2;
+	}
+
+	public void setMiembroTareaS2(Miembro miembroTareaS2) {
+		this.miembroTareaS2 = miembroTareaS2;
+	}
+
+	public List<Miembro> getListaTareaS2() {
+		return listaTareaS2;
+	}
+
+	public void setListaTareaS2(List<Miembro> listaTareaS2) {
+		this.listaTareaS2 = listaTareaS2;
+	}
+
+	public Miembro getMiembroTareaC1() {
+		return miembroTareaC1;
+	}
+
+	public void setMiembroTareaC1(Miembro miembroTareaC1) {
+		this.miembroTareaC1 = miembroTareaC1;
+	}
+
+	public Miembro getMiembro2TareaC1() {
+		return miembro2TareaC1;
+	}
+
+	public void setMiembro2TareaC1(Miembro miembro2TareaC1) {
+		this.miembro2TareaC1 = miembro2TareaC1;
+	}
+
+	public Miembro getMiembro3TareaC1() {
+		return miembro3TareaC1;
+	}
+
+	public void setMiembro3TareaC1(Miembro miembro3TareaC1) {
+		this.miembro3TareaC1 = miembro3TareaC1;
+	}
+
+	public List<Miembro> getListaTareaC1() {
+		return listaTareaC1;
+	}
+
+	public void setListaTareaC1(List<Miembro> listaTareaC1) {
+		this.listaTareaC1 = listaTareaC1;
+	}
+
+	public List<Miembro> getListaConTodosLosMiembros() {
+		return listaConTodosLosMiembros;
+	}
+
+	public void setListaConTodosLosMiembros(List<Miembro> listaConTodosLosMiembros) {
+		this.listaConTodosLosMiembros = listaConTodosLosMiembros;
 	}
 
 
