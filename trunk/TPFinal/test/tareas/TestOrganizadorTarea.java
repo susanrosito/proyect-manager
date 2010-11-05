@@ -23,20 +23,35 @@ public class TestOrganizadorTarea extends TestCase{
 	
 	public void setUp()
 	{
+		/*
+		 * Crea los mocks de la tarea anterior, y uno de tarea simple y otro de tarea compuesta para
+		 * testear los mensajes.
+		 */
 		this.tareaAnterior= createMock(TareaSimple.class);
 		this.tareaS= createMock(TareaSimple.class);
 		this.tareaC= createMock(TareaCompuesta.class);	
 		
+		/*
+		 * Crea  las dos variables de ornaizadorTarea una con una tarea simple y otra con una tarea compuesta 
+		 */
 		this.orgConTareaC= new OrganizadorTarea(this.tareaAnterior, this.tareaC );
 		this.orgConTareaS= new OrganizadorTarea(this.tareaAnterior, this.tareaS );
 		
+		/* 
+		 * Setea la variable con el motivo por el cual se reabriria la tarea para testear
+		 * el mensaje reAbrite(motivo)
+		 */
 		this.stringMotivo= "Se re abre la tarea porque...";
 		
 	}
 	
 	public void tearDown(){}
 	
-	public void testPuedeTrabajarseEnEllaVerdadero()
+	/**
+	 * Este test se ocupa de comprobar que cuando la tarea anterior esta finalizada el metodo
+	 * sePuedeTrabajarEnElla() retorne true.
+	 */
+	 public void testPuedeTrabajarseEnEllaVerdadero()
 	{
 		expect(this.getTareaAnterior().verificarSiEstaFinalizada()).andReturn(true);     
 		replay(this.getTareaAnterior());
@@ -45,6 +60,10 @@ public class TestOrganizadorTarea extends TestCase{
 	
 	}
 	
+	/**
+	 * Este test se ocupa de comprobar que cuando la tarea anterior NO esta finalizada el metodo
+	 * sePuedeTrabajarEnElla() retorne false.
+	 */
 	public void testPuedeTrabajarseEnEllaFalso()
 	{
 		expect(this.getTareaAnterior().verificarSiEstaFinalizada()).andReturn(false);     
@@ -54,6 +73,10 @@ public class TestOrganizadorTarea extends TestCase{
 	
 	}
 	
+	/**
+	 * Este test comprueba que el organizador de tareas envíe el mensaje cerrate() a la tareaSimple
+	 * que contiene, cuando lo recibe.
+	 */
 	public void testCerrateTareaSimple() {
 		
 		this.getTareaS().cerrate();           
@@ -64,6 +87,10 @@ public class TestOrganizadorTarea extends TestCase{
        verify(this.getTareaS());;
        }
 		
+	/**
+	 * Este test comprueba que el organizador de tareas envíe el mensaje cerrate() a la tareaCompuesta
+	 * que contiene, cuando lo recibe.
+	 */
    public void testCerrateTareaCompuesta() {
 		
 		this.getTareaC().cerrate();           
@@ -74,7 +101,10 @@ public class TestOrganizadorTarea extends TestCase{
        verify(this.getTareaC());;
        }
 
-	
+   /**
+	 * Este test comprueba que el organizador de tareas envíe el mensaje estaEnTiempo() a la tareaSimple
+	 * que contiene y retorne lo que esta retornaría,cuando lo recibe.
+	 */
 	public void testEstaEnTiempoTareaSimple() {
 		
 		expect(this.getTareaS().estaEnTiempo()).andReturn(true);     
@@ -84,7 +114,10 @@ public class TestOrganizadorTarea extends TestCase{
 	       
 	}
 
-	
+	 /**
+	 * Este test comprueba que el organizador de tareas envíe el mensaje estaEnTiempo() a la tareaCompuesta
+	 * que contiene y retorne lo que esta retornaría,cuando lo recibe.
+	 */
 	public void testEstaEnTiempoTareaCompuesta() {
 		
 		
