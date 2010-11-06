@@ -197,29 +197,20 @@ public class ProyectoTestCase extends TestCase {
 	public void testHsTotalesTrabajadas() {
 
 		// agrego los miembros
-		this.getProyecto().getListaDeMiembros().add(getMiembro1());
-		this.getProyecto().getListaDeMiembros().add(getMiembro2());
-		
-		expect(miembro1.getHsTrabajadas()).andReturn(7);
-		expect(miembro2.getHsTrabajadas()).andReturn(15);
-		replay(miembro1);
-		replay(miembro2);
+		this.getProyecto().getListaDeMiembros().add(this.getMiembro1());
+		this.getProyecto().getListaDeMiembros().add(this.getMiembro2());
 		
 		// utilizo el metodo hsTotalesTrabajadas
-		int resultadoReal = this.getProyecto().hsTotalesTrabajadas();
-
-		// el valor esperado que seria la suma de del total de las horas de cada
-		// miembro
-		int esperado = this.getMiembro2().getHsTrabajadas()
-				+ this.getMiembro1().getHsTrabajadas();
-
-		// como solo tengo 2 miembros solo comprueba las horas de esos miembros
-		// comprueba las horas trabajadas de todos los miembros,
-		// como ninguno trabajo en ningun momento su total de hs trabajadas son
-		// 0
-
-		assertEquals(esperado, resultadoReal);
-
+		//int resultadoReal = this.getProyecto().hsTotalesTrabajadas();
+		
+		// creo los mock como miembros 
+		expect(miembro1.getHsTrabajadas()).andReturn(7);
+		expect(miembro2.getHsTrabajadas()).andReturn(15);
+		replay(miembro1,miembro2);
+		
+		int resultado = this.getProyecto().hsTotalesTrabajadas();
+		verify(this.miembro1,this.miembro2);
+		assertEquals(22,resultado);
 	}
 
 	public void testCerrarTarea() {
