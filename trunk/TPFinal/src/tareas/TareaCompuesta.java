@@ -225,12 +225,6 @@ public class TareaCompuesta extends Tarea {
 		return tareasQueLaComponenen;
 	}
 
-	public static void main(String[] args) {
-		TareaSimple t = new TareaSimple(null, null, null);
-		TareaCompuesta tc = new TareaCompuesta(null, null, null);
-
-		tc.agregarTarea(t);
-		tc.obtenerMiembros();
-	}
+	
 
 }
