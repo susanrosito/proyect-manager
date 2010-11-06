@@ -51,8 +51,7 @@ import junit.framework.TestCase;
 		        fail("No capto la excepccion :(");
 		    }
 		    catch (Exception NoPuedeCambiarseElEstadoExcepccion) {
-		       // assertEquals(this.getTSConEstadoQueNoCambia().getEstado()., NoPuedeCambiarseElEstadoExcepccion.getCause().getClass());
-		        //assertEquals("Message",NoPuedeCambiarseElEstadoExcepccion.getMessage());
+		       
 		    }
 	}
 	
@@ -67,8 +66,7 @@ import junit.framework.TestCase;
 		        this.getEstado().iniciada(TSConEstadoQueNoCambia);	
 		        fail("No capto la excepccion :(");		    }
 		    catch (Exception NoPuedeCambiarseElEstadoExcepccion) {
-		       // assertEquals(this.getTSConEstadoQueNoCambia().getEstado()., NoPuedeCambiarseElEstadoExcepccion.getCause().getClass());
-		        //assertEquals("Message",NoPuedeCambiarseElEstadoExcepccion.getMessage());
+		      
 		    }
 	}
 	
@@ -103,8 +101,7 @@ import junit.framework.TestCase;
 		        this.getEstado().pausada(TSConEstadoQueNoCambia);	
 		        fail("No capto la excepccion :(");		    }
 		    catch (Exception NoPuedeCambiarseElEstadoExcepccion) {
-		       // assertEquals(this.getTSConEstadoQueNoCambia().getEstado()., NoPuedeCambiarseElEstadoExcepccion.getCause().getClass());
-		        //assertEquals("Message",NoPuedeCambiarseElEstadoExcepccion.getMessage());
+		       
 		    }
 	}
 	
@@ -118,8 +115,7 @@ import junit.framework.TestCase;
 		        this.getEstado().creada(TSConEstadoQueNoCambia);	
 		        fail("No capto la excepccion :(");		    }
 		    catch (Exception NoPuedeCambiarseElEstadoExcepccion) {
-		       // assertEquals(this.getTSConEstadoQueNoCambia().getEstado()., NoPuedeCambiarseElEstadoExcepccion.getCause().getClass());
-		        //assertEquals("Message",NoPuedeCambiarseElEstadoExcepccion.getMessage());
+		       
 		    }
 	}
 
