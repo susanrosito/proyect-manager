@@ -4,11 +4,14 @@ import java.util.List;
 import java.util.ArrayList;
 import usuarioMiembroYFecha.Miembro;
 import usuarioMiembroYFecha.Fecha;
+import estados.Creada;
+import estados.Estado;
+
 import estados.NoPuedeCambiarseElEstadoExcepccion;
 
 public class TareaSimple extends Tarea {
 	private Miembro miembroAsignado;
-
+	private Estado estado;
 	/**
 	 * Constructor
 	 * 
@@ -21,6 +24,7 @@ public class TareaSimple extends Tarea {
 	 */
 	public TareaSimple(String nombre, String descrip, Fecha fechaEstFinalizacion) {
 		super(nombre, descrip, fechaEstFinalizacion);
+		this.setEstado(Creada.GetInstance());
 	}
 
 	/**
@@ -67,7 +71,7 @@ public class TareaSimple extends Tarea {
 	}
 
 	public String verEstado() {
-		return super.getEstado().toString();
+		return this.getEstado().toString();
 	}
 
 	public void reAbrite(String note) {
@@ -139,5 +143,16 @@ public class TareaSimple extends Tarea {
 	}
 	public Miembro getMiembroAsignado() {
 		return this.miembroAsignado;
+	}
+	public static void main(String[] args) {
+	
+}
+
+	public void setEstado(Estado estado) {
+		this.estado = estado;
+	}
+
+	public Estado getEstado() {
+		return estado;
 	}
 }
