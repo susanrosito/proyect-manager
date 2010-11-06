@@ -2,6 +2,16 @@ package usuarioMiembroYFecha;
 
 import proyectoYSistema.Proyecto;
 
+/**
+ * Esta clase representará al miembro de un proyecto. Para ello va a tener una variable
+ * del tipo String, el rol que ocupa en el proyecto.
+ * Dos variables del tipo fecha que representarán la fecha de inicio desde que tiene ese
+ * rol en ese proyecto y la fecha del fin del mismo, que indicará que ese ya no es su
+ * rol actual. 
+ * Una variable del tipo Protyecto, el proyecto en el que esta.
+ * Un int que representa las horas trabajadas en ese proyecto con ese rol.
+ * Y por ultimo un usuario que identifica a la persona.
+ */
 public class Miembro {
 
 	private Usuario usuario;
@@ -11,6 +21,16 @@ public class Miembro {
 	private Fecha fechaInicio;
 	private Fecha fechaFin;
 
+	/**
+	 * El constructor recibe dos parametros, un usuario que representa a la persona
+	 * que pasa a ser miembro para luego ser introducido en un proyecto, y un String 
+	 * que representa el rol que va a desempeñar.
+	 * Las horas trabajadas hasta el momento son cero y la fecha de Inicio es la fecha
+	 * actual.
+	 * Las demás variables se mantienen en null.
+	 * @param elUsuario
+	 * @param rol
+	 */
 	public Miembro(Usuario elUsuario, String rol) {
 		this.usuario = elUsuario;
 		this.rol = rol;
@@ -18,8 +38,17 @@ public class Miembro {
 		this.proyecto = null;
 		this.fechaInicio = new Fecha();
 		this.fechaFin = null;
+
 	}
 
+	/**
+	 * El metodo cambiarRol() recibe un solo parametro del tipo String que es 
+	 * el nuevo rol del usuario al que se le envia el mensaje. Lo que retornará 
+	 * sera una nueva instancia nueva de miembro que contendra el mismo usuario 
+	 * que la instancia anterior pero con otro String que representa su nuevo rol.
+	 * @param otroRol
+	 * @return
+	 */
 	protected Miembro cambiarRol(String otroRol) {
 
 		this.setFechaFin(new Fecha());
@@ -75,9 +104,6 @@ public class Miembro {
 		this.fechaFin = fechaFin;
 	}
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 
-	}
 
 }
