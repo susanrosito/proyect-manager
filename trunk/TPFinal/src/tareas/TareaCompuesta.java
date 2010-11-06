@@ -190,11 +190,8 @@ public class TareaCompuesta extends Tarea {
 	 * 
 	 */
 	protected void agregarTarea(AdministradorTarea tarea) {
-		List<AdministradorTarea> tareasYaAgregadas = this
-				.getTareasQueLaComponenen();
-		tareasYaAgregadas.add(tarea);
-		this.setTareasQueLaComponenen(tareasYaAgregadas);
-
+		
+		this.getTareasQueLaComponenen().add(tarea);
 	}
 
 
@@ -205,11 +202,15 @@ public class TareaCompuesta extends Tarea {
 	 */
 	
 	public List<Miembro> obtenerMiembros() {
+		
 		List<Miembro> miembros = new LinkedList<Miembro>();
 
 		for (AdministradorTarea at : this.getTareasQueLaComponenen()) {
-
-			miembros.addAll(at.obtenerMiembros());
+			
+			for (Miembro m : at.obtenerMiembros()){
+				
+				miembros.add(m); }
+			
 		}
 
 		return miembros;
@@ -225,6 +226,6 @@ public class TareaCompuesta extends Tarea {
 		return tareasQueLaComponenen;
 	}
 
-	
+
 
 }

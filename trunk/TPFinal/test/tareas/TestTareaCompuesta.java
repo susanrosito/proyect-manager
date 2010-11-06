@@ -56,6 +56,36 @@ public class TestTareaCompuesta extends TestCase{
 		 * Reabrir tarea */
 		this.stringMotivo= "Se re abre la tarea porque...";
 		
+		/* A Continuacion se setean solo las variables que representan los miembros de la tarea
+		 * compuesta que se agregaran a cualquiera de los mock objects de las tareas simples para
+		 * comprobar que el metodo obtenerMiembros() funciona correctamente. 		
+		 */
+		miembroTareaS1= createMock(Miembro.class);
+		listaTareaS1 = new LinkedList<Miembro>();
+		listaTareaS1.add(miembroTareaS1);
+		
+		miembroTareaS2= createMock(Miembro.class);
+		listaTareaS2 = new LinkedList<Miembro>();
+		listaTareaS2.add(miembroTareaS2);
+		
+		miembroTareaC1= createMock(Miembro.class);
+		miembro2TareaC1= createMock(Miembro.class);
+		miembro3TareaC1= createMock(Miembro.class);
+		
+		listaTareaC1 = new LinkedList<Miembro>();
+		listaTareaC1.add(miembroTareaC1);
+		listaTareaC1.add(miembro2TareaC1);
+		listaTareaC1.add(miembro3TareaC1);
+		
+		this.otraTareaCompuesta= createMock(TareaCompuesta.class);
+		expect(this.otraTareaCompuesta.obtenerMiembros()).andReturn(this.listaTareaC1);
+		
+		listaConTodosLosMiembros= new LinkedList<Miembro>();
+		listaConTodosLosMiembros.add(miembroTareaC1);
+		listaConTodosLosMiembros.add(miembro2TareaC1);
+		listaConTodosLosMiembros.add(miembro3TareaC1);
+		listaConTodosLosMiembros.add(miembroTareaS2);
+		listaConTodosLosMiembros.add(miembroTareaS1);
 		/*A continuación se setean todos las tareas simples que son todos mock objects capaces de
 		 * responder a los mensajes:
 		 * 
@@ -104,6 +134,7 @@ public class TestTareaCompuesta extends TestCase{
 		expectLastCall().anyTimes();
 		expect(tareSFinalizada.verificarSiEstaPausada()).andReturn(false);
 		expectLastCall().anyTimes();
+		this.tareSFinalizada.cerrate();
 		
 		//Setea la vaiable tareaSEnTrabajo que por medio de un mockObject representa
 		//a una tareaSimple con estado EnTrabajo.
@@ -120,7 +151,8 @@ public class TestTareaCompuesta extends TestCase{
 		expectLastCall().anyTimes();
 		expect(tareaSEnTrabajo.verificarSiEstaPausada()).andReturn(false);
 		expectLastCall().anyTimes();
-		this.tareaSEnTrabajo.cerrate();
+		expect(this.tareaSEnTrabajo.obtenerMiembros()).andReturn(this.listaTareaS1);
+		
 		
 		//Setea la vaiable tareaSEnTrabajo que por medio de un mockObject representa
 		//a una tareaSimple con estado EnTrabajo.
@@ -137,6 +169,7 @@ public class TestTareaCompuesta extends TestCase{
 		expectLastCall().anyTimes();
 		expect(tareaSPausada.verificarSiEstaPausada()).andReturn(true);
 		expectLastCall().anyTimes();
+		this.tareaSPausada.cerrate();
 		
 		//Setea la vaiable tareaSCreada que por medio de un mockObject representa
 		//a una tareaSimple con estado Creada.
@@ -153,7 +186,8 @@ public class TestTareaCompuesta extends TestCase{
 		expectLastCall().anyTimes();
 		expect(tareaSCreada.verificarSiEstaPausada()).andReturn(false);
 		expectLastCall().anyTimes();
-		this.tareaSCreada.cerrate();
+		
+		expect(this.tareaSCreada.obtenerMiembros()).andReturn(this.listaTareaS2);
 		
 		//Setea la vaiable tareaSIniciada que por medio de un mockObject representa
 		//a una tareaSimple con estado Iniciada.
@@ -173,7 +207,7 @@ public class TestTareaCompuesta extends TestCase{
 		this.tareaSIniciada.cerrate();
 		
 		//Confirma que esos mockObjects solo esperan esos mensajes.
-		replay(tareaSIniciada, tareSFinalizada, tareaSCreada, tareaSCerrada, tareaSEnTrabajo, tareaSPausada );
+		replay(tareaSIniciada, tareSFinalizada, tareaSCreada, tareaSCerrada, tareaSEnTrabajo, tareaSPausada, otraTareaCompuesta );
 		
 		//Setea la variable tareaC que va a ser usada para testear el costructor.
 		this.tareaC = new TareaCompuesta(this.nombreTC,this.descripccionTC , null);
@@ -214,34 +248,10 @@ public class TestTareaCompuesta extends TestCase{
 		tareaCompuestaPausada.agregarTarea(this.getTareaSEnTrabajo());
 		tareaCompuestaPausada.agregarTarea(this.getTareaSPausada());
 		
-		/* A Continuacion se setean solo las variables que representan los miembros de la tarea
-		 * compuesta que se agregaran a cualquiera de los mock objects de las tareas simples para
-		 * comprobar que el metodo obtenerMiembros() funciona correctamente. 		
-		 */
-		miembroTareaS1= createMock(Miembro.class);
-		listaTareaS1 = new LinkedList<Miembro>();
-		listaTareaS1.add(miembroTareaS1);
 		
-		miembroTareaS2= createMock(Miembro.class);
-		listaTareaS2 = new LinkedList<Miembro>();
-		listaTareaS2.add(miembroTareaS2);
 		
-		miembroTareaC1= createMock(Miembro.class);
-		miembro2TareaC1= createMock(Miembro.class);
-		miembro3TareaC1= createMock(Miembro.class);
-		listaTareaC1 = new LinkedList<Miembro>();
-		listaTareaC1.add(miembroTareaC1);
-		listaTareaC1.add(miembro2TareaC1);
-		listaTareaC1.add(miembro3TareaC1);
 		
-		listaConTodosLosMiembros= new LinkedList<Miembro>();
-		listaConTodosLosMiembros.add(miembroTareaC1);
-		listaConTodosLosMiembros.add(miembro2TareaC1);
-		listaConTodosLosMiembros.add(miembro3TareaC1);
-		listaConTodosLosMiembros.add(miembroTareaS2);
-		listaConTodosLosMiembros.add(miembroTareaS1);
 		
-		this.otraTareaCompuesta= new TareaCompuesta(null,null,null);
 
 		
 		
@@ -552,16 +562,16 @@ public class TestTareaCompuesta extends TestCase{
 	 
  }
  
- /*public void testObtenerMiembros(){
+ public void testObtenerMiembros(){
 	
 	 this.tareaC.agregarTarea(this.tareaSEnTrabajo);
 	 this.tareaC.agregarTarea(this.tareaSCreada);
 	 this.tareaC.agregarTarea(this.otraTareaCompuesta);
 	 
-	// expect(this.tareaSEnTrabajo.obtenerMiembros()).andReturn(this.listaTareaS1);
+	 assertTrue(this.tareaC.obtenerMiembros().containsAll(this.listaTareaS1));
 	 
 	 
- }*/
+ }
  
  /**
   * Este test verifica que cuando a una tarea de esta cerrado se le dice reabrite(motivo) efectivamente
@@ -585,17 +595,18 @@ public class TestTareaCompuesta extends TestCase{
   * Este test verifica que cuando se le dice a una tarea compuesta cerrate(), efectivamente se cierra enviandole
   * el mismo mensaje a todas sus subtareas.
   */
+ 
  public void testCerrate() 
  {
-	 this.tareaC.agregarTarea(this.tareaSEnTrabajo);
-	 this.tareaC.agregarTarea(this.tareaSCreada);
+	 this.tareaC.agregarTarea(this.tareSFinalizada);
+	 this.tareaC.agregarTarea(this.tareaSPausada);
 	 this.tareaC.agregarTarea(this.tareaSIniciada);
 	 
 	    
 		
 	this.tareaC.cerrate();
-	verify(this.tareaSEnTrabajo);
-	verify(this.tareaSCreada);
+	verify(this.tareSFinalizada);
+	verify(this.tareaSPausada);
     verify(this.tareaSIniciada);
 	 
  }

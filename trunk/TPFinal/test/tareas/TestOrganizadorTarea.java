@@ -21,11 +21,11 @@ public class TestOrganizadorTarea extends TestCase{
 	protected String stringMotivo;
 	
 	/**
-		 * Crea los mocks de la tarea anterior, y uno de tarea simple y otro de tarea compuesta para
-		 * testear los mensajes.
-		 * Crea  las dos variables de ornaizadorTarea una con una tarea simple y otra con una tarea compuesta 
-		 * Setea la variable con el motivo por el cual se reabriria la tarea para testear
-		 * el mensaje reAbrite(motivo)
+		 * El set up crea los mocks de la tarea anterior, y uno de tarea simple y otro de tarea 
+		 * compuesta para testear los mensajes.
+		 * Tambien crea las dos variables de ornaizadorTarea una con una tarea simple y otra con una 
+		 * tarea compuesta y setea la variable con el motivo por el cual se reabriria la tarea para 
+		 * testear el mensaje reAbrite(motivo)
 		 */
 	public void setUp()
 	{
