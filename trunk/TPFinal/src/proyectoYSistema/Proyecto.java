@@ -1,6 +1,7 @@
 package proyectoYSistema;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -34,52 +35,6 @@ public class Proyecto {
 
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
-
-	public void setCreador(Miembro creador) {
-
-		this.creador = creador;
-	}
-
-	public void setListaTareas(List<Tarea> listaTareas) {
-		this.listaTareas = listaTareas;
-	}
-
-	public String getNombre() {
-
-		return this.nombre;
-	}
-
-	public String getDescripcion() {
-
-		return this.descripcion;
-	}
-
-	public Miembro getCreador() {
-
-		return this.creador;
-	}
-
-	public List<Tarea> getListaTareas() {
-
-		return this.listaTareas;
-	}
-
-	public List<Miembro> getListaDeMiembros() {
-
-		return this.listaDeMiembros;
-	}
-
-	public void setListaDeMiembros(List<Miembro> listaDeMiembros) {
-		this.listaDeMiembros = listaDeMiembros;
-	}
-
 	/**
 	 * agrega a la lista de tareas del proyecto una tarea pasada x parametro
 	 * 
@@ -90,14 +45,37 @@ public class Proyecto {
 	}
 
 	/**
-	 * agrega a la lista de miembros un miembro nuevo creado a partir de un
-	 * usuario y un rol,ambos pasados por parametro
+	 * Agrega a la lista de miembros un miembro nuevo creado a partir de un
+	 * usuario y un rol,ambos pasados por parametro Lanza una exepcion si el
+	 * usuario todavia tiene un miebro activo dentro del proyecto. (miembro
+	 * activo se refiere al miembro que tiene su variable fecha de fin en NULL)
 	 * 
 	 * @param usuario
 	 * @param rol
+	 * @throws UsuarioYaTieneRolExepcion
 	 */
-	public void agregarMiembro(Usuario usuario, String rol) {
+	public void agregarMiembro(Usuario usuario, String rol)
+			throws UsuarioYaTieneRolExepcion {
+
+		// recorre la lista de miembros dentro del proyecto
+		for (Miembro m : this.getListaDeMiembros()) {
+
+			// busca los miembros creados a partir del mismo usuario
+			if (usuario.equals(m.getUsuario())) {
+
+				// si la fechaFin del miembro es NULL qiere decir que el miembro
+				// todavia esta desempeñando funciones en el proyecto
+				// y un miembro solo puede tener un rol dentro del proyecto a la
+				// vez
+				if (m.getFechaFin() == null) {
+					throw new UsuarioYaTieneRolExepcion();
+				}
+
+			}
+		}
+		// si no tiene otro rol el miembro es creado y agregado al proyecto
 		this.getListaDeMiembros().add(new Miembro(usuario, rol));
+
 	}
 
 	/**
@@ -204,6 +182,52 @@ public class Proyecto {
 
 		tarea.modificarMiembroAsignado(miembro1);
 
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	public void setCreador(Miembro creador) {
+
+		this.creador = creador;
+	}
+
+	public void setListaTareas(List<Tarea> listaTareas) {
+		this.listaTareas = listaTareas;
+	}
+
+	public String getNombre() {
+
+		return this.nombre;
+	}
+
+	public String getDescripcion() {
+
+		return this.descripcion;
+	}
+
+	public Miembro getCreador() {
+
+		return this.creador;
+	}
+
+	public List<Tarea> getListaTareas() {
+
+		return this.listaTareas;
+	}
+
+	public List<Miembro> getListaDeMiembros() {
+
+		return this.listaDeMiembros;
+	}
+
+	public void setListaDeMiembros(List<Miembro> listaDeMiembros) {
+		this.listaDeMiembros = listaDeMiembros;
 	}
 
 }
