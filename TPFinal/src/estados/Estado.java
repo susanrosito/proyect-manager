@@ -34,8 +34,7 @@ public abstract class Estado {
 	
 	/**
 	 * Este metodo cambia el estado si es posible a finalizada.
-	 * Si no lo es, lanza una excepcción.
-	 * @throws NoPuedeCambiarseElEstadoExcepccion 
+	 *Ya que siempre es posible hacerlo, nunca genera ninguna excepcción.
 	 */
 	public void finalizada(TareaSimple unaTarea) 
 	{ unaTarea.setEstado(Finalizada.GetInstance()); }
