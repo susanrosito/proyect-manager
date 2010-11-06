@@ -20,49 +20,20 @@ public class ProyectoTestCase extends TestCase {
 	Proyecto proyecto;
 
 	Miembro miembro1;
-
+	Miembro miembro2;
 	Miembro creador;
 	Estado estadoIniciada;
 	Estado estadoCerrada;
 	TareaSimple tarea;
 	Tarea tarea2;
-	public TareaSimple getTarea() {
-		return tarea;
-	}
-
-	public void setTarea(TareaSimple tarea) {
-		this.tarea = tarea;
-	}
-
-	public Usuario getUsuario1() {
-		return usuario1;
-	}
-
-	public void setUsuario1(Usuario usuario1) {
-		this.usuario1 = usuario1;
-	}
-
-	public Proyecto getProyecto() {
-		return proyecto;
-	}
-
-	public void setProyecto(Proyecto proyecto) {
-		this.proyecto = proyecto;
-	}
-
-	public Miembro getMiembro1() {
-		return miembro1;
-	}
-
-	public void setMiembro1(Miembro miembro1) {
-		this.miembro1 = miembro1;
-	}
+	
 
 	public void setUp() {
 
 		creador = createMock(Miembro.class);
 		usuario1 = createMock(Usuario.class);
 		miembro1 = createMock(Miembro.class);
+		miembro2 = createMock(Miembro.class);
 		tarea = createMock(TareaSimple.class);
 		tarea2 = createMock(Tarea.class);
 		estadoIniciada=createMock(Iniciada.class);
@@ -186,29 +157,20 @@ public class ProyectoTestCase extends TestCase {
 
 		// creo un map y agrego miembro
 		Map<Miembro, String> diccionarioPrueba = new HashMap<Miembro, String>();
+		
+		expect(miembro1.getRol()).andReturn("comprador");
+		expect(miembro2.getRol()).andReturn("vendedor");
+		
 		diccionarioPrueba.put(this.getMiembro1(), this.getMiembro1().getRol());
 		diccionarioPrueba.put(this.getMiembro2(), this.getMiembro2().getRol());
 
 		// agrego los miembros al proyecto 
 		this.getProyecto().getListaDeMiembros().add(getMiembro1());
 		this.getProyecto().getListaDeMiembros().add(getMiembro2());
-		Map<Miembro, String> resultado = this.getProyecto()
-				.obtenerMiembrosConRoles();
+		Map<Miembro, String> resultado = this.getProyecto().obtenerMiembrosConRoles();
 
-		// diccionario contiene las claves de resultado
-		assertTrue(diccionarioPrueba.keySet().containsAll(resultado.keySet()));
-		// resultado contiene las claves de diccionario
-		assertTrue(resultado.keySet().containsAll(diccionarioPrueba.keySet()));
-
-		// diccionario contiene los valores de resultado
-		assertTrue(resultado.values().containsAll(diccionarioPrueba.values()));
-		// resultado contiene los valores de diccionario
-		assertTrue("el diccionario resultado contiene todos los miembros ",
-				resultado.values().containsAll(diccionarioPrueba.values()));
-
-		// assertTrue("si es verdadero tienen los mismos elementos y el metodo funciono correctamente",diccionarioPrueba
-		// == resultado );
-
+		assertTrue("el miembro 1 tiene el mismo rol", miembro1.getRol()== diccionarioPrueba.get(miembro1));
+		assertTrue("el miembro 2 tiene el mismo rol", miembro2.getRol()== diccionarioPrueba.get(miembro2));
 	}
 
 	public void testReabrirUnaTarea() {
@@ -302,6 +264,63 @@ public class ProyectoTestCase extends TestCase {
 		assertFalse(
 				"la tarea no esta dentro del proyecto, fue removida con exito",
 				this.getProyecto().getListaTareas().contains(this.getTarea()));
+	}
+
+	
+	public Miembro getMiembro2() {
+		return miembro2;
+	}
+
+	public void setMiembro2(Miembro miembro2) {
+		this.miembro2 = miembro2;
+	}
+
+	public Miembro getCreador() {
+		return creador;
+	}
+
+	public void setCreador(Miembro creador) {
+		this.creador = creador;
+	}
+
+	public Tarea getTarea2() {
+		return tarea2;
+	}
+
+	public void setTarea2(Tarea tarea2) {
+		this.tarea2 = tarea2;
+	}
+
+	public TareaSimple getTarea() {
+		return tarea;
+	}
+
+	public void setTarea(TareaSimple tarea) {
+		this.tarea = tarea;
+	}
+
+	public Usuario getUsuario1() {
+		return usuario1;
+	}
+
+	public void setUsuario1(Usuario usuario1) {
+		this.usuario1 = usuario1;
+	}
+
+	public Proyecto getProyecto() {
+		return proyecto;
+	}
+
+	public void setProyecto(Proyecto proyecto) {
+		this.proyecto = proyecto;
+	}
+
+	public Miembro getMiembro1() {
+		return miembro1;
+	}
+
+	public void setMiembro1(Miembro miembro1) {
+		this.miembro1 = miembro1;
 	}
 
 }
