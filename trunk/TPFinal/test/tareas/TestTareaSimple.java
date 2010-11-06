@@ -8,8 +8,11 @@ import usuarioMiembroYFecha.Miembro;
 import usuarioMiembroYFecha.Usuario;
 import usuarioMiembroYFecha.Fecha;
 import estados.*;
+
 // los metodos de los estados!!! tendria que dividirlos en 2!! Los que anda todo bonito
 // y los que no andan!! osea fallan!! asi es mejor!!
+//si tengo un if.. deberia de verificar si entra o no!!
+// dividi en dos.. los test
 public class TestTareaSimple extends TestCase {
 	private TareaSimple tareaSimple;
 	private String nombreTs;
@@ -38,6 +41,14 @@ public class TestTareaSimple extends TestCase {
 
 	protected void setUp() throws Exception {
 		super.setUp();
+		// cada estado es un Mock.
+
+		this.creada = createMock(Creada.class);
+		this.cerrada = createMock(Cerrada.class);
+		this.iniciada = createMock(Iniciada.class);
+		this.enTrabajo = createMock(EnTrabajo.class);
+		this.pausada = createMock(Pausada.class);
+		this.finalizada = createMock(Finalizada.class);
 
 		// instancio una tareaSimple, con estos parametros.
 
@@ -46,17 +57,8 @@ public class TestTareaSimple extends TestCase {
 		this.fechaTs = new Fecha("20101012");
 		this.tareaSimple = new TareaSimple(this.nombreTs, this.descripcionTs,
 				this.fechaTs);
-
-		// cada estado es un Mock.
-
-		this.creada = createMock(Creada.class);
 		this.tareaSimple.setEstado(this.creada);
-		this.cerrada = createMock(Cerrada.class);
-		this.iniciada = createMock(Iniciada.class);
-		this.enTrabajo = createMock(EnTrabajo.class);
-		this.pausada = createMock(Pausada.class);
-		this.finalizada = createMock(Finalizada.class);
-
+		
 		// cree un usuario mock
 
 		this.usuario = createMock(Usuario.class);
@@ -85,25 +87,19 @@ public class TestTareaSimple extends TestCase {
 		expect(miembro.getRol()).andReturn(this.rol);
 
 		// instancio otra TareaSimple, con esos parametros.
-
+		// Esta vez le asigno un miembro.
 		this.nombreTsCM = "Modificar Un Metodo";
 		this.descripcionTsCM = "El metodo que va a ser modificado es getNombre()";
 		this.fechaTsCM = new Fecha("20101123");
 		this.tareaSimpleConMiembro = new TareaSimple(this.nombreTsCM,
 				this.descripcionTsCM, this.fechaTsCM);
 		this.tareaSimpleConMiembro.setEstado(this.creada);
-		// aca le seteo el miembro. (estoy en duda de como lo estoy haciendo,
-		// porque pareciera que yo estoy
-		// seteandolo para que funcione todo, pero en realidad, deberia de
-		// mandarle el mensaje no? )
-
-		// this.tareaSimpleConMiembro.setMiembroAsignado(this.miembro);
-
-		// le seteo el estado, ya que cuando uno asigna un Miembro, tiene que
+		//this.tareaSimpleConMiembro.modificarMiembroAsignado(this.miembro);
+		
+		// le seteo el estado, ya que cuando se asigna un Miembro a una tarea, tiene que
 		// pasar a iniciada.
-
-		// this.tareaSimpleConMiembro.setEstado(iniciada);
-
+		//this.tareaSimpleConMiembro.setEstado(this.iniciada);
+		
 		// cree otro usuario mock -- lo cree por el metodo
 		// modificarMiembroAsignado
 
@@ -123,9 +119,9 @@ public class TestTareaSimple extends TestCase {
 		expect(miembro.getRol()).andReturn(this.nuevoRol);
 
 	}
+
 	/**
-	 * Test del contructor de una tareaSimple. Verifica que el constructor anda
-	 * de 10!! xD
+	 * Test del contructor de una tareaSimple. Verifica que el constructor anda.
 	 */
 	public void testConstructor() {
 		// Verifico que el nombre de la tarea coincida, con el que se crea.
@@ -137,9 +133,11 @@ public class TestTareaSimple extends TestCase {
 		// Verifico que la descripcion de la tarea coincida, con la que se crea.
 		Assert.assertEquals("la descripcion no coincide", this.descripcionTs,
 				this.tareaSimple.getDescripcion());
-		// Verifica que la tarea tenga el estado que tiene que tener cuando apenas se crea.
+		// Verifica que la tarea tenga el estado que tiene que tener cuando
+		// apenas se crea.
 		// Por medio de mock lo logro.
-		//expecifico que metodo va a recibir el mock creada y que deberia de devolver. 
+		// expecifico que metodo va a recibir el mock creada y que deberia de
+		// devolver.
 		expect(this.creada.verificarSiEstaCreada()).andReturn(true).times(2);
 		replay(this.creada);
 		// metodo que tiene que realizar lo que antes mencione.s
@@ -149,27 +147,31 @@ public class TestTareaSimple extends TestCase {
 		// verifico que al mock le llego el metodo que mencione antes.
 		verify(this.creada);
 	}
+
 	/**
 	 * Test verEstado de una TareaSimple. Muestra que el metodo verEstado
 	 * funciona bien, o como se espera
 	 */
 	public void testVerEstado() {
-	
-		String nombreCreada = this.creada.toString(); 
+
+		String nombreCreada = this.creada.toString();
 		expect(this.creada.toString()).andReturn("Creada").times(4);
 		replay(this.creada);
 		this.tareaSimple.verEstado();
 		this.tareaSimpleConMiembro.verEstado();
-		Assert.assertEquals("el estado no es creada", nombreCreada,this.tareaSimple.verEstado());
-		Assert.assertEquals("el estado no es creada",nombreCreada,this.tareaSimpleConMiembro.verEstado());
+		Assert.assertEquals("el estado no es creada", nombreCreada,
+				this.tareaSimple.verEstado());
+		Assert.assertEquals("el estado no es creada", nombreCreada,
+				this.tareaSimpleConMiembro.verEstado());
 		verify(this.creada);
 	}
+
 	/**
 	 * Test cerrate para TareaSimple. Verifica que el metodo cerrate trabaja
 	 * Perfecto
 	 */
 	public void testCerrate() {
-		// creo que me falta comentar todos los test y!! 
+		// creo que me falta comentar todos los test y!!
 		// para cada estado.. ver si hace lo que tiene que hacer
 		// agregar assert!! para comprobar!!
 		this.creada.cerrada(this.tareaSimple);
@@ -199,14 +201,15 @@ public class TestTareaSimple extends TestCase {
 		this.tareaSimple.setEstado(this.iniciada);
 		this.tareaSimple.verificarSiEstaIniciada();
 		verify(this.creada, this.cerrada, this.iniciada);
-	//faltan los demas casos.. cuando va a fallar!!!
+		// faltan los demas casos.. cuando va a fallar!!!
 	}
 
 	/**
 	 * Test modificarMiembroAsignado para TareaSimple
 	 */
 	public void testmodificarMiembroAsignado() {
-		// todo esto que esta aqui es cuando asigno por primera vez a un miembro en la tarea.
+		// todo esto que esta aqui es cuando asigno por primera vez a un miembro
+		// en la tarea.
 		// falta poner cuando asigno un miembro despues de la primera vez
 		try {
 			this.creada.iniciada(this.tareaSimpleConMiembro);
@@ -215,56 +218,46 @@ public class TestTareaSimple extends TestCase {
 			replay(this.creada, this.iniciada);
 			this.tareaSimpleConMiembro
 					.modificarMiembroAsignado(this.nuevoMiembro);
-			Assert.assertEquals("el miembro no es el mismo",this.nuevoMiembro,this.tareaSimpleConMiembro.getMiembroAsignado());
+			Assert.assertEquals("el miembro no es el mismo", this.nuevoMiembro,
+					this.tareaSimpleConMiembro.getMiembroAsignado());
 			this.tareaSimpleConMiembro.setEstado(this.iniciada);
 			this.tareaSimpleConMiembro.verificarSiEstaIniciada();
 			verify(this.creada, this.iniciada);
 		} catch (NoPuedeCambiarseElEstadoExcepccion ex) {
 			ex.printStackTrace();
 		}
-		// en este test verifique que no tiro la excepcion, pero tendria que crear otro test para mostrar cuando falle.
+		// en este test verifique que no tiro la excepcion, pero tendria que
+		// crear otro test para mostrar cuando falle.
 	}
 
 	/**
 	 * Test finalizate para TareaSimple
 	 */
 	public void testFinalizate() {
-		/*
-		 * try { this.getEstado().enTrabajo(TSConEstadoQueNoCambia);
-		 * fail("No exception caught :("); } catch (Exception
-		 * NoPuedeCambiarseElEstadoExcepccion) { //
-		 * assertEquals(this.getTSConEstadoQueNoCambia().getEstado().,
-		 * NoPuedeCambiarseElEstadoExcepccion.getCause().getClass());
-		 * //assertEquals
-		 * ("Message",NoPuedeCambiarseElEstadoExcepccion.getMessage()); }
-		 */
+		
 		this.creada.finalizada(this.tareaSimple);
+		this.creada.finalizada(this.tareaSimpleConMiembro);
 		this.iniciada.finalizada(this.tareaSimpleConMiembro);
 		this.enTrabajo.finalizada(this.tareaSimpleConMiembro);
 		this.pausada.finalizada(this.tareaSimpleConMiembro);
-		replay(this.creada,this.iniciada,this.enTrabajo,this.pausada);
-		
+		replay(this.creada, this.iniciada, this.enTrabajo, this.pausada);
+
 		this.tareaSimple.finalizate();
 		this.tareaSimpleConMiembro.finalizate();
+		this.tareaSimpleConMiembro.setEstado(this.iniciada);
 		this.tareaSimpleConMiembro.finalizate();
-		// si tengo un if.. deberia de verificar si entra o no!!
-		// dividi en dos.. los test
-		// Assert.assertSame("no coinciden",this.fina,this.tareaSimple.getEstado());
-		
-		// Assert.assertSame(this.fina,this.tareaSimpleConMiembro.getEstado());
-
 		this.tareaSimpleConMiembro.setEstado(this.enTrabajo);
+		this.tareaSimpleConMiembro.finalizate();
+		this.tareaSimpleConMiembro.setEstado(this.pausada);
+		this.tareaSimpleConMiembro.finalizate();
 		
-		replay(this.enTrabajo);
-		;
-		verify(this.enTrabajo);
+		// Assert.assertSame("no coinciden",this.fina,this.tareaSimple.getEstado());
+
+		// Assert.assertSame(this.fina,this.tareaSimpleConMiembro.getEstado());
+		
 		// Assert.assertSame(this.fina,this.tareaSimpleConMiembro.getEstado());
 
-		this.tareaSimpleConMiembro.setEstado(this.pausada);
-		
-		replay(this.pausada);
-		this.tareaSimpleConMiembro.finalizate();
-		verify(this.pausada);
+		verify(this.creada,this.iniciada,this.enTrabajo,this.pausada);
 		// Assert.assertSame(this.fina,this.tareaSimpleConMiembro.getEstado());
 	}
 
@@ -288,7 +281,7 @@ public class TestTareaSimple extends TestCase {
 			this.tareaSimple.iniciate();
 			verify(this.creada);
 			// Assert.assertSame(this.tareaSimple.getEstado(), this.iniciada);
-			} catch (NoPuedeCambiarseElEstadoExcepccion e) {
+		} catch (NoPuedeCambiarseElEstadoExcepccion e) {
 			e.printStackTrace();
 		}
 		/*
