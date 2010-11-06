@@ -26,7 +26,7 @@ import junit.framework.TestCase;
 				
 			}
 	/**
-	 * Testea que ambas instancias de Cerrada sean las mismas ya que es
+	 * Testea que ambas instancias del estado  sean las mismas ya que es
 	 * un singleton.
 	 */
 		
@@ -38,7 +38,10 @@ import junit.framework.TestCase;
 		
 	}
 	
-	
+	/**
+	 * Este test comprueba que cuando se le envie el mensaje enTrabajo()
+	 * a un estado, si puede cambiarse lo haga y si no lance una  NoPuedeCambiarseElEstadoExcepccion.
+	 */
 	public void testEnTrabajo()throws NoPuedeCambiarseElEstadoExcepccion  {
 		
 		
@@ -55,6 +58,10 @@ import junit.framework.TestCase;
 		    }
 	}
 	
+	/**
+	 * Este test comprueba que cuando se le envie el mensaje iniciada()
+	 * a un estado, si puede cambiarse lo haga y si no lance una NoPuedeCambiarseElEstadoExcepccion.
+	 */
 	public void testIniciada()throws NoPuedeCambiarseElEstadoExcepccion  {
 		
 
@@ -70,6 +77,10 @@ import junit.framework.TestCase;
 		    }
 	}
 	
+	/**
+	 * Este test comprueba que cuando se le envie el mensaje cerrada()
+	 * a un estado, si puede cambiarse lo haga y si no lance una NoPuedeCambiarseElEstadoExcepccion.
+	 */
 	public void testCerrada ()	throws NoPuedeCambiarseElEstadoExcepccion 
 	{
 		this.getTarea().setEstado(Cerrada.GetInstance());           
@@ -79,6 +90,10 @@ import junit.framework.TestCase;
 
        verify(this.getTarea());;}
 	
+	/**
+	 * Este test comprueba que cuando se le envie el mensaje finalizada()
+	 * a un estado, si puede cambiarse lo haga y si no lance una NoPuedeCambiarseElEstadoExcepccion.
+	 */
 	public void testFinalizada()throws NoPuedeCambiarseElEstadoExcepccion {
 		this.getTarea().setEstado(Finalizada.GetInstance());           
         replay(this.getTarea());               
@@ -88,7 +103,10 @@ import junit.framework.TestCase;
        verify(this.getTarea());;
        }
 	
-	
+	/**
+	 * Este test comprueba que cuando se le envie el mensaje pausada()
+	 * a un estado, si puede cambiarse lo haga y si no lance una NoPuedeCambiarseElEstadoExcepccion.
+	 */
 	public void testPausada()throws NoPuedeCambiarseElEstadoExcepccion {
 				
 		
@@ -105,6 +123,10 @@ import junit.framework.TestCase;
 		    }
 	}
 	
+	/**
+	 * Este test comprueba que cuando se le envie el mensaje creada()
+	 * a un estado, si puede cambiarse lo haga y si no lance una NoPuedeCambiarseElEstadoExcepccion.
+	 */
 	public void testCreada()throws NoPuedeCambiarseElEstadoExcepccion {
 
 		expect(TSConEstadoQueNoCambia.getEstado()).andReturn(this.estado);
@@ -119,21 +141,45 @@ import junit.framework.TestCase;
 		    }
 	}
 
+	/**
+	 * Este test verifica que el mensaja verificarSiEstaPausada() devuelva true en la clase Pausada
+	 * y false en el resto.
+	 */
 	public void testVerificarSiEstaPausada()
     { assertFalse(this.getEstado().verificarSiEstaPausada()); }
-    
+		
+	/**
+	 * Este test verifica que el mensaja testVerificarSiEstaIniciada() devuelva true en la clase Iniciada
+	 * y false en el resto.
+	 */
 	public void testVerificarSiEstaIniciada()
     { assertFalse(this.getEstado().verificarSiEstaIniciada()); }
     
+	/**
+	 * Este test verifica que el mensaja verificarSiEstaCerrada() devuelva true en la clase Cerrada
+	 * y false en el resto.
+	 */
 	public void testVerificarSiEstaCerrada()
     { assertFalse(this.getEstado().verificarSiEstaCerrada()); }
     
+	/**
+	 * Este test verifica que el mensaja verificarSiEstaEnTrabajo() devuelva true en la clase EnTrabajo
+	 * y false en el resto.
+	 */
 	public void testVerificarSiEstaEnTrabajo()
     { assertFalse(this.getEstado().verificarSiEstaEnTrabajo()); }
     
+	/**
+	 * Este test verifica que el mensaja testVerificarSiEstaFinalizada() devuelva true en la clase Finalizada
+	 * y false en el resto.
+	 */
 	public void testVerificarSiEstaFinalizada()
     { assertFalse(this.getEstado().verificarSiEstaFinalizada()); }
     
+	/**
+	 * Este test verifica que el mensaja testVerificarSiEstaCreada() devuelva true en la clase Creada
+	 * y false en el resto.
+	 */
 	public void testVerificarSiEstaCreada()
     { assertFalse(this.getEstado().verificarSiEstaCreada()); }
 	
