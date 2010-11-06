@@ -98,6 +98,10 @@ public abstract class Estado {
     public boolean verificarSiEstaCreada()
     { return false; }
     
+    /**
+     * Redefinimos el metodo toString() para que retorne
+     * un String que represente al estado, es decir, su nombre.
+     */
     public String toString(){
  	   return "Estado";
    }
