@@ -147,12 +147,17 @@ public class TestTareaSimple extends TestCase {
 	 * funciona bien, o como se espera
 	 */
 	public void testVerEstado() {
-		String nombreIniciada = "Iniciada";
-		String nombreCreada = "Creada";
-		Assert.assertEquals("el estado no es creada", nombreCreada,
-				this.tareaSimple.verEstado());
-		Assert.assertEquals("el estado no es iniciada", nombreIniciada,
-				this.tareaSimpleConMiembro.verEstado());
+	
+		//String nombreCreada = this.creada.toString(); 
+		expect(this.creada.verificarSiEstaCreada()).andReturn(true).times(2);
+		replay(this.creada);
+		
+		this.tareaSimple.verEstado();
+		this.tareaSimpleConMiembro.verEstado();
+		
+		//Assert.assertEquals("el estado no es creada", nombreCreada,this.tareaSimple.verEstado());
+		//Assert.assertEquals("el estado no es creada",nombreCreada,this.tareaSimpleConMiembro.verEstado());
+		verify(this.creada);
 	}
 
 	/**

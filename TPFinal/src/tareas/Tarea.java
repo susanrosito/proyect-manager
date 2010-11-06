@@ -4,7 +4,6 @@ import java.util.List;
 
 import usuarioMiembroYFecha.Fecha;
 import usuarioMiembroYFecha.Miembro;
-import estados.*;
 import tareas.AdministradorTarea;
 
 public abstract class Tarea implements AdministradorTarea{
@@ -12,7 +11,6 @@ public abstract class Tarea implements AdministradorTarea{
 	private String descripcion;
 	private int tiempoParaRealizarla;
 	private Fecha fechaCreacion;
-	private Estado estado;
 	private Fecha fechaEstimadaFinalizacion;
 	private Fecha fechaFinalizacion;
 	private float porcentajeFinalizacion;
@@ -28,7 +26,6 @@ public abstract class Tarea implements AdministradorTarea{
 		this.fechaCreacion = new Fecha();
 		this.fechaEstimadaFinalizacion = fechaEstFinalizacion;
 		this.tiempoParaRealizarla = 0;
-		this.estado = Creada.GetInstance();
 		this.porcentajeFinalizacion = 0;
 	}
 	/**
@@ -97,14 +94,6 @@ public abstract class Tarea implements AdministradorTarea{
 	public abstract List<Miembro> obtenerMiembros();
 	public void setFechaCreacion(Fecha fechaCreacion) {
 		this.fechaCreacion = fechaCreacion;
-	}
-
-	public Estado getEstado() {
-		return estado;
-	}
-
-	public void setEstado(Estado estado) {
-		this.estado = estado;
 	}
 
 	public void setNombre(String nombre) {
