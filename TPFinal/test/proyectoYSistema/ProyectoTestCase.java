@@ -160,6 +160,8 @@ public class ProyectoTestCase extends TestCase {
 		
 		expect(miembro1.getRol()).andReturn("comprador");
 		expect(miembro2.getRol()).andReturn("vendedor");
+		replay(miembro1);
+		replay(miembro2);
 		
 		diccionarioPrueba.put(this.getMiembro1(), this.getMiembro1().getRol());
 		diccionarioPrueba.put(this.getMiembro2(), this.getMiembro2().getRol());
@@ -197,7 +199,12 @@ public class ProyectoTestCase extends TestCase {
 		// agrego los miembros
 		this.getProyecto().getListaDeMiembros().add(getMiembro1());
 		this.getProyecto().getListaDeMiembros().add(getMiembro2());
-
+		
+		expect(miembro1.getHsTrabajadas()).andReturn(7);
+		expect(miembro2.getHsTrabajadas()).andReturn(15);
+		replay(miembro1);
+		replay(miembro2);
+		
 		// utilizo el metodo hsTotalesTrabajadas
 		int resultadoReal = this.getProyecto().hsTotalesTrabajadas();
 
