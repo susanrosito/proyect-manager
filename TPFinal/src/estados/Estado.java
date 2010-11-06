@@ -98,7 +98,9 @@ public abstract class Estado {
     public boolean verificarSiEstaCreada()
     { return false; }
     
-
+    public String toString(){
+ 	   return "Estado";
+   }
 	
 	
 	
