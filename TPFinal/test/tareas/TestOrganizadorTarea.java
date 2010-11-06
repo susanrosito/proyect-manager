@@ -20,27 +20,23 @@ public class TestOrganizadorTarea extends TestCase{
 	
 	protected String stringMotivo;
 	
-	
-	public void setUp()
-	{
-		/*
+	/**
 		 * Crea los mocks de la tarea anterior, y uno de tarea simple y otro de tarea compuesta para
 		 * testear los mensajes.
+		 * Crea  las dos variables de ornaizadorTarea una con una tarea simple y otra con una tarea compuesta 
+		 * Setea la variable con el motivo por el cual se reabriria la tarea para testear
+		 * el mensaje reAbrite(motivo)
 		 */
+	public void setUp()
+	{
+		
 		this.tareaAnterior= createMock(TareaSimple.class);
 		this.tareaS= createMock(TareaSimple.class);
 		this.tareaC= createMock(TareaCompuesta.class);	
 		
-		/*
-		 * Crea  las dos variables de ornaizadorTarea una con una tarea simple y otra con una tarea compuesta 
-		 */
 		this.orgConTareaC= new OrganizadorTarea(this.tareaAnterior, this.tareaC );
 		this.orgConTareaS= new OrganizadorTarea(this.tareaAnterior, this.tareaS );
 		
-		/* 
-		 * Setea la variable con el motivo por el cual se reabriria la tarea para testear
-		 * el mensaje reAbrite(motivo)
-		 */
 		this.stringMotivo= "Se re abre la tarea porque...";
 		
 	}
