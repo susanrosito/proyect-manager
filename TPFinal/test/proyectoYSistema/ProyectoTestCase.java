@@ -154,25 +154,28 @@ public class ProyectoTestCase extends TestCase {
 	}
 
 	public void testObtenerMiembrosConRoles() {
-
-		// creo un map y agrego miembro
-		Map<Miembro, String> diccionarioPrueba = new HashMap<Miembro, String>();
+		// roles que se van a usar en el test
+		String rol1 = "comprador";
+		String rol2 = "vendedor";
 		
-		expect(miembro1.getRol()).andReturn("comprador");
-		expect(miembro2.getRol()).andReturn("vendedor");
-		replay(miembro1);
-		replay(miembro2);
-		
-		diccionarioPrueba.put(this.getMiembro1(), this.getMiembro1().getRol());
-		diccionarioPrueba.put(this.getMiembro2(), this.getMiembro2().getRol());
-
 		// agrego los miembros al proyecto 
 		this.getProyecto().getListaDeMiembros().add(getMiembro1());
 		this.getProyecto().getListaDeMiembros().add(getMiembro2());
+		
+		
+		//mensajes que esperan los mock y que deberian retornar
+		expect(miembro1.getRol()).andReturn(rol1);
+		expect(miembro2.getRol()).andReturn(rol2);
+		
+		replay(miembro1,miembro2);
+		
 		Map<Miembro, String> resultado = this.getProyecto().obtenerMiembrosConRoles();
-
-		assertTrue("el miembro 1 tiene el mismo rol", miembro1.getRol()== diccionarioPrueba.get(miembro1));
-		assertTrue("el miembro 2 tiene el mismo rol", miembro2.getRol()== diccionarioPrueba.get(miembro2));
+		
+		verify(miembro1,miembro2);
+		
+		assertEquals(rol1, resultado.get(miembro1));
+		assertEquals(rol2, resultado.get(miembro2));
+		
 	}
 
 	public void testReabrirUnaTarea() {
