@@ -196,6 +196,8 @@ public class TestTareaSimple extends TestCase {
 	 * Test modificarMiembroAsignado para TareaSimple
 	 */
 	public void testmodificarMiembroAsignado() {
+		// todo esto que esta aqui es cuando asigno por primera vez a un miembro en la tarea.
+		// falta poner cuando asigno un miembro despues de la primera vez
 		try {
 			this.creada.iniciada(this.tareaSimpleConMiembro);
 			expect(this.iniciada.verificarSiEstaIniciada()).andReturn(true)
