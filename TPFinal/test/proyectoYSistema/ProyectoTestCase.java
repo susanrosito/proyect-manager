@@ -26,7 +26,6 @@ public class ProyectoTestCase extends TestCase {
 	Estado estadoCerrada;
 	TareaSimple tarea;
 	Tarea tarea2;
-	
 
 	public void setUp() {
 
@@ -36,8 +35,8 @@ public class ProyectoTestCase extends TestCase {
 		miembro2 = createMock(Miembro.class);
 		tarea = createMock(TareaSimple.class);
 		tarea2 = createMock(Tarea.class);
-		estadoIniciada=createMock(Iniciada.class);
-		estadoCerrada=createMock(Iniciada.class);
+		estadoIniciada = createMock(Iniciada.class);
+		estadoCerrada = createMock(Iniciada.class);
 		proyecto = new Proyecto("soy_proyecto1", "este es mi primer proyecto",
 				usuario1);
 		/*
@@ -99,26 +98,58 @@ public class ProyectoTestCase extends TestCase {
 				.getListaTareas().size());
 	}
 
-	public void testAgregarMiembro() {
+	public void testAgregarMiembroNoPuedeAgregar() {
+		// ** buscar el caso en que tire la exepcion **
+		//agrego el miembro al proyecto
+		this.getProyecto().getListaDeMiembros().add(miembro1);
+		
+		
+		expect(miembro1.getFechaFin()).andReturn(null);
+		expect(miembro1.getUsuario()).andReturn(usuario1);
+		replay(miembro1);
+		try {
+			this.getProyecto().agregarMiembro(this.getUsuario1(),
+					"administrador");
+			fail();
+		} catch (UsuarioYaTieneRolExepcion e) {
+
+			e.printStackTrace();
+		}
+
+	}
+
+	public void testAgregarMiembroSiPuedeAgregar() {
+
+		// **buso el caso en que no tire exepcion **
+		
+		expect(miembro1.getUsuario()).andReturn(usuario1);
+		replay(miembro1);
 		// es la cantidad de miembros antes de agregar uno
 		int cantidadEsperada = this.getProyecto().getListaDeMiembros().size();
 
-		// agrego un miembro
-		this.getProyecto().agregarMiembro(this.getUsuario1(), "administrador");
+		try {
+			// agrego un miembro
+			this.getProyecto().agregarMiembro(this.getUsuario1(),
+					"administrador");
+		} catch (UsuarioYaTieneRolExepcion e) {
+
+			e.printStackTrace();
+		}
 
 		// verifico si se incremento en 1 la cantidad de miembros en el proyecto
 		assertEquals(cantidadEsperada + 1, this.getProyecto()
 				.getListaDeMiembros().size());
+
 	}
 
 	public void testAsignarMiembroATarea() {
-		
+
 		// asigno un miembro a una tarea simple
 		this.getProyecto().asignarMiembroATarea(getMiembro1(), getTarea());
-		//le seteo un valor de retorno para comprobar el assert
+		// le seteo un valor de retorno para comprobar el assert
 		expect(tarea.getMiembroAsignado()).andReturn(miembro1);
 		replay(tarea);
-		
+
 		// compruebo dentro de la tarea si el miembro asignado es el mismo
 		assertEquals(miembro1, tarea.getMiembroAsignado());
 
@@ -157,44 +188,45 @@ public class ProyectoTestCase extends TestCase {
 		// roles que se van a usar en el test
 		String rol1 = "comprador";
 		String rol2 = "vendedor";
-		
-		// agrego los miembros al proyecto 
+
+		// agrego los miembros al proyecto
 		this.getProyecto().getListaDeMiembros().add(getMiembro1());
 		this.getProyecto().getListaDeMiembros().add(getMiembro2());
-		
-		
-		//mensajes que esperan los mock y que deberian retornar
+
+		// mensajes que esperan los mock y que deberian retornar
 		expect(miembro1.getRol()).andReturn(rol1);
 		expect(miembro2.getRol()).andReturn(rol2);
-		
-		replay(miembro1,miembro2);
-		
-		Map<Miembro, String> resultado = this.getProyecto().obtenerMiembrosConRoles();
-		
-		verify(miembro1,miembro2);
-		
+
+		replay(miembro1, miembro2);
+
+		Map<Miembro, String> resultado = this.getProyecto()
+				.obtenerMiembrosConRoles();
+
+		verify(miembro1, miembro2);
+
 		assertEquals(rol1, resultado.get(miembro1));
 		assertEquals(rol2, resultado.get(miembro2));
-		
+
 	}
 
 	public void testReabrirUnaTarea() {
-		//******* USO MOCK
+		// ******* USO MOCK
 		String comentario = "se reabre porque ahora ahi luz";
-		
+
 		tarea.reAbrite(comentario);
 		expect(tarea.getEstado()).andReturn(Cerrada.GetInstance());
-		
+		expect(tarea.getDescripcion()).andReturn(comentario);
 		replay(tarea);
 
 		// envio el mensaje para reabrir la tarea lo que modificaria su estado
-		//a iniciada
+		// a iniciada
 		this.getProyecto().reabrirUnaTarea(getTarea(), comentario);
-		
-	
-		//verifico si se le cambio el estado de la tarea a iniciada
-		assertSame(Cerrada.GetInstance(),getTarea().getEstado());
-		assertEquals(getTarea().getDescripcion()+comentario, getTarea().getDescripcion());
+		verify(tarea);
+
+		// verifico si se le cambio el estado de la tarea a iniciada
+		assertSame(Cerrada.GetInstance(), getTarea().getEstado());
+		assertEquals(getTarea().getDescripcion() + comentario, getTarea()
+				.getDescripcion());
 	}
 
 	public void testHsTotalesTrabajadas() {
@@ -202,18 +234,18 @@ public class ProyectoTestCase extends TestCase {
 		// agrego los miembros
 		this.getProyecto().getListaDeMiembros().add(this.getMiembro1());
 		this.getProyecto().getListaDeMiembros().add(this.getMiembro2());
-		
+
 		// utilizo el metodo hsTotalesTrabajadas
-		//int resultadoReal = this.getProyecto().hsTotalesTrabajadas();
-		
-		// creo los mock como miembros 
+		// int resultadoReal = this.getProyecto().hsTotalesTrabajadas();
+
+		// creo los mock como miembros
 		expect(miembro1.getHsTrabajadas()).andReturn(7);
 		expect(miembro2.getHsTrabajadas()).andReturn(15);
-		replay(miembro1,miembro2);
-		
+		replay(miembro1, miembro2);
+
 		int resultado = this.getProyecto().hsTotalesTrabajadas();
-		verify(this.miembro1,this.miembro2);
-		assertEquals(22,resultado);
+		verify(this.miembro1, this.miembro2);
+		assertEquals(22, resultado);
 	}
 
 	public void testCerrarTarea() {
@@ -267,7 +299,6 @@ public class ProyectoTestCase extends TestCase {
 				this.getProyecto().getListaTareas().contains(this.getTarea()));
 	}
 
-	
 	public Miembro getMiembro2() {
 		return miembro2;
 	}
