@@ -22,8 +22,6 @@ public class ProyectoTestCase extends TestCase {
 	Miembro miembro1;
 	Miembro miembro2;
 	Miembro creador;
-	Estado estadoIniciada;
-	Estado estadoCerrada;
 	TareaSimple tareaSimple;
 	Tarea tarea2;
 	Tarea tareaCompuesta;
@@ -37,22 +35,8 @@ public class ProyectoTestCase extends TestCase {
 		tareaSimple = createMock(TareaSimple.class);
 		tarea2 = createMock(Tarea.class);
 		tareaCompuesta = createMock(TareaCompuesta.class);
-		estadoIniciada = createMock(Iniciada.class);
-		estadoCerrada = createMock(Iniciada.class);
 		proyecto = new Proyecto("soy_proyecto1", "este es mi primer proyecto",
 				usuario1);
-		/*
-		 * miembroCreador = new Miembro(usuario1, "creador"); miembro1 = new
-		 * Miembro(usuario2, "administrador"); miembro2 = new Miembro(usuario3,
-		 * "administrador2");
-		 */
-
-		/*
-		 * tarea = new TareaSimple("tarea_1", "mi_primera_Tarea", new
-		 * Fecha("19990303")); tarea2= new TareaSimple("tarea_2",
-		 * "mi_segunda_Tarea",new Fecha("19980202"));
-		 */
-
 	}
 
 	public void testConstructorProyecto() {
@@ -100,23 +84,23 @@ public class ProyectoTestCase extends TestCase {
 				.getListaTareas().size());
 	}
 
-
 	public void testAgregarMiembroNoPuedeAgregar() {
 		// ** buscar el caso en que tire la exepcion **
 		// agrego el miembro al proyecto
 		this.getProyecto().getListaDeMiembros().add(miembro2);
 
 		// el miembro 1 y 2 son creados a partir del mismo usuario.
-		//al ser la fechaFin igual a NULL quiere decir que el miembro todavia
-		//se desempeña en el rol actual y por lo tanto no se puede crear un nuevo miembro
-		//a partir de ese usuario y el metodo debe generar una exepcion
+		// al ser la fechaFin igual a NULL quiere decir que el miembro todavia
+		// se desempeña en el rol actual y por lo tanto no se puede crear un
+		// nuevo miembro
+		// a partir de ese usuario y el metodo debe generar una exepcion
 		expect(miembro2.getUsuario()).andReturn(usuario1);
 		expect(miembro2.getFechaFin()).andReturn(null);
 		expect(miembro1.getUsuario()).andReturn(usuario1);
 		expect(usuario1.equals(usuario1)).andReturn(true);
-		replay(miembro1,miembro2,usuario1);
+		replay(miembro1, miembro2, usuario1);
 		try {
-			this.getProyecto().agregarMiembro(usuario1,"administrador");
+			this.getProyecto().agregarMiembro(usuario1, "administrador");
 			fail();
 		} catch (UsuarioYaTieneRolExepcion e) {
 
@@ -163,32 +147,22 @@ public class ProyectoTestCase extends TestCase {
 	}
 
 	public void testObtenerTareasYEstados() {
-		// creo un map y agrego tareas
-		Map<Tarea, String> diccionarioPrueba = new HashMap<Tarea, String>();
-		diccionarioPrueba.put(this.getTarea(), this.getTarea().verEstado());
-		diccionarioPrueba.put(this.getTarea2(), this.getTarea2().verEstado());
 
 		// agrego las tareas al proyecto
 		this.getProyecto().agregarTarea(this.getTarea());
-		this.getProyecto().agregarTarea(this.getTarea2());
+		this.getProyecto().agregarTarea(this.getTareaCompuesta());
+		String estadoCreada = "Creada";
+		String estadoIniciada = "Iniciada";
 
+		expect(tareaSimple.verEstado()).andReturn(estadoCreada);
+		expect(tareaCompuesta.verEstado()).andReturn(estadoIniciada);
+		replay(tareaSimple, tareaCompuesta);
 		// ejecuto el metodo
 		Map<Tarea, String> resultado = this.getProyecto()
 				.obtenerTareasYEstados();
 
-		// ?? debo chequear si las claves del resultado se encuentran
-		// dentro de las claves del diccionario para testear
-
-		// diccionario contiene las claves de resultado
-		assertTrue(diccionarioPrueba.keySet().containsAll(resultado.keySet()));
-		// resultado contiene las claves de diccionario
-		assertTrue(resultado.keySet().containsAll(diccionarioPrueba.keySet()));
-
-		// resultado contiene los valores de diccionario
-		assertTrue(resultado.values().containsAll(diccionarioPrueba.values()));
-		// diccionario contiene los valores de resultado
-		assertTrue(diccionarioPrueba.values().containsAll(resultado.values()));
-
+		assertEquals(estadoCreada, resultado.get(this.getTarea()));
+		assertEquals(estadoIniciada, resultado.get(this.getTareaCompuesta()));
 	}
 
 	public void testObtenerMiembrosConRoles() {
@@ -222,7 +196,8 @@ public class ProyectoTestCase extends TestCase {
 		String descripcion = "una tarea simple";
 		tareaSimple.reAbrite(comentario);
 		expect(tareaSimple.getEstado()).andReturn(Cerrada.GetInstance());
-		expect(tareaSimple.getDescripcion()).andReturn(descripcion+comentario);
+		expect(tareaSimple.getDescripcion())
+				.andReturn(descripcion + comentario);
 		replay(tareaSimple);
 
 		// envio el mensaje para reabrir la tarea lo que modificaria su estado
@@ -231,7 +206,7 @@ public class ProyectoTestCase extends TestCase {
 
 		// verifico si se le cambio el estado de la tarea a iniciada
 		assertSame(Cerrada.GetInstance(), getTarea().getEstado());
-		assertEquals(descripcion + comentario,getTarea().getDescripcion());
+		assertEquals(descripcion + comentario, getTarea().getDescripcion());
 	}
 
 	public void testHsTotalesTrabajadas() {
@@ -370,22 +345,6 @@ public class ProyectoTestCase extends TestCase {
 
 	public void setMiembro1(Miembro miembro1) {
 		this.miembro1 = miembro1;
-	}
-
-	public Estado getEstadoIniciada() {
-		return estadoIniciada;
-	}
-
-	public void setEstadoIniciada(Estado estadoIniciada) {
-		this.estadoIniciada = estadoIniciada;
-	}
-
-	public Estado getEstadoCerrada() {
-		return estadoCerrada;
-	}
-
-	public void setEstadoCerrada(Estado estadoCerrada) {
-		this.estadoCerrada = estadoCerrada;
 	}
 
 	public Tarea getTareaCompuesta() {
