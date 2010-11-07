@@ -100,17 +100,23 @@ public class ProyectoTestCase extends TestCase {
 				.getListaTareas().size());
 	}
 
+
 	public void testAgregarMiembroNoPuedeAgregar() {
 		// ** buscar el caso en que tire la exepcion **
 		// agrego el miembro al proyecto
-		this.getProyecto().getListaDeMiembros().add(miembro1);
+		this.getProyecto().getListaDeMiembros().add(miembro2);
 
-		expect(miembro1.getFechaFin()).andReturn(null);
+		// el miembro 1 y 2 son creados a partir del mismo usuario.
+		//al ser la fechaFin igual a NULL quiere decir que el miembro todavia
+		//se desempeña en el rol actual y por lo tanto no se puede crear un nuevo miembro
+		//a partir de ese usuario y el metodo debe generar una exepcion
+		expect(miembro2.getUsuario()).andReturn(usuario1);
+		expect(miembro2.getFechaFin()).andReturn(null);
 		expect(miembro1.getUsuario()).andReturn(usuario1);
-		replay(miembro1);
+		expect(usuario1.equals(usuario1)).andReturn(true);
+		replay(miembro1,miembro2,usuario1);
 		try {
-			this.getProyecto().agregarMiembro(this.getUsuario1(),
-					"administrador");
+			this.getProyecto().agregarMiembro(usuario1,"administrador");
 			fail();
 		} catch (UsuarioYaTieneRolExepcion e) {
 
@@ -121,7 +127,7 @@ public class ProyectoTestCase extends TestCase {
 
 	public void testAgregarMiembroSiPuedeAgregar() {
 
-		// **buso el caso en que no tire exepcion **
+		// **busco el caso en que no tire exepcion **
 
 		expect(miembro1.getUsuario()).andReturn(usuario1);
 		replay(miembro1);

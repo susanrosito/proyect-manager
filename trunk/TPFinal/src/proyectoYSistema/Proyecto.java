@@ -59,18 +59,17 @@ public class Proyecto {
 		for (Miembro m : this.getListaDeMiembros()) {
 
 			// busca los miembros creados a partir del mismo usuario
-			if (usuario.equals(m.getUsuario())) {
-
-				// si la fechaFin del miembro es NULL qiere decir que el miembro
-				// todavia esta desempeñando funciones en el proyecto
-				// y un miembro solo puede tener un rol dentro del proyecto a la
-				// vez
-				if (m.getFechaFin() == null) {
-					throw new UsuarioYaTieneRolExepcion();
+			// si la fechaFin del miembro es NULL qiere decir que el miembro
+			// todavia esta desempeñando funciones en el proyecto
+			// y un miembro solo puede tener un rol dentro del proyecto a la
+			// vez
+			if (usuario.equals(m.getUsuario()) & (m.getFechaFin() == null)) {
+				throw new UsuarioYaTieneRolExepcion();
+				
 				}
 
-			}
 		}
+		
 		// si no tiene otro rol el miembro es creado y agregado al proyecto
 		this.getListaDeMiembros().add(new Miembro(usuario, rol));
 
