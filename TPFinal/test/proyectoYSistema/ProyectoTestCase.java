@@ -191,10 +191,11 @@ public class ProyectoTestCase extends TestCase {
 	}
 
 	public void testReabrirUnaTarea() {
-		// ******* USO MOCK
+
 		String comentario = "se reabre porque ahora ahi luz";
 		String descripcion = "una tarea simple";
 		tareaSimple.reAbrite(comentario);
+		//los mensajes que los mocks van a recibir
 		expect(tareaSimple.getEstado()).andReturn(Cerrada.GetInstance());
 		expect(tareaSimple.getDescripcion())
 				.andReturn(descripcion + comentario);
