@@ -41,8 +41,8 @@ public class TestTareaSimple extends TestCase {
 
 	protected void setUp() throws Exception {
 		super.setUp();
+		
 		// cada estado es un Mock.
-
 		this.creada = createMock(Creada.class);
 		this.cerrada = createMock(Cerrada.class);
 		this.iniciada = createMock(Iniciada.class);
@@ -51,38 +51,34 @@ public class TestTareaSimple extends TestCase {
 		this.finalizada = createMock(Finalizada.class);
 
 		// instancio una tareaSimple, con estos parametros.
-
 		this.nombreTs = "Realizar Un Test";
 		this.descripcionTs = "Para una clase especifica, en este caso la clase TareaSimple";
 		this.fechaTs = new Fecha("20101012");
 		this.tareaSimple = new TareaSimple(this.nombreTs, this.descripcionTs,
 				this.fechaTs);
+		
+		// seteo el mock creada.
 		this.tareaSimple.setEstado(this.creada);
 		
 		// cree un usuario mock
-
 		this.usuario = createMock(Usuario.class);
 		this.nombreUsuario = "Rodrigo";
 		this.emailUsuario = "rodrigo@gmail.com";
 
 		// verifico que si le mando estos mensajes al usuario tiene que retornar
 		// esos valores
-
 		expect(usuario.getNombre()).andReturn(this.nombreUsuario);
 		expect(usuario.getEmail()).andReturn(this.emailUsuario);
 
 		// declaro roles.
-
 		this.rol = "Tester";
 		this.nuevoRol = "Desarrollador";
 
 		// cree un miembro Mock.
-
 		this.miembro = createMock(Miembro.class);
 
 		// verifico que si le mando estos mensajes al miembro va a retornar esos
 		// valores.
-
 		expect(miembro.getUsuario()).andReturn(this.usuario);
 		expect(miembro.getRol()).andReturn(this.rol);
 
@@ -93,7 +89,10 @@ public class TestTareaSimple extends TestCase {
 		this.fechaTsCM = new Fecha("20101123");
 		this.tareaSimpleConMiembro = new TareaSimple(this.nombreTsCM,
 				this.descripcionTsCM, this.fechaTsCM);
+		
+		// seteo el mock creada.
 		this.tareaSimpleConMiembro.setEstado(this.creada);
+		
 		//this.tareaSimpleConMiembro.modificarMiembroAsignado(this.miembro);
 		
 		// le seteo el estado, ya que cuando se asigna un Miembro a una tarea, tiene que
@@ -102,18 +101,15 @@ public class TestTareaSimple extends TestCase {
 		
 		// cree otro usuario mock -- lo cree por el metodo
 		// modificarMiembroAsignado
-
 		this.nuevoUsuario = createMock(Usuario.class);
 		this.nombreNuevoUsuario = "Tereza";
 		this.emailNuevoUsuario = "teresita@gmail.com";
 
 		// verifico que los mensajes que le mando, retornen estos valores
-
 		expect(nuevoUsuario.getNombre()).andReturn(this.nombreNuevoUsuario);
 		expect(nuevoUsuario.getEmail()).andReturn(this.emailNuevoUsuario);
 
 		// cree otro Miembro Mock -- lo cree por la misma razon que el usuario
-
 		this.nuevoMiembro = createMock(Miembro.class);
 		expect(miembro.getUsuario()).andReturn(this.nuevoUsuario);
 		expect(miembro.getRol()).andReturn(this.nuevoRol);
@@ -124,44 +120,55 @@ public class TestTareaSimple extends TestCase {
 	 * Test del contructor de una tareaSimple. Verifica que el constructor anda.
 	 */
 	public void testConstructor() {
+		
 		// Verifico que el nombre de la tarea coincida, con el que se crea.
 		Assert.assertEquals("El nombre no fue el esperado", this.nombreTs,
 				this.tareaSimple.getNombre());
+		
 		// Verifico que la fecha de la tarea coincida, con la que se crea.
 		Assert.assertEquals("No coinciden las Fechas", this.fechaTs,
 				this.tareaSimple.getFechaEstimadaFinalizacion());
+		
 		// Verifico que la descripcion de la tarea coincida, con la que se crea.
 		Assert.assertEquals("la descripcion no coincide", this.descripcionTs,
 				this.tareaSimple.getDescripcion());
-		// Verifica que la tarea tenga el estado que tiene que tener cuando
-		// apenas se crea.
-		// Por medio de mock lo logro.
-		// expecifico que metodo va a recibir el mock creada y que deberia de
-		// devolver.
+		
+		// Verifica que la tarea tenga el estado que tiene que tener cuando apenas se crea.
+		// Por medio de mock lo logro. Expecifico que metodo va a recibir el mock creada y 
+		//que deberia devolver.
 		expect(this.creada.verificarSiEstaCreada()).andReturn(true).times(2);
 		replay(this.creada);
+		
 		// metodo que tiene que realizar lo que antes mencione.s
 		this.tareaSimple.verificarSiEstaCreada();
+		
 		// me fijo si devolvio lo que que corresponde.
 		Assert.assertTrue("", this.tareaSimple.verificarSiEstaCreada());
+		
 		// verifico que al mock le llego el metodo que mencione antes.
 		verify(this.creada);
 	}
 
 	/**
 	 * Test verEstado de una TareaSimple. Muestra que el metodo verEstado
-	 * funciona bien, o como se espera
+	 * funciona bien, o como se espera.
 	 */
 	public void testVerEstado() {
-
+		// declaro una variable, que es el valor deseado.
 		String nombreCreada = this.creada.toString();
+		
+		// especifico el mensaje que podria recibir el mock a probar.
 		expect(this.creada.toString()).andReturn("Creada").times(4);
 		replay(this.creada);
+		
+		// realizo las acciones.
 		this.tareaSimple.verEstado();
 		this.tareaSimpleConMiembro.verEstado();
-		Assert.assertEquals("el estado no es creada", nombreCreada,
+		
+		// verifico que 
+		Assert.assertEquals("el nombre no es creada", nombreCreada,
 				this.tareaSimple.verEstado());
-		Assert.assertEquals("el estado no es creada", nombreCreada,
+		Assert.assertEquals("el nombre no es creada", nombreCreada,
 				this.tareaSimpleConMiembro.verEstado());
 		verify(this.creada);
 	}

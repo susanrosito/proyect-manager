@@ -6,12 +6,12 @@ import usuarioMiembroYFecha.Miembro;
 import usuarioMiembroYFecha.Fecha;
 import estados.Creada;
 import estados.Estado;
-
 import estados.NoPuedeCambiarseElEstadoExcepccion;
 
 public class TareaSimple extends Tarea {
 	private Miembro miembroAsignado;
 	private Estado estado;
+
 	/**
 	 * Constructor
 	 * 
@@ -28,7 +28,7 @@ public class TareaSimple extends Tarea {
 	}
 
 	/**
-	 * Cambia el estado de la Tarea,a EnTrabajo. si no puede Tira una
+	 * Cambia el estado de la Tarea a EnTrabajo. Si no puede, tira una
 	 * excepcion.
 	 * 
 	 * @throws NoPuedeCambiarseElEstadoExcepccion
@@ -38,8 +38,7 @@ public class TareaSimple extends Tarea {
 	}
 
 	/**
-	 * Cambia el estado de la Tarea,a Iniciada. si no puede Tira una
-	 * excepcion.
+	 * Cambia el estado de la Tarea a Iniciada. Si no puede, tira una excepcion.
 	 * 
 	 * @throws NoPuedeCambiarseElEstadoExcepccion
 	 */
@@ -48,17 +47,14 @@ public class TareaSimple extends Tarea {
 	}
 
 	/**
-	 * Cambia el estado de la Tarea,a Finalizate. si no puede Tira una
-	 * excepcion.
-	 * 
-	 * @throws NoPuedeCambiarseElEstadoExcepccion
+	 * Cambia el estado de la Tarea a Finalizada.
 	 */
-	public void finalizate(){
+	public void finalizate() {
 		this.getEstado().finalizada(this);
 	}
 
 	/**
-	 * Cambia el estado de la Tarea a Pausate. si no puede tira una excepcion.
+	 * Cambia el estado de la Tarea a Pausada. Si no puede, tira una excepcion.
 	 * 
 	 * @throws NoPuedeCambiarseElEstadoExcepccion
 	 */
@@ -77,26 +73,26 @@ public class TareaSimple extends Tarea {
 	public void reAbrite(String note) {
 		try {
 			this.iniciate();
-			this.setDescripcion(note+"\n"+this.getDescripcion());
+			this.setDescripcion(note + "\n" + this.getDescripcion());
 		} catch (NoPuedeCambiarseElEstadoExcepccion ex) {
-			
+
 			ex.printStackTrace();
 		}
 
 	}
+
 	/**
 	 * Este metodo modifica el miembro actual, por el del parametro.
 	 * 
 	 * @param miembro
 	 *            Miembro
-	 * @throws NoPuedeCambiarseElEstadoExcepccion
 	 */
 	public void modificarMiembroAsignado(Miembro miembro) {
 		if (this.getMiembroAsignado() == null) {
 			try {
 				this.iniciate();
 			} catch (NoPuedeCambiarseElEstadoExcepccion e) {
-				
+
 				e.printStackTrace();
 			}
 		}
@@ -107,12 +103,13 @@ public class TareaSimple extends Tarea {
 
 		return false;
 	}
-	
+
 	public List<Miembro> obtenerMiembros() {
 		List<Miembro> listaMiembro = new ArrayList<Miembro>();
 		listaMiembro.add(this.getMiembroAsignado());
 		return listaMiembro;
 	}
+
 	public boolean verificarSiEstaPausada() {
 		return this.getEstado().verificarSiEstaPausada();
 	}
@@ -141,12 +138,14 @@ public class TareaSimple extends Tarea {
 		this.miembroAsignado = miembro;
 
 	}
+
 	public Miembro getMiembroAsignado() {
 		return this.miembroAsignado;
 	}
+
 	public static void main(String[] args) {
-	
-}
+
+	}
 
 	public void setEstado(Estado estado) {
 		this.estado = estado;

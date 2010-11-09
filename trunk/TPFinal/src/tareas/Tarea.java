@@ -16,7 +16,7 @@ public abstract class Tarea implements AdministradorTarea {
 	private float porcentajeFinalizacion;
 
 	/**
-	 * Constructor 
+	 * Constructor
 	 * 
 	 * @param nombre
 	 *            tipo String
@@ -65,24 +65,32 @@ public abstract class Tarea implements AdministradorTarea {
 	public abstract boolean verificarSiEstaEnTrabajo();
 
 	/**
-	 * Muestra en que estado se encuentra la Tarea.
+	 * Muestra en que estado se encuentra la Tarea, por medio de un string.
 	 */
 	public abstract String verEstado();
 
 	/**
-	 * Este metodo reAbre una tarea.
+	 * Este metodo reAbre una tarea. Agregando el motivo de dicha accion.
+	 *
+	 * @param note
+	 * 			tipo String
 	 */
 	public abstract void reAbrite(String note);
 
 	/**
-	 * Se fija si tiene orden o no, la tarea, por medio de un booleano.
+	 * Se fija si la tarea tiene orden o no. Por medio de un booleano.
 	 */
 	public abstract boolean tieneOrden();
 
 	/**
-	 * Este metodo Cierra una tarea.
+	 * Este metodo Cierra una tarea. Cambia el estado a Cerrada.
 	 */
 	public abstract void cerrate();
+
+	/**
+	 * Devuelve los miembros de la tarea.
+	 */
+	public abstract List<Miembro> obtenerMiembros();
 
 	/**
 	 * Verifica si la Tarea esta a tiempo para seguir realizandola.
@@ -100,11 +108,6 @@ public abstract class Tarea implements AdministradorTarea {
 		/* TODO */
 		return false;
 	}
-
-	/**
-	 * 
-	 */
-	public abstract List<Miembro> obtenerMiembros();
 
 	public void setFechaCreacion(Fecha fechaCreacion) {
 		this.fechaCreacion = fechaCreacion;
