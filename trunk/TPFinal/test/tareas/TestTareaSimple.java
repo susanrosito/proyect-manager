@@ -41,7 +41,7 @@ public class TestTareaSimple extends TestCase {
 
 	protected void setUp() throws Exception {
 		super.setUp();
-		
+
 		// cada estado es un Mock.
 		this.creada = createMock(Creada.class);
 		this.cerrada = createMock(Cerrada.class);
@@ -56,10 +56,10 @@ public class TestTareaSimple extends TestCase {
 		this.fechaTs = new Fecha("20101012");
 		this.tareaSimple = new TareaSimple(this.nombreTs, this.descripcionTs,
 				this.fechaTs);
-		
+
 		// seteo el mock creada.
 		this.tareaSimple.setEstado(this.creada);
-		
+
 		// cree un usuario mock
 		this.usuario = createMock(Usuario.class);
 		this.nombreUsuario = "Rodrigo";
@@ -89,16 +89,17 @@ public class TestTareaSimple extends TestCase {
 		this.fechaTsCM = new Fecha("20101123");
 		this.tareaSimpleConMiembro = new TareaSimple(this.nombreTsCM,
 				this.descripcionTsCM, this.fechaTsCM);
-		
+
 		// seteo el mock creada.
 		this.tareaSimpleConMiembro.setEstado(this.creada);
-		
-		//this.tareaSimpleConMiembro.modificarMiembroAsignado(this.miembro);
-		
-		// le seteo el estado, ya que cuando se asigna un Miembro a una tarea, tiene que
+
+		// this.tareaSimpleConMiembro.modificarMiembroAsignado(this.miembro);
+
+		// le seteo el estado, ya que cuando se asigna un Miembro a una tarea,
+		// tiene que
 		// pasar a iniciada.
-		//this.tareaSimpleConMiembro.setEstado(this.iniciada);
-		
+		// this.tareaSimpleConMiembro.setEstado(this.iniciada);
+
 		// cree otro usuario mock -- lo cree por el metodo
 		// modificarMiembroAsignado
 		this.nuevoUsuario = createMock(Usuario.class);
@@ -120,31 +121,33 @@ public class TestTareaSimple extends TestCase {
 	 * Test del contructor de una tareaSimple. Verifica que el constructor anda.
 	 */
 	public void testConstructor() {
-		
+
 		// Verifico que el nombre de la tarea coincida, con el que se crea.
 		Assert.assertEquals("El nombre no fue el esperado", this.nombreTs,
 				this.tareaSimple.getNombre());
-		
+
 		// Verifico que la fecha de la tarea coincida, con la que se crea.
 		Assert.assertEquals("No coinciden las Fechas", this.fechaTs,
 				this.tareaSimple.getFechaEstimadaFinalizacion());
-		
+
 		// Verifico que la descripcion de la tarea coincida, con la que se crea.
 		Assert.assertEquals("la descripcion no coincide", this.descripcionTs,
 				this.tareaSimple.getDescripcion());
-		
-		// Verifica que la tarea tenga el estado que tiene que tener cuando apenas se crea.
-		// Por medio de mock lo logro. Expecifico que metodo va a recibir el mock creada y 
-		//que deberia devolver.
+
+		// Verifica que la tarea tenga el estado que tiene que tener cuando
+		// apenas se crea.
+		// Por medio de mock lo logro. Expecifico que metodo va a recibir el
+		// mock creada y
+		// que deberia devolver.
 		expect(this.creada.verificarSiEstaCreada()).andReturn(true).times(2);
 		replay(this.creada);
-		
-		// metodo que tiene que realizar lo que antes mencione.s
+
+		// realizo la accion.
 		this.tareaSimple.verificarSiEstaCreada();
-		
+
 		// me fijo si devolvio lo que que corresponde.
 		Assert.assertTrue("", this.tareaSimple.verificarSiEstaCreada());
-		
+
 		// verifico que al mock le llego el metodo que mencione antes.
 		verify(this.creada);
 	}
@@ -154,28 +157,31 @@ public class TestTareaSimple extends TestCase {
 	 * funciona bien, o como se espera.
 	 */
 	public void testVerEstado() {
+
 		// declaro una variable, que es el valor deseado.
 		String nombreCreada = this.creada.toString();
-		
+
 		// especifico el mensaje que podria recibir el mock a probar.
 		expect(this.creada.toString()).andReturn("Creada").times(4);
 		replay(this.creada);
-		
+
 		// realizo las acciones.
 		this.tareaSimple.verEstado();
 		this.tareaSimpleConMiembro.verEstado();
-		
-		// verifico que 
+
+		// verifico que el valor que devuelve,con el que espero.
 		Assert.assertEquals("el nombre no es creada", nombreCreada,
 				this.tareaSimple.verEstado());
 		Assert.assertEquals("el nombre no es creada", nombreCreada,
 				this.tareaSimpleConMiembro.verEstado());
+
+		// vefirica si recibio el mensaje, las veces que indique.
 		verify(this.creada);
 	}
 
 	/**
 	 * Test cerrate para TareaSimple. Verifica que el metodo cerrate trabaja
-	 * Perfecto
+	 * Perfecto.
 	 */
 	public void testCerrate() {
 		// creo que me falta comentar todos los test y!!
@@ -190,58 +196,93 @@ public class TestTareaSimple extends TestCase {
 	}
 
 	/**
-	 * Test reAbrite para TareaSimple
+	 * Test reAbrite para TareaSimple.
 	 */
-	public void testReAbrite() {
+	public void testReAbriteCuandoSePuede() {
+
+		// declaro el motivo de reabrir la tarea
 		String motivo = "Reabro esta Tarea por que necesita ser finalizada";
+
+		// especifico los mensajes que tendria que recibir el mock creada.
 		this.creada.cerrada(this.tareaSimple);
 		expect(this.cerrada.verificarSiEstaCerrada()).andReturn(true)
 				.anyTimes();
+
+		// especifico los mensajes que tendria que recibir el mock cerrada.
 		this.cerrada.iniciada(this.tareaSimple);
 		expect(this.iniciada.verificarSiEstaIniciada()).andReturn(true)
 				.anyTimes();
+
 		replay(this.creada, this.cerrada, this.iniciada);
+
+		// realizo las acciones necesarias.
 		this.tareaSimple.cerrate();
+
+		// seteo porque el metodo cerrate le asigna a tareaSimple una
+		// instancia de Cerrada real y yo estoy trabajando con mock.
 		this.tareaSimple.setEstado(this.cerrada);
 		this.tareaSimple.verificarSiEstaCerrada();
 		this.tareaSimple.reAbrite(motivo);
+
+		// seteo porque el metodo reAbrite le asigna a tareaSimple una
+		// instancia de Iniciada real y yo estoy trabajando con mock.
 		this.tareaSimple.setEstado(this.iniciada);
 		this.tareaSimple.verificarSiEstaIniciada();
+
+		// vefirico que los mock recibieron los mensajes que mencione antes.
 		verify(this.creada, this.cerrada, this.iniciada);
 		// faltan los demas casos.. cuando va a fallar!!!
 	}
 
+	public void testReAbriteCuandoNoSePuede() {
+		// no se si por cada estado o por todo en el mismo..
+		// creo que si no se me hace lio lo puedo hacer en el mismo:P
+	}
+
 	/**
-	 * Test modificarMiembroAsignado para TareaSimple
+	 * Test modificarMiembroAsignado para TareaSimple, cuando asigno por primera
+	 * vez.
 	 */
-	public void testmodificarMiembroAsignado() {
-		// todo esto que esta aqui es cuando asigno por primera vez a un miembro
-		// en la tarea.
-		// falta poner cuando asigno un miembro despues de la primera vez
-		try {
+	public void testmodificarMiembroAsignadoPorPrimeraVez() {
+
+		try {// especifico los mensajes que tendria que recibir el mock creada
 			this.creada.iniciada(this.tareaSimpleConMiembro);
+
+			// especifico los mensajes que tendria que recibir el mock iniciada
 			expect(this.iniciada.verificarSiEstaIniciada()).andReturn(true)
 					.anyTimes();
+
 			replay(this.creada, this.iniciada);
+			// realizo las acciones necesarias.
 			this.tareaSimpleConMiembro
 					.modificarMiembroAsignado(this.nuevoMiembro);
+			// Compruebo si el miembro es igual al que eh asignado antes.
 			Assert.assertEquals("el miembro no es el mismo", this.nuevoMiembro,
 					this.tareaSimpleConMiembro.getMiembroAsignado());
+
+			// seteo el mock iniciada en la tarea, porq el metodo
+			// modiciarMiembroAsignado
+			// me cambia el estado por Iniciada real y estoy trabajando con
+			// mock.
 			this.tareaSimpleConMiembro.setEstado(this.iniciada);
 			this.tareaSimpleConMiembro.verificarSiEstaIniciada();
+			// verifico si los mensajes le llegaron a los mock creada y iniciada
 			verify(this.creada, this.iniciada);
 		} catch (NoPuedeCambiarseElEstadoExcepccion ex) {
 			ex.printStackTrace();
 		}
-		// en este test verifique que no tiro la excepcion, pero tendria que
-		// crear otro test para mostrar cuando falle.
+
+	}
+
+	public void testModificarMiembroAsignadoYaTeniendoUno() {
+	
 	}
 
 	/**
 	 * Test finalizate para TareaSimple
 	 */
 	public void testFinalizate() {
-		
+
 		this.creada.finalizada(this.tareaSimple);
 		this.creada.finalizada(this.tareaSimpleConMiembro);
 		this.iniciada.finalizada(this.tareaSimpleConMiembro);
@@ -257,14 +298,14 @@ public class TestTareaSimple extends TestCase {
 		this.tareaSimpleConMiembro.finalizate();
 		this.tareaSimpleConMiembro.setEstado(this.pausada);
 		this.tareaSimpleConMiembro.finalizate();
-		
+
 		// Assert.assertSame("no coinciden",this.fina,this.tareaSimple.getEstado());
 
 		// Assert.assertSame(this.fina,this.tareaSimpleConMiembro.getEstado());
-		
+
 		// Assert.assertSame(this.fina,this.tareaSimpleConMiembro.getEstado());
 
-		verify(this.creada,this.iniciada,this.enTrabajo,this.pausada);
+		verify(this.creada, this.iniciada, this.enTrabajo, this.pausada);
 		// Assert.assertSame(this.fina,this.tareaSimpleConMiembro.getEstado());
 	}
 
@@ -323,7 +364,7 @@ public class TestTareaSimple extends TestCase {
 	/**
 	 * Test poneteEnTrabajo para TareaSimple
 	 */
-	public void testPoneteEnTrabajo() {
+	public void testPoneteEnTrabajoCuandoPuede() {
 		/*
 		 * this.creada.enTrabajo(this.tareaSimple); replay(this.creada);
 		 * this.tareaSimple.poneteEnTrabajo(); verify(this.creada); //
@@ -348,11 +389,211 @@ public class TestTareaSimple extends TestCase {
 		 */// Assert.assertSame(this.tareaSimpleConMiembro.getEstado(),this.finalizada);
 	}
 
+	public void testPoneteEnTrabajoCuandoNoPuede() {
+
+	}
+
 	/**
 	 * Test modificarMiembroAsignado para TareaSimple
 	 */
-	public void testPausate() {
+	public void testPausateCuandoPuede() {
 
+	}
+
+	public void testPausateCuandoNoPuede() {
+
+	}
+
+	public void testVerificarSiEstaPausada() {
+
+	}
+
+	public void testVerificarSiEstaEnTrabajo() {
+
+	}
+
+	public void testVerificarSiEstaIniciada() {
+
+	}
+
+	public void testVerificarSiEstaCreada() {
+
+	}
+
+	public void testVerificarSiEstaFinalizada() {
+
+	}
+
+	public void testVerificarSiEstaCerrada() {
+
+	}
+
+	public String getNombreTs() {
+		return nombreTs;
+	}
+
+	public void setNombreTs(String nombreTs) {
+		this.nombreTs = nombreTs;
+	}
+
+	public String getDescripcionTs() {
+		return descripcionTs;
+	}
+
+	public void setDescripcionTs(String descripcionTs) {
+		this.descripcionTs = descripcionTs;
+	}
+
+	public Fecha getFechaTs() {
+		return fechaTs;
+	}
+
+	public void setFechaTs(Fecha fechaTs) {
+		this.fechaTs = fechaTs;
+	}
+
+	public String getNombreTsCM() {
+		return nombreTsCM;
+	}
+
+	public void setNombreTsCM(String nombreTsCM) {
+		this.nombreTsCM = nombreTsCM;
+	}
+
+	public String getDescripcionTsCM() {
+		return descripcionTsCM;
+	}
+
+	public void setDescripcionTsCM(String descripcionTsCM) {
+		this.descripcionTsCM = descripcionTsCM;
+	}
+
+	public Fecha getFechaTsCM() {
+		return fechaTsCM;
+	}
+
+	public void setFechaTsCM(Fecha fechaTsCM) {
+		this.fechaTsCM = fechaTsCM;
+	}
+
+	public Estado getCreada() {
+		return creada;
+	}
+
+	public void setCreada(Estado creada) {
+		this.creada = creada;
+	}
+
+	public Cerrada getCerrada() {
+		return cerrada;
+	}
+
+	public void setCerrada(Cerrada cerrada) {
+		this.cerrada = cerrada;
+	}
+
+	public Iniciada getIniciada() {
+		return iniciada;
+	}
+
+	public void setIniciada(Iniciada iniciada) {
+		this.iniciada = iniciada;
+	}
+
+	public EnTrabajo getEnTrabajo() {
+		return enTrabajo;
+	}
+
+	public void setEnTrabajo(EnTrabajo enTrabajo) {
+		this.enTrabajo = enTrabajo;
+	}
+
+	public Pausada getPausada() {
+		return pausada;
+	}
+
+	public void setPausada(Pausada pausada) {
+		this.pausada = pausada;
+	}
+
+	public Finalizada getFinalizada() {
+		return finalizada;
+	}
+
+	public void setFinalizada(Finalizada finalizada) {
+		this.finalizada = finalizada;
+	}
+
+	public String getNombreUsuario() {
+		return nombreUsuario;
+	}
+
+	public void setNombreUsuario(String nombreUsuario) {
+		this.nombreUsuario = nombreUsuario;
+	}
+
+	public String getEmailUsuario() {
+		return emailUsuario;
+	}
+
+	public void setEmailUsuario(String emailUsuario) {
+		this.emailUsuario = emailUsuario;
+	}
+
+	public Miembro getMiembro() {
+		return miembro;
+	}
+
+	public void setMiembro(Miembro miembro) {
+		this.miembro = miembro;
+	}
+
+	public String getRol() {
+		return rol;
+	}
+
+	public void setRol(String rol) {
+		this.rol = rol;
+	}
+
+	public Usuario getNuevoUsuario() {
+		return nuevoUsuario;
+	}
+
+	public void setNuevoUsuario(Usuario nuevoUsuario) {
+		this.nuevoUsuario = nuevoUsuario;
+	}
+
+	public String getNombreNuevoUsuario() {
+		return nombreNuevoUsuario;
+	}
+
+	public void setNombreNuevoUsuario(String nombreNuevoUsuario) {
+		this.nombreNuevoUsuario = nombreNuevoUsuario;
+	}
+
+	public String getEmailNuevoUsuario() {
+		return emailNuevoUsuario;
+	}
+
+	public void setEmailNuevoUsuario(String emailNuevoUsuario) {
+		this.emailNuevoUsuario = emailNuevoUsuario;
+	}
+
+	public Miembro getNuevoMiembro() {
+		return nuevoMiembro;
+	}
+
+	public void setNuevoMiembro(Miembro nuevoMiembro) {
+		this.nuevoMiembro = nuevoMiembro;
+	}
+
+	public String getNuevoRol() {
+		return nuevoRol;
+	}
+
+	public void setNuevoRol(String nuevoRol) {
+		this.nuevoRol = nuevoRol;
 	}
 
 }
