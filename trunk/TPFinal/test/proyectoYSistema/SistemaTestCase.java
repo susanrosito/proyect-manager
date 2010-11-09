@@ -42,6 +42,8 @@ public class SistemaTestCase extends TestCase{
 		
 	}
 	
-	
+	public void test() {
+		
+	}
 	
 }

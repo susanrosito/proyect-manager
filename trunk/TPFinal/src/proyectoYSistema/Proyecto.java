@@ -5,7 +5,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import estados.*;
 import tareas.*;
 import usuarioMiembroYFecha.*;
 
@@ -17,7 +16,7 @@ public class Proyecto {
 	private List<Miembro> listaDeMiembros;
 
 	/**
-	 * el constructor de la clase proyecto
+	 * El constructor de la clase proyecto.
 	 * 
 	 * @param nombre
 	 * @param descripcion
@@ -34,7 +33,7 @@ public class Proyecto {
 	}
 
 	/**
-	 * agrega a la lista de tareas del proyecto una tarea pasada x parametro
+	 * agrega a la lista de tareas del proyecto una tarea pasada x parametro.
 	 * 
 	 */
 	public void agregarTarea(Tarea tarea) {
@@ -44,9 +43,9 @@ public class Proyecto {
 
 	/**
 	 * Agrega a la lista de miembros un miembro nuevo creado a partir de un
-	 * usuario y un rol,ambos pasados por parametro Lanza una exepcion si el
-	 * usuario todavia tiene un miebro activo dentro del proyecto. (miembro
-	 * activo se refiere al miembro que tiene su variable fecha de fin en NULL)
+	 * usuario y un rol,ambos pasados por parametro. Lanza una exepcion si el
+	 * usuario todavia tiene un miembro activo dentro del proyecto. (miembro
+	 * activo se refiere al miembro que tiene su variable fecha de fin en NULL).
 	 * 
 	 * @param usuario
 	 * @param rol
@@ -65,18 +64,18 @@ public class Proyecto {
 			// vez
 			if (usuario.equals(m.getUsuario()) & (m.getFechaFin() == null)) {
 				throw new UsuarioYaTieneRolExepcion();
-				
-				}
+
+			}
 
 		}
-		
+
 		// si no tiene otro rol el miembro es creado y agregado al proyecto
 		this.getListaDeMiembros().add(new Miembro(usuario, rol));
 
 	}
 
 	/**
-	 * elimina una tarea recibida por parametro
+	 * elimina una tarea recibida por parametro.
 	 * 
 	 * @param tarea
 	 */
@@ -85,7 +84,7 @@ public class Proyecto {
 	}
 
 	/**
-	 * cierra una tarea especifica
+	 * cierra una tarea especifica.
 	 * 
 	 * @param tarea
 	 */
@@ -95,7 +94,7 @@ public class Proyecto {
 	}
 
 	/**
-	 * cierra el proyecto y todas sus tareas
+	 * cierra el proyecto y todas sus tareas.
 	 */
 	public void cerrarProyecto() {
 
@@ -107,8 +106,8 @@ public class Proyecto {
 	}
 
 	/**
-	 * A recibida por parametro la reabre siendo su estado cerrada y le agrega
-	 * un comentario a la descripcion de la tarea
+	 * Recibe una tarea por parametro,la tarea es reabierta si es posible y
+	 * ademas se le agrega un comentario a la descripcion de la tarea.
 	 * 
 	 * @param tarea
 	 * @param comentario
@@ -120,9 +119,9 @@ public class Proyecto {
 
 	/**
 	 * retorna un HasMap con una tarea como clave y un string que es el estado
-	 * como clave
+	 * como clave.
 	 * 
-	 * @return
+	 * @return Map<Tarea, String>
 	 */
 	public Map<Tarea, String> obtenerTareasYEstados() {
 
@@ -136,9 +135,7 @@ public class Proyecto {
 	}
 
 	/**
-	 * Se recorre la lista de miembros del proyecto retorna un HashMap
-	 * <Miembro,String>
-	 * 
+	 * Se recorre la lista de miembros del proyecto retorna un HashMap.
 	 * @return HashMap <Miembro,String>
 	 */
 
@@ -154,7 +151,7 @@ public class Proyecto {
 	}
 
 	/**
-	 * recorre la coleccion de miembros del proyecto
+	 * recorre la coleccion de miembros del proyecto.
 	 * 
 	 * @return cantidadHorasTotalesTrabajadas
 	 */
@@ -170,7 +167,7 @@ public class Proyecto {
 	}
 
 	/**
-	 * le asigna a una tarea simple un miembro
+	 * le asigna a una tarea simple un miembro.
 	 * 
 	 * @param miembro1
 	 * @param tarea
