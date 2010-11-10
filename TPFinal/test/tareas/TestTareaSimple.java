@@ -613,69 +613,16 @@ public class TestTareaSimple extends TestCase {
 	}
 
 	public void testReAbriteCuandoEstaEnTrabajo() {
-		try {
-			this.creada.iniciada(tareaSimple);
-			expect(this.creada.verificarSiEstaIniciada()).andReturn(false)
-					.times(2);
-			this.enTrabajo.iniciada(tareaSimple);
-			expect(this.enTrabajo.verificarSiEstaIniciada()).andReturn(false)
-					.times(2);
-			this.pausada.iniciada(tareaSimple);
-			expect(this.pausada.verificarSiEstaIniciada()).andReturn(false)
-					.times(2);
-			this.finalizada.iniciada(tareaSimple);
-			expect(this.finalizada.verificarSiEstaIniciada()).andReturn(false)
-					.times(2);
-			this.tareaSimple.reAbrite("susy");
-			replay(this.creada, this.enTrabajo, this.pausada, this.finalizada);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		
 	}
 
 	public void testReAbriteCuandoEstaFinalizada() {
-		try {
-			this.creada.iniciada(tareaSimple);
-			expect(this.creada.verificarSiEstaIniciada()).andReturn(false)
-					.times(2);
-			this.enTrabajo.iniciada(tareaSimple);
-			expect(this.enTrabajo.verificarSiEstaIniciada()).andReturn(false)
-					.times(2);
-			this.pausada.iniciada(tareaSimple);
-			expect(this.pausada.verificarSiEstaIniciada()).andReturn(false)
-					.times(2);
-			this.finalizada.iniciada(tareaSimple);
-			expect(this.finalizada.verificarSiEstaIniciada()).andReturn(false)
-					.times(2);
-			this.tareaSimple.reAbrite("susy");
-			replay(this.creada, this.enTrabajo, this.pausada, this.finalizada);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	
+		
 	}
 
 	public void testReAbriteCuandoEstaIniciada() {
-		try {
-			this.creada.iniciada(tareaSimple);
-			expect(this.creada.verificarSiEstaIniciada()).andReturn(false)
-					.times(2);
-			this.enTrabajo.iniciada(tareaSimple);
-			expect(this.enTrabajo.verificarSiEstaIniciada()).andReturn(false)
-					.times(2);
-			this.pausada.iniciada(tareaSimple);
-			expect(this.pausada.verificarSiEstaIniciada()).andReturn(false)
-					.times(2);
-			this.finalizada.iniciada(tareaSimple);
-			expect(this.finalizada.verificarSiEstaIniciada()).andReturn(false)
-					.times(2);
-			this.tareaSimple.reAbrite("susy");
-			replay(this.creada, this.enTrabajo, this.pausada, this.finalizada);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		
 	}
 
 	public void testIniciateCuandoNoSePuede() {
