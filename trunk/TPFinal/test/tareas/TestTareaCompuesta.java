@@ -5,6 +5,7 @@ import static org.easymock.EasyMock.*;
 import java.util.LinkedList;
 import java.util.List;
 
+import usuarioMiembroYFecha.Fecha;
 import usuarioMiembroYFecha.Miembro;
 
 import estados.*;
@@ -22,6 +23,7 @@ public class TestTareaCompuesta extends TestCase{
 	TareaSimple tareaSIniciada;
 	
 	TareaCompuesta tareaC;
+	Fecha fechaFin= null;
 	String descripccionTC = "La descripccion";
 	String nombreTC= "Un Nombre";
 	TareaCompuesta tareaCompuestaEnTrabajo;
@@ -270,6 +272,9 @@ public class TestTareaCompuesta extends TestCase{
 		
 		assertSame("Confirma que el nombre enviado por parametro se guardo correctamente " +
 				"en la variable de la tarea compuesta.",this.getNombreTC(),this.getTareaC().getNombre());
+		
+		assertSame("Confirma que la fecha enviada por parametro se guardo correctamente " +
+				"en la variable de la tarea compuesta.",this.fechaFin,this.getTareaC().getFechaFinalizacion());
 		
 		assertTrue("Confirma que no hay subtareas al crearse una tarea compuesta.", 
 				this.getTareaC().getTareasQueLaComponenen().size()==0);
