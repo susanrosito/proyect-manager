@@ -38,6 +38,9 @@ public class ProyectoTestCase extends TestCase {
 				usuario1);
 	}
 
+	/**
+	 * testea el constructor de la clase Proyecto.
+	 */
 	public void testConstructorProyecto() {
 
 		// 
@@ -66,7 +69,8 @@ public class ProyectoTestCase extends TestCase {
 	}
 
 	public void testAgregarTarea() {
-
+		// guarda en una variable el tamaño de la lista de tareas antes de
+		// agregar una tarea nueva.
 		int tamanhoAntesAgregarTarea = this.getProyecto().getListaTareas()
 				.size();
 
@@ -85,7 +89,7 @@ public class ProyectoTestCase extends TestCase {
 
 	public void testAgregarMiembroNoPuedeAgregar() {
 		// ** buscar el caso en que tire la exepcion **
-		// agrego el miembro al proyecto
+		// agrego el miembro al proyecto para que ya exista dentro del proyecto.
 		this.getProyecto().getListaDeMiembros().add(miembro2);
 
 		// el miembro 1 y 2 son creados a partir del mismo usuario.
@@ -159,7 +163,7 @@ public class ProyectoTestCase extends TestCase {
 		// ejecuto el metodo
 		Map<Tarea, String> resultado = this.getProyecto()
 				.obtenerTareasYEstados();
-
+		//chequea los estados si son correctos
 		assertEquals(estadoCreada, resultado.get(this.getTarea()));
 		assertEquals(estadoIniciada, resultado.get(this.getTareaCompuesta()));
 	}
@@ -194,10 +198,10 @@ public class ProyectoTestCase extends TestCase {
 		String comentario = "se reabre porque ahora ahi luz";
 		String descripcion = "una tarea simple";
 		tareaSimple.reAbrite(comentario);
-		//los mensajes que los mocks van a recibir
-		expect(tareaSimple.getEstado()).andReturn(Cerrada.GetInstance());
+		// los mensajes que los mocks van a recibir
+		expect(tareaSimple.getEstado()).andReturn(Iniciada.GetInstance());
 		expect(tareaSimple.getDescripcion())
-				.andReturn(descripcion + comentario);
+				.andReturn(descripcion +"/n"+ comentario);
 		replay(tareaSimple);
 
 		// envio el mensaje para reabrir la tarea lo que modificaria su estado
@@ -205,8 +209,8 @@ public class ProyectoTestCase extends TestCase {
 		this.getProyecto().reabrirUnaTarea(getTarea(), comentario);
 
 		// verifico si se le cambio el estado de la tarea a iniciada
-		assertSame(Cerrada.GetInstance(), getTarea().getEstado());
-		assertEquals(descripcion + comentario, getTarea().getDescripcion());
+		assertSame(Iniciada.GetInstance(), getTarea().getEstado());
+		assertEquals(descripcion +"/n"+ comentario, getTarea().getDescripcion());
 	}
 
 	public void testHsTotalesTrabajadas() {
