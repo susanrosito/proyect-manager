@@ -96,17 +96,19 @@ public abstract class Tarea implements AdministradorTarea {
 	 * Verifica si la Tarea esta a tiempo para seguir realizandola.
 	 */
 	public boolean estaEnTiempo() {
-		/* TODO */
-		return false;
+		
+		return !(this.estaProximaAVencer());
 	}
 
 	/**
 	 * Se fija si la Tarea se esta aproximando a la fecha estimada de
 	 * finalizacion.
+	 *Tiempo estandar 10 dias
 	 */
 	public boolean estaProximaAVencer() {
-		/* TODO */
-		return false;
+		Fecha fechaActual = new Fecha();
+		Integer diasDifencia =fechaActual.daysUntil(this.fechaEstimadaFinalizacion);
+		return diasDifencia <= 10;
 	}
 
 	public void setFechaCreacion(Fecha fechaCreacion) {
