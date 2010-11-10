@@ -52,7 +52,7 @@ public class TareaCompuesta extends Tarea {
 	/**
 	 * Este mensaje retorna si la tarea compuesta en su totalidad debe ser
 	 * realizada despues de otra tarea. Como si no esta dentro de un
-	 * orgnaizadorDeTarea quiere decir que no tiene ordenm entonces este metodo
+	 * orgnaizadorDeTarea quiere decir que no tiene orden entonces este metodo
 	 * retorna false.
 	 */
 	public boolean tieneOrden() {
