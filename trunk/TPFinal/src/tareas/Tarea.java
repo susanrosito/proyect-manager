@@ -107,7 +107,7 @@ public abstract class Tarea implements AdministradorTarea {
 	 */
 	public boolean estaProximaAVencer() {
 		Fecha fechaActual = new Fecha();
-		Integer diasDifencia =fechaActual.daysUntil(this.fechaEstimadaFinalizacion);
+		Integer diasDifencia =fechaActual.diasQFaltan(this.fechaEstimadaFinalizacion);
 		return diasDifencia <= 10;
 	}
 

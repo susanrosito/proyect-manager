@@ -58,7 +58,7 @@ public class Fecha {
 	 * deuelve 0.
 	 * 
 	 */
-	public Integer daysUntil(Fecha aDate) {
+	public Integer diasQFaltan(Fecha aDate) {
 		return null;
 	}
 	public Fecha fechaDeHoy() {
