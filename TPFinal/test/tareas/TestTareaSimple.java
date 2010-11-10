@@ -167,57 +167,51 @@ public class TestTareaSimple extends TestCase {
 		String nombreFinalizada = this.finalizada.toString();
 
 		// especifico los mensajes que podrian recibir los mock a probar.
-		expect(this.creada.toString()).andReturn("Creada").times(4);
-		expect(this.iniciada.toString()).andReturn("Iniciada").times(4);
-		expect(this.cerrada.toString()).andReturn("Cerrada").times(4);
-		expect(this.enTrabajo.toString()).andReturn("En Trabajo").times(4);
-		expect(this.finalizada.toString()).andReturn("Finalizada").times(4);
-		expect(this.pausada.toString()).andReturn("Pausada").times(4);
+		expect(this.creada.toString()).andReturn("Creada").times(2);
+		expect(this.iniciada.toString()).andReturn("Iniciada").times(1);
+		expect(this.cerrada.toString()).andReturn("Cerrada").times(1);
+		expect(this.enTrabajo.toString()).andReturn("En Trabajo").times(1);
+		expect(this.finalizada.toString()).andReturn("Finalizada").times(1);
+		expect(this.pausada.toString()).andReturn("Pausada").times(1);
 
 		replay(this.creada, this.cerrada, this.enTrabajo, this.iniciada,
 				this.pausada, this.finalizada);
 
-		// realizo las acciones.
-		this.tareaSimple.verEstado();
-		// Verifico que el estado sea el esperado.
+		// realizo las acciones y verifico que el estado esa el esperado.
 		Assert.assertEquals("el nombre no es Creada", nombreCreada,
 				this.tareaSimple.verEstado());
 
-		this.tareaSimpleConMiembro.verEstado();
-		// Verifico que el estado sea el esperado.
+		// realizo las acciones y verifico que el estado esa el esperado.
 		Assert.assertEquals("el nombre no es Creada", nombreCreada,
 				this.tareaSimpleConMiembro.verEstado());
 		// seteo ya que necesito probar con este mock ahora.
 		this.tareaSimpleConMiembro.setEstado(this.iniciada);
-		this.tareaSimpleConMiembro.verEstado();
-
+		
 		// Verifico que el estado sea el esperado.
 		Assert.assertEquals("el nombre no es Iniciada", nombreIniciada,
 				this.tareaSimpleConMiembro.verEstado());
 		// seteo ya que necesito probar con este mock ahora.
 		this.tareaSimpleConMiembro.setEstado(this.enTrabajo);
-		this.tareaSimpleConMiembro.verEstado();
-
+		
 		// Verifico que el estado sea el esperado.
 		Assert.assertEquals("el nombre no es En Trabajo", nombreEnTrabajo,
 				this.tareaSimpleConMiembro.verEstado());
 		// seteo ya que necesito probar con este mock ahora.
 		this.tareaSimpleConMiembro.setEstado(this.pausada);
-		this.tareaSimpleConMiembro.verEstado();
-
+		
 		// Verifico que el estado sea el esperado.
 		Assert.assertEquals("el nombre no es Pausada", nombrePausada,
 				this.tareaSimpleConMiembro.verEstado());
 
 		// seteo ya que necesito probar con este mock ahora.
 		this.tareaSimpleConMiembro.setEstado(this.finalizada);
-		this.tareaSimpleConMiembro.verEstado();
+	
 		// verifico que el valor que devuelve,con el que espero.
 		Assert.assertEquals("el nombre no es Finalizada", nombreFinalizada,
 				this.tareaSimpleConMiembro.verEstado());
 
 		this.tareaSimpleConMiembro.setEstado(this.cerrada);
-		this.tareaSimpleConMiembro.verEstado();
+		
 		Assert.assertEquals("el nombre no es Cerrada", nombreCerrada,
 				this.tareaSimpleConMiembro.verEstado());
 
@@ -234,7 +228,7 @@ public class TestTareaSimple extends TestCase {
 
 		// especifico los mensajes que podrian recibir los mock a probar.
 		this.creada.cerrada(this.tareaSimple);
-		expect(this.cerrada.verificarSiEstaCerrada()).andReturn(true).times(10);
+		expect(this.cerrada.verificarSiEstaCerrada()).andReturn(true).times(5);
 		this.creada.cerrada(this.tareaSimpleConMiembro);
 		this.iniciada.cerrada(this.tareaSimpleConMiembro);
 		this.pausada.cerrada(this.tareaSimpleConMiembro);
@@ -249,8 +243,7 @@ public class TestTareaSimple extends TestCase {
 		// / seteo porque el metodo cerrate le asigna a tareaSimple una
 		// instancia de Cerrada real y yo estoy trabajando con mock.
 		this.tareaSimple.setEstado(this.cerrada);
-		this.tareaSimple.verificarSiEstaCerrada();
-
+		
 		// Verifico que la tarea este cerrada.
 		Assert.assertTrue("", this.tareaSimple.verificarSiEstaCerrada());
 		this.tareaSimpleConMiembro.cerrate();
@@ -258,8 +251,7 @@ public class TestTareaSimple extends TestCase {
 		// / seteo porque el metodo cerrate le asigna a tareaSimple una
 		// instancia de Cerrada real y yo estoy trabajando con mock.
 		this.tareaSimpleConMiembro.setEstado(this.cerrada);
-		this.tareaSimpleConMiembro.verificarSiEstaCerrada();
-
+		
 		// Verifico que la tarea este cerrada.
 		Assert.assertTrue("", this.tareaSimpleConMiembro
 				.verificarSiEstaCerrada());
@@ -271,8 +263,7 @@ public class TestTareaSimple extends TestCase {
 		// / seteo porque el metodo cerrate le asigna a tareaSimple una
 		// instancia de Cerrada real y yo estoy trabajando con mock.
 		this.tareaSimpleConMiembro.setEstado(this.cerrada);
-		this.tareaSimpleConMiembro.verificarSiEstaCerrada();
-
+		
 		// Verifico que la tarea este cerrada.
 		Assert.assertTrue("", this.tareaSimpleConMiembro
 				.verificarSiEstaCerrada());
@@ -284,8 +275,7 @@ public class TestTareaSimple extends TestCase {
 		// seteo porque el metodo cerrate le asigna a tareaSimple una
 		// instancia de Cerrada real y yo estoy trabajando con mock.
 		this.tareaSimpleConMiembro.setEstado(this.cerrada);
-		this.tareaSimpleConMiembro.verificarSiEstaCerrada();
-
+		
 		// Verifico que la tarea este cerrada.
 		Assert.assertTrue("", this.tareaSimpleConMiembro
 				.verificarSiEstaCerrada());
@@ -297,8 +287,7 @@ public class TestTareaSimple extends TestCase {
 		// seteo porque el metodo cerrate le asigna a tareaSimple una
 		// instancia de Cerrada real y yo estoy trabajando con mock.
 		this.tareaSimpleConMiembro.setEstado(this.cerrada);
-		this.tareaSimpleConMiembro.verificarSiEstaCerrada();
-
+		
 		// Verifico que la tarea este cerrada.
 		Assert.assertTrue("", this.tareaSimpleConMiembro
 				.verificarSiEstaCerrada());
@@ -318,10 +307,10 @@ public class TestTareaSimple extends TestCase {
 
 		// especifico los mensajes que tendria que recibir los mock.
 		this.creada.cerrada(this.tareaSimple);
-		expect(this.cerrada.verificarSiEstaCerrada()).andReturn(true).times(2);
+		expect(this.cerrada.verificarSiEstaCerrada()).andReturn(true).times(1);
 		this.cerrada.iniciada(this.tareaSimple);
 		expect(this.iniciada.verificarSiEstaIniciada()).andReturn(true)
-				.times(2);
+				.times(1);
 
 		replay(this.creada, this.cerrada, this.iniciada);
 
@@ -331,14 +320,12 @@ public class TestTareaSimple extends TestCase {
 		// seteo porque el metodo cerrate le asigna a tareaSimple una
 		// instancia de Cerrada real y yo estoy trabajando con mock.
 		this.tareaSimple.setEstado(this.cerrada);
-		this.tareaSimple.verificarSiEstaCerrada();
 		Assert.assertTrue("", this.tareaSimple.verificarSiEstaCerrada());
 		this.tareaSimple.reAbrite(motivo);
 
 		// seteo porque el metodo reAbrite le asigna a tareaSimple una
 		// instancia de Iniciada real y yo estoy trabajando con mock.
 		this.tareaSimple.setEstado(this.iniciada);
-		this.tareaSimple.verificarSiEstaIniciada();
 		Assert.assertTrue("", this.tareaSimple.verificarSiEstaIniciada());
 
 		// vefirico que los mock recibieron los mensajes que mencione antes.
