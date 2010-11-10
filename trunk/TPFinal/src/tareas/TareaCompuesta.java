@@ -42,7 +42,7 @@ public class TareaCompuesta extends Tarea {
 	 * compuesta.
 	 */
 	public void reAbrite(String note) {
-		this.setDescripcion(note + "\n" + this.getDescripcion());
+		this.setDescripcion( this.getDescripcion()+ "\n" + note );
 		for (AdministradorTarea at : this.getTareasQueLaComponenen()) {
 			at.reAbrite(note);
 		}
@@ -111,7 +111,9 @@ public class TareaCompuesta extends Tarea {
 	 */
 	public boolean verificarSiEstaEnTrabajo() {
 
-		boolean algunaEstaEnTrabajo = false;
+		//Con esta variable nos aseguramos que por lo menos una este en trabajo
+		boolean algunaEstaEnTrabajo = false; 
+		//Con esta variable verificamos que las demas esten o finalizadas, creadas, o iniciadas.
 		boolean estaEnTrabajo = true;
 		for (AdministradorTarea at : this.getTareasQueLaComponenen()) {
 			estaEnTrabajo = estaEnTrabajo
@@ -122,6 +124,7 @@ public class TareaCompuesta extends Tarea {
 			algunaEstaEnTrabajo = algunaEstaEnTrabajo
 			|| (at.verificarSiEstaEnTrabajo());
 		}
+		//Retorna si al menos una esta en trabaja y las demas finalizadas, creadas o iniciadas.
 		return estaEnTrabajo&&algunaEstaEnTrabajo;}
 		
 	
@@ -134,15 +137,18 @@ public class TareaCompuesta extends Tarea {
 
 	public boolean verificarSiEstaIniciada() {
 
-		boolean algunaEstaIniciada = false;
-		{boolean estaIniciada = true;
+		//Con esta variable nos aseguramos que almenos una este iniciada
+		boolean algunaEstaIniciada = false; 
+		//Con esta variable nos aseguramos que las que no esten iniciadas esten creadas.
+		boolean estaIniciada = true;
 		for (AdministradorTarea at : this.getTareasQueLaComponenen()) {
 			estaIniciada = estaIniciada
 					&& (at.verificarSiEstaIniciada() | at.verificarSiEstaCreada());
 			algunaEstaIniciada = algunaEstaIniciada
 			|| (at.verificarSiEstaIniciada());
 		}
-		return estaIniciada && algunaEstaIniciada;}
+		//Retorna si al menos una esta iniciada y las demas creadas o iniciadas.
+		return estaIniciada && algunaEstaIniciada;
 		
 	}
 
