@@ -23,7 +23,7 @@ public class TestTareaCompuesta extends TestCase{
 	TareaSimple tareaSIniciada;
 	
 	TareaCompuesta tareaC;
-	Fecha fechaFin= null;
+	Fecha fechaFin;
 	String descripccionTC = "La descripccion";
 	String nombreTC= "Un Nombre";
 	TareaCompuesta tareaCompuestaEnTrabajo;
@@ -57,6 +57,10 @@ public class TestTareaCompuesta extends TestCase{
 		/* Setea el String que representa el motivo por el cual se reabre la TareaCompuesta en el test
 		 * Reabrir tarea */
 		this.stringMotivo= "Se re abre la tarea porque...";
+		/* Setea la fecha estimada de finalizacion con un mock que sera utilizado 
+		 * para testear el buen funcionamiento del constructor.
+		 */
+		this.fechaFin= createMock(Fecha.class);
 		
 		/* A Continuacion se setean solo las variables que representan los miembros de la tarea
 		 * compuesta que se agregaran a cualquiera de los mock objects de las tareas simples para
@@ -212,7 +216,7 @@ public class TestTareaCompuesta extends TestCase{
 		replay(tareaSIniciada, tareSFinalizada, tareaSCreada, tareaSCerrada, tareaSEnTrabajo, tareaSPausada, otraTareaCompuesta );
 		
 		//Setea la variable tareaC que va a ser usada para testear el costructor.
-		this.tareaC = new TareaCompuesta(this.nombreTC,this.descripccionTC , null);
+		this.tareaC = new TareaCompuesta(this.nombreTC,this.descripccionTC , this.fechaFin);
 		
 		/* A continuacion se setean todas las variables de TareaCompuesta donde cada una representa
 		 * una tarea compuesta con cada estado, como describe su nombre. 
@@ -274,7 +278,7 @@ public class TestTareaCompuesta extends TestCase{
 				"en la variable de la tarea compuesta.",this.getNombreTC(),this.getTareaC().getNombre());
 		
 		assertSame("Confirma que la fecha enviada por parametro se guardo correctamente " +
-				"en la variable de la tarea compuesta.",this.fechaFin,this.getTareaC().getFechaFinalizacion());
+				"en la variable de la tarea compuesta.",this.fechaFin,this.getTareaC().getFechaEstimadaFinalizacion());
 		
 		assertTrue("Confirma que no hay subtareas al crearse una tarea compuesta.", 
 				this.getTareaC().getTareasQueLaComponenen().size()==0);
