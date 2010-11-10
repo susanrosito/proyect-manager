@@ -231,7 +231,7 @@ public class TestTareaSimple extends TestCase {
 	 * Perfecto.
 	 */
 	public void testCerrate() {
-		
+
 		// especifico los mensajes que podrian recibir los mock a probar.
 		this.creada.cerrada(this.tareaSimple);
 		expect(this.cerrada.verificarSiEstaCerrada()).andReturn(true).times(10);
@@ -242,63 +242,63 @@ public class TestTareaSimple extends TestCase {
 
 		replay(this.creada, this.cerrada, this.enTrabajo, this.pausada,
 				this.iniciada);
-		
+
 		// realizo las acciones.
 		this.tareaSimple.cerrate();
-		
+
 		// / seteo porque el metodo cerrate le asigna a tareaSimple una
 		// instancia de Cerrada real y yo estoy trabajando con mock.
 		this.tareaSimple.setEstado(this.cerrada);
 		this.tareaSimple.verificarSiEstaCerrada();
-		
+
 		// Verifico que la tarea este cerrada.
 		Assert.assertTrue("", this.tareaSimple.verificarSiEstaCerrada());
 		this.tareaSimpleConMiembro.cerrate();
-		
+
 		// / seteo porque el metodo cerrate le asigna a tareaSimple una
 		// instancia de Cerrada real y yo estoy trabajando con mock.
 		this.tareaSimpleConMiembro.setEstado(this.cerrada);
 		this.tareaSimpleConMiembro.verificarSiEstaCerrada();
-		
+
 		// Verifico que la tarea este cerrada.
 		Assert.assertTrue("", this.tareaSimpleConMiembro
 				.verificarSiEstaCerrada());
-		
+
 		// seteo ya que necesito probar con este mock ahora.
 		this.tareaSimpleConMiembro.setEstado(this.iniciada);
 		this.tareaSimpleConMiembro.cerrate();
-		
-		/// seteo porque el metodo cerrate le asigna a tareaSimple una
+
+		// / seteo porque el metodo cerrate le asigna a tareaSimple una
 		// instancia de Cerrada real y yo estoy trabajando con mock.
 		this.tareaSimpleConMiembro.setEstado(this.cerrada);
 		this.tareaSimpleConMiembro.verificarSiEstaCerrada();
-		
+
 		// Verifico que la tarea este cerrada.
 		Assert.assertTrue("", this.tareaSimpleConMiembro
 				.verificarSiEstaCerrada());
-		
+
 		// seteo ya que necesito probar con este mock ahora.
 		this.tareaSimpleConMiembro.setEstado(this.enTrabajo);
 		this.tareaSimpleConMiembro.cerrate();
-		
+
 		// seteo porque el metodo cerrate le asigna a tareaSimple una
 		// instancia de Cerrada real y yo estoy trabajando con mock.
 		this.tareaSimpleConMiembro.setEstado(this.cerrada);
 		this.tareaSimpleConMiembro.verificarSiEstaCerrada();
-		
+
 		// Verifico que la tarea este cerrada.
 		Assert.assertTrue("", this.tareaSimpleConMiembro
 				.verificarSiEstaCerrada());
-		
+
 		// seteo ya que necesito probar con este mock ahora.
 		this.tareaSimpleConMiembro.setEstado(this.pausada);
 		this.tareaSimpleConMiembro.cerrate();
-		
+
 		// seteo porque el metodo cerrate le asigna a tareaSimple una
 		// instancia de Cerrada real y yo estoy trabajando con mock.
 		this.tareaSimpleConMiembro.setEstado(this.cerrada);
 		this.tareaSimpleConMiembro.verificarSiEstaCerrada();
-		
+
 		// Verifico que la tarea este cerrada.
 		Assert.assertTrue("", this.tareaSimpleConMiembro
 				.verificarSiEstaCerrada());
@@ -344,6 +344,259 @@ public class TestTareaSimple extends TestCase {
 		// vefirico que los mock recibieron los mensajes que mencione antes.
 		verify(this.creada, this.cerrada, this.iniciada);
 
+	}
+
+	/**
+	 * Test modificarMiembroAsignado para TareaSimple, cuando asigno por primera
+	 * vez.
+	 */
+	public void testmodificarMiembroAsignadoPorPrimeraVez() {
+
+		try {// especifico los mensajes que tendria que recibir el mock creada
+			this.creada.iniciada(this.tareaSimpleConMiembro);
+
+			// especifico los mensajes que tendria que recibir el mock iniciada
+			expect(this.iniciada.verificarSiEstaIniciada()).andReturn(true)
+					.times(1);
+
+			replay(this.creada, this.iniciada);
+
+			// realizo las acciones necesarias.
+			this.tareaSimpleConMiembro.modificarMiembroAsignado(this.miembro);
+
+			// Compruebo si el miembro es igual al que eh asignado antes.
+			Assert.assertEquals("el miembro no es el mismo", this.miembro,
+					this.tareaSimpleConMiembro.getMiembroAsignado());
+
+			// seteo el mock iniciada en la tarea, porq el metodo
+			// modiciarMiembroAsignado
+			// me cambia el estado por Iniciada real y estoy trabajando con
+			// mock.
+			this.tareaSimpleConMiembro.setEstado(this.iniciada);
+			Assert.assertTrue("", this.tareaSimpleConMiembro
+					.verificarSiEstaIniciada());
+
+			// verifico si los mensajes le llegaron a los mock creada y iniciada
+			verify(this.creada, this.iniciada);
+		} catch (NoPuedeCambiarseElEstadoExcepccion ex) {
+
+		}
+
+	}
+
+	/**
+	 * Test modificarMiembroAsignado para TareaSimple teniendo un miembro
+	 * asignado
+	 */
+	public void testModificarMiembroAsignadoYaTeniendoUno() {
+
+		// como ya vimos en el anterior test, si asignas por primera vez cambia
+		// el estado.
+		this.tareaSimpleConMiembro.modificarMiembroAsignado(this.miembro);
+		this.tareaSimpleConMiembro.setEstado(this.iniciada);
+
+		// ahora asignar la segunda vez.. no deberia de cambiar el estado y si
+		// tendria que estar el nuevo miembro.
+		this.tareaSimpleConMiembro.modificarMiembroAsignado(this.nuevoMiembro);
+
+		// Verifico que el miembro ha sido modificado correctamente.
+		Assert.assertEquals("El estado no fue el esperado", this.iniciada,
+				this.tareaSimpleConMiembro.getEstado());
+		Assert.assertEquals("Son distintos los miembros", this.nuevoMiembro,
+				this.tareaSimpleConMiembro.getMiembroAsignado());
+		Assert.assertNotSame("No cambio de miembro", this.miembro,
+				this.tareaSimpleConMiembro.getMiembroAsignado());
+	}
+
+	/**
+	 * Test finalizate para TareaSimple
+	 */
+	public void testFinalizate() {
+		// especifico los mensajes que podrian recibir los mock a probar.
+		this.creada.finalizada(this.tareaSimple);
+		expect(this.finalizada.verificarSiEstaFinalizada()).andReturn(true)
+				.times(5);
+		this.creada.finalizada(this.tareaSimpleConMiembro);
+		this.iniciada.finalizada(this.tareaSimpleConMiembro);
+		this.enTrabajo.finalizada(this.tareaSimpleConMiembro);
+		this.pausada.finalizada(this.tareaSimpleConMiembro);
+
+		replay(this.creada, this.iniciada, this.enTrabajo, this.pausada,
+				this.finalizada);
+
+		// realizo las acciones necesarias.
+		this.tareaSimple.finalizate();
+
+		// seteo porque el metodo finalizate le asigna a tareaSimple una
+		// instancia de Finalizada real y yo estoy trabajando con mock.
+		this.tareaSimple.setEstado(this.finalizada);
+
+		// Verifico que la tarea este finalizada.
+		Assert.assertTrue("", this.tareaSimple.verificarSiEstaFinalizada());
+		this.tareaSimpleConMiembro.finalizate();
+
+		// seteo porque el metodo finalizate le asigna a tareaSimple una
+		// instancia de Finalizada real y yo estoy trabajando con mock.
+		this.tareaSimpleConMiembro.setEstado(this.finalizada);
+
+		// Verifico que la tarea este finalizada.
+		Assert.assertTrue("", this.tareaSimpleConMiembro
+				.verificarSiEstaFinalizada());
+
+		// seteo ya que necesito probar con este mock ahora.
+		this.tareaSimpleConMiembro.setEstado(this.iniciada);
+		this.tareaSimpleConMiembro.finalizate();
+
+		// seteo porque el metodo finalizate le asigna a tareaSimple una
+		// instancia de Finalizada real y yo estoy trabajando con mock.
+		this.tareaSimpleConMiembro.setEstado(this.finalizada);
+
+		// Verifico que la tarea este finalizada.
+		Assert.assertTrue("", this.tareaSimpleConMiembro
+				.verificarSiEstaFinalizada());
+
+		// seteo ya que necesito probar con este mock ahora.
+		this.tareaSimpleConMiembro.setEstado(this.enTrabajo);
+		this.tareaSimpleConMiembro.finalizate();
+
+		// seteo porque el metodo finalizate le asigna a tareaSimple una
+		// instancia de Finalizada real y yo estoy trabajando con mock.
+		this.tareaSimpleConMiembro.setEstado(this.finalizada);
+
+		// Verifico que la tarea este finalizada.
+		Assert.assertTrue("", this.tareaSimpleConMiembro
+				.verificarSiEstaFinalizada());
+
+		// seteo ya que necesito probar con este mock ahora.
+		this.tareaSimpleConMiembro.setEstado(this.pausada);
+		this.tareaSimpleConMiembro.finalizate();
+
+		// seteo porque el metodo finalizate le asigna a tareaSimple una
+		// instancia de Finalizada real y yo estoy trabajando con mock.
+		this.tareaSimpleConMiembro.setEstado(this.finalizada);
+
+		// Verifico que la tarea este finalizada.
+		Assert.assertTrue("", this.tareaSimpleConMiembro
+				.verificarSiEstaFinalizada());
+
+		verify(this.creada, this.iniciada, this.enTrabajo, this.pausada,
+				this.finalizada);
+	}
+
+	/**
+	 * Test iniciate para TareaSimple
+	 */
+	public void testIniciateCuandoSePuede() {
+
+		try {
+			this.creada.iniciada(this.tareaSimple);
+			expect(this.iniciada.verificarSiEstaIniciada()).andReturn(true);
+			replay(this.creada, this.iniciada);
+			this.tareaSimple.iniciate();
+			this.tareaSimple.setEstado(this.iniciada);
+			Assert.assertTrue("", this.tareaSimple.verificarSiEstaIniciada());
+			verify(this.creada, this.iniciada);
+
+		} catch (NoPuedeCambiarseElEstadoExcepccion e) {
+
+		}
+
+	}
+
+	/**
+	 * Test poneteEnTrabajo para TareaSimple
+	 */
+	public void testPoneteEnTrabajoCuandoPuede() {
+		try {
+			this.iniciada.enTrabajo(this.tareaSimple);
+			expect(this.enTrabajo.verificarSiEstaEnTrabajo()).andReturn(true)
+					.times(1);
+
+			replay(this.iniciada, this.enTrabajo);
+
+			this.tareaSimple.setEstado(this.iniciada);
+			this.tareaSimple.poneteEnTrabajo();
+			this.tareaSimple.setEstado(this.enTrabajo);
+
+			Assert.assertTrue("", this.tareaSimple.verificarSiEstaEnTrabajo());
+
+			verify(this.iniciada, this.enTrabajo);
+
+		} catch (NoPuedeCambiarseElEstadoExcepccion e) {
+
+		}
+
+	}
+
+	public void testPausateCuandoPuede() {
+		try {
+			this.enTrabajo.pausada(this.tareaSimple);
+			expect(this.pausada.verificarSiEstaPausada()).andReturn(true)
+					.times(1);
+
+			replay(this.enTrabajo, this.pausada);
+
+			this.tareaSimple.setEstado(this.enTrabajo);
+			this.tareaSimple.pausate();
+			this.tareaSimple.setEstado(this.pausada);
+
+			Assert.assertTrue("", this.tareaSimple.verificarSiEstaPausada());
+
+			verify(this.enTrabajo, this.pausada);
+
+		} catch (NoPuedeCambiarseElEstadoExcepccion e) {
+
+		}
+	}
+
+	public void testVerificarSiEstaPausada() {
+		expect(this.pausada.verificarSiEstaPausada()).andReturn(true).times(1);
+		replay(this.pausada);
+		this.tareaSimple.setEstado(this.pausada);
+		Assert.assertTrue("", this.tareaSimple.verificarSiEstaPausada());
+		verify(this.pausada);
+	}
+
+	public void testVerificarSiEstaEnTrabajo() {
+		expect(this.enTrabajo.verificarSiEstaEnTrabajo()).andReturn(true)
+				.times(1);
+		replay(this.enTrabajo);
+		this.tareaSimple.setEstado(this.enTrabajo);
+		Assert.assertTrue("", this.tareaSimple.verificarSiEstaEnTrabajo());
+		verify(this.enTrabajo);
+	}
+
+	public void testVerificarSiEstaIniciada() {
+		expect(this.iniciada.verificarSiEstaIniciada()).andReturn(true)
+				.times(1);
+		replay(this.iniciada);
+		this.tareaSimple.setEstado(this.iniciada);
+		Assert.assertTrue("", this.tareaSimple.verificarSiEstaIniciada());
+		verify(this.iniciada);
+	}
+
+	public void testVerificarSiEstaCreada() {
+		expect(this.creada.verificarSiEstaCreada()).andReturn(true).times(1);
+		replay(this.creada);
+		Assert.assertTrue("", this.tareaSimple.verificarSiEstaCreada());
+		verify(this.creada);
+	}
+
+	public void testVerificarSiEstaFinalizada() {
+		expect(this.finalizada.verificarSiEstaFinalizada()).andReturn(true)
+				.times(1);
+		replay(this.finalizada);
+		this.tareaSimple.setEstado(this.finalizada);
+		Assert.assertTrue("", this.tareaSimple.verificarSiEstaFinalizada());
+		verify(this.finalizada);
+	}
+
+	public void testVerificarSiEstaCerrada() {
+		expect(this.cerrada.verificarSiEstaCerrada()).andReturn(true).times(1);
+		replay(this.cerrada);
+		this.tareaSimple.setEstado(this.cerrada);
+		Assert.assertTrue("", this.tareaSimple.verificarSiEstaCerrada());
+		verify(this.cerrada);
 	}
 
 	public void testReAbriteCuandoEstaPausada() {
@@ -425,237 +678,16 @@ public class TestTareaSimple extends TestCase {
 		}
 	}
 
-	/**
-	 * Test modificarMiembroAsignado para TareaSimple, cuando asigno por primera
-	 * vez.
-	 */
-	public void testmodificarMiembroAsignadoPorPrimeraVez() {
-
-		try {// especifico los mensajes que tendria que recibir el mock creada
-			this.creada.iniciada(this.tareaSimpleConMiembro);
-
-			// especifico los mensajes que tendria que recibir el mock iniciada
-			expect(this.iniciada.verificarSiEstaIniciada()).andReturn(true)
-					.times(1);
-
-			replay(this.creada, this.iniciada);
-
-			// realizo las acciones necesarias.
-			this.tareaSimpleConMiembro.modificarMiembroAsignado(this.miembro);
-
-			// Compruebo si el miembro es igual al que eh asignado antes.
-			Assert.assertEquals("el miembro no es el mismo", this.miembro,
-					this.tareaSimpleConMiembro.getMiembroAsignado());
-
-			// seteo el mock iniciada en la tarea, porq el metodo
-			// modiciarMiembroAsignado
-			// me cambia el estado por Iniciada real y estoy trabajando con
-			// mock.
-			this.tareaSimpleConMiembro.setEstado(this.iniciada);
-			Assert.assertTrue("", this.tareaSimpleConMiembro
-					.verificarSiEstaIniciada());
-
-			// verifico si los mensajes le llegaron a los mock creada y iniciada
-			verify(this.creada, this.iniciada);
-		} catch (NoPuedeCambiarseElEstadoExcepccion ex) {
-
-		}
-
-	}
-
-	/**
-	 * Test modificarMiembroAsignado para TareaSimple teniendo un miembro
-	 * asignado
-	 */
-	public void testModificarMiembroAsignadoYaTeniendoUno() {
-
-		// como ya vimos en el anterior test, si asignas por primera vez cambia
-		// el estado.
-		this.tareaSimpleConMiembro.modificarMiembroAsignado(this.miembro);
-		this.tareaSimpleConMiembro.setEstado(this.iniciada);
-
-		// ahora asignar la segunda vez.. no deberia de cambiar el estado y si
-		// tendria que estar el nuevo miembro.
-		this.tareaSimpleConMiembro.modificarMiembroAsignado(this.nuevoMiembro);
-
-		// Verifico que el miembro ha sido modificado correctamente.
-		Assert.assertEquals("El estado no fue el esperado", this.iniciada,
-				this.tareaSimpleConMiembro.getEstado());
-		Assert.assertEquals("Son distintos los miembros", this.nuevoMiembro,
-				this.tareaSimpleConMiembro.getMiembroAsignado());
-		Assert.assertNotSame("No cambio de miembro", this.miembro,
-				this.tareaSimpleConMiembro.getMiembroAsignado());
-	}
-
-	/**
-	 * Test finalizate para TareaSimple
-	 */
-	public void testFinalizate() {
-
-		this.creada.finalizada(this.tareaSimple);
-		expect(this.finalizada.verificarSiEstaFinalizada()).andReturn(true)
-				.times(5);
-		this.creada.finalizada(this.tareaSimpleConMiembro);
-		this.iniciada.finalizada(this.tareaSimpleConMiembro);
-		this.enTrabajo.finalizada(this.tareaSimpleConMiembro);
-		this.pausada.finalizada(this.tareaSimpleConMiembro);
-
-		replay(this.creada, this.iniciada, this.enTrabajo, this.pausada,
-				this.finalizada);
-
-		this.tareaSimple.finalizate();
-		this.tareaSimple.setEstado(this.finalizada);
-		Assert.assertTrue("", this.tareaSimple.verificarSiEstaFinalizada());
-		this.tareaSimpleConMiembro.finalizate();
-		this.tareaSimpleConMiembro.setEstado(this.finalizada);
-		Assert.assertTrue("", this.tareaSimpleConMiembro
-				.verificarSiEstaFinalizada());
-		this.tareaSimpleConMiembro.setEstado(this.iniciada);
-		this.tareaSimpleConMiembro.finalizate();
-		this.tareaSimpleConMiembro.setEstado(this.finalizada);
-		Assert.assertTrue("", this.tareaSimpleConMiembro
-				.verificarSiEstaFinalizada());
-		this.tareaSimpleConMiembro.setEstado(this.enTrabajo);
-		this.tareaSimpleConMiembro.finalizate();
-		this.tareaSimpleConMiembro.setEstado(this.finalizada);
-		Assert.assertTrue("", this.tareaSimpleConMiembro
-				.verificarSiEstaFinalizada());
-		this.tareaSimpleConMiembro.setEstado(this.pausada);
-		this.tareaSimpleConMiembro.finalizate();
-		this.tareaSimpleConMiembro.setEstado(this.finalizada);
-		Assert.assertTrue("", this.tareaSimpleConMiembro
-				.verificarSiEstaFinalizada());
-
-		verify(this.creada, this.iniciada, this.enTrabajo, this.pausada,
-				this.finalizada);
-	}
-
-	/**
-	 * Test iniciate para TareaSimple
-	 */
-	public void testIniciateCuandoSePuede() {
-
-		try {
-			this.creada.iniciada(this.tareaSimple);
-			expect(this.iniciada.verificarSiEstaIniciada()).andReturn(true);
-			replay(this.creada, this.iniciada);
-			this.tareaSimple.iniciate();
-			this.tareaSimple.setEstado(this.iniciada);
-			Assert.assertTrue("", this.tareaSimple.verificarSiEstaIniciada());
-			verify(this.creada, this.iniciada);
-
-		} catch (NoPuedeCambiarseElEstadoExcepccion e) {
-
-		}
-
-	}
-
 	public void testIniciateCuandoNoSePuede() {
 
-	}
-
-	/**
-	 * Test poneteEnTrabajo para TareaSimple
-	 */
-	public void testPoneteEnTrabajoCuandoPuede() {
-		try {
-			this.iniciada.enTrabajo(this.tareaSimple);
-			expect(this.enTrabajo.verificarSiEstaEnTrabajo()).andReturn(true)
-					.times(1);
-
-			replay(this.iniciada, this.enTrabajo);
-
-			this.tareaSimple.setEstado(this.iniciada);
-			this.tareaSimple.poneteEnTrabajo();
-			this.tareaSimple.setEstado(this.enTrabajo);
-
-			Assert.assertTrue("", this.tareaSimple.verificarSiEstaEnTrabajo());
-
-			verify(this.iniciada, this.enTrabajo);
-
-		} catch (NoPuedeCambiarseElEstadoExcepccion e) {
-
-		}
-
-	}
-
-	public void testPoneteEnTrabajoCuandoNoPuede() {
-
-	}
-
-	public void testPausateCuandoPuede() {
-		try {
-			this.enTrabajo.pausada(this.tareaSimple);
-			expect(this.pausada.verificarSiEstaPausada()).andReturn(true)
-					.times(1);
-
-			replay(this.enTrabajo, this.pausada);
-
-			this.tareaSimple.setEstado(this.enTrabajo);
-			this.tareaSimple.pausate();
-			this.tareaSimple.setEstado(this.pausada);
-
-			Assert.assertTrue("", this.tareaSimple.verificarSiEstaPausada());
-
-			verify(this.enTrabajo, this.pausada);
-
-		} catch (NoPuedeCambiarseElEstadoExcepccion e) {
-
-		}
 	}
 
 	public void testPausateCuandoNoPuede() {
 
 	}
 
-	public void testVerificarSiEstaPausada() {
-		expect(this.pausada.verificarSiEstaPausada()).andReturn(true).times(1);
-		replay(this.pausada);
-		this.tareaSimple.setEstado(this.pausada);
-		Assert.assertTrue("", this.tareaSimple.verificarSiEstaPausada());
-		verify(this.pausada);
-	}
+	public void testPoneteEnTrabajoCuandoNoPuede() {
 
-	public void testVerificarSiEstaEnTrabajo() {
-		expect(this.enTrabajo.verificarSiEstaEnTrabajo()).andReturn(true)
-				.times(1);
-		replay(this.enTrabajo);
-		this.tareaSimple.setEstado(this.enTrabajo);
-		Assert.assertTrue("", this.tareaSimple.verificarSiEstaEnTrabajo());
-		verify(this.enTrabajo);
-	}
-
-	public void testVerificarSiEstaIniciada() {
-		expect(this.iniciada.verificarSiEstaIniciada()).andReturn(true)
-				.times(1);
-		replay(this.iniciada);
-		this.tareaSimple.setEstado(this.iniciada);
-		Assert.assertTrue("", this.tareaSimple.verificarSiEstaIniciada());
-		verify(this.iniciada);
-	}
-
-	public void testVerificarSiEstaCreada() {
-		expect(this.creada.verificarSiEstaCreada()).andReturn(true).times(1);
-		replay(this.creada);
-		Assert.assertTrue("", this.tareaSimple.verificarSiEstaCreada());
-		verify(this.creada);
-	}
-
-	public void testVerificarSiEstaFinalizada() {
-		expect(this.finalizada.verificarSiEstaFinalizada()).andReturn(true)
-				.times(1);
-		replay(this.finalizada);
-		this.tareaSimple.setEstado(this.finalizada);
-		Assert.assertTrue("", this.tareaSimple.verificarSiEstaFinalizada());
-		verify(this.finalizada);
-	}
-
-	public void testVerificarSiEstaCerrada() {
-		expect(this.cerrada.verificarSiEstaCerrada()).andReturn(true).times(1);
-		replay(this.cerrada);
-		this.tareaSimple.setEstado(this.cerrada);
-		Assert.assertTrue("", this.tareaSimple.verificarSiEstaCerrada());
-		verify(this.cerrada);
 	}
 
 }
