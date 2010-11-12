@@ -585,7 +585,12 @@ public class TestTareaSimple extends TestCase {
 		Assert.assertTrue("", this.tareaSimple.verificarSiEstaCerrada());
 		verify(this.cerrada);
 	}
-
+	public void testEstaEnTiempo(){
+		
+	}
+	public void testProximaAVencer(){
+		
+	}
 	public void testReAbriteCuandoEstaPausada() {
 		try {
 			String motivo = "Tiene que estar culminada para poder seguir trabajando";
