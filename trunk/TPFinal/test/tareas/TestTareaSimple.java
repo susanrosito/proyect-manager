@@ -700,34 +700,33 @@ public class TestTareaSimple extends TestCase {
 
 	public void testPausateCuandoNoPuede() {
 		try {
-			this.iniciada.pausada(this.tareaSimple);
-			expectLastCall().andThrow(new NoPuedeCambiarseElEstadoExcepccion());
-			this.iniciada.verificarSiEstaPausada();
+			
 			this.creada.pausada(this.tareaSimple);
+			expectLastCall().andThrow(new NoPuedeCambiarseElEstadoExcepccion());
+			this.creada.verificarSiEstaPausada();
+			this.iniciada.pausada(this.tareaSimple);
 			expectLastCall().andThrow(new NoPuedeCambiarseElEstadoExcepccion());
 			this.iniciada.verificarSiEstaPausada();
 			this.pausada.pausada(this.tareaSimple);
 			expectLastCall().andThrow(new NoPuedeCambiarseElEstadoExcepccion());
-			this.iniciada.verificarSiEstaPausada();
+			this.pausada.verificarSiEstaPausada();
 			this.finalizada.pausada(this.tareaSimple);
 			expectLastCall().andThrow(new NoPuedeCambiarseElEstadoExcepccion());
-			this.iniciada.verificarSiEstaPausada();
-			replay(this.pausada,this.enTrabajo,this.iniciada,this.finalizada);
+			this.finalizada.verificarSiEstaPausada();
+			replay(this.pausada,this.creada,this.iniciada,this.finalizada);
 			
-			this.tareaSimple.setEstado(this.iniciada);
-			this.tareaSimple.iniciate();
+			this.tareaSimple.pausate();
 			Assert.assertFalse("", this.tareaSimple.verificarSiEstaPausada());
-			this.tareaSimple.setEstado(this.enTrabajo);
-			this.tareaSimple.iniciate();
+			this.tareaSimple.setEstado(this.iniciada);
+			this.tareaSimple.pausate();
 			Assert.assertFalse("", this.tareaSimple.verificarSiEstaPausada());
 			this.tareaSimple.setEstado(this.pausada);
-			this.tareaSimple.iniciate();
+			this.tareaSimple.pausate();
 			Assert.assertFalse("", this.tareaSimple.verificarSiEstaPausada());
 			this.tareaSimple.setEstado(this.finalizada);
-			this.tareaSimple.iniciate();
+			this.tareaSimple.pausate();
 			Assert.assertFalse("", this.tareaSimple.verificarSiEstaPausada());
-			verify(this.iniciada,this.enTrabajo,this.pausada,this.finalizada);
-		
+			verify(this.iniciada,this.creada,this.pausada,this.finalizada);	
 		} catch (Exception e) {
 			
 		}
@@ -735,34 +734,27 @@ public class TestTareaSimple extends TestCase {
 
 	public void testPoneteEnTrabajoCuandoNoPuede() {
 		try {
-			this.iniciada.iniciada(this.tareaSimple);
+			this.creada.enTrabajo(this.tareaSimple);
 			expectLastCall().andThrow(new NoPuedeCambiarseElEstadoExcepccion());
-			this.iniciada.verificarSiEstaIniciada();
-			this.enTrabajo.iniciada(this.tareaSimple);
+			this.creada.verificarSiEstaEnTrabajo();
+			this.enTrabajo.enTrabajo(this.tareaSimple);
 			expectLastCall().andThrow(new NoPuedeCambiarseElEstadoExcepccion());
-			this.enTrabajo.verificarSiEstaIniciada();
-			this.pausada.iniciada(this.tareaSimple);
+			this.enTrabajo.verificarSiEstaEnTrabajo();
+			this.finalizada.enTrabajo(this.tareaSimple);
 			expectLastCall().andThrow(new NoPuedeCambiarseElEstadoExcepccion());
-			this.pausada.verificarSiEstaIniciada();
-			this.finalizada.iniciada(this.tareaSimple);
-			expectLastCall().andThrow(new NoPuedeCambiarseElEstadoExcepccion());
-			this.finalizada.verificarSiEstaIniciada();
-			replay(this.pausada,this.enTrabajo,this.iniciada,this.finalizada);
+			this.finalizada.verificarSiEstaEnTrabajo();
+			replay(this.enTrabajo,this.creada,this.finalizada);
 			
-			this.tareaSimple.setEstado(this.iniciada);
-			this.tareaSimple.iniciate();
-			Assert.assertFalse("", this.tareaSimple.verificarSiEstaIniciada());
+			
+			this.tareaSimple.poneteEnTrabajo();
+			Assert.assertFalse("", this.tareaSimple.verificarSiEstaEnTrabajo());
 			this.tareaSimple.setEstado(this.enTrabajo);
-			this.tareaSimple.iniciate();
-			Assert.assertFalse("", this.tareaSimple.verificarSiEstaIniciada());
-			this.tareaSimple.setEstado(this.pausada);
-			this.tareaSimple.iniciate();
-			Assert.assertFalse("", this.tareaSimple.verificarSiEstaIniciada());
+			this.tareaSimple.poneteEnTrabajo();
+			Assert.assertFalse("", this.tareaSimple.verificarSiEstaEnTrabajo());
 			this.tareaSimple.setEstado(this.finalizada);
-			this.tareaSimple.iniciate();
-			Assert.assertFalse("", this.tareaSimple.verificarSiEstaIniciada());
-			verify(this.iniciada,this.enTrabajo,this.pausada,this.finalizada);
-		
+			this.tareaSimple.poneteEnTrabajo();
+			Assert.assertFalse("", this.tareaSimple.verificarSiEstaEnTrabajo());
+			verify(this.enTrabajo,this.creada,this.finalizada);		
 		} catch (Exception e) {
 			
 		}
