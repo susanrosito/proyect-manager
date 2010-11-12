@@ -186,32 +186,32 @@ public class TestTareaSimple extends TestCase {
 				this.tareaSimpleConMiembro.verEstado());
 		// seteo ya que necesito probar con este mock ahora.
 		this.tareaSimpleConMiembro.setEstado(this.iniciada);
-		
+
 		// Verifico que el estado sea el esperado.
 		Assert.assertEquals("el nombre no es Iniciada", nombreIniciada,
 				this.tareaSimpleConMiembro.verEstado());
 		// seteo ya que necesito probar con este mock ahora.
 		this.tareaSimpleConMiembro.setEstado(this.enTrabajo);
-		
+
 		// Verifico que el estado sea el esperado.
 		Assert.assertEquals("el nombre no es En Trabajo", nombreEnTrabajo,
 				this.tareaSimpleConMiembro.verEstado());
 		// seteo ya que necesito probar con este mock ahora.
 		this.tareaSimpleConMiembro.setEstado(this.pausada);
-		
+
 		// Verifico que el estado sea el esperado.
 		Assert.assertEquals("el nombre no es Pausada", nombrePausada,
 				this.tareaSimpleConMiembro.verEstado());
 
 		// seteo ya que necesito probar con este mock ahora.
 		this.tareaSimpleConMiembro.setEstado(this.finalizada);
-	
+
 		// verifico que el valor que devuelve,con el que espero.
 		Assert.assertEquals("el nombre no es Finalizada", nombreFinalizada,
 				this.tareaSimpleConMiembro.verEstado());
 
 		this.tareaSimpleConMiembro.setEstado(this.cerrada);
-		
+
 		Assert.assertEquals("el nombre no es Cerrada", nombreCerrada,
 				this.tareaSimpleConMiembro.verEstado());
 
@@ -243,7 +243,7 @@ public class TestTareaSimple extends TestCase {
 		// / seteo porque el metodo cerrate le asigna a tareaSimple una
 		// instancia de Cerrada real y yo estoy trabajando con mock.
 		this.tareaSimple.setEstado(this.cerrada);
-		
+
 		// Verifico que la tarea este cerrada.
 		Assert.assertTrue("", this.tareaSimple.verificarSiEstaCerrada());
 		this.tareaSimpleConMiembro.cerrate();
@@ -251,7 +251,7 @@ public class TestTareaSimple extends TestCase {
 		// / seteo porque el metodo cerrate le asigna a tareaSimple una
 		// instancia de Cerrada real y yo estoy trabajando con mock.
 		this.tareaSimpleConMiembro.setEstado(this.cerrada);
-		
+
 		// Verifico que la tarea este cerrada.
 		Assert.assertTrue("", this.tareaSimpleConMiembro
 				.verificarSiEstaCerrada());
@@ -263,7 +263,7 @@ public class TestTareaSimple extends TestCase {
 		// / seteo porque el metodo cerrate le asigna a tareaSimple una
 		// instancia de Cerrada real y yo estoy trabajando con mock.
 		this.tareaSimpleConMiembro.setEstado(this.cerrada);
-		
+
 		// Verifico que la tarea este cerrada.
 		Assert.assertTrue("", this.tareaSimpleConMiembro
 				.verificarSiEstaCerrada());
@@ -275,7 +275,7 @@ public class TestTareaSimple extends TestCase {
 		// seteo porque el metodo cerrate le asigna a tareaSimple una
 		// instancia de Cerrada real y yo estoy trabajando con mock.
 		this.tareaSimpleConMiembro.setEstado(this.cerrada);
-		
+
 		// Verifico que la tarea este cerrada.
 		Assert.assertTrue("", this.tareaSimpleConMiembro
 				.verificarSiEstaCerrada());
@@ -287,7 +287,7 @@ public class TestTareaSimple extends TestCase {
 		// seteo porque el metodo cerrate le asigna a tareaSimple una
 		// instancia de Cerrada real y yo estoy trabajando con mock.
 		this.tareaSimpleConMiembro.setEstado(this.cerrada);
-		
+
 		// Verifico que la tarea este cerrada.
 		Assert.assertTrue("", this.tareaSimpleConMiembro
 				.verificarSiEstaCerrada());
@@ -587,41 +587,185 @@ public class TestTareaSimple extends TestCase {
 	}
 
 	public void testReAbriteCuandoEstaPausada() {
-		// defino el motivo de necesitar reabrir una tarea.
-		String motivo = "Se necesita para poder terminar con otra tarea";
-		// el metodo reabrir atrapa la excepcion, por eso la manera en que lo
-		// puedo probar fue esta:
-		// no puedo probar excepciones con los mock, entonces para probar que
-		// todo anda como corresponde
-		// lo que hago es:
+		try {
+			String motivo = "Tiene que estar culminada para poder seguir trabajando";
+			this.pausada.iniciada(this.tareaSimple);
+			expectLastCall().andThrow(new NoPuedeCambiarseElEstadoExcepccion());
+			expect(this.pausada.verificarSiEstaIniciada()).andReturn(false);
+			replay(this.pausada);
 
-		this.tareaSimple.reAbrite(motivo);
+			this.tareaSimple.setEstado(this.pausada);
+			this.tareaSimple.reAbrite(motivo);
+			Assert.assertFalse("", this.tareaSimple.verificarSiEstaIniciada());
+			Assert.assertEquals("No coinciden las descripcion", this.descripcionTs, this.tareaSimple
+					.getDescripcion());
 
+			verify(this.pausada);
+		} catch (Exception e) {
+		}
 	}
 
 	public void testReAbriteCuandoEstaEnTrabajo() {
-		
+		try {
+			String motivo = "Tiene que estar culminada para poder seguir trabajando";
+			this.enTrabajo.iniciada(this.tareaSimple);
+			expectLastCall().andThrow(new NoPuedeCambiarseElEstadoExcepccion());
+			expect(this.enTrabajo.verificarSiEstaIniciada()).andReturn(false);
+			replay(this.enTrabajo);
+
+			this.tareaSimple.setEstado(this.enTrabajo);
+			this.tareaSimple.reAbrite(motivo);
+			Assert.assertFalse("", this.tareaSimple.verificarSiEstaIniciada());
+			Assert.assertEquals("No coinciden las descripcion", this.descripcionTs, this.tareaSimple
+					.getDescripcion());
+
+			verify(this.enTrabajo);
+		} catch (Exception e) {
+		}
 	}
 
 	public void testReAbriteCuandoEstaFinalizada() {
-	
-		
+		try {
+			String motivo = "Tiene que estar culminada para poder seguir trabajando";
+			this.finalizada.iniciada(this.tareaSimple);
+			expectLastCall().andThrow(new NoPuedeCambiarseElEstadoExcepccion());
+			expect(this.finalizada.verificarSiEstaIniciada()).andReturn(false);
+			replay(this.finalizada);
+
+			this.tareaSimple.setEstado(this.finalizada);
+			this.tareaSimple.reAbrite(motivo);
+			Assert.assertFalse("", this.tareaSimple.verificarSiEstaIniciada());
+			Assert.assertEquals("No coinciden las descripcion", this.descripcionTs, this.tareaSimple
+					.getDescripcion());
+
+			verify(this.finalizada);
+		} catch (Exception e) {
+		}
 	}
 
 	public void testReAbriteCuandoEstaIniciada() {
-		
+		try {
+			String motivo = "Tiene que estar culminada para poder seguir trabajando";
+			this.iniciada.iniciada(this.tareaSimple);
+			expectLastCall().andThrow(new NoPuedeCambiarseElEstadoExcepccion());
+			expect(this.iniciada.verificarSiEstaIniciada()).andReturn(false);
+			replay(this.iniciada);
+
+			this.tareaSimple.setEstado(this.iniciada);
+			this.tareaSimple.reAbrite(motivo);
+			Assert.assertFalse("", this.tareaSimple.verificarSiEstaIniciada());
+			Assert.assertEquals("No coinciden las descripcion", this.descripcionTs, this.tareaSimple
+					.getDescripcion());
+
+			verify(this.iniciada);
+		} catch (Exception e) {
+		}
 	}
 
 	public void testIniciateCuandoNoSePuede() {
-
+		try {
+			this.iniciada.iniciada(this.tareaSimple);
+			expectLastCall().andThrow(new NoPuedeCambiarseElEstadoExcepccion());
+			this.iniciada.verificarSiEstaIniciada();
+			this.enTrabajo.iniciada(this.tareaSimple);
+			expectLastCall().andThrow(new NoPuedeCambiarseElEstadoExcepccion());
+			this.enTrabajo.verificarSiEstaIniciada();
+			this.pausada.iniciada(this.tareaSimple);
+			expectLastCall().andThrow(new NoPuedeCambiarseElEstadoExcepccion());
+			this.pausada.verificarSiEstaIniciada();
+			this.finalizada.iniciada(this.tareaSimple);
+			expectLastCall().andThrow(new NoPuedeCambiarseElEstadoExcepccion());
+			this.finalizada.verificarSiEstaIniciada();
+			replay(this.pausada,this.enTrabajo,this.iniciada,this.finalizada);
+			
+			this.tareaSimple.setEstado(this.iniciada);
+			this.tareaSimple.iniciate();
+			Assert.assertFalse("", this.tareaSimple.verificarSiEstaIniciada());
+			this.tareaSimple.setEstado(this.enTrabajo);
+			this.tareaSimple.iniciate();
+			Assert.assertFalse("", this.tareaSimple.verificarSiEstaIniciada());
+			this.tareaSimple.setEstado(this.pausada);
+			this.tareaSimple.iniciate();
+			Assert.assertFalse("", this.tareaSimple.verificarSiEstaIniciada());
+			this.tareaSimple.setEstado(this.finalizada);
+			this.tareaSimple.iniciate();
+			Assert.assertFalse("", this.tareaSimple.verificarSiEstaIniciada());
+			verify(this.iniciada,this.enTrabajo,this.pausada,this.finalizada);
+		
+		} catch (Exception e) {
+			
+		}
+		
 	}
 
 	public void testPausateCuandoNoPuede() {
-
+		try {
+			this.iniciada.pausada(this.tareaSimple);
+			expectLastCall().andThrow(new NoPuedeCambiarseElEstadoExcepccion());
+			this.iniciada.verificarSiEstaPausada();
+			this.creada.pausada(this.tareaSimple);
+			expectLastCall().andThrow(new NoPuedeCambiarseElEstadoExcepccion());
+			this.iniciada.verificarSiEstaPausada();
+			this.pausada.pausada(this.tareaSimple);
+			expectLastCall().andThrow(new NoPuedeCambiarseElEstadoExcepccion());
+			this.iniciada.verificarSiEstaPausada();
+			this.finalizada.pausada(this.tareaSimple);
+			expectLastCall().andThrow(new NoPuedeCambiarseElEstadoExcepccion());
+			this.iniciada.verificarSiEstaPausada();
+			replay(this.pausada,this.enTrabajo,this.iniciada,this.finalizada);
+			
+			this.tareaSimple.setEstado(this.iniciada);
+			this.tareaSimple.iniciate();
+			Assert.assertFalse("", this.tareaSimple.verificarSiEstaPausada());
+			this.tareaSimple.setEstado(this.enTrabajo);
+			this.tareaSimple.iniciate();
+			Assert.assertFalse("", this.tareaSimple.verificarSiEstaPausada());
+			this.tareaSimple.setEstado(this.pausada);
+			this.tareaSimple.iniciate();
+			Assert.assertFalse("", this.tareaSimple.verificarSiEstaPausada());
+			this.tareaSimple.setEstado(this.finalizada);
+			this.tareaSimple.iniciate();
+			Assert.assertFalse("", this.tareaSimple.verificarSiEstaPausada());
+			verify(this.iniciada,this.enTrabajo,this.pausada,this.finalizada);
+		
+		} catch (Exception e) {
+			
+		}
 	}
 
 	public void testPoneteEnTrabajoCuandoNoPuede() {
-
+		try {
+			this.iniciada.iniciada(this.tareaSimple);
+			expectLastCall().andThrow(new NoPuedeCambiarseElEstadoExcepccion());
+			this.iniciada.verificarSiEstaIniciada();
+			this.enTrabajo.iniciada(this.tareaSimple);
+			expectLastCall().andThrow(new NoPuedeCambiarseElEstadoExcepccion());
+			this.enTrabajo.verificarSiEstaIniciada();
+			this.pausada.iniciada(this.tareaSimple);
+			expectLastCall().andThrow(new NoPuedeCambiarseElEstadoExcepccion());
+			this.pausada.verificarSiEstaIniciada();
+			this.finalizada.iniciada(this.tareaSimple);
+			expectLastCall().andThrow(new NoPuedeCambiarseElEstadoExcepccion());
+			this.finalizada.verificarSiEstaIniciada();
+			replay(this.pausada,this.enTrabajo,this.iniciada,this.finalizada);
+			
+			this.tareaSimple.setEstado(this.iniciada);
+			this.tareaSimple.iniciate();
+			Assert.assertFalse("", this.tareaSimple.verificarSiEstaIniciada());
+			this.tareaSimple.setEstado(this.enTrabajo);
+			this.tareaSimple.iniciate();
+			Assert.assertFalse("", this.tareaSimple.verificarSiEstaIniciada());
+			this.tareaSimple.setEstado(this.pausada);
+			this.tareaSimple.iniciate();
+			Assert.assertFalse("", this.tareaSimple.verificarSiEstaIniciada());
+			this.tareaSimple.setEstado(this.finalizada);
+			this.tareaSimple.iniciate();
+			Assert.assertFalse("", this.tareaSimple.verificarSiEstaIniciada());
+			verify(this.iniciada,this.enTrabajo,this.pausada,this.finalizada);
+		
+		} catch (Exception e) {
+			
+		}
 	}
 
 }
