@@ -73,10 +73,9 @@ public class TareaSimple extends Tarea {
 	public void reAbrite(String note) {
 		try {
 			this.iniciate();
-			this.setDescripcion(note + "\n" + this.getDescripcion());
+			this.setDescripcion( this.getDescripcion()+ "\n" +note );
 		} catch (NoPuedeCambiarseElEstadoExcepccion ex) {
 
-			ex.printStackTrace();
 		}
 
 	}
