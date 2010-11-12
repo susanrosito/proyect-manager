@@ -34,7 +34,8 @@ public class TestTareaSimple extends TestCase {
 	private String emailNuevoUsuario;
 	private Miembro nuevoMiembro;
 	private String nuevoRol;
-
+	private Fecha fechaActual;
+	
 	protected void setUp() throws Exception {
 		super.setUp();
 
@@ -111,7 +112,9 @@ public class TestTareaSimple extends TestCase {
 		this.nuevoMiembro = createMock(Miembro.class);
 		expect(miembro.getUsuario()).andReturn(this.nuevoUsuario);
 		expect(miembro.getRol()).andReturn(this.nuevoRol);
-
+		
+		// creo un ultimo mock fecha
+		this.fechaActual = createMock(Fecha.class);
 	}
 
 	/**
@@ -135,12 +138,8 @@ public class TestTareaSimple extends TestCase {
 		// apenas se crea.
 		// Por medio de mock lo logro. Expecifico que metodo va a recibir el
 		// mock creada y que deberia devolver.
-		expect(this.creada.verificarSiEstaCreada()).andReturn(true).times(4);
+		expect(this.creada.verificarSiEstaCreada()).andReturn(true).times(2);
 		replay(this.creada);
-
-		// realizo las acciones,en las dos tareas.
-		this.tareaSimple.verificarSiEstaCreada();
-		this.tareaSimpleConMiembro.verificarSiEstaCreada();
 
 		// me fijo si devolvio lo que que corresponde.
 		Assert.assertTrue("La tarea no tiene el estado creada",
@@ -169,11 +168,11 @@ public class TestTareaSimple extends TestCase {
 		// especifico los mensajes que podrian recibir los mock a probar.
 		expect(this.creada.toString()).andReturn("Creada").times(2);
 		expect(this.iniciada.toString()).andReturn("Iniciada").times(1);
-		expect(this.cerrada.toString()).andReturn("Cerrada").times(1);
 		expect(this.enTrabajo.toString()).andReturn("En Trabajo").times(1);
-		expect(this.finalizada.toString()).andReturn("Finalizada").times(1);
 		expect(this.pausada.toString()).andReturn("Pausada").times(1);
-
+		expect(this.finalizada.toString()).andReturn("Finalizada").times(1);
+		expect(this.cerrada.toString()).andReturn("Cerrada").times(1);
+		
 		replay(this.creada, this.cerrada, this.enTrabajo, this.iniciada,
 				this.pausada, this.finalizada);
 
@@ -184,6 +183,7 @@ public class TestTareaSimple extends TestCase {
 		// realizo las acciones y verifico que el estado esa el esperado.
 		Assert.assertEquals("el nombre no es Creada", nombreCreada,
 				this.tareaSimpleConMiembro.verEstado());
+		
 		// seteo ya que necesito probar con este mock ahora.
 		this.tareaSimpleConMiembro.setEstado(this.iniciada);
 
@@ -586,6 +586,16 @@ public class TestTareaSimple extends TestCase {
 		verify(this.cerrada);
 	}
 	public void testEstaEnTiempo(){
+		
+		//expect(this.fechaActual.diasQFaltan(this.fechaTs)).andReturn(10);
+		//expect(this.fechaActual.diasQFaltan(this.fechaTsCM)).andReturn(2);
+		
+		//replay(this.fechaActual);
+		//Assert.assertTrue("",this.tareaSimple.estaEnTiempo());
+		//Assert.assertTrue("",this.tareaSimpleConMiembro.estaEnTiempo());
+		
+		//verify(this.fechaActual);
+		
 		
 	}
 	public void testProximaAVencer(){
