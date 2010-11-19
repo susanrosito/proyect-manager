@@ -245,7 +245,8 @@ public class TestTareaSimple extends TestCase {
 		this.tareaSimple.setEstado(this.cerrada);
 
 		// Verifico que la tarea este cerrada.
-		Assert.assertTrue("la tareaS con el estado Creada, no esta cerrada", this.tareaSimple.verificarSiEstaCerrada());
+		Assert.assertTrue("la tareaS con el estado Creada, no esta cerrada",
+				this.tareaSimple.verificarSiEstaCerrada());
 		this.tareaSimpleConMiembro.cerrate();
 
 		// / seteo porque el metodo cerrate le asigna a tareaSimple una
@@ -253,8 +254,8 @@ public class TestTareaSimple extends TestCase {
 		this.tareaSimpleConMiembro.setEstado(this.cerrada);
 
 		// Verifico que la tarea este cerrada.
-		Assert.assertTrue("la tareaCM con el estado Creada, no esta cerrada", this.tareaSimpleConMiembro
-				.verificarSiEstaCerrada());
+		Assert.assertTrue("la tareaCM con el estado Creada, no esta cerrada",
+				this.tareaSimpleConMiembro.verificarSiEstaCerrada());
 
 		// seteo ya que necesito probar con este mock ahora.
 		this.tareaSimpleConMiembro.setEstado(this.iniciada);
@@ -265,8 +266,8 @@ public class TestTareaSimple extends TestCase {
 		this.tareaSimpleConMiembro.setEstado(this.cerrada);
 
 		// Verifico que la tarea este cerrada.
-		Assert.assertTrue("la tareaCM con el estado iniciada no esta cerrada", this.tareaSimpleConMiembro
-				.verificarSiEstaCerrada());
+		Assert.assertTrue("la tareaCM con el estado iniciada no esta cerrada",
+				this.tareaSimpleConMiembro.verificarSiEstaCerrada());
 
 		// seteo ya que necesito probar con este mock ahora.
 		this.tareaSimpleConMiembro.setEstado(this.enTrabajo);
@@ -277,8 +278,8 @@ public class TestTareaSimple extends TestCase {
 		this.tareaSimpleConMiembro.setEstado(this.cerrada);
 
 		// Verifico que la tarea este cerrada.
-		Assert.assertTrue("la tareaCM con el estado enTrabajo no esta cerrada", this.tareaSimpleConMiembro
-				.verificarSiEstaCerrada());
+		Assert.assertTrue("la tareaCM con el estado enTrabajo no esta cerrada",
+				this.tareaSimpleConMiembro.verificarSiEstaCerrada());
 
 		// seteo ya que necesito probar con este mock ahora.
 		this.tareaSimpleConMiembro.setEstado(this.pausada);
@@ -289,8 +290,8 @@ public class TestTareaSimple extends TestCase {
 		this.tareaSimpleConMiembro.setEstado(this.cerrada);
 
 		// Verifico que la tarea este cerrada.
-		Assert.assertTrue("la tareaCM con el estado pausada no esta cerrada", this.tareaSimpleConMiembro
-				.verificarSiEstaCerrada());
+		Assert.assertTrue("la tareaCM con el estado pausada no esta cerrada",
+				this.tareaSimpleConMiembro.verificarSiEstaCerrada());
 
 		verify(this.creada, this.cerrada, this.enTrabajo, this.pausada,
 				this.iniciada);
@@ -320,13 +321,15 @@ public class TestTareaSimple extends TestCase {
 		// seteo porque el metodo cerrate le asigna a tareaSimple una
 		// instancia de Cerrada real y yo estoy trabajando con mock.
 		this.tareaSimple.setEstado(this.cerrada);
-		Assert.assertTrue("la tareaS con estado creada, no esta cerrada", this.tareaSimple.verificarSiEstaCerrada());
+		Assert.assertTrue("la tareaS con estado creada, no esta cerrada",
+				this.tareaSimple.verificarSiEstaCerrada());
 		this.tareaSimple.reAbrite(motivo);
 
 		// seteo porque el metodo reAbrite le asigna a tareaSimple una
 		// instancia de Iniciada real y yo estoy trabajando con mock.
 		this.tareaSimple.setEstado(this.iniciada);
-		Assert.assertTrue("la tareaS con estado Cerrada, no esta iniciada", this.tareaSimple.verificarSiEstaIniciada());
+		Assert.assertTrue("la tareaS con estado Cerrada, no esta iniciada",
+				this.tareaSimple.verificarSiEstaIniciada());
 
 		// vefirico que los mock recibieron los mensajes que mencione antes.
 		verify(this.creada, this.cerrada, this.iniciada);
@@ -360,8 +363,8 @@ public class TestTareaSimple extends TestCase {
 			// me cambia el estado por Iniciada real y estoy trabajando con
 			// mock.
 			this.tareaSimpleConMiembro.setEstado(this.iniciada);
-			Assert.assertTrue("la tareaCM con estado creada, no esta iniciada", this.tareaSimpleConMiembro
-					.verificarSiEstaIniciada());
+			Assert.assertTrue("la tareaCM con estado creada, no esta iniciada",
+					this.tareaSimpleConMiembro.verificarSiEstaIniciada());
 
 			// verifico si los mensajes le llegaron a los mock creada y iniciada
 			verify(this.creada, this.iniciada);
@@ -399,7 +402,7 @@ public class TestTareaSimple extends TestCase {
 	 * Test finalizate para TareaSimple
 	 */
 	public void testFinalizate() {
-		
+
 		// especifico los mensajes que podrian recibir los mock a probar.
 		this.creada.finalizada(this.tareaSimple);
 		expect(this.finalizada.verificarSiEstaFinalizada()).andReturn(true)
@@ -420,7 +423,8 @@ public class TestTareaSimple extends TestCase {
 		this.tareaSimple.setEstado(this.finalizada);
 
 		// Verifico que la tarea este finalizada.
-		Assert.assertTrue("la tareaS con estado creada, no esta finalizada", this.tareaSimple.verificarSiEstaFinalizada());
+		Assert.assertTrue("la tareaS con estado creada, no esta finalizada",
+				this.tareaSimple.verificarSiEstaFinalizada());
 		this.tareaSimpleConMiembro.finalizate();
 
 		// seteo porque el metodo finalizate le asigna a tareaSimple una
@@ -428,8 +432,8 @@ public class TestTareaSimple extends TestCase {
 		this.tareaSimpleConMiembro.setEstado(this.finalizada);
 
 		// Verifico que la tarea este finalizada.
-		Assert.assertTrue("la tareaCM con estado creada, no esta finalizada", this.tareaSimpleConMiembro
-				.verificarSiEstaFinalizada());
+		Assert.assertTrue("la tareaCM con estado creada, no esta finalizada",
+				this.tareaSimpleConMiembro.verificarSiEstaFinalizada());
 
 		// seteo ya que necesito probar con este mock ahora.
 		this.tareaSimpleConMiembro.setEstado(this.iniciada);
@@ -440,8 +444,8 @@ public class TestTareaSimple extends TestCase {
 		this.tareaSimpleConMiembro.setEstado(this.finalizada);
 
 		// Verifico que la tarea este finalizada.
-		Assert.assertTrue("la tareaCM con estado iniciada, no esta finalizada", this.tareaSimpleConMiembro
-				.verificarSiEstaFinalizada());
+		Assert.assertTrue("la tareaCM con estado iniciada, no esta finalizada",
+				this.tareaSimpleConMiembro.verificarSiEstaFinalizada());
 
 		// seteo ya que necesito probar con este mock ahora.
 		this.tareaSimpleConMiembro.setEstado(this.enTrabajo);
@@ -452,8 +456,9 @@ public class TestTareaSimple extends TestCase {
 		this.tareaSimpleConMiembro.setEstado(this.finalizada);
 
 		// Verifico que la tarea este finalizada.
-		Assert.assertTrue("la tareaCM con estado enTrabajo, no esta finalizada", this.tareaSimpleConMiembro
-				.verificarSiEstaFinalizada());
+		Assert.assertTrue(
+				"la tareaCM con estado enTrabajo, no esta finalizada",
+				this.tareaSimpleConMiembro.verificarSiEstaFinalizada());
 
 		// seteo ya que necesito probar con este mock ahora.
 		this.tareaSimpleConMiembro.setEstado(this.pausada);
@@ -464,8 +469,8 @@ public class TestTareaSimple extends TestCase {
 		this.tareaSimpleConMiembro.setEstado(this.finalizada);
 
 		// Verifico que la tarea este finalizada.
-		Assert.assertTrue("la tareaCM con estado pausada, no esta finalizada", this.tareaSimpleConMiembro
-				.verificarSiEstaFinalizada());
+		Assert.assertTrue("la tareaCM con estado pausada, no esta finalizada",
+				this.tareaSimpleConMiembro.verificarSiEstaFinalizada());
 
 		verify(this.creada, this.iniciada, this.enTrabajo, this.pausada,
 				this.finalizada);
@@ -475,24 +480,28 @@ public class TestTareaSimple extends TestCase {
 	 * Test iniciate para TareaSimple
 	 */
 	public void testIniciateCuandoSePuede() {
-		
-		//utilizo el try catch, porque los metodos referidos a los estados de una tarea
-		//podrian tirar una expeccion entonces necesito que este dentro de try ya que si no me marca error.
+
+		// utilizo el try catch, porque los metodos referidos a los estados de
+		// una tarea
+		// podrian tirar una expeccion entonces necesito que este dentro de try
+		// ya que si no me marca error.
 		try {
-			
-			// especifico los metodos que va a recibir los mock creada e iniciada
+
+			// especifico los metodos que va a recibir los mock creada e
+			// iniciada
 			this.creada.iniciada(this.tareaSimple);
 			expect(this.iniciada.verificarSiEstaIniciada()).andReturn(true);
-			
+
 			replay(this.creada, this.iniciada);
-			
+
 			// realizo las acciones necesarias!
 			this.tareaSimple.iniciate();
 			this.tareaSimple.setEstado(this.iniciada);
-			
+
 			// Verifico si se paso realmente al estado que queria!!(Iniciada)
-			Assert.assertTrue("la tareaS con estado creada, no esta iniciada", this.tareaSimple.verificarSiEstaIniciada());
-			
+			Assert.assertTrue("la tareaS con estado creada, no esta iniciada",
+					this.tareaSimple.verificarSiEstaIniciada());
+
 			verify(this.creada, this.iniciada);
 
 		} catch (NoPuedeCambiarseElEstadoExcepccion e) {
@@ -505,18 +514,26 @@ public class TestTareaSimple extends TestCase {
 	 * Test poneteEnTrabajo para TareaSimple
 	 */
 	public void testPoneteEnTrabajoCuandoPuede() {
+		// utilizo el try catch, porque los metodos referidos a los estados de
+		// una tarea
+		// podrian tirar una expeccion entonces necesito que este dentro de try
+		// ya que si no me marca error.
 		try {
+			// especifico los metodos que va a recibir los mock iniciada e
+			// enTrabajo
 			this.iniciada.enTrabajo(this.tareaSimple);
 			expect(this.enTrabajo.verificarSiEstaEnTrabajo()).andReturn(true)
 					.times(1);
 
 			replay(this.iniciada, this.enTrabajo);
-
+			// realizo las acciones necesarias!
 			this.tareaSimple.setEstado(this.iniciada);
 			this.tareaSimple.poneteEnTrabajo();
 			this.tareaSimple.setEstado(this.enTrabajo);
-
-			Assert.assertTrue("la tareaS con estado iniciada, no esta EnTrabajo", this.tareaSimple.verificarSiEstaEnTrabajo());
+			// Verifico si se paso realmente al estado que queria!!(enTrabajo)
+			Assert.assertTrue(
+					"la tareaS con estado iniciada, no esta EnTrabajo",
+					this.tareaSimple.verificarSiEstaEnTrabajo());
 
 			verify(this.iniciada, this.enTrabajo);
 
@@ -530,18 +547,26 @@ public class TestTareaSimple extends TestCase {
 	 * Test pausateCuendoPuede para TareaSimple
 	 */
 	public void testPausateCuandoPuede() {
+		// utilizo el try catch, porque los metodos referidos a los estados de
+		// una tarea
+		// podrian tirar una expeccion entonces necesito que este dentro de try
+		// ya que si no me marca error.
 		try {
+			// especifico los metodos que va a recibir los mock enTrabajo e
+			// pausada
 			this.enTrabajo.pausada(this.tareaSimple);
 			expect(this.pausada.verificarSiEstaPausada()).andReturn(true)
 					.times(1);
 
 			replay(this.enTrabajo, this.pausada);
-
+			// realizo las acciones necesarias!
 			this.tareaSimple.setEstado(this.enTrabajo);
 			this.tareaSimple.pausate();
 			this.tareaSimple.setEstado(this.pausada);
-
-			Assert.assertTrue("la tareaS con estado enTrabajo, no esta pausada", this.tareaSimple.verificarSiEstaPausada());
+			// Verifico si se paso realmente al estado que queria!!(Pausada)
+			Assert.assertTrue(
+					"la tareaS con estado enTrabajo, no esta pausada",
+					this.tareaSimple.verificarSiEstaPausada());
 
 			verify(this.enTrabajo, this.pausada);
 
@@ -554,10 +579,17 @@ public class TestTareaSimple extends TestCase {
 	 * Test verificarSiEstaPausada para TareaSimple
 	 */
 	public void testVerificarSiEstaPausada() {
+
 		expect(this.pausada.verificarSiEstaPausada()).andReturn(true).times(1);
+
 		replay(this.pausada);
+
+		// realizo las acciones necesarias!
 		this.tareaSimple.setEstado(this.pausada);
-		Assert.assertTrue("la tarea no esta pausada", this.tareaSimple.verificarSiEstaPausada());
+		// Verifico si la tarea se esta pausada
+		Assert.assertTrue("la tarea no esta pausada", this.tareaSimple
+				.verificarSiEstaPausada());
+
 		verify(this.pausada);
 	}
 
@@ -565,11 +597,17 @@ public class TestTareaSimple extends TestCase {
 	 * Test verificarSiEstaEnTrabajo para TareaSimple
 	 */
 	public void testVerificarSiEstaEnTrabajo() {
+
 		expect(this.enTrabajo.verificarSiEstaEnTrabajo()).andReturn(true)
 				.times(1);
+
 		replay(this.enTrabajo);
+		// realizo las acciones necesarias!
 		this.tareaSimple.setEstado(this.enTrabajo);
-		Assert.assertTrue("la tarea no esta enTrabajo", this.tareaSimple.verificarSiEstaEnTrabajo());
+		// Verifico si la tarea esta enTrabajo
+		Assert.assertTrue("la tarea no esta enTrabajo", this.tareaSimple
+				.verificarSiEstaEnTrabajo());
+
 		verify(this.enTrabajo);
 	}
 
@@ -577,11 +615,17 @@ public class TestTareaSimple extends TestCase {
 	 * Test verificarSiEstaIniciada para TareaSimple
 	 */
 	public void testVerificarSiEstaIniciada() {
+
 		expect(this.iniciada.verificarSiEstaIniciada()).andReturn(true)
 				.times(1);
+
 		replay(this.iniciada);
+		// realizo las acciones necesarias!
 		this.tareaSimple.setEstado(this.iniciada);
-		Assert.assertTrue("la tarea no esta iniciada", this.tareaSimple.verificarSiEstaIniciada());
+		// Verifico si la tarea esta iniciada
+		Assert.assertTrue("la tarea no esta iniciada", this.tareaSimple
+				.verificarSiEstaIniciada());
+
 		verify(this.iniciada);
 	}
 
@@ -589,9 +633,14 @@ public class TestTareaSimple extends TestCase {
 	 * Test verificarSiEstaCerrada para TareaSimple
 	 */
 	public void testVerificarSiEstaCreada() {
+
 		expect(this.creada.verificarSiEstaCreada()).andReturn(true).times(1);
+
 		replay(this.creada);
-		Assert.assertTrue("la tarea no esta creada", this.tareaSimple.verificarSiEstaCreada());
+		// realizo las acciones necesarias!
+		Assert.assertTrue("la tarea no esta creada", this.tareaSimple
+				.verificarSiEstaCreada());
+
 		verify(this.creada);
 	}
 
@@ -599,11 +648,17 @@ public class TestTareaSimple extends TestCase {
 	 * Test verificarSiEstaFinalizada para TareaSimple
 	 */
 	public void testVerificarSiEstaFinalizada() {
+
 		expect(this.finalizada.verificarSiEstaFinalizada()).andReturn(true)
 				.times(1);
+
 		replay(this.finalizada);
+		// realizo las acciones necesarias!
 		this.tareaSimple.setEstado(this.finalizada);
-		Assert.assertTrue("la tarea no esta finalizada", this.tareaSimple.verificarSiEstaFinalizada());
+
+		Assert.assertTrue("la tarea no esta finalizada", this.tareaSimple
+				.verificarSiEstaFinalizada());
+
 		verify(this.finalizada);
 	}
 
@@ -611,10 +666,16 @@ public class TestTareaSimple extends TestCase {
 	 * Test verificarSiEstaCerrada para TareaSimple
 	 */
 	public void testVerificarSiEstaCerrada() {
+
 		expect(this.cerrada.verificarSiEstaCerrada()).andReturn(true).times(1);
+
 		replay(this.cerrada);
+		// realizo las acciones necesarias!
 		this.tareaSimple.setEstado(this.cerrada);
-		Assert.assertTrue("la tarea no esta cerrada", this.tareaSimple.verificarSiEstaCerrada());
+
+		Assert.assertTrue("la tarea no esta cerrada", this.tareaSimple
+				.verificarSiEstaCerrada());
+
 		verify(this.cerrada);
 	}
 
@@ -646,16 +707,26 @@ public class TestTareaSimple extends TestCase {
 	 * Test ReAbriteCuendoEstaPausada para TareaSimple
 	 */
 	public void testReAbriteCuandoEstaPausada() {
+		// utilizo el try catch, porque los metodos referidos a los estados de
+		// una tarea
+		// podrian tirar una expeccion entonces necesito que este dentro de try
+		// ya que si no me marca error.
 		try {
 			String motivo = "Tiene que estar culminada para poder seguir trabajando";
+
+			// especifico los metodos que va a recibir los mock pausada
 			this.pausada.iniciada(this.tareaSimple);
 			expectLastCall().andThrow(new NoPuedeCambiarseElEstadoExcepccion());
 			expect(this.pausada.verificarSiEstaIniciada()).andReturn(false);
 			replay(this.pausada);
 
+			// realizo las acciones necesarias!
 			this.tareaSimple.setEstado(this.pausada);
 			this.tareaSimple.reAbrite(motivo);
-			Assert.assertFalse("la tarea esta iniciada", this.tareaSimple.verificarSiEstaIniciada());
+
+			// Verifico si no esta iniciada y q la descripccion no cambie.
+			Assert.assertFalse("la tarea esta iniciada", this.tareaSimple
+					.verificarSiEstaIniciada());
 			Assert.assertEquals("No coinciden las descripcion",
 					this.descripcionTs, this.tareaSimple.getDescripcion());
 
@@ -668,16 +739,26 @@ public class TestTareaSimple extends TestCase {
 	 * Test ReAbriteCuandoEstaEnTrabajo para TareaSimple
 	 */
 	public void testReAbriteCuandoEstaEnTrabajo() {
+		// utilizo el try catch, porque los metodos referidos a los estados de
+		// una tarea
+		// podrian tirar una expeccion entonces necesito que este dentro de try
+		// ya que si no me marca error.
 		try {
 			String motivo = "Tiene que estar culminada para poder seguir trabajando";
+
+			// especifico los metodos que va a recibir los mock enTrabajo
 			this.enTrabajo.iniciada(this.tareaSimple);
 			expectLastCall().andThrow(new NoPuedeCambiarseElEstadoExcepccion());
 			expect(this.enTrabajo.verificarSiEstaIniciada()).andReturn(false);
 			replay(this.enTrabajo);
-
+			
+			// realizo las acciones necesarias!
 			this.tareaSimple.setEstado(this.enTrabajo);
 			this.tareaSimple.reAbrite(motivo);
-			Assert.assertFalse("la tarea esta iniciada", this.tareaSimple.verificarSiEstaIniciada());
+			
+			// Verifico si no esta iniciada y q la descripccion no cambie.
+			Assert.assertFalse("la tarea esta iniciada", this.tareaSimple
+					.verificarSiEstaIniciada());
 			Assert.assertEquals("No coinciden las descripcion",
 					this.descripcionTs, this.tareaSimple.getDescripcion());
 
@@ -690,16 +771,27 @@ public class TestTareaSimple extends TestCase {
 	 * Test ReAbriteCuandoEstaFinalizada para TareaSimple
 	 */
 	public void testReAbriteCuandoEstaFinalizada() {
+
+		// utilizo el try catch, porque los metodos referidos a los estados de
+		// una tarea
+		// podrian tirar una expeccion entonces necesito que este dentro de try
+		// ya que si no me marca error.
 		try {
 			String motivo = "Tiene que estar culminada para poder seguir trabajando";
+			
+			// especifico los metodos que va a recibir los mock finalizada
 			this.finalizada.iniciada(this.tareaSimple);
 			expectLastCall().andThrow(new NoPuedeCambiarseElEstadoExcepccion());
 			expect(this.finalizada.verificarSiEstaIniciada()).andReturn(false);
 			replay(this.finalizada);
-
+			
+			// realizo las acciones necesarias!
 			this.tareaSimple.setEstado(this.finalizada);
 			this.tareaSimple.reAbrite(motivo);
-			Assert.assertFalse("la tarea esta iniciada", this.tareaSimple.verificarSiEstaIniciada());
+			
+			// Verifico si no esta iniciada y q la descripccion no cambie.
+			Assert.assertFalse("la tarea esta iniciada", this.tareaSimple
+					.verificarSiEstaIniciada());
 			Assert.assertEquals("No coinciden las descripcion",
 					this.descripcionTs, this.tareaSimple.getDescripcion());
 
@@ -712,16 +804,26 @@ public class TestTareaSimple extends TestCase {
 	 * Test ReAbriteCuandoEstaIniciada para TareaSimple
 	 */
 	public void testReAbriteCuandoEstaIniciada() {
+		// utilizo el try catch, porque los metodos referidos a los estados de
+		// una tarea
+		// podrian tirar una expeccion entonces necesito que este dentro de try
+		// ya que si no me marca error.
 		try {
 			String motivo = "Tiene que estar culminada para poder seguir trabajando";
+			
+			// especifico los metodos que va a recibir los mock iniciada
 			this.iniciada.iniciada(this.tareaSimple);
 			expectLastCall().andThrow(new NoPuedeCambiarseElEstadoExcepccion());
 			expect(this.iniciada.verificarSiEstaIniciada()).andReturn(false);
 			replay(this.iniciada);
-
+			
+			// realizo las acciones necesarias!
 			this.tareaSimple.setEstado(this.iniciada);
 			this.tareaSimple.reAbrite(motivo);
-			Assert.assertFalse("la tarea esta iniciada", this.tareaSimple.verificarSiEstaIniciada());
+			
+			// Verifico si no esta iniciada y q la descripccion no cambie.
+			Assert.assertFalse("la tarea esta iniciada", this.tareaSimple
+					.verificarSiEstaIniciada());
 			Assert.assertEquals("No coinciden las descripcion",
 					this.descripcionTs, this.tareaSimple.getDescripcion());
 
@@ -734,7 +836,14 @@ public class TestTareaSimple extends TestCase {
 	 * Test iniciateCuandoNoSePuede para TareaSimple
 	 */
 	public void testIniciateCuandoNoSePuede() {
+		// utilizo el try catch, porque los metodos referidos a los estados de
+		// una tarea
+		// podrian tirar una expeccion entonces necesito que este dentro de try
+		// ya que si no me marca error.
 		try {
+			
+			// especifico los metodos que va a recibir todos lo mock menos
+			// creada
 			this.iniciada.iniciada(this.tareaSimple);
 			expectLastCall().andThrow(new NoPuedeCambiarseElEstadoExcepccion());
 			this.iniciada.verificarSiEstaIniciada();
@@ -748,19 +857,32 @@ public class TestTareaSimple extends TestCase {
 			expectLastCall().andThrow(new NoPuedeCambiarseElEstadoExcepccion());
 			this.finalizada.verificarSiEstaIniciada();
 			replay(this.pausada, this.enTrabajo, this.iniciada, this.finalizada);
-
+			
+			// realizo las acciones necesarias!
 			this.tareaSimple.setEstado(this.iniciada);
 			this.tareaSimple.iniciate();
-			Assert.assertFalse("la tarea esta iniciada", this.tareaSimple.verificarSiEstaIniciada());
+			
+			// Verifico si no esta iniciada
+			Assert.assertFalse("la tarea esta iniciada", this.tareaSimple
+					.verificarSiEstaIniciada());
 			this.tareaSimple.setEstado(this.enTrabajo);
 			this.tareaSimple.iniciate();
-			Assert.assertFalse("la tarea esta iniciada", this.tareaSimple.verificarSiEstaIniciada());
+			
+			// Verifico si no esta iniciada
+			Assert.assertFalse("la tarea esta iniciada", this.tareaSimple
+					.verificarSiEstaIniciada());
 			this.tareaSimple.setEstado(this.pausada);
 			this.tareaSimple.iniciate();
-			Assert.assertFalse("la tarea esta iniciada", this.tareaSimple.verificarSiEstaIniciada());
+			
+			// Verifico si no esta iniciada
+			Assert.assertFalse("la tarea esta iniciada", this.tareaSimple
+					.verificarSiEstaIniciada());
 			this.tareaSimple.setEstado(this.finalizada);
 			this.tareaSimple.iniciate();
-			Assert.assertFalse("la tarea esta iniciada", this.tareaSimple.verificarSiEstaIniciada());
+			
+			// Verifico si no esta iniciada
+			Assert.assertFalse("la tarea esta iniciada", this.tareaSimple
+					.verificarSiEstaIniciada());
 			verify(this.iniciada, this.enTrabajo, this.pausada, this.finalizada);
 
 		} catch (Exception e) {
@@ -773,8 +895,14 @@ public class TestTareaSimple extends TestCase {
 	 * Test pausateCuandoNoPuede para TareaSimple
 	 */
 	public void testPausateCuandoNoPuede() {
+		// utilizo el try catch, porque los metodos referidos a los estados de
+		// una tarea
+		// podrian tirar una expeccion entonces necesito que este dentro de try
+		// ya que si no me marca error.
 		try {
-
+			
+			// especifico los metodos que va a recibir todos los mock menos
+			// enTrabajo
 			this.creada.pausada(this.tareaSimple);
 			expectLastCall().andThrow(new NoPuedeCambiarseElEstadoExcepccion());
 			this.creada.verificarSiEstaPausada();
@@ -788,18 +916,31 @@ public class TestTareaSimple extends TestCase {
 			expectLastCall().andThrow(new NoPuedeCambiarseElEstadoExcepccion());
 			this.finalizada.verificarSiEstaPausada();
 			replay(this.pausada, this.creada, this.iniciada, this.finalizada);
-
+			
+			// realizo las acciones necesarias!
 			this.tareaSimple.pausate();
-			Assert.assertFalse("la tarea esta pausada", this.tareaSimple.verificarSiEstaPausada());
+			
+			// Verifico si no esta pausada
+			Assert.assertFalse("la tarea esta pausada", this.tareaSimple
+					.verificarSiEstaPausada());
 			this.tareaSimple.setEstado(this.iniciada);
 			this.tareaSimple.pausate();
-			Assert.assertFalse("la tarea esta pausada", this.tareaSimple.verificarSiEstaPausada());
+			
+			// Verifico si no esta pausada
+			Assert.assertFalse("la tarea esta pausada", this.tareaSimple
+					.verificarSiEstaPausada());
 			this.tareaSimple.setEstado(this.pausada);
 			this.tareaSimple.pausate();
-			Assert.assertFalse("la tarea esta pausada", this.tareaSimple.verificarSiEstaPausada());
+			
+			// Verifico si no esta pausada
+			Assert.assertFalse("la tarea esta pausada", this.tareaSimple
+					.verificarSiEstaPausada());
 			this.tareaSimple.setEstado(this.finalizada);
 			this.tareaSimple.pausate();
-			Assert.assertFalse("la tarea esta pausada", this.tareaSimple.verificarSiEstaPausada());
+			
+			// Verifico si no esta pausada
+			Assert.assertFalse("la tarea esta pausada", this.tareaSimple
+					.verificarSiEstaPausada());
 			verify(this.iniciada, this.creada, this.pausada, this.finalizada);
 		} catch (Exception e) {
 
@@ -810,7 +951,14 @@ public class TestTareaSimple extends TestCase {
 	 * Test PoneteEnTrabajoCuandoNoPuede para TareaSimple
 	 */
 	public void testPoneteEnTrabajoCuandoNoPuede() {
+		// utilizo el try catch, porque los metodos referidos a los estados de
+		// una tarea
+		// podrian tirar una expeccion entonces necesito que este dentro de try
+		// ya que si no me marca error.
 		try {
+			
+			// especifico los metodos que va a recibir los mock creada enTrabajo
+			// y finalizada
 			this.creada.enTrabajo(this.tareaSimple);
 			expectLastCall().andThrow(new NoPuedeCambiarseElEstadoExcepccion());
 			this.creada.verificarSiEstaEnTrabajo();
@@ -821,15 +969,25 @@ public class TestTareaSimple extends TestCase {
 			expectLastCall().andThrow(new NoPuedeCambiarseElEstadoExcepccion());
 			this.finalizada.verificarSiEstaEnTrabajo();
 			replay(this.enTrabajo, this.creada, this.finalizada);
-
+			
+			// realizo las acciones necesarias!
 			this.tareaSimple.poneteEnTrabajo();
-			Assert.assertFalse("la tarea esta enTrabajo", this.tareaSimple.verificarSiEstaEnTrabajo());
+			
+			// Verifico si no esta enTrabajo
+			Assert.assertFalse("la tarea esta enTrabajo", this.tareaSimple
+					.verificarSiEstaEnTrabajo());
 			this.tareaSimple.setEstado(this.enTrabajo);
 			this.tareaSimple.poneteEnTrabajo();
-			Assert.assertFalse("la tarea esta enTrabajo", this.tareaSimple.verificarSiEstaEnTrabajo());
+			
+			// Verifico si no esta enTrabajo
+			Assert.assertFalse("la tarea esta enTrabajo", this.tareaSimple
+					.verificarSiEstaEnTrabajo());
 			this.tareaSimple.setEstado(this.finalizada);
 			this.tareaSimple.poneteEnTrabajo();
-			Assert.assertFalse("la tarea esta enTrabajo", this.tareaSimple.verificarSiEstaEnTrabajo());
+			
+			// Verifico si no esta enTrabajo
+			Assert.assertFalse("la tarea esta enTrabajo", this.tareaSimple
+					.verificarSiEstaEnTrabajo());
 			verify(this.enTrabajo, this.creada, this.finalizada);
 		} catch (Exception e) {
 
