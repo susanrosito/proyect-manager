@@ -514,7 +514,9 @@ public class TestTareaSimple extends TestCase {
 		}
 
 	}
-
+	/**
+	 * Test pausateCuendoPuede para TareaSimple
+	 */
 	public void testPausateCuandoPuede() {
 		try {
 			this.enTrabajo.pausada(this.tareaSimple);
@@ -535,7 +537,9 @@ public class TestTareaSimple extends TestCase {
 
 		}
 	}
-
+	/**
+	 * Test verificarSiEstaPausada para TareaSimple
+	 */
 	public void testVerificarSiEstaPausada() {
 		expect(this.pausada.verificarSiEstaPausada()).andReturn(true).times(1);
 		replay(this.pausada);
@@ -543,7 +547,9 @@ public class TestTareaSimple extends TestCase {
 		Assert.assertTrue("", this.tareaSimple.verificarSiEstaPausada());
 		verify(this.pausada);
 	}
-
+	/**
+	 * Test verificarSiEstaEnTrabajo para TareaSimple
+	 */
 	public void testVerificarSiEstaEnTrabajo() {
 		expect(this.enTrabajo.verificarSiEstaEnTrabajo()).andReturn(true)
 				.times(1);
@@ -552,7 +558,9 @@ public class TestTareaSimple extends TestCase {
 		Assert.assertTrue("", this.tareaSimple.verificarSiEstaEnTrabajo());
 		verify(this.enTrabajo);
 	}
-
+	/**
+	 * Test verificarSiEstaIniciada para TareaSimple
+	 */
 	public void testVerificarSiEstaIniciada() {
 		expect(this.iniciada.verificarSiEstaIniciada()).andReturn(true)
 				.times(1);
@@ -561,14 +569,18 @@ public class TestTareaSimple extends TestCase {
 		Assert.assertTrue("", this.tareaSimple.verificarSiEstaIniciada());
 		verify(this.iniciada);
 	}
-
+	/**
+	 * Test verificarSiEstaCerrada para TareaSimple
+	 */
 	public void testVerificarSiEstaCreada() {
 		expect(this.creada.verificarSiEstaCreada()).andReturn(true).times(1);
 		replay(this.creada);
 		Assert.assertTrue("", this.tareaSimple.verificarSiEstaCreada());
 		verify(this.creada);
 	}
-
+	/**
+	 * Test verificarSiEstaFinalizada para TareaSimple
+	 */
 	public void testVerificarSiEstaFinalizada() {
 		expect(this.finalizada.verificarSiEstaFinalizada()).andReturn(true)
 				.times(1);
@@ -577,7 +589,9 @@ public class TestTareaSimple extends TestCase {
 		Assert.assertTrue("", this.tareaSimple.verificarSiEstaFinalizada());
 		verify(this.finalizada);
 	}
-
+	/**
+	 * Test verificarSiEstaCerrada para TareaSimple
+	 */
 	public void testVerificarSiEstaCerrada() {
 		expect(this.cerrada.verificarSiEstaCerrada()).andReturn(true).times(1);
 		replay(this.cerrada);
@@ -585,6 +599,9 @@ public class TestTareaSimple extends TestCase {
 		Assert.assertTrue("", this.tareaSimple.verificarSiEstaCerrada());
 		verify(this.cerrada);
 	}
+	/**
+	 * Test estaEnTiempo para TareaSimple
+	 */
 	public void testEstaEnTiempo(){
 		
 		//expect(this.fechaActual.diasQFaltan(this.fechaTs)).andReturn(10);
@@ -598,9 +615,16 @@ public class TestTareaSimple extends TestCase {
 		
 		
 	}
+	/**
+	 * Test proximaAVencer para TareaSimple
+	 *
+	 */
 	public void testProximaAVencer(){
 		
 	}
+	/**
+	 * Test ReAbriteCuendoEstaPausada para TareaSimple
+	 */
 	public void testReAbriteCuandoEstaPausada() {
 		try {
 			String motivo = "Tiene que estar culminada para poder seguir trabajando";
@@ -619,7 +643,9 @@ public class TestTareaSimple extends TestCase {
 		} catch (Exception e) {
 		}
 	}
-
+	/**
+	 * Test ReAbriteCuandoEstaEnTrabajo para TareaSimple
+	 */
 	public void testReAbriteCuandoEstaEnTrabajo() {
 		try {
 			String motivo = "Tiene que estar culminada para poder seguir trabajando";
@@ -638,7 +664,9 @@ public class TestTareaSimple extends TestCase {
 		} catch (Exception e) {
 		}
 	}
-
+	/**
+	 * Test ReAbriteCuandoEstaFinalizada para TareaSimple
+	 */
 	public void testReAbriteCuandoEstaFinalizada() {
 		try {
 			String motivo = "Tiene que estar culminada para poder seguir trabajando";
@@ -657,7 +685,9 @@ public class TestTareaSimple extends TestCase {
 		} catch (Exception e) {
 		}
 	}
-
+	/**
+	 * Test ReAbriteCuandoEstaIniciada para TareaSimple
+	 */
 	public void testReAbriteCuandoEstaIniciada() {
 		try {
 			String motivo = "Tiene que estar culminada para poder seguir trabajando";
@@ -676,7 +706,9 @@ public class TestTareaSimple extends TestCase {
 		} catch (Exception e) {
 		}
 	}
-
+	/**
+	 * Test iniciateCuandoNoSePuede para TareaSimple
+	 */
 	public void testIniciateCuandoNoSePuede() {
 		try {
 			this.iniciada.iniciada(this.tareaSimple);
@@ -712,7 +744,9 @@ public class TestTareaSimple extends TestCase {
 		}
 		
 	}
-
+	/**
+	 * Test pausateCuandoNoPuede para TareaSimple
+	 */
 	public void testPausateCuandoNoPuede() {
 		try {
 			
@@ -746,7 +780,9 @@ public class TestTareaSimple extends TestCase {
 			
 		}
 	}
-
+	/**
+	 * Test PoneteEnTrabajoCuandoNoPuede para TareaSimple
+	 */
 	public void testPoneteEnTrabajoCuandoNoPuede() {
 		try {
 			this.creada.enTrabajo(this.tareaSimple);
