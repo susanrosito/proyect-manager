@@ -33,7 +33,10 @@ public abstract class Tarea implements AdministradorTarea {
 		this.tiempoParaRealizarla = 0;
 		this.porcentajeFinalizacion = 0;
 	}
-
+	
+	public Tarea() {
+	}
+	public abstract boolean sosTareaSimple();
 	/**
 	 * Se fija si la Tarea esta en estado Pausada por medio de un booleano.
 	 */
@@ -85,7 +88,7 @@ public abstract class Tarea implements AdministradorTarea {
 	/**
 	 * Este metodo Cierra una tarea. Cambia el estado a Cerrada.
 	 */
-	public abstract void cerrate();
+	public abstract void cerrate(String note);
 
 	/**
 	 * Devuelve los miembros de la tarea.

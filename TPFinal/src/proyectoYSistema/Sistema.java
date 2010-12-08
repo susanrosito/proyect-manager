@@ -1,22 +1,24 @@
 package proyectoYSistema;
 
-import java.util.LinkedList;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
+import java.util.Vector;
 
 import usuarioMiembroYFecha.*;
 
-public class Sistema {
+public class Sistema implements Observer{
 
 	private static Sistema instance = null;
-	private List<Proyecto> proyectos;
-	private List<Usuario> usuarios;
+	private Vector<Proyecto> proyectos;
+	private Vector<Usuario> usuarios;
 
 	/**
 	 * el constructor de Sistema
 	 */
-	private Sistema() {
-		this.proyectos = new LinkedList<Proyecto>();
-		this.usuarios = new LinkedList<Usuario>();
+	private Sistema(){
+		this.proyectos = new Vector<Proyecto>();
+		this.usuarios = new Vector<Usuario>();
 	}
 
 	/**
@@ -55,11 +57,11 @@ public class Sistema {
 	public void crearUnUsuario(String nombre, String email) {
 
 		this.getUsuarios().add(new Usuario(nombre, email));
-
+			// actualizar observer :P o algo asi ;P
 	}
 
 	/**
-	 * Este metodo quita de una lista de usuarios un usuario específico pasado
+	 * Este metodo quita de una lista de usuarios un usuario especï¿½fico pasado
 	 * por parametro.
 	 * 
 	 * @param usuario
@@ -70,7 +72,7 @@ public class Sistema {
 
 
 	/**
-	 * Este metodo quita de una lista de proyectos un proyecto específico pasado
+	 * Este metodo quita de una lista de proyectos un proyecto especï¿½fico pasado
 	 * por parametro.
 	 * 
 	 * @param usuario
@@ -78,21 +80,29 @@ public class Sistema {
 	public void eliminarProyecto(Proyecto proyecto) {
 		this.getProyectos().remove(proyecto);
 	}
-	public List<Proyecto> getProyectos() {
+	public Vector<Proyecto> getProyectos() {
 
 		return this.proyectos;
 	}
 
-	public List<Usuario> getUsuarios() {
+	public Vector<Usuario> getUsuarios() {
 		return usuarios;
 	}
 
-	public void setUsuarios(List<Usuario> usuarios) {
+	public void setUsuarios(Vector<Usuario> usuarios) {
 		this.usuarios = usuarios;
 	}
 
-	public void setProyectos(List<Proyecto> proyectos) {
+	public void setProyectos(Vector<Proyecto> proyectos) {
 		this.proyectos = proyectos;
 	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+
+		
+	}
+
+	
 
 }
