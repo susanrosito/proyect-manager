@@ -70,36 +70,36 @@ public class TestOrganizadorTarea extends TestCase{
 	}
 	
 	/**
-	 * Este test comprueba que el organizador de tareas envíe el mensaje cerrate() a la tareaSimple
+	 * Este test comprueba que el organizador de tareas envï¿½e el mensaje cerrate() a la tareaSimple
 	 * que contiene, cuando lo recibe.
 	 */
 	public void testCerrateTareaSimple() {
 		
-		this.getTareaS().cerrate();           
+		this.getTareaS().cerrate(stringMotivo);           
         replay(this.getTareaS());               
 	
-       this.getOrgConTareaS().cerrate(); 
+       this.getOrgConTareaS().cerrate(stringMotivo); 
 
        verify(this.getTareaS());;
        }
 		
 	/**
-	 * Este test comprueba que el organizador de tareas envíe el mensaje cerrate() a la tareaCompuesta
+	 * Este test comprueba que el organizador de tareas envï¿½e el mensaje cerrate() a la tareaCompuesta
 	 * que contiene, cuando lo recibe.
 	 */
    public void testCerrateTareaCompuesta() {
 		
-		this.getTareaC().cerrate();           
+		this.getTareaC().cerrate(stringMotivo);           
         replay(this.getTareaC());               
 	
-       this.getOrgConTareaC().cerrate(); 
+       this.getOrgConTareaC().cerrate(stringMotivo); 
 
        verify(this.getTareaC());;
        }
 
    /**
-	 * Este test comprueba que el organizador de tareas envíe el mensaje estaEnTiempo() a la tareaSimple
-	 * que contiene y retorne lo que esta retornaría,cuando lo recibe.
+	 * Este test comprueba que el organizador de tareas envï¿½e el mensaje estaEnTiempo() a la tareaSimple
+	 * que contiene y retorne lo que esta retornarï¿½a,cuando lo recibe.
 	 */
 	public void testEstaEnTiempoTareaSimple() {
 		
@@ -111,8 +111,8 @@ public class TestOrganizadorTarea extends TestCase{
 	}
 
 	 /**
-	 * Este test comprueba que el organizador de tareas envíe el mensaje estaEnTiempo() a la tareaCompuesta
-	 * que contiene y retorne lo que esta retornaría,cuando lo recibe.
+	 * Este test comprueba que el organizador de tareas envï¿½e el mensaje estaEnTiempo() a la tareaCompuesta
+	 * que contiene y retorne lo que esta retornarï¿½a,cuando lo recibe.
 	 */
 	public void testEstaEnTiempoTareaCompuesta() {
 		
@@ -126,8 +126,8 @@ public class TestOrganizadorTarea extends TestCase{
        
 }
 	/**
-	 * Este test comprueba que el organizador de tareas envíe el mensaje estaProximaAVencer() a la tareaSimple
-	 * que contiene y retorne lo que esta retornaría,cuando lo recibe.
+	 * Este test comprueba que el organizador de tareas envï¿½e el mensaje estaProximaAVencer() a la tareaSimple
+	 * que contiene y retorne lo que esta retornarï¿½a,cuando lo recibe.
 	 */
 	public void testEstaProximaAVencerTareaSimple() {
 		expect(this.getTareaS().estaProximaAVencer()).andReturn(false);     
@@ -137,8 +137,8 @@ public class TestOrganizadorTarea extends TestCase{
 	
 
 	/**
-	 * Este test comprueba que el organizador de tareas envíe el mensaje estaProximaAVencer() a la tareaCompuesta
-	 * que contiene y retorne lo que esta retornaría,cuando lo recibe.
+	 * Este test comprueba que el organizador de tareas envï¿½e el mensaje estaProximaAVencer() a la tareaCompuesta
+	 * que contiene y retorne lo que esta retornarï¿½a,cuando lo recibe.
 	 */
 	public void testEstaProximaAVencerTareaCompuesta() {
 		expect(this.getTareaC().estaProximaAVencer()).andReturn(false);     
@@ -148,7 +148,7 @@ public class TestOrganizadorTarea extends TestCase{
 
 
 	/**
-	 * Este test comprueba que el organizador de tareas envíe el mensaje reAbrite() a la tareaSimple
+	 * Este test comprueba que el organizador de tareas envï¿½e el mensaje reAbrite() a la tareaSimple
 	 * que contiene.
 	 */
 	public void testReAbriteTareaSimple() {
@@ -162,7 +162,7 @@ public class TestOrganizadorTarea extends TestCase{
        }
 		
 	/**
-	 * Este test comprueba que el organizador de tareas envíe el mensaje reAbrite() a la tareaCompuesta
+	 * Este test comprueba que el organizador de tareas envï¿½e el mensaje reAbrite() a la tareaCompuesta
 	 * que contiene.
 	 */
    public void testReAbriteTareaCompuesta() {
@@ -186,8 +186,8 @@ public class TestOrganizadorTarea extends TestCase{
 	}
 
 	/**
-	 * Este test comprueba que el organizador de tareas envíe el mensaje verEstado() a la tareaSimple
-	 * que contiene y retorne lo que esta retornaría al enviarselo. 
+	 * Este test comprueba que el organizador de tareas envï¿½e el mensaje verEstado() a la tareaSimple
+	 * que contiene y retorne lo que esta retornarï¿½a al enviarselo. 
 	 */
 	public void testVerEstadoTareaSimple() {
 		
@@ -199,8 +199,8 @@ public class TestOrganizadorTarea extends TestCase{
 	}
 
 	/**
-	 * Este test comprueba que el organizador de tareas envíe el mensaje verEstado() a la tareaCompuesta
-	 * que contiene y retorne lo que esta retornaría al enviarselo. 
+	 * Este test comprueba que el organizador de tareas envï¿½e el mensaje verEstado() a la tareaCompuesta
+	 * que contiene y retorne lo que esta retornarï¿½a al enviarselo. 
 	 */
       public void testVerEstadoTareaCompuesta() {
 		

@@ -35,6 +35,7 @@ public class TestTareaSimple extends TestCase {
 	private Miembro nuevoMiembro;
 	private String nuevoRol;
 	private Fecha fechaActual;
+	private String motivo;
 
 	protected void setUp() throws Exception {
 		super.setUp();
@@ -47,6 +48,7 @@ public class TestTareaSimple extends TestCase {
 		this.pausada = createMock(Pausada.class);
 		this.finalizada = createMock(Finalizada.class);
 
+		this.motivo= "Un motivo para cerrar o reabrir la tarea";
 		// instancio una tareaSimple, con estos parametros.
 		this.nombreTs = "Realizar Un Test";
 		this.descripcionTs = "Para una clase especifica, en este caso la clase TareaSimple";
@@ -238,7 +240,7 @@ public class TestTareaSimple extends TestCase {
 				this.iniciada);
 
 		// realizo las acciones.
-		this.tareaSimple.cerrate();
+		this.tareaSimple.cerrate(motivo);
 
 		// / seteo porque el metodo cerrate le asigna a tareaSimple una
 		// instancia de Cerrada real y yo estoy trabajando con mock.
@@ -247,7 +249,7 @@ public class TestTareaSimple extends TestCase {
 		// Verifico que la tarea este cerrada.
 		Assert.assertTrue("la tareaS con el estado Creada, no esta cerrada",
 				this.tareaSimple.verificarSiEstaCerrada());
-		this.tareaSimpleConMiembro.cerrate();
+		this.tareaSimpleConMiembro.cerrate(motivo);
 
 		// / seteo porque el metodo cerrate le asigna a tareaSimple una
 		// instancia de Cerrada real y yo estoy trabajando con mock.
@@ -259,7 +261,7 @@ public class TestTareaSimple extends TestCase {
 
 		// seteo ya que necesito probar con este mock ahora.
 		this.tareaSimpleConMiembro.setEstado(this.iniciada);
-		this.tareaSimpleConMiembro.cerrate();
+		this.tareaSimpleConMiembro.cerrate(motivo);
 
 		// / seteo porque el metodo cerrate le asigna a tareaSimple una
 		// instancia de Cerrada real y yo estoy trabajando con mock.
@@ -271,7 +273,7 @@ public class TestTareaSimple extends TestCase {
 
 		// seteo ya que necesito probar con este mock ahora.
 		this.tareaSimpleConMiembro.setEstado(this.enTrabajo);
-		this.tareaSimpleConMiembro.cerrate();
+		this.tareaSimpleConMiembro.cerrate(motivo);
 
 		// seteo porque el metodo cerrate le asigna a tareaSimple una
 		// instancia de Cerrada real y yo estoy trabajando con mock.
@@ -283,7 +285,7 @@ public class TestTareaSimple extends TestCase {
 
 		// seteo ya que necesito probar con este mock ahora.
 		this.tareaSimpleConMiembro.setEstado(this.pausada);
-		this.tareaSimpleConMiembro.cerrate();
+		this.tareaSimpleConMiembro.cerrate(motivo);
 
 		// seteo porque el metodo cerrate le asigna a tareaSimple una
 		// instancia de Cerrada real y yo estoy trabajando con mock.
@@ -316,7 +318,7 @@ public class TestTareaSimple extends TestCase {
 		replay(this.creada, this.cerrada, this.iniciada);
 
 		// realizo las acciones necesarias.
-		this.tareaSimple.cerrate();
+		this.tareaSimple.cerrate(motivo);
 
 		// seteo porque el metodo cerrate le asigna a tareaSimple una
 		// instancia de Cerrada real y yo estoy trabajando con mock.

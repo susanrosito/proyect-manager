@@ -65,9 +65,10 @@ public class SistemaTestCase extends TestCase {
 		assertEquals("la cantidad de proyectos existentes en el sistema es 1",
 				1, sistema.getProyectos().size());
 	}
-/**
- * crea un usario a partir de un String para el nombre y un String para el email.
- */
+
+	/**
+	 * 
+	 */
 	public void testcrearUnUsuario() {
 
 		// envio el mensaje crearUnUsuario.
@@ -77,14 +78,6 @@ public class SistemaTestCase extends TestCase {
 				1, sistema.getUsuarios().size());
 	}
 	
-	
-	public void testEliminarUsuario() {
-		//agrego 2 usuarios a la lista de usuarios del sistema
-		this.getUsuarios().add(usuario);
-		this.getUsuarios().add(usuario);
-		
-		
-	}
 	
 	public List<Proyecto> getProyectos() {
 		return proyectos;
