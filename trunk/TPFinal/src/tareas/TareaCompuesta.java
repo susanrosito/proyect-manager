@@ -17,22 +17,24 @@ import usuarioMiembroYFecha.Miembro;
 
 public class TareaCompuesta extends Tarea {
 
-	private List<AdministradorTarea> tareasQueLaComponenen;
+	private List<AdministradorTarea> tareasQueLaComponenen = new ArrayList<AdministradorTarea>();
 
 	public TareaCompuesta(String nombre, String descrip,
 			Fecha fechaEstimadaFinalizacion) {
 		super(nombre, descrip, fechaEstimadaFinalizacion);
-		this.tareasQueLaComponenen = new ArrayList<AdministradorTarea>();
+	}
+
+	public TareaCompuesta() {
 	}
 
 	/**
 	 * Este mensaje se encarga de cerrar todas las sub tareas de la tarea
 	 * compuesta.
 	 */
-	public void cerrate() {
+	public void cerrate(String note) {
 
 		for (AdministradorTarea at : this.getTareasQueLaComponenen()) {
-			at.cerrate();
+			at.cerrate(note);
 		}
 
 	}
@@ -195,7 +197,7 @@ public class TareaCompuesta extends Tarea {
 	 * Este mensaje agrega a la tarea pasada por parametro a la tarea compuesta.
 	 * 
 	 */
-	protected void agregarTarea(AdministradorTarea tarea) {
+	public void agregarTarea(AdministradorTarea tarea) {
 		
 		this.getTareasQueLaComponenen().add(tarea);
 	}
@@ -231,6 +233,44 @@ public class TareaCompuesta extends Tarea {
 	public List<AdministradorTarea> getTareasQueLaComponenen() {
 		return tareasQueLaComponenen;
 	}
+
+	
+	public boolean sosTareaSimple() {
+		return false;
+	}
+
+	
+	public Miembro getMiembroAsignado() {
+		
+		return null;
+	}
+
+
+	public void pausate() throws NoPuedeCambiarseElEstadoExcepccion {
+
+		
+	}
+
+	
+	public void poneteEnTrabajo() throws NoPuedeCambiarseElEstadoExcepccion {
+	
+		
+	}
+
+	
+	public void iniciate() throws NoPuedeCambiarseElEstadoExcepccion {
+		
+		
+	}
+
+	
+	public void finalizate() {
+		
+		
+	}
+
+	
+
 
 
 

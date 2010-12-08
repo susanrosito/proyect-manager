@@ -1,9 +1,8 @@
 package proyectoYSistema;
 
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 
 import tareas.*;
 import usuarioMiembroYFecha.*;
@@ -12,8 +11,8 @@ public class Proyecto {
 	private String nombre;
 	private String descripcion;
 	private Miembro creador;
-	private List<Tarea> listaTareas;
-	private List<Miembro> listaDeMiembros;
+	private Vector<AdministradorTarea> listaTareas;
+	private Vector<Miembro> listaDeMiembros;
 
 	/**
 	 * El constructor de la clase proyecto.
@@ -27,8 +26,8 @@ public class Proyecto {
 		this.setNombre(nombre);
 		this.setDescripcion(descripcion);
 		this.setCreador(new Miembro(usuario, "creador"));
-		this.setListaTareas(new LinkedList<Tarea>());
-		this.setListaDeMiembros(new LinkedList<Miembro>());
+		this.setListaTareas(new Vector<AdministradorTarea>());
+		this.setListaDeMiembros(new Vector<Miembro>());
 
 	}
 
@@ -36,7 +35,7 @@ public class Proyecto {
 	 * agrega a la lista de tareas del proyecto una tarea pasada x parametro.
 	 * 
 	 */
-	public void agregarTarea(Tarea tarea) {
+	public void agregarTarea(AdministradorTarea tarea) {
 		this.getListaTareas().add(tarea);
 
 	}
@@ -59,7 +58,7 @@ public class Proyecto {
 
 			// busca los miembros creados a partir del mismo usuario
 			// si la fechaFin del miembro es NULL qiere decir que el miembro
-			// todavia esta desempeñando funciones en el proyecto
+			// todavia esta desempeï¿½ando funciones en el proyecto
 			// y un miembro solo puede tener un rol dentro del proyecto a la
 			// vez
 			if (usuario.equals(m.getUsuario()) & (m.getFechaFin() == null)) {
@@ -86,21 +85,21 @@ public class Proyecto {
 	/**
 	 * cierra una tarea especifica.
 	 * 
-	 * @param tarea
+	 * @param t
 	 */
-	public void cerrarTarea(Tarea tarea) {
-		tarea.cerrate();
+	public void cerrarTarea(AdministradorTarea t,String nota) {
+		t.cerrate(nota);
 
 	}
 
 	/**
 	 * cierra el proyecto y todas sus tareas.
 	 */
-	public void cerrarProyecto() {
+	public void cerrarProyecto(String nota) {
 
-		for (Tarea t : this.getListaTareas()) {
+		for (AdministradorTarea t : this.getListaTareas()) {
 
-			this.cerrarTarea(t);
+			this.cerrarTarea(t,nota);
 		}
 
 	}
@@ -123,11 +122,11 @@ public class Proyecto {
 	 * 
 	 * @return Map<Tarea, String>
 	 */
-	public Map<Tarea, String> obtenerTareasYEstados() {
+	public Map<AdministradorTarea, String> obtenerTareasYEstados() {
 
-		Map<Tarea, String> aux = new HashMap<Tarea, String>();
+		Map<AdministradorTarea, String> aux = new HashMap<AdministradorTarea, String>();
 
-		for (Tarea t : this.getListaTareas()) {
+		for (AdministradorTarea t : this.getListaTareas()) {
 
 			aux.put(t, t.verEstado());
 		}
@@ -191,7 +190,7 @@ public class Proyecto {
 		this.creador = creador;
 	}
 
-	public void setListaTareas(List<Tarea> listaTareas) {
+	public void setListaTareas(Vector<AdministradorTarea> listaTareas) {
 		this.listaTareas = listaTareas;
 	}
 
@@ -210,17 +209,17 @@ public class Proyecto {
 		return this.creador;
 	}
 
-	public List<Tarea> getListaTareas() {
+	public Vector<AdministradorTarea> getListaTareas() {
 
 		return this.listaTareas;
 	}
 
-	public List<Miembro> getListaDeMiembros() {
+	public Vector<Miembro> getListaDeMiembros() {
 
 		return this.listaDeMiembros;
 	}
 
-	public void setListaDeMiembros(List<Miembro> listaDeMiembros) {
+	public void setListaDeMiembros(Vector<Miembro> listaDeMiembros) {
 		this.listaDeMiembros = listaDeMiembros;
 	}
 

@@ -26,7 +26,6 @@ public class TareaSimple extends Tarea {
 		super(nombre, descrip, fechaEstFinalizacion);
 		this.setEstado(Creada.GetInstance());
 	}
-
 	/**
 	 * Cambia el estado de la Tarea a EnTrabajo. Si no puede, tira una
 	 * excepcion.
@@ -62,8 +61,9 @@ public class TareaSimple extends Tarea {
 		this.getEstado().pausada(this);
 	}
 
-	public void cerrate() {
+	public void cerrate(String note) {
 		this.getEstado().cerrada(this);
+		this.setDescripcion( this.getDescripcion()+ "\n" +note );
 	}
 
 	public String verEstado() {
@@ -152,5 +152,9 @@ public class TareaSimple extends Tarea {
 
 	public Estado getEstado() {
 		return estado;
+	}
+	@Override
+	public boolean sosTareaSimple() {
+		return true;
 	}
 }

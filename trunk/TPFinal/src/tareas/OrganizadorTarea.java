@@ -3,6 +3,9 @@ package tareas;
 
 import java.util.List;
 
+import estados.NoPuedeCambiarseElEstadoExcepccion;
+
+import usuarioMiembroYFecha.Fecha;
 import usuarioMiembroYFecha.Miembro;
 
 
@@ -49,8 +52,8 @@ public class OrganizadorTarea implements AdministradorTarea  {
 	 * este metodo tiene el mismo efecto que enviarle el mensaje a cerrate()
 	 * a la tarea.
 	 */
-	public void cerrate() {
-		this.getTarea().cerrate();
+	public void cerrate(String note) {
+		this.getTarea().cerrate(note);
 		
 	}
 
@@ -184,6 +187,79 @@ public class OrganizadorTarea implements AdministradorTarea  {
 
 	public void setTareaAnterior(AdministradorTarea tareaAnterior) {
 		this.tareaAnterior = tareaAnterior;
+	}
+
+	@Override
+	public String getDescripcion() {
+		return tarea.getDescripcion();
+	}
+
+	@Override
+	public String getNombre() {
+		return tarea.getNombre();
+	}
+
+
+	public boolean sosTareaSimple() {
+		return tarea.sosTareaSimple();
+	}
+
+	
+	public Miembro getMiembroAsignado() {
+		return this.tarea.getMiembroAsignado();
+	}
+
+
+	public Fecha getFechaCreacion() {
+		return this.tarea.getFechaCreacion();
+	}
+
+	
+	public Fecha getFechaEstimadaFinalizacion() {
+		
+		return this.tarea.getFechaEstimadaFinalizacion();
+	}
+
+	
+	public Fecha getFechaFinalizacion() {
+		
+		return this.tarea.getFechaFinalizacion();
+	}
+
+	
+	public void setPorcentajeFinalizacion(float porcentajeFinalizacion) {
+		this.tarea.setPorcentajeFinalizacion(porcentajeFinalizacion);
+		
+	}
+
+	
+	public float getPorcentajeFinalizacion() {
+		
+		return this.tarea.getPorcentajeFinalizacion();
+	}
+
+
+	public void pausate() throws NoPuedeCambiarseElEstadoExcepccion {
+		this.getTarea().pausate();
+		
+	}
+
+	
+	public void poneteEnTrabajo() throws NoPuedeCambiarseElEstadoExcepccion {
+		this.getTarea().poneteEnTrabajo();
+		
+	}
+
+
+	public void iniciate() throws NoPuedeCambiarseElEstadoExcepccion {
+	this.getTarea().iniciate();
+		
+	}
+
+	@Override
+	public void finalizate() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	

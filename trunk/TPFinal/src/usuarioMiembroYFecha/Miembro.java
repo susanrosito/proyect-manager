@@ -3,10 +3,10 @@ package usuarioMiembroYFecha;
 import proyectoYSistema.Proyecto;
 
 /**
- * Esta clase representará al miembro de un proyecto. Para ello va a tener una variable
+ * Esta clase representarï¿½ al miembro de un proyecto. Para ello va a tener una variable
  * del tipo String, el rol que ocupa en el proyecto.
- * Dos variables del tipo fecha que representarán la fecha de inicio desde que tiene ese
- * rol en ese proyecto y la fecha del fin del mismo, que indicará que ese ya no es su
+ * Dos variables del tipo fecha que representarï¿½n la fecha de inicio desde que tiene ese
+ * rol en ese proyecto y la fecha del fin del mismo, que indicarï¿½ que ese ya no es su
  * rol actual. 
  * Una variable del tipo Protyecto, el proyecto en el que esta.
  * Un int que representa las horas trabajadas en ese proyecto con ese rol.
@@ -24,10 +24,10 @@ public class Miembro {
 	/**
 	 * El constructor recibe dos parametros, un usuario que representa a la persona
 	 * que pasa a ser miembro para luego ser introducido en un proyecto, y un String 
-	 * que representa el rol que va a desempeñar.
+	 * que representa el rol que va a desempeï¿½ar.
 	 * Las horas trabajadas hasta el momento son cero y la fecha de Inicio es la fecha
 	 * actual.
-	 * Las demás variables se mantienen en null.
+	 * Las demï¿½s variables se mantienen en null.
 	 * @param elUsuario
 	 * @param rol
 	 */
@@ -43,7 +43,7 @@ public class Miembro {
 
 	/**
 	 * El metodo cambiarRol() recibe un solo parametro del tipo String que es 
-	 * el nuevo rol del usuario al que se le envia el mensaje. Lo que retornará 
+	 * el nuevo rol del usuario al que se le envia el mensaje. Lo que retornarï¿½ 
 	 * sera una nueva instancia nueva de miembro que contendra el mismo usuario 
 	 * que la instancia anterior pero con otro String que representa su nuevo rol.
 	 * @param otroRol
@@ -56,6 +56,11 @@ public class Miembro {
 		return nuevaInstancia;
 	}
 
+	public String toString()
+	{
+		return this.getUsuario().getNombre();
+		
+	}
 	public Usuario getUsuario() {
 		return usuario;
 	}
