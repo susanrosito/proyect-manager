@@ -92,7 +92,7 @@ public class TestTareaCompuesta extends TestCase{
 		listaConTodosLosMiembros.add(miembro3TareaC1);
 		listaConTodosLosMiembros.add(miembroTareaS2);
 		listaConTodosLosMiembros.add(miembroTareaS1);
-		/*A continuación se setean todos las tareas simples que son todos mock objects capaces de
+		/*A continuaciï¿½n se setean todos las tareas simples que son todos mock objects capaces de
 		 * responder a los mensajes:
 		 * 
 		 * verificarSiEstaIniciada()
@@ -103,7 +103,7 @@ public class TestTareaCompuesta extends TestCase{
 		 * verificarSiEstaPausada()
 		 * 
 		 * Solo algunas esperan el mensaje cerrate() para testear ese mismo metodo en la clase TareaCompuesta
-		 * y sólo la tarea simple que representa a la tarea cerrada espera el mensaje reAbrite(this.unMotivo)
+		 * y sï¿½lo la tarea simple que representa a la tarea cerrada espera el mensaje reAbrite(this.unMotivo)
 		 * para testear tambien ese mismo metodo en la clase TareaCompuesta.
 		 * */
 		
@@ -140,7 +140,7 @@ public class TestTareaCompuesta extends TestCase{
 		expectLastCall().anyTimes();
 		expect(tareSFinalizada.verificarSiEstaPausada()).andReturn(false);
 		expectLastCall().anyTimes();
-		this.tareSFinalizada.cerrate();
+		this.tareSFinalizada.cerrate(stringMotivo);
 		
 		//Setea la vaiable tareaSEnTrabajo que por medio de un mockObject representa
 		//a una tareaSimple con estado EnTrabajo.
@@ -175,7 +175,7 @@ public class TestTareaCompuesta extends TestCase{
 		expectLastCall().anyTimes();
 		expect(tareaSPausada.verificarSiEstaPausada()).andReturn(true);
 		expectLastCall().anyTimes();
-		this.tareaSPausada.cerrate();
+		this.tareaSPausada.cerrate(stringMotivo);
 		
 		//Setea la vaiable tareaSCreada que por medio de un mockObject representa
 		//a una tareaSimple con estado Creada.
@@ -210,7 +210,7 @@ public class TestTareaCompuesta extends TestCase{
 		expectLastCall().anyTimes();
 		expect(tareaSIniciada.verificarSiEstaPausada()).andReturn(false);
 		expectLastCall().anyTimes();
-		this.tareaSIniciada.cerrate();
+		this.tareaSIniciada.cerrate(stringMotivo);
 		
 		//Confirma que esos mockObjects solo esperan esos mensajes.
 		replay(tareaSIniciada, tareSFinalizada, tareaSCreada, tareaSCerrada, tareaSEnTrabajo, tareaSPausada, otraTareaCompuesta );
@@ -271,7 +271,7 @@ public class TestTareaCompuesta extends TestCase{
 	 */
 	public void testConstructor (){
 		
-		assertSame("Confirma que la descripcción enviada por parametro se guardo correctamente " +
+		assertSame("Confirma que la descripcciï¿½n enviada por parametro se guardo correctamente " +
 				"en la variable de la tarea compuesta.",this.getDescripccionTC(),this.getTareaC().getDescripcion());
 		
 		assertSame("Confirma que el nombre enviado por parametro se guardo correctamente " +
@@ -292,12 +292,12 @@ public class TestTareaCompuesta extends TestCase{
 	public void testAgregarTarea()
 	{
 		TareaCompuesta tC= this.getTareaC();
-		int tamañoAnteriorDeListaDeTareas=tC.getTareasQueLaComponenen().size();
+		int tamanioAnteriorDeListaDeTareas=tC.getTareasQueLaComponenen().size();
 		tC.agregarTarea(this.getTareaSCreada());
-		int tamañoActual=tC.getTareasQueLaComponenen().size();
+		int tamanioActual=tC.getTareasQueLaComponenen().size();
 		
-		assertTrue("Confirma que el tamaño de la lista de tareas aumento solo uno en cantidad.", 
-				tamañoAnteriorDeListaDeTareas+1==tamañoActual);
+		assertTrue("Confirma que el tamaï¿½o de la lista de tareas aumento solo uno en cantidad.", 
+				tamanioAnteriorDeListaDeTareas+1==tamanioActual);
 		assertTrue("Confirma que la tarea pasada por parametro efectivamente esta ahora en la tarea compuesta.", 
 				tC.getTareasQueLaComponenen().contains(this.getTareaSCreada()));
 		
@@ -613,7 +613,7 @@ public class TestTareaCompuesta extends TestCase{
 	 
 	    
 		
-	this.tareaC.cerrate();
+	this.tareaC.cerrate(stringMotivo);
 	verify(this.tareSFinalizada);
 	verify(this.tareaSPausada);
     verify(this.tareaSIniciada);

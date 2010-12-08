@@ -161,7 +161,7 @@ public class ProyectoTestCase extends TestCase {
 		expect(tareaCompuesta.verEstado()).andReturn(estadoIniciada);
 		replay(tareaSimple, tareaCompuesta);
 		// ejecuto el metodo
-		Map<Tarea, String> resultado = this.getProyecto()
+		Map<AdministradorTarea, String> resultado = this.getProyecto()
 				.obtenerTareasYEstados();
 		//chequea los estados si son correctos
 		assertEquals(estadoCreada, resultado.get(this.getTarea()));
