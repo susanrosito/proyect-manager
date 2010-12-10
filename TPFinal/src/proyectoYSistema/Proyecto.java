@@ -78,7 +78,7 @@ public class Proyecto {
 	 * 
 	 * @param tarea
 	 */
-	public void eliminarTarea(Tarea tarea) {
+	public void eliminarTarea(AdministradorTarea tarea) {
 		this.getListaTareas().remove(tarea);
 	}
 

@@ -302,6 +302,7 @@ public class AdministradorDeTareas extends JFrame implements VentanaTareaObserve
 				AdministradorTarea tareaSeleccionada = (AdministradorTarea) tableModelo
 						.getSelected(tableTareas.getSelectedRow());
 				tableModelo.remove(tareaSeleccionada);
+				proyectoActual.eliminarTarea(tareaSeleccionada);
 				AdministradorDeTareas.this.seBorroTarea();
 			}
 		}
