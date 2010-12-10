@@ -233,39 +233,43 @@ public class ProyectoTestCase extends TestCase {
 	}
 
 	public void testCerrarTarea() {
-
+		//este metodo debe funcionar para cualquier tarea que implemente 
+		//el administrador de tareas, en este test se utiliza una tarea simple
+		String causa = "se corto la luz";		
 		// agrego 1 tarea al proyecto//
 		this.getProyecto().agregarTarea(this.getTarea());
 
 		// agrego los mensajes del mock de tarea
-		tareaSimple.cerrate();
+		tareaSimple.cerrate(causa);
 		expect(tareaSimple.verEstado()).andReturn("Cerrada");
-
+		expect(tareaSimple.getDescripcion()).andReturn(causa);
+		
 		replay(tareaSimple);
 
 		// cierro una tarea especifica
-		this.getProyecto().cerrarTarea(this.getTarea());
+		this.getProyecto().cerrarTarea(this.getTarea(),causa);
 
 		// compruebo si esta el estado es cerrada
 		assertSame("Cerrada", this.getTarea().verEstado());
+		assertEquals(causa, tareaSimple.getDescripcion());
 	}
 
 	public void testCerrarProyecto() {
-
+		String causa = "se corto la luz";	
 		// agrego 2 tareas al proyecto una simple y otra compuesta
 		this.getProyecto().agregarTarea(this.getTarea());
 		this.getProyecto().agregarTarea(this.getTareaCompuesta());
 
 		// agrego los mensajes del mock de tarea y tareaCompuesta
-		tareaSimple.cerrate();
+		tareaSimple.cerrate(causa);
 		expect(tareaSimple.verEstado()).andReturn("Cerrada");
-		tareaCompuesta.cerrate();
+		tareaCompuesta.cerrate(causa);
 		expect(tareaCompuesta.verEstado()).andReturn("Cerrada");
 
 		replay(tareaSimple, tareaCompuesta);
 
 		// cierro el proyecto
-		this.getProyecto().cerrarProyecto();
+		this.getProyecto().cerrarProyecto(causa);
 
 		// compruebo si esta el estado es cerrada
 		assertSame("Cerrada", this.getTarea().verEstado());
