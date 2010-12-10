@@ -33,7 +33,7 @@ public class ProyectoVentana extends JPanel {
 	private Vector<Proyecto> listaProyectosVector = new Vector<Proyecto>();
 	private JList listaProyectosJList;
 	private JScrollPane scrollProyectos = new JScrollPane();
-	// el panel de datos de proyecto seleccionado
+	// el panel de datos que contiene los campos de texto y los labels
 	private JPanel panelDatos = new JPanel();
 	private TextField textoNombreProyecto = new TextField();
 	private TextField textoDescripcionProyecto = new TextField();
