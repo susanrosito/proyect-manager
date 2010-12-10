@@ -9,15 +9,15 @@ public class VentanaSistema extends JFrame {
 
 	// el panel de las pesta�as
 	private JTabbedPane panelConPestanias = new JTabbedPane();
-
+	private Sistema sistema;
 	public VentanaSistema() {
 
 		super("Sistema");
-		Sistema sist = Sistema.GetInstance();
+		sistema  = Sistema.GetInstance();
 		panelConPestanias.addTab("Proyectos",
-				new ProyectoVentana(sist.getProyectos()));
+				new ProyectoVentana(sistema));
 		panelConPestanias.addTab("Usuarios",
-				new UsuarioVentana(sist.getUsuarios()));
+				new UsuarioVentana(sistema));
 		this.add(panelConPestanias);
 		this.pack();
 		this.setLocation(250, 150);

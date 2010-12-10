@@ -22,6 +22,8 @@ import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import proyectoYSistema.Sistema;
+
 import usuarioMiembroYFecha.Usuario;
 
 public class UsuarioVentana extends JPanel {
@@ -32,6 +34,8 @@ public class UsuarioVentana extends JPanel {
 	private JScrollPane scrollUsuario = new JScrollPane();
 	// modelo
 
+	private Sistema sistema;
+	
 	// el panel de datos del Usuario seleccionado
 	private JPanel panelDatos = new JPanel();
 	private TextField textoNombreUsuario = new TextField();
@@ -53,8 +57,10 @@ public class UsuarioVentana extends JPanel {
 		this.inicializarVentana();
 	}
 
-	public UsuarioVentana(Vector<Usuario> listU) {
-		this.listaUsuarioVector = listU;
+	public UsuarioVentana(Sistema sist) {
+		
+		sistema = sist;
+		this.listaUsuarioVector = sist.getUsuarios();
 		this.inicializarVentana();
 	}
 
@@ -164,6 +170,10 @@ public class UsuarioVentana extends JPanel {
 	class CrearUsuario implements ActionListener {
 
 		public void actionPerformed(ActionEvent arg0) {
+			
+			new VentanaCrearNuevoUsuario(sistema);
+			
+			listaUsuarioJList.getSelectedValue();
 			
 			/*
 			Usuario usuario = new Usuario(textoNombreUsuario.getText(),

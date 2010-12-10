@@ -1,18 +1,17 @@
 package ventanaTarea;
 
 import java.awt.GridLayout;
-import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BoxLayout;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
+
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.JTextPane;
+
 
 public abstract class VentanaConfirmacion extends JFrame{
 
@@ -23,11 +22,6 @@ protected	JLabel labelTexto2;
 protected	JTextField campoTexto2;
 protected	JButton aceptar;
 protected	JButton cancelar;
-
-	public VentanaConfirmacion() {
-	
-		
-	}
 
 
 	public void init() {

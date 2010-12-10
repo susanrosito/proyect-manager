@@ -25,6 +25,7 @@ import javax.swing.event.ListSelectionListener;
 
 
 import proyectoYSistema.Proyecto;
+import proyectoYSistema.Sistema;
 import usuarioMiembroYFecha.Usuario;
 
 public class ProyectoVentana extends JPanel{
@@ -41,6 +42,7 @@ public class ProyectoVentana extends JPanel{
 	private JLabel labelNombreProyecto = new JLabel("NombreProyecto");
 	private JLabel labelDescripcionProyecto = new JLabel("DescripcionProyecto");
 
+	private Sistema sistema;
 	//botones de la pesta�a proyecto 
 	private JPanel panelBotones = new JPanel();
 	private JButton crear = new JButton("crear");
@@ -64,8 +66,9 @@ public class ProyectoVentana extends JPanel{
 		inicializarVentana();
 	}
 	
-	public ProyectoVentana(Vector<Proyecto> listp){
-		this.listaProyectosVector = listp;
+	public ProyectoVentana(Sistema sis){
+		sistema = sis;
+		this.listaProyectosVector = sis.getProyectos();
 		inicializarVentana();
 		
 	}
