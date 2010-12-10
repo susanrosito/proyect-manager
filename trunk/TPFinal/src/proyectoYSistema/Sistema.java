@@ -5,18 +5,22 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Vector;
 
+import javax.swing.JPanel;
+
 import usuarioMiembroYFecha.*;
 
-public class Sistema implements Observer{
+public class Sistema {
 
 	private static Sistema instance = null;
 	private Vector<Proyecto> proyectos;
 	private Vector<Usuario> usuarios;
+	private Vector<JPanel> observadores;
 
 	/**
 	 * el constructor de Sistema
 	 */
-	private Sistema(){
+	private Sistema() {
+
 		this.proyectos = new Vector<Proyecto>();
 		this.usuarios = new Vector<Usuario>();
 	}
@@ -45,6 +49,7 @@ public class Sistema implements Observer{
 	public void crearUnProyecto(String nombre, String descripcion,
 			Usuario usuario) {
 		this.getProyectos().add(new Proyecto(nombre, descripcion, usuario));
+
 	}
 
 	/**
@@ -57,7 +62,8 @@ public class Sistema implements Observer{
 	public void crearUnUsuario(String nombre, String email) {
 
 		this.getUsuarios().add(new Usuario(nombre, email));
-			// actualizar observer :P o algo asi ;P
+		// actualizar observer :P o algo asi ;P
+
 	}
 
 	/**
@@ -68,18 +74,20 @@ public class Sistema implements Observer{
 	 */
 	public void eliminarUsuario(Usuario usuario) {
 		this.getUsuarios().remove(usuario);
+
 	}
 
-
 	/**
-	 * Este metodo quita de una lista de proyectos un proyecto espec�fico pasado
-	 * por parametro.
+	 * Este metodo quita de una lista de proyectos un proyecto espec�fico
+	 * pasado por parametro.
 	 * 
 	 * @param usuario
 	 */
 	public void eliminarProyecto(Proyecto proyecto) {
 		this.getProyectos().remove(proyecto);
+
 	}
+
 	public Vector<Proyecto> getProyectos() {
 
 		return this.proyectos;
@@ -91,18 +99,12 @@ public class Sistema implements Observer{
 
 	public void setUsuarios(Vector<Usuario> usuarios) {
 		this.usuarios = usuarios;
+
 	}
 
 	public void setProyectos(Vector<Proyecto> proyectos) {
 		this.proyectos = proyectos;
+
 	}
-
-	@Override
-	public void update(Observable o, Object arg) {
-
-		
-	}
-
-	
 
 }

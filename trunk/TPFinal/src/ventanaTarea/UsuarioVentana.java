@@ -170,17 +170,15 @@ public class UsuarioVentana extends JPanel {
 	class CrearUsuario implements ActionListener {
 
 		public void actionPerformed(ActionEvent arg0) {
-			
+		/*	
 			new VentanaCrearNuevoUsuario(sistema);
 			
 			listaUsuarioJList.getSelectedValue();
-			
-			/*
-			Usuario usuario = new Usuario(textoNombreUsuario.getText(),
-					textoEmailUsuario.getText());
-			listaUsuarioVector.add(usuario);
-			listaUsuarioJList.setListData(listaUsuarioVector);
 			*/
+			
+
+			sistema.crearUnUsuario(textoNombreUsuario.getText(), textoEmailUsuario.getText());
+			listaUsuarioJList.setListData(sistema.getUsuarios());
 		}
 
 	}
@@ -188,7 +186,8 @@ public class UsuarioVentana extends JPanel {
 	class ModificarUsuario implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-
+			
+			listaUsuarioJList.getSelectedValue();
 			
 
 		}
