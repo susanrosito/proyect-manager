@@ -28,7 +28,7 @@ import proyectoYSistema.Sistema;
 
 import usuarioMiembroYFecha.Usuario;
 
-public class UsuarioVentana extends JPanel implements Observer{
+public class UsuarioVentana extends JPanel  {
 
 	// las variables que se encargan de manejar la lista
 	private Vector<Usuario> listaUsuarioVector = new Vector<Usuario>();
@@ -45,7 +45,7 @@ public class UsuarioVentana extends JPanel implements Observer{
 	private JLabel labelNombreUsuario = new JLabel("NombreUsuario");
 	private JLabel labelEmailUsuario = new JLabel("EmailUsuario");
 
-	// botones de la pesta�a Usuario
+	// botones de la pestanha Usuario
 	private JPanel panelBotones = new JPanel();
 	private JButton crear = new JButton("Crear Usuario");
 	private JButton modificar = new JButton("Modificar Usuario");
@@ -61,7 +61,6 @@ public class UsuarioVentana extends JPanel implements Observer{
 
 	public UsuarioVentana(Sistema sist) {
 		
-		sist.addObserver(this);
 		this.listaUsuarioVector = sist.getUsuarios();
 		this.inicializarVentana();
 	}
@@ -181,7 +180,7 @@ public class UsuarioVentana extends JPanel implements Observer{
 		
 			sistema.crearUnUsuario(textoNombreUsuario.getText(),
 					textoEmailUsuario.getText());
-			//listaUsuarioJList.setListData(sistema.getUsuarios());
+			listaUsuarioJList.setListData(sistema.getUsuarios());
 		}
 
 	}
@@ -190,9 +189,10 @@ public class UsuarioVentana extends JPanel implements Observer{
 
 		public void actionPerformed(ActionEvent e) {
 			
-			listaUsuarioJList.getSelectedValue();
-			
-
+			Usuario usuario =(Usuario)listaUsuarioJList.getSelectedValue();
+			usuario.setNombre(textoNombreUsuario.getText());
+			usuario.setEmail(textoEmailUsuario.getText());
+			listaUsuarioJList.setListData(sistema.getUsuarios());
 		}
 
 	}
@@ -205,10 +205,4 @@ public class UsuarioVentana extends JPanel implements Observer{
 		}
 	}
 
-
-	
-	public void update(Observable o, Object arg) {
-	
-		listaUsuarioJList.setListData(((Sistema) arg).getUsuarios());
-	}
 }

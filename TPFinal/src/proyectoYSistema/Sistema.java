@@ -1,15 +1,13 @@
 package proyectoYSistema;
 
-import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
+
 import java.util.Vector;
 
-import javax.swing.JPanel;
+
 
 import usuarioMiembroYFecha.*;
 
-public class Sistema extends Observable {
+public class Sistema  {
 
 	private static Sistema instance = null;
 	private Vector<Proyecto> proyectos;
@@ -49,8 +47,6 @@ public class Sistema extends Observable {
 			Usuario usuario) {
 		this.getProyectos().add(new Proyecto(nombre, descripcion, usuario));
 
-		setChanged();
-		notifyObservers();
 	}
 
 	/**
@@ -64,8 +60,6 @@ public class Sistema extends Observable {
 
 		this.getUsuarios().add(new Usuario(nombre, email));
 		
-		setChanged();
-		notifyObservers();
 	}
 
 	/**
@@ -76,8 +70,7 @@ public class Sistema extends Observable {
 	 */
 	public void eliminarUsuario(Usuario usuario) {
 		this.getUsuarios().remove(usuario);
-		setChanged();
-		notifyObservers();
+
 
 	}
 
@@ -89,9 +82,7 @@ public class Sistema extends Observable {
 	 */
 	public void eliminarProyecto(Proyecto proyecto) {
 		this.getProyectos().remove(proyecto);
-		setChanged();
-		notifyObservers();
-
+	
 	}
 
 	public Vector<Proyecto> getProyectos() {
@@ -112,34 +103,5 @@ public class Sistema extends Observable {
 		this.proyectos = proyectos;
 
 	}
-
-	
-	public void addObserver(Observer o) {
-
-		super.addObserver(o);
-	}
-
-	public synchronized void deleteObserver(Observer o) {
-
-		super.deleteObserver(o);
-	}
-
-	public synchronized void deleteObservers() {
-	
-		super.deleteObservers();
-	}
-
- 
-	protected void setChanged() {
-	
-		super.setChanged();
- 	}
-
-	
-	public void notifyObservers() {
-	
-		super.notifyObservers(this);
-	}
-
 
 }
