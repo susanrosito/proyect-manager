@@ -8,7 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Vector;
 
 import javax.swing.BoxLayout;
@@ -27,7 +28,7 @@ import proyectoYSistema.Proyecto;
 import proyectoYSistema.Sistema;
 import usuarioMiembroYFecha.Usuario;
 
-public class ProyectoVentana extends JPanel {
+public class ProyectoVentana extends JPanel implements Observer{
 
 	// las variables que se encargan de manejar la lista
 	private Vector<Proyecto> listaProyectosVector = new Vector<Proyecto>();
@@ -69,6 +70,7 @@ public class ProyectoVentana extends JPanel {
 	}
 
 	public ProyectoVentana(Sistema sis) {
+		sis.addObserver(this);
 		sistema = sis;
 		this.listaProyectosVector = sis.getProyectos();
 		inicializarVentana();
@@ -217,6 +219,12 @@ public class ProyectoVentana extends JPanel {
 			listaProyectosVector.remove(listaProyectosJList.getSelectedValue());
 			listaProyectosJList.setListData(listaProyectosVector);
 		}
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -1,10 +1,14 @@
 package ventanaTarea;
 
+import java.awt.event.ComponentListener;
+import java.util.Observable;
+import java.util.Observer;
+
 import javax.swing.*;
 
 import proyectoYSistema.*;
 
-public class VentanaSistema extends JFrame {
+public class VentanaSistema extends JFrame  {
 	// ////// esta clase para armar las pestanhas JTabbedPane
 
 	// el panel de las pestanhas
@@ -29,4 +33,5 @@ public class VentanaSistema extends JFrame {
 		new VentanaSistema();
 	}
 
+	
 }

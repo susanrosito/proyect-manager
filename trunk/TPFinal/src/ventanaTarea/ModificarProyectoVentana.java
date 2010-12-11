@@ -65,13 +65,12 @@ public class ModificarProyectoVentana extends JFrame {
 		panelBotonesEntreListas.add(modificar);
 		panelBotonesEntreListas.add(eliminar);
 		
-		
-		panelDatos.add(textoNombreMiembro);
 		panelDatos.add(labelNombreMiembro);
-		panelDatos.add(textoEmailMiembro);
+		panelDatos.add(textoNombreMiembro);
 		panelDatos.add(labelEmailMiembro);
-		panelDatos.add(textoRolMiembro);
+		panelDatos.add(textoEmailMiembro);
 		panelDatos.add(labelRolMiembro);
+		panelDatos.add(textoRolMiembro);
 		panelDatos.setLayout(new GridLayout(6, 2));
 		
 		panelBotonesEntreListas.setLayout(new BoxLayout(panelBotonesEntreListas, BoxLayout.Y_AXIS));
