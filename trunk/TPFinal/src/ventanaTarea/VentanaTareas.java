@@ -37,13 +37,13 @@ public class VentanaTareas extends JFrame {
 	
 	
 	
-	private JLabel lfechaCreacion = new JLabel("Fecha de creaciÃ³n:");
+	private JLabel lfechaCreacion = new JLabel("Fecha de creación:");
 	
 	private JLabel lafechaC;
 	private JPanel JPpCreacion = new JPanel(new GridLayout(1, 1));
 	
 	
-	private JLabel lfechaEstimadaFinalizacion = new JLabel("Fecha estimada de finalizaciÃ³n:");
+	private JLabel lfechaEstimadaFinalizacion = new JLabel("Fecha estimada de finalización:");
 	private JLabel lafechaEstimada;
 	private JPanel JPFinalizacion = new JPanel(new GridLayout(1, 1));
 	
@@ -52,13 +52,13 @@ public class VentanaTareas extends JFrame {
 	private JLabel elMiembroAsignado;
 	private JPanel JPMiembro = new JPanel(new GridLayout(1, 1));
 	
-	private JLabel lDescripccion = new JLabel("Descripccion:");
+	private JLabel lDescripccion = new JLabel("Descripcción:");
 	private TextArea laDescripccion;
 	private JPanel JPDesc = new JPanel(new FlowLayout());
 	private JPanel JPDesc2 = new JPanel(new FlowLayout());
 	
 	
-	private JLabel lPorcentaje = new JLabel("Porcentaje finalizaciï¿½n:");
+	private JLabel lPorcentaje = new JLabel("Porcentaje finalización:");
 	private TextField elPorcentaje = new TextField();
 	
 	
@@ -236,7 +236,10 @@ public class VentanaTareas extends JFrame {
 		this.elMiembroAsignado.setText(this.tarea.getMiembroAsignado().toString());	
 	
 		if(this.tarea.verEstado()=="Cerrada")
-	    {cerrar.setEnabled(false);}
+	    { cerrar.setEnabled(false);
+	      finalizar.setEnabled(false);
+		  aumentar.setEnabled(false);
+	    elEstadoActual.setForeground(Color.RED);}
 		else {reabrir.setEnabled(false);}
 		if(this.tarea.verEstado()!="En Trabajo")
 	    {pausar.setEnabled(false);}
@@ -246,6 +249,15 @@ public class VentanaTareas extends JFrame {
 			iniciar.setEnabled(false);
 		if(this.tarea.verEstado()=="Iniciada"){
 			  enTrabajo.setEnabled(true);	
+			}
+		if(this.tarea.verEstado()=="Finalizada"){
+			  elEstadoActual.setForeground(Color.GREEN);
+			  reabrir.setEnabled(false);
+			  pausar.setEnabled(false);
+			  cerrar.setEnabled(false);
+			  enTrabajo.setEnabled(false);
+			  finalizar.setEnabled(false);
+			  aumentar.setEnabled(false);
 			}}
 		}
 		else{ 
@@ -287,7 +299,7 @@ public class VentanaTareas extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e)  {
-					if (JOptionPane.showConfirmDialog(cerrar, "ï¿½Esta seguro que desea cerrar la tarea?") == 0) {
+					if (JOptionPane.showConfirmDialog(cerrar, "¿Esta seguro que desea cerrar la tarea?") == 0) {
 						if(elMotivo.getText().isEmpty()){
 							
 							JOptionPane.showMessageDialog(cerrar,
@@ -296,7 +308,8 @@ public class VentanaTareas extends JFrame {
 									JOptionPane.INFORMATION_MESSAGE);
 						}
 						else{
-						tarea.cerrate(elMotivo.getText());
+						tarea.cerrate("La tarea se cierra en el día " + new Fecha().toString() +
+								" por el siguiente motivo: "+ elMotivo.getText());
 						elEstadoActual.setText(tarea.verEstado());
 						elMotivo.setText("");
 						reabrir.setEnabled(true);
@@ -328,7 +341,7 @@ public class VentanaTareas extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e)  {
 				
-						if (JOptionPane.showConfirmDialog(reabrir, "ï¿½Esta seguro que desea reabrir la tarea?") == 0) {
+						if (JOptionPane.showConfirmDialog(reabrir, "¿Esta seguro que desea reabrir la tarea?") == 0) {
 							if(elMotivo.getText().isEmpty()){
 								
 								JOptionPane.showMessageDialog(cerrar,
@@ -337,7 +350,8 @@ public class VentanaTareas extends JFrame {
 										JOptionPane.INFORMATION_MESSAGE);
 							}
 							else{
-							tarea.reAbrite(elMotivo.getText());
+							tarea.reAbrite("La tarea se reabre en el día " + new Fecha().toString() +
+									" por el siguiente motivo: "+ elMotivo.getText());
 							elEstadoActual.setText(tarea.verEstado());
 							elMotivo.setText("");
 							reabrir.setEnabled(false);
@@ -484,14 +498,14 @@ public class VentanaTareas extends JFrame {
 							{elPorcentaje.setForeground(Color.BLUE);}
 							else{elPorcentaje.setForeground(Color.GREEN);}	}
 							JOptionPane.showMessageDialog(cerrar,
-									"Operacion exitosa", "Aumento de porcentaje de finalizaciï¿½n.",
+									"Operacion exitosa", "Aumento de porcentaje de finalización.",
 									JOptionPane.INFORMATION_MESSAGE);
 							
 						} else {
 						
 						elPorcentaje.setText(String.valueOf(porcentajeAnterior));
 						JOptionPane.showMessageDialog(cerrar,
-								"No puede ingresar ese porcentaje de finalizaciï¿½n.", "Error.",
+								"No puede ingresar ese porcentaje de finalización.", "Error.",
 								JOptionPane.INFORMATION_MESSAGE);}
 						
 					}}
