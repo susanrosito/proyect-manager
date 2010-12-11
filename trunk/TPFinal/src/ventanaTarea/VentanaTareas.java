@@ -10,7 +10,6 @@ import java.awt.GridLayout;
 import java.awt.TextArea;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
-import java.util.List;
 import javax.swing.AbstractAction;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -33,12 +32,12 @@ public class VentanaTareas extends JFrame {
 
 	//Variable para la tarea sobre la cual se abre la ventana
 	private AdministradorTarea tarea;
+	//Variable que contiene la ventana que me abrió que es mi único observador.
 	private VentanaTareaObserver observador;
 	
 	
-	
+	//Creo los JPanels, JLabels para todo lo que hay que mostrar.
 	private JLabel lfechaCreacion = new JLabel("Fecha de creación:");
-	
 	private JLabel lafechaC;
 	private JPanel JPpCreacion = new JPanel(new GridLayout(1, 1));
 	
@@ -53,7 +52,9 @@ public class VentanaTareas extends JFrame {
 	private JPanel JPMiembro = new JPanel(new GridLayout(1, 1));
 	
 	private JLabel lDescripccion = new JLabel("Descripcción:");
+	 //Contendrá la descripccion de la tarea
 	private TextArea laDescripccion;
+	
 	private JPanel JPDesc = new JPanel(new FlowLayout());
 	private JPanel JPDesc2 = new JPanel(new FlowLayout());
 	
@@ -80,6 +81,7 @@ public class VentanaTareas extends JFrame {
 	
 	private JScrollPane scroll = new JScrollPane();
 	
+	//Creo todos los JButtons para las acciones.
 	private JButton aumentar = new JButton("Aumentar");
 	private JButton enTrabajo = new JButton("En trabajo");
 	private JButton pausar = new JButton("Pausar");
@@ -92,6 +94,7 @@ public class VentanaTareas extends JFrame {
 	
 	
 	public VentanaTareas(AdministradorTarea at, VentanaTareaObserver obs) {
+		//Seteo las variables con la tarea y la ventana pasada por parametro.
 		this.tarea = at;
 		this.observador=obs;
 		this.init();
@@ -99,6 +102,7 @@ public class VentanaTareas extends JFrame {
 	
 	public void init() {
 		
+		//Configuro los colores de los JLabels.
 		lfechaCreacion.setFont(new Font("Arial", 3,14));
 		lfechaCreacion.setForeground(Color.LIGHT_GRAY);
 		lfechaEstimadaFinalizacion.setFont(new Font("Arial", 3,14));
@@ -111,48 +115,66 @@ public class VentanaTareas extends JFrame {
 		this.setBackground(Color.BLACK);
 		this.setForeground(Color.WHITE);
 		
-		
+		//El titulo de la ventana sera a partir del nombre de la misma.
 		this.setTitle("Tarea: " + this.tarea.getNombre()+ ".");
+		
+		/*Muestro el porcentaje de finalizacion y segun de cuanto sea tendrá 
+		  diferentes colores.*/
 		elPorcentaje.setText(String.valueOf(tarea.getPorcentajeFinalizacion()));
 		elPorcentaje.setBackground(Color.DARK_GRAY);
-		if(tarea.getPorcentajeFinalizacion()<40)
-		{elPorcentaje.setForeground(Color.RED);}
+		
+		if(tarea.getPorcentajeFinalizacion()<40) 
+		{   //Si es menor a 40 será Rojo.
+			elPorcentaje.setForeground(Color.RED);}
 		else {
 		if(tarea.getPorcentajeFinalizacion()>=40 && tarea.getPorcentajeFinalizacion()<75)
-		{elPorcentaje.setForeground(Color.BLUE);}
-		else{elPorcentaje.setForeground(Color.GREEN);}	}
+		{
+			//Si es mayor a 40 y menor que 75 será Azul.
+			elPorcentaje.setForeground(Color.BLUE);}
+		else{
+			  //Si es mayor a 75 será Verde.
+			 elPorcentaje.setForeground(Color.GREEN);}	}
 		
 		this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
 		
 
+		/*Creo el text area que contenera la descripccion con una sola barra, 
+		la vertical para poder ver todo el texto*/
 		this.laDescripccion=new TextArea(tarea.getDescripcion(),0,0, 1);
-		
-		
+				
 		scroll.setViewportView(laDescripccion);
-		
+		//La descripccion no es algo editable, por lo tanto seteo esa opccion.
 		this.laDescripccion.setEditable(false);
 		this.laDescripccion.setFont(new Font("Arial", Font.BOLD,14));
-		//AJUSTAR EL TEX AREA AL TEXTO
 		
+		//Muestro la fecha de creacion y seteo el color.
 		this.lafechaC=new JLabel(this.tarea.getFechaCreacion().toString());
 		lafechaC.setForeground(Color.WHITE);
+		
+		//Agrego los JLables de creacion al JPanel de creacion.
 		this.JPpCreacion.add(lfechaCreacion);
 		this.JPpCreacion.add(lafechaC);
 		JPpCreacion.setBackground(Color.BLACK);
 		
-		
+		//Muestro la fecha estimada de finalizacion y seteo el color.
 		this.lafechaEstimada=new JLabel(this.tarea.getFechaEstimadaFinalizacion().toString());
 		lafechaEstimada.setForeground(Color.WHITE);
+		
+		//Agrego los JLables de fecha estimada de finalizacion a su JPanel.
 		this.JPFinalizacion.add(lfechaEstimadaFinalizacion);
 		this.JPFinalizacion.add(lafechaEstimada);
 		JPFinalizacion.setBackground(Color.BLACK);
 		
-		
+		/* Como todavia no sé si la tarea tiene o no miembro asignado, uso un string 
+		   vacio para poder configuar los colores y agregar el JLable a su JPanel.
+		   Más adelante su configura el texto del JLabel.*/
 		this.elMiembroAsignado=new JLabel("");	
 		this.JPMiembro.add(lMiembroAsignado);
 		this.JPMiembro.add(elMiembroAsignado);
 		JPMiembro.setBackground(Color.BLACK);
 		
+		/* Seteo el Layout del JPanel JPDesc y agrego los paneles que cree 
+		   y configure hasta el momento. */
 		this.JPDesc.setLayout(new GridLayout(4, 3)); 
 		this.JPDesc.add(JPpCreacion);
 		this.JPDesc.add(JPFinalizacion);
@@ -160,17 +182,22 @@ public class VentanaTareas extends JFrame {
 		this.JPDesc.add(lDescripccion);
 		JPDesc.setBackground(Color.BLACK);
 		
+		//Agrego al JPanle JPDesc2 el scroll que contiene la descripccion.
 		this.JPDesc2.add(scroll);
-		
 		JPDesc2.setBackground(Color.BLACK);
 		
+		//Agrego los Jpanles que cree hasta ahora a la ventana.
 		this.add(JPDesc);
 		this.add(JPDesc2);
+		
+		//Seteo el estado Actual con el estado de la tarea.
 		this.elEstadoActual=new TextField(this.tarea.verEstado());
 		lEstadoActual.setForeground(Color.LIGHT_GRAY);
 		elEstadoActual.setBackground(Color.DARK_GRAY);
 		elEstadoActual.setForeground(Color.WHITE);
 		
+		/*Como no es algo que deba modificarse por medio de string 
+		  seteo la editabilidad mediante este mensaje con argumento false. */
 		elEstadoActual.setEditable(false);
 	
 		
@@ -229,7 +256,7 @@ public class VentanaTareas extends JFrame {
 
 		
 		
-	    setDefaultCloseOperation(DISPOSE_ON_CLOSE);//Mata el proceso
+	    setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
 	    if(!(this.tarea.getMiembroAsignado()==null))
 		{
@@ -521,7 +548,7 @@ public class VentanaTareas extends JFrame {
 	
 	 
 	 public static void main(String[] args) {
-		TareaSimple ts=new TareaSimple("Hola","lero lero",new Fecha("2009-11-13"));
+		TareaSimple ts=new TareaSimple("Hola","lero lero",new Fecha("2010-11-13"));
 		Usuario u= new Usuario("Ezequiel","n@unq");
 		Miembro m= new Miembro(u, "Barrendero");
 		ts.setMiembroAsignado(m);
