@@ -42,6 +42,7 @@ public class ProyectoVentana extends JPanel implements Observer{
 	private JLabel labelDescripcionProyecto = new JLabel("DescripcionProyecto");
 
 	private Sistema sistema;
+	
 	// botones de la pestanha proyecto
 	private JPanel panelBotones = new JPanel();
 	private JButton crear = new JButton("crear");
@@ -189,9 +190,10 @@ public class ProyectoVentana extends JPanel implements Observer{
 			// el usuario es null porque no creamos la interfaz visual
 			// con la diferencia de estar "logeado" con un usuario server el
 			// cual seria el creador.
+			
 			sistema.crearUnProyecto(textoNombreProyecto.getText(),
 					textoDescripcionProyecto.getText(), null);
-			listaProyectosJList.setListData(sistema.getProyectos());
+			//listaProyectosJList.setListData(sistema.getProyectos());
 		}
 
 	}
@@ -217,14 +219,14 @@ public class ProyectoVentana extends JPanel implements Observer{
 		public void actionPerformed(ActionEvent e) {
 
 			listaProyectosVector.remove(listaProyectosJList.getSelectedValue());
-			listaProyectosJList.setListData(listaProyectosVector);
+			//listaProyectosJList.setListData(listaProyectosVector);
 		}
 	}
 
 	@Override
 	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
-		
+	
+		listaProyectosJList.setListData(((Sistema) arg).getProyectos());
 	}
 
 }
