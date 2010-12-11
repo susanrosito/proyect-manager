@@ -19,6 +19,7 @@ import javax.swing.JButton;
 
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -59,7 +60,6 @@ public class ProyectoVentana extends JPanel {
 	// private JButton cerrar = new JButton("cerrar");
 
 	public ProyectoVentana(Sistema sis) {
-
 		sistema = sis;
 		this.listaProyectosVector = sis.getProyectos();
 		inicializarVentana();
@@ -88,11 +88,11 @@ public class ProyectoVentana extends JPanel {
 		eliminar.setEnabled(false);
 
 		// el panel de los botones modificarProyecto
-		panelBotonesInferiores.setLayout(new GridLayout(2,2));	
+		panelBotonesInferiores.setLayout(new GridLayout(2, 2));
 		panelBotonesInferiores.add(modificarProyecto);
-		
-//, BorderLayout.CENTER
-		
+
+		// , BorderLayout.CENTER
+
 		// el panel de datos
 		panelDatos.setLayout(new GridLayout(4, 2));
 		panelDatos.add(labelNombreProyecto);
@@ -200,9 +200,12 @@ public class ProyectoVentana extends JPanel {
 			if (!listaProyectosJList.isSelectionEmpty()) {
 				new ModificarProyectoVentana((Proyecto) listaProyectosJList
 						.getSelectedValue());
-
 			}
-
+			else{
+				JOptionPane.showMessageDialog(modificarProyecto,
+						"Selecciona un proyecto.", "Error",
+				JOptionPane.WARNING_MESSAGE);	
+			}
 		}
 	}
 

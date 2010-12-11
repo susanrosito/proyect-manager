@@ -58,12 +58,12 @@ public class Sistema  {
 	 */
 	public void crearUnUsuario(String nombre, String email) {
 
-		this.getUsuarios().add(new Usuario(nombre, email));
+	 this.getUsuarios().add(new Usuario(nombre, email));
 		
 	}
 
 	/**
-	 * Este metodo quita de una lista de usuarios un usuario espec�fico pasado
+	 * Este metodo quita de una lista de usuarios un usuario especifico pasado
 	 * por parametro.
 	 * 
 	 * @param usuario
@@ -75,7 +75,7 @@ public class Sistema  {
 	}
 
 	/**
-	 * Este metodo quita de una lista de proyectos un proyecto espec�fico
+	 * Este metodo quita de una lista de proyectos un proyecto especifico
 	 * pasado por parametro.
 	 * 
 	 * @param usuario

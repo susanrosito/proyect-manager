@@ -7,8 +7,6 @@ import javax.swing.*;
 import proyectoYSistema.*;
 
 public class VentanaSistema extends JFrame  {
-	// ////// esta clase para armar las pestanhas JTabbedPane
-
 	// el panel de las pestanhas
 	private JTabbedPane panelConPestanias = new JTabbedPane();
 	private Sistema sistema;
@@ -16,10 +14,9 @@ public class VentanaSistema extends JFrame  {
 
 		super("Sistema");
 		sistema  = Sistema.GetInstance();
-		panelConPestanias.addTab("Proyectos",
-				new ProyectoVentana(sistema));
-		panelConPestanias.addTab("Usuarios",
-				new UsuarioVentana(sistema));
+		panelConPestanias.addTab("Proyectos",	new ProyectoVentana(sistema));
+		panelConPestanias.addTab("Usuarios",	new UsuarioVentana(sistema));
+		//panelConPestanias.addTab("Usuarios",	new UsuarioVentana(sistema));
 		this.add(panelConPestanias);
 		this.pack();
 		this.setLocation(250, 150);
