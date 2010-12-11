@@ -9,6 +9,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Vector;
 
 import javax.swing.BoxLayout;
@@ -26,7 +28,7 @@ import proyectoYSistema.Sistema;
 
 import usuarioMiembroYFecha.Usuario;
 
-public class UsuarioVentana extends JPanel {
+public class UsuarioVentana extends JPanel implements Observer{
 
 	// las variables que se encargan de manejar la lista
 	private Vector<Usuario> listaUsuarioVector = new Vector<Usuario>();
@@ -59,7 +61,7 @@ public class UsuarioVentana extends JPanel {
 
 	public UsuarioVentana(Sistema sist) {
 		
-		sistema = sist;
+		sist.addObserver(this);
 		this.listaUsuarioVector = sist.getUsuarios();
 		this.inicializarVentana();
 	}
@@ -202,7 +204,10 @@ public class UsuarioVentana extends JPanel {
 		}
 	}
 
-	public Vector<Usuario> getListaUsuarioVector() {
-		return listaUsuarioVector;
+
+	
+	public void update(Observable o, Object arg) {
+	
+		listaUsuarioJList.setListData(((Sistema) arg).getUsuarios());
 	}
 }

@@ -9,12 +9,11 @@ import javax.swing.JPanel;
 
 import usuarioMiembroYFecha.*;
 
-public class Sistema {
+public class Sistema extends Observable {
 
 	private static Sistema instance = null;
 	private Vector<Proyecto> proyectos;
 	private Vector<Usuario> usuarios;
-	private Vector<JPanel> observadores;
 
 	/**
 	 * el constructor de Sistema
@@ -106,5 +105,34 @@ public class Sistema {
 		this.proyectos = proyectos;
 
 	}
+
+	
+	public void addObserver(Observer o) {
+
+		super.addObserver(o);
+	}
+
+	public synchronized void deleteObserver(Observer o) {
+
+		super.deleteObserver(o);
+	}
+
+	public synchronized void deleteObservers() {
+	
+		super.deleteObservers();
+	}
+
+ 
+	protected void setChanged() {
+	
+		super.setChanged();
+ 	}
+
+	
+	public void notifyObservers() {
+	
+		super.notifyObservers();
+	}
+
 
 }
