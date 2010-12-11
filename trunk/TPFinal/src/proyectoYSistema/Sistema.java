@@ -49,6 +49,8 @@ public class Sistema extends Observable {
 			Usuario usuario) {
 		this.getProyectos().add(new Proyecto(nombre, descripcion, usuario));
 
+		setChanged();
+		notifyObservers();
 	}
 
 	/**
@@ -61,8 +63,9 @@ public class Sistema extends Observable {
 	public void crearUnUsuario(String nombre, String email) {
 
 		this.getUsuarios().add(new Usuario(nombre, email));
-		// actualizar observer :P o algo asi ;P
-
+		
+		setChanged();
+		notifyObservers();
 	}
 
 	/**
@@ -73,6 +76,8 @@ public class Sistema extends Observable {
 	 */
 	public void eliminarUsuario(Usuario usuario) {
 		this.getUsuarios().remove(usuario);
+		setChanged();
+		notifyObservers();
 
 	}
 
@@ -84,6 +89,8 @@ public class Sistema extends Observable {
 	 */
 	public void eliminarProyecto(Proyecto proyecto) {
 		this.getProyectos().remove(proyecto);
+		setChanged();
+		notifyObservers();
 
 	}
 
@@ -131,7 +138,7 @@ public class Sistema extends Observable {
 	
 	public void notifyObservers() {
 	
-		super.notifyObservers();
+		super.notifyObservers(this);
 	}
 
 

@@ -178,9 +178,10 @@ public class UsuarioVentana extends JPanel implements Observer{
 			listaUsuarioJList.getSelectedValue();
 			*/
 			
-
-			sistema.crearUnUsuario(textoNombreUsuario.getText(), textoEmailUsuario.getText());
-			listaUsuarioJList.setListData(sistema.getUsuarios());
+		
+			sistema.crearUnUsuario(textoNombreUsuario.getText(),
+					textoEmailUsuario.getText());
+			//listaUsuarioJList.setListData(sistema.getUsuarios());
 		}
 
 	}
