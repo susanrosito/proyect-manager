@@ -1,8 +1,6 @@
 package ventanaTarea;
 
-import java.awt.event.ComponentListener;
-import java.util.Observable;
-import java.util.Observer;
+
 
 import javax.swing.*;
 
