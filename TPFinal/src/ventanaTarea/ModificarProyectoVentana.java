@@ -241,16 +241,26 @@ public class ModificarProyectoVentana extends JFrame implements
 	class CrearMiembro implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			Usuario user = (Usuario) jlistUsuario.getSelectedValue();
-			try {
-				proyectoActual.agregarMiembro(user, textoRolMiembro.getText());
-			} catch (UsuarioYaTieneRolExepcion e1) {
+			
+			if (! textoRolMiembro.getText().isEmpty()) {
+				Usuario user = (Usuario) jlistUsuario.getSelectedValue();
+				try {
+					proyectoActual.agregarMiembro(user, textoRolMiembro.getText());
+					proyectoActual.notificarObservadores();
+				} catch (UsuarioYaTieneRolExepcion e1) {
+					
+					JOptionPane.showMessageDialog(crearMiembro,
+							"Ya existe un miembro creado a partir de ese usuario.", "Error",
+							JOptionPane.WARNING_MESSAGE);
+	
+			 }
+	
+			}else {
 				JOptionPane.showMessageDialog(crearMiembro,
-						"Ya existe un miembro creado a partir de ese usuario.", "Error",
+						"Te falta ingresar un rol.", "Error",
 						JOptionPane.WARNING_MESSAGE);
-				
 			}
-			proyectoActual.notificarObservadores();
+			
 		}
 
 	}
