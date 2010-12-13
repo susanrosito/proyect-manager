@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
 import ventanaTarea.InterfaceObserversProyecto;
+import ventanaTarea.InterfaceObserversSistema;
 import tareas.*;
 import usuarioMiembroYFecha.*;
 
@@ -28,7 +29,7 @@ public class Proyecto {
 		this.setCreador(new Miembro(usuario, "creador"));
 		this.setListaTareas(new Vector<AdministradorTarea>());
 		this.setListaDeMiembros(new Vector<Miembro>());
-
+		this.observers = new Vector<InterfaceObserversProyecto>();
 	}
 
 	/**
@@ -70,7 +71,7 @@ public class Proyecto {
 
 		// si no tiene otro rol el miembro es creado y agregado al proyecto
 		this.getListaDeMiembros().add(new Miembro(usuario, rol));
-
+		this.notificarObservadores();
 	}
 
 	/**
@@ -223,6 +224,13 @@ public class Proyecto {
 		this.listaDeMiembros = listaDeMiembros;
 	}
 
+	public void agregarObservador(InterfaceObserversProyecto obs) {
+		observers.add(obs);
+	}
+
+	public void eliminarObservador(InterfaceObserversProyecto obs) {
+		observers.remove(obs);
+	}
 	public void notificarObservadores() {
 	
 		for (InterfaceObserversProyecto obs : observers) {
