@@ -1,5 +1,6 @@
 package ventanaTarea;
 
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
@@ -12,6 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import proyectoYSistema.Proyecto;
 import proyectoYSistema.Sistema;
@@ -24,7 +26,9 @@ public class ModificarProyectoVentana extends JFrame implements InterfaceObserve
 	// las listas de miembros y usuarios
 	JList jlistMiembro = new JList();
 	JList jlistUsuario = new JList();
-
+	private JScrollPane scroll= new JScrollPane();
+	
+	
 	// panel de datos con los campos de texto
 	private JPanel panelDatos = new JPanel();
 	private TextField textoNombreMiembro = new TextField();
@@ -43,7 +47,6 @@ public class ModificarProyectoVentana extends JFrame implements InterfaceObserve
 	private JPanel panelBotonesInferiores = new JPanel();
 
 	private JButton crearMiembro = new JButton("Crear Miembro");
-	//private JButton modificarMiembro = new JButton("Modificar Miembro");
 	private JButton eliminarMiembro = new JButton("Eliminar Miembro");
 
 	private JPanel panelBotonesEntreListas = new JPanel();
@@ -64,9 +67,17 @@ public class ModificarProyectoVentana extends JFrame implements InterfaceObserve
 		inicializarVentana();
 
 	}
-
+/**
+ * es el metodo que inicializa la ventana
+ */
 	public void inicializarVentana() {
-
+	//lista, agregarle el scroll y el color de fondo
+		
+		scroll.setViewportView(jlistMiembro);
+		this.jlistMiembro.setBackground(Color.ORANGE);
+		scroll.setViewportView(jlistUsuario);
+		this.jlistUsuario.setBackground(Color.ORANGE);
+		
 		// botones
 		panelBotonesInferiores.setLayout(new BoxLayout(panelBotonesInferiores,
 				BoxLayout.Y_AXIS));
@@ -75,7 +86,7 @@ public class ModificarProyectoVentana extends JFrame implements InterfaceObserve
 		
 		/////////
 		panelBotonesEntreListas.add(crearMiembro);
-		//panelBotonesEntreListas.add(modificarMiembro);
+	
 		panelBotonesEntreListas.add(eliminarMiembro);
 		
 		///////
@@ -87,9 +98,9 @@ public class ModificarProyectoVentana extends JFrame implements InterfaceObserve
 		panelDatos.add(textoRolMiembro);
 		panelDatos.setLayout(new GridLayout(6, 2));
 		
-		//textoNombreMiembro.enableInputMethods(false);
+	
 		textoNombreMiembro.setEditable(false);
-		
+		textoEmailMiembro.setEditable(false);
 		////
 		panelBotonesEntreListas.setLayout(new BoxLayout(
 				panelBotonesEntreListas, BoxLayout.Y_AXIS));
@@ -101,8 +112,11 @@ public class ModificarProyectoVentana extends JFrame implements InterfaceObserve
 		eliminarMiembro.addActionListener(new EliminarMiembro());
 		
 		volver.addActionListener(new VolverAtras());
-
+		
+		
+		this.add(jlistMiembro);
 		this.add(panelBotonesEntreListas);
+		this.add(jlistUsuario);
 		this.add(panelDatos);
 		this.add(panelBotonesInferiores);
 
