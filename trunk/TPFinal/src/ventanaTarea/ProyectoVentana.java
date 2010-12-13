@@ -31,7 +31,7 @@ import proyectoYSistema.Proyecto;
 import proyectoYSistema.Sistema;
 import usuarioMiembroYFecha.Usuario;
 
-public class ProyectoVentana extends JPanel {
+public class ProyectoVentana extends JPanel implements InterfaceObservers {
 
 	// las variables que se encargan de manejar la lista
 	private Vector<Proyecto> listaProyectosVector = new Vector<Proyecto>();
@@ -61,6 +61,7 @@ public class ProyectoVentana extends JPanel {
 
 	public ProyectoVentana(Sistema sis) {
 		sistema = sis;
+		sis.agregarObservador(this);
 		this.listaProyectosVector = sis.getProyectos();
 		inicializarVentana();
 
@@ -72,7 +73,6 @@ public class ProyectoVentana extends JPanel {
 		listaProyectosJList = new JList(listaProyectosVector);
 		// seteo el scroll para la Jlist
 		scrollProyectos.setViewportView(listaProyectosJList);
-		listaProyectosJList.setVisibleRowCount(4);
 
 		this.listaProyectosJList.setBackground(Color.ORANGE);
 
@@ -90,8 +90,6 @@ public class ProyectoVentana extends JPanel {
 		// el panel de los botones modificarProyecto
 		panelBotonesInferiores.setLayout(new GridLayout(2, 2));
 		panelBotonesInferiores.add(modificarProyecto);
-
-		// , BorderLayout.CENTER
 
 		// el panel de datos
 		panelDatos.setLayout(new GridLayout(4, 2));
@@ -187,7 +185,8 @@ public class ProyectoVentana extends JPanel {
 
 			sistema.crearUnProyecto(textoNombreProyecto.getText(),
 					textoDescripcionProyecto.getText(), null);
-			listaProyectosJList.setListData(sistema.getProyectos());
+
+			sistema.notificarObservadores();
 		}
 
 	}
@@ -198,13 +197,13 @@ public class ProyectoVentana extends JPanel {
 			// tiene que abrir otra ventana
 
 			if (!listaProyectosJList.isSelectionEmpty()) {
-				new ModificarProyectoVentana((Proyecto) listaProyectosJList
-						.getSelectedValue());
-			}
-			else{
+				sistema.agregarObservador(new ModificarProyectoVentana(
+						(Proyecto) listaProyectosJList.getSelectedValue(),
+						sistema.getUsuarios()));
+			} else {
 				JOptionPane.showMessageDialog(modificarProyecto,
 						"Selecciona un proyecto.", "Error",
-				JOptionPane.WARNING_MESSAGE);	
+						JOptionPane.WARNING_MESSAGE);
 			}
 		}
 	}
@@ -217,8 +216,8 @@ public class ProyectoVentana extends JPanel {
 					.getSelectedValue();
 			proyecto.setNombre(textoNombreProyecto.getText());
 			proyecto.setDescripcion(textoDescripcionProyecto.getText());
-			listaProyectosJList.setListData(sistema.getProyectos());
 
+			sistema.notificarObservadores();
 		}
 
 	}
@@ -228,8 +227,14 @@ public class ProyectoVentana extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 
 			listaProyectosVector.remove(listaProyectosJList.getSelectedValue());
-			listaProyectosJList.setListData(listaProyectosVector);
+			// listaProyectosJList.setListData(listaProyectosVector);
+			sistema.notificarObservadores();
 		}
+	}
+
+	public void actualizarObservadores(Sistema sistema) {
+
+		listaProyectosJList.setListData(sistema.getProyectos());
 	}
 
 }

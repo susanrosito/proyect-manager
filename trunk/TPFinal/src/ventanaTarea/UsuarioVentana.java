@@ -1,24 +1,17 @@
 package ventanaTarea;
 
 import java.awt.Color;
-import java.awt.Dialog;
-import java.awt.Frame;
 import java.awt.GridLayout;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.Observable;
-import java.util.Observer;
 import java.util.Vector;
-
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
@@ -28,7 +21,7 @@ import proyectoYSistema.Sistema;
 
 import usuarioMiembroYFecha.Usuario;
 
-public class UsuarioVentana extends JPanel {
+public class UsuarioVentana extends JPanel implements InterfaceObservers{
 
 	// las variables que se encargan de manejar la lista
 	private Vector<Usuario> listaUsuarioVector = new Vector<Usuario>();
@@ -50,14 +43,6 @@ public class UsuarioVentana extends JPanel {
 	private JButton crear = new JButton("Crear Usuario");
 	private JButton modificar = new JButton("Modificar Usuario");
 	private JButton eliminar = new JButton("Eliminar Usuario");
-
-	public UsuarioVentana() {
-
-		listaUsuarioVector.add(new Usuario("pepe", "persona@gmail.com"));
-		listaUsuarioVector.add(new Usuario("ale", "persona2@gmail.com"));
-		listaUsuarioVector.add(new Usuario("cacho", "persona3@gmail.com"));
-		this.inicializarVentana();
-	}
 
 	public UsuarioVentana(Sistema sist) {
 		sistema = sist;
@@ -174,6 +159,7 @@ public class UsuarioVentana extends JPanel {
 			
 			sistema.crearUnUsuario(textoNombreUsuario.getText(),textoEmailUsuario.getText());
 			listaUsuarioJList.setListData(sistema.getUsuarios());
+			sistema.notificarObservadores();
 		}
 
 	}
@@ -186,6 +172,7 @@ public class UsuarioVentana extends JPanel {
 			usuario.setNombre(textoNombreUsuario.getText());
 			usuario.setEmail(textoEmailUsuario.getText());
 			listaUsuarioJList.setListData(sistema.getUsuarios());
+			sistema.notificarObservadores();
 		}
 
 	}
@@ -195,7 +182,14 @@ public class UsuarioVentana extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			listaUsuarioVector.remove(listaUsuarioJList.getSelectedValue());
 			listaUsuarioJList.setListData(listaUsuarioVector);
+			sistema.notificarObservadores();
 		}
+	}
+
+
+	public void actualizarObservadores(Sistema sistema) {
+
+		listaUsuarioJList.setListData(sistema.getUsuarios());
 	}
 
 }
