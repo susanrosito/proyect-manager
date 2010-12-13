@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
@@ -244,8 +245,10 @@ public class ModificarProyectoVentana extends JFrame implements
 			try {
 				proyectoActual.agregarMiembro(user, textoRolMiembro.getText());
 			} catch (UsuarioYaTieneRolExepcion e1) {
-
-				e1.printStackTrace();
+				JOptionPane.showMessageDialog(crearMiembro,
+						"Ya existe un miembro creado a partir de ese usuario.", "Error",
+						JOptionPane.WARNING_MESSAGE);
+				
 			}
 			proyectoActual.notificarObservadores();
 		}
