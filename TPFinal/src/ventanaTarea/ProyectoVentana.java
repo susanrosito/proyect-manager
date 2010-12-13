@@ -185,7 +185,8 @@ public class ProyectoVentana extends JPanel implements InterfaceObserversSistema
 
 			sistema.crearUnProyecto(textoNombreProyecto.getText(),
 					textoDescripcionProyecto.getText(), null);
-
+			textoNombreProyecto.setText("");
+			textoDescripcionProyecto.setText("");
 			sistema.notificarObservadores();
 		}
 
@@ -227,7 +228,7 @@ public class ProyectoVentana extends JPanel implements InterfaceObserversSistema
 		public void actionPerformed(ActionEvent e) {
 
 			listaProyectosVector.remove(listaProyectosJList.getSelectedValue());
-			// listaProyectosJList.setListData(listaProyectosVector);
+			
 			sistema.notificarObservadores();
 		}
 	}

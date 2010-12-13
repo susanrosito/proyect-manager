@@ -5,6 +5,8 @@ import java.awt.GridLayout;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.Vector;
 
 import javax.swing.BoxLayout;
@@ -14,6 +16,8 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import proyectoYSistema.Proyecto;
 import proyectoYSistema.Sistema;
@@ -64,7 +68,7 @@ public class ModificarProyectoVentana extends JFrame implements
 		this.proyectoActual = proyecto;
 		this.jlistMiembro.setListData(proyecto.getListaDeMiembros());
 		this.jlistUsuario.setListData(listaUsuarios);
-
+		this.proyectoActual.agregarObservador(this);
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		inicializarVentana();
 
@@ -77,6 +81,7 @@ public class ModificarProyectoVentana extends JFrame implements
 		// lista, agregarle el scroll y el color de fondo
 
 		scroll.setViewportView(jlistMiembro);
+		this.jlistUsuario.setCellRenderer(new UsuarioRenderer());
 		this.jlistMiembro.setBackground(Color.ORANGE);
 		scroll.setViewportView(jlistUsuario);
 		this.jlistUsuario.setBackground(Color.ORANGE);
@@ -108,12 +113,9 @@ public class ModificarProyectoVentana extends JFrame implements
 				panelBotonesEntreListas, BoxLayout.Y_AXIS));
 
 		administrarTareasProyecto.addActionListener(new AdministrarTareas());
-		// asignar acciones a los botones
-		crearMiembro.addActionListener(new CrearMiembro());
-		// modificarMiembro.addActionListener(l);
-		eliminarMiembro.addActionListener(new EliminarMiembro());
+		
 
-		volver.addActionListener(new VolverAtras());
+		
 
 		this.add(jlistMiembro);
 		this.add(panelBotonesEntreListas);
@@ -123,10 +125,117 @@ public class ModificarProyectoVentana extends JFrame implements
 
 		this.setLayout(new GridLayout(2, 3));
 
+		addActions() ;
+		
 		pack();
 		setVisible(true);
 
 	}
+	public void addActions() {
+		
+		// asignar acciones a los botones
+		crearMiembro.addActionListener(new CrearMiembro());
+		eliminarMiembro.addActionListener(new EliminarMiembro());
+		volver.addActionListener(new VolverAtras());
+		
+		// asignar acciones a las JList
+		jlistMiembro.addListSelectionListener(new SeleccionarElementoJListMiembro());
+		jlistMiembro.addMouseListener(new DeseleccionarElementoJListMiembro());
+		
+		jlistUsuario.addListSelectionListener(new SeleccionarElementoJListUsuario());
+		jlistUsuario.addMouseListener(new DeseleccionarElementoJListUsuario());
+	}
+	
+
+	class SeleccionarElementoJListUsuario implements ListSelectionListener {
+
+		public void valueChanged(ListSelectionEvent e) {
+			try {
+
+				if (! jlistMiembro.isSelectionEmpty()) {
+					
+					Usuario usuario = (Usuario) jlistUsuario
+							.getSelectedValue();
+					textoNombreMiembro.setText(usuario.getNombre());
+					textoEmailMiembro.setText(usuario.getEmail());
+					
+				}
+
+			} catch (NullPointerException ex) {
+			}
+
+		}
+	}
+
+	class DeseleccionarElementoJListUsuario implements MouseListener {
+
+		public void mouseClicked(MouseEvent e) {
+
+			if (e.getClickCount() == 2) {
+				jlistUsuario.clearSelection();
+			}
+		}
+
+		public void mouseEntered(MouseEvent arg0) {
+		}
+
+		public void mouseExited(MouseEvent arg0) {
+		}
+
+		public void mousePressed(MouseEvent arg0) {
+		}
+
+		public void mouseReleased(MouseEvent arg0) {
+		}
+
+	}
+	
+	class SeleccionarElementoJListMiembro implements ListSelectionListener {
+
+		public void valueChanged(ListSelectionEvent e) {
+			try {
+
+				if (! jlistMiembro.isSelectionEmpty()) {
+					
+					Miembro miembro= (Miembro) jlistMiembro
+							.getSelectedValue();
+					textoNombreMiembro.setText(miembro.getUsuario().getNombre());
+					textoEmailMiembro.setText(miembro.getUsuario().getEmail());
+					textoRolMiembro.setText(miembro.getRol());
+				}
+
+			} catch (NullPointerException ex) {
+			}
+
+		}
+	}
+
+	class DeseleccionarElementoJListMiembro implements MouseListener {
+
+		public void mouseClicked(MouseEvent e) {
+
+			if (e.getClickCount() == 2) {
+				jlistMiembro.clearSelection();
+				textoNombreMiembro.setText("");
+				textoEmailMiembro.setText("");
+				textoRolMiembro.setText("");
+			}
+		}
+
+		public void mouseEntered(MouseEvent arg0) {
+		}
+
+		public void mouseExited(MouseEvent arg0) {
+		}
+
+		public void mousePressed(MouseEvent arg0) {
+		}
+
+		public void mouseReleased(MouseEvent arg0) {
+		}
+
+	}
+	
 
 	class CrearMiembro implements ActionListener {
 
@@ -147,6 +256,8 @@ public class ModificarProyectoVentana extends JFrame implements
 
 		public void actionPerformed(ActionEvent e) {
 
+			proyectoActual.getListaDeMiembros().remove(jlistMiembro.getSelectedValue());
+			proyectoActual.notificarObservadores();
 		}
 
 	}
