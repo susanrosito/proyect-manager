@@ -6,12 +6,14 @@ import java.util.Vector;
 
 
 import usuarioMiembroYFecha.*;
+import ventanaTarea.InterfaceObservers;
 
 public class Sistema  {
 
 	private static Sistema instance = null;
 	private Vector<Proyecto> proyectos;
 	private Vector<Usuario> usuarios;
+	private Vector<InterfaceObservers> observadores;
 
 	/**
 	 * el constructor de Sistema
@@ -20,6 +22,7 @@ public class Sistema  {
 
 		this.proyectos = new Vector<Proyecto>();
 		this.usuarios = new Vector<Usuario>();
+		this.observadores = new Vector<InterfaceObservers>();
 	}
 
 	/**
@@ -46,7 +49,7 @@ public class Sistema  {
 	public void crearUnProyecto(String nombre, String descripcion,
 			Usuario usuario) {
 		this.getProyectos().add(new Proyecto(nombre, descripcion, usuario));
-
+		notificarObservadores();
 	}
 
 	/**
@@ -59,9 +62,9 @@ public class Sistema  {
 	public void crearUnUsuario(String nombre, String email) {
 
 	 this.getUsuarios().add(new Usuario(nombre, email));
-		
+	 notificarObservadores();
 	}
-
+	
 	/**
 	 * Este metodo quita de una lista de usuarios un usuario especifico pasado
 	 * por parametro.
@@ -70,7 +73,7 @@ public class Sistema  {
 	 */
 	public void eliminarUsuario(Usuario usuario) {
 		this.getUsuarios().remove(usuario);
-
+		notificarObservadores();
 
 	}
 
@@ -82,7 +85,8 @@ public class Sistema  {
 	 */
 	public void eliminarProyecto(Proyecto proyecto) {
 		this.getProyectos().remove(proyecto);
-	
+		 notificarObservadores();
+		
 	}
 
 	public Vector<Proyecto> getProyectos() {
@@ -97,11 +101,28 @@ public class Sistema  {
 	public void setUsuarios(Vector<Usuario> usuarios) {
 		this.usuarios = usuarios;
 
+	
 	}
 
 	public void setProyectos(Vector<Proyecto> proyectos) {
 		this.proyectos = proyectos;
 
+	}
+	public void notificarObservadores() {
+	
+		for (InterfaceObservers obs : this.observadores) {
+			
+			obs.actualizarObservadores(this);
+		}
+		
+	}
+	
+	public void agregarObservador(InterfaceObservers obs) {
+		observadores.add(obs);
+	}
+
+	public void eliminarObservador(InterfaceObservers obs) {
+		observadores.remove(obs);
 	}
 
 }
