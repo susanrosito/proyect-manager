@@ -114,9 +114,6 @@ public class ModificarProyectoVentana extends JFrame implements
 				panelBotonesEntreListas, BoxLayout.Y_AXIS));
 
 		administrarTareasProyecto.addActionListener(new AdministrarTareas());
-		
-
-		
 
 		this.add(jlistMiembro);
 		this.add(panelBotonesEntreListas);
@@ -126,40 +123,41 @@ public class ModificarProyectoVentana extends JFrame implements
 
 		this.setLayout(new GridLayout(2, 3));
 
-		addActions() ;
-		
+		addActions();
+
 		pack();
 		setVisible(true);
 
 	}
+
 	public void addActions() {
-		
+
 		// asignar acciones a los botones
 		crearMiembro.addActionListener(new CrearMiembro());
 		eliminarMiembro.addActionListener(new EliminarMiembro());
 		volver.addActionListener(new VolverAtras());
-		
+
 		// asignar acciones a las JList
-		jlistMiembro.addListSelectionListener(new SeleccionarElementoJListMiembro());
+		jlistMiembro
+				.addListSelectionListener(new SeleccionarElementoJListMiembro());
 		jlistMiembro.addMouseListener(new DeseleccionarElementoJListMiembro());
-		
-		jlistUsuario.addListSelectionListener(new SeleccionarElementoJListUsuario());
+
+		jlistUsuario
+				.addListSelectionListener(new SeleccionarElementoJListUsuario());
 		jlistUsuario.addMouseListener(new DeseleccionarElementoJListUsuario());
 	}
-	
 
 	class SeleccionarElementoJListUsuario implements ListSelectionListener {
 
 		public void valueChanged(ListSelectionEvent e) {
 			try {
 
-				if (! jlistMiembro.isSelectionEmpty()) {
-					
-					Usuario usuario = (Usuario) jlistUsuario
-							.getSelectedValue();
+				if (!jlistMiembro.isSelectionEmpty()) {
+
+					Usuario usuario = (Usuario) jlistUsuario.getSelectedValue();
 					textoNombreMiembro.setText(usuario.getNombre());
 					textoEmailMiembro.setText(usuario.getEmail());
-					
+
 				}
 
 			} catch (NullPointerException ex) {
@@ -190,17 +188,17 @@ public class ModificarProyectoVentana extends JFrame implements
 		}
 
 	}
-	
+
 	class SeleccionarElementoJListMiembro implements ListSelectionListener {
 
 		public void valueChanged(ListSelectionEvent e) {
 			try {
 
-				if (! jlistMiembro.isSelectionEmpty()) {
-					
-					Miembro miembro= (Miembro) jlistMiembro
-							.getSelectedValue();
-					textoNombreMiembro.setText(miembro.getUsuario().getNombre());
+				if (!jlistMiembro.isSelectionEmpty()) {
+
+					Miembro miembro = (Miembro) jlistMiembro.getSelectedValue();
+					textoNombreMiembro
+							.setText(miembro.getUsuario().getNombre());
 					textoEmailMiembro.setText(miembro.getUsuario().getEmail());
 					textoRolMiembro.setText(miembro.getRol());
 				}
@@ -236,31 +234,33 @@ public class ModificarProyectoVentana extends JFrame implements
 		}
 
 	}
-	
 
 	class CrearMiembro implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			
-			if (! textoRolMiembro.getText().isEmpty()) {
+
+			if (!textoRolMiembro.getText().isEmpty()) {
 				Usuario user = (Usuario) jlistUsuario.getSelectedValue();
 				try {
-					proyectoActual.agregarMiembro(user, textoRolMiembro.getText());
+					proyectoActual.agregarMiembro(user, textoRolMiembro
+							.getText());
 					proyectoActual.notificarObservadores();
 				} catch (UsuarioYaTieneRolExepcion e1) {
-					
-					JOptionPane.showMessageDialog(crearMiembro,
-							"Ya existe un miembro creado a partir de ese usuario.", "Error",
-							JOptionPane.WARNING_MESSAGE);
-	
-			 }
-	
-			}else {
+
+					JOptionPane
+							.showMessageDialog(
+									crearMiembro,
+									"Ya existe un miembro creado a partir de ese usuario.",
+									"Error", JOptionPane.WARNING_MESSAGE);
+
+				}
+
+			} else {
 				JOptionPane.showMessageDialog(crearMiembro,
 						"Te falta ingresar un rol.", "Error",
 						JOptionPane.WARNING_MESSAGE);
 			}
-			
+
 		}
 
 	}
@@ -269,7 +269,8 @@ public class ModificarProyectoVentana extends JFrame implements
 
 		public void actionPerformed(ActionEvent e) {
 
-			proyectoActual.getListaDeMiembros().remove(jlistMiembro.getSelectedValue());
+			proyectoActual.getListaDeMiembros().remove(
+					jlistMiembro.getSelectedValue());
 			proyectoActual.notificarObservadores();
 		}
 
@@ -280,7 +281,7 @@ public class ModificarProyectoVentana extends JFrame implements
 		public void actionPerformed(ActionEvent e) {
 
 			new AdministradorDeTareas(proyectoActual, null);
-			
+
 		}
 
 	}
