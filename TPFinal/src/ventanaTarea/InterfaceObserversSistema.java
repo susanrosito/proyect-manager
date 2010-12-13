@@ -2,7 +2,7 @@ package ventanaTarea;
 
 import proyectoYSistema.Sistema;
 
-public interface InterfaceObservers {
+public interface InterfaceObserversSistema {
 
 	void actualizarObservadores(Sistema sistema);
 	

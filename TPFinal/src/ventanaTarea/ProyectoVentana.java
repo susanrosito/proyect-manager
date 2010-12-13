@@ -31,7 +31,7 @@ import proyectoYSistema.Proyecto;
 import proyectoYSistema.Sistema;
 import usuarioMiembroYFecha.Usuario;
 
-public class ProyectoVentana extends JPanel implements InterfaceObservers {
+public class ProyectoVentana extends JPanel implements InterfaceObserversSistema {
 
 	// las variables que se encargan de manejar la lista
 	private Vector<Proyecto> listaProyectosVector = new Vector<Proyecto>();
