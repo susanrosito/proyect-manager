@@ -6,14 +6,14 @@ import java.util.Vector;
 
 
 import usuarioMiembroYFecha.*;
-import ventanaTarea.InterfaceObservers;
+import ventanaTarea.InterfaceObserversSistema;
 
 public class Sistema  {
 
 	private static Sistema instance = null;
 	private Vector<Proyecto> proyectos;
 	private Vector<Usuario> usuarios;
-	private Vector<InterfaceObservers> observadores;
+	private Vector<InterfaceObserversSistema> observadores;
 
 	/**
 	 * el constructor de Sistema
@@ -22,7 +22,7 @@ public class Sistema  {
 
 		this.proyectos = new Vector<Proyecto>();
 		this.usuarios = new Vector<Usuario>();
-		this.observadores = new Vector<InterfaceObservers>();
+		this.observadores = new Vector<InterfaceObserversSistema>();
 	}
 
 	/**
@@ -110,18 +110,18 @@ public class Sistema  {
 	}
 	public void notificarObservadores() {
 	
-		for (InterfaceObservers obs : this.observadores) {
+		for (InterfaceObserversSistema obs : this.observadores) {
 			
 			obs.actualizarObservadores(this);
 		}
 		
 	}
 	
-	public void agregarObservador(InterfaceObservers obs) {
+	public void agregarObservador(InterfaceObserversSistema obs) {
 		observadores.add(obs);
 	}
 
-	public void eliminarObservador(InterfaceObservers obs) {
+	public void eliminarObservador(InterfaceObserversSistema obs) {
 		observadores.remove(obs);
 	}
 

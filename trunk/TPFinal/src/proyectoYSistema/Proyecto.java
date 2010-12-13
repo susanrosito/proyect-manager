@@ -3,7 +3,7 @@ package proyectoYSistema;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
-
+import ventanaTarea.InterfaceObserversProyecto;
 import tareas.*;
 import usuarioMiembroYFecha.*;
 
@@ -13,7 +13,7 @@ public class Proyecto {
 	private Miembro creador;
 	private Vector<AdministradorTarea> listaTareas;
 	private Vector<Miembro> listaDeMiembros;
-
+	private Vector<InterfaceObserversProyecto> observers;
 	/**
 	 * El constructor de la clase proyecto.
 	 * 
@@ -223,4 +223,11 @@ public class Proyecto {
 		this.listaDeMiembros = listaDeMiembros;
 	}
 
+	public void notificarObservadores() {
+	
+		for (InterfaceObserversProyecto obs : observers) {
+			obs.actualizarObservadores(this);
+		}
+		
+	}
 }
