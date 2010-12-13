@@ -1,14 +1,11 @@
 package proyectoYSistema;
 
-
 import java.util.Vector;
-
-
 
 import usuarioMiembroYFecha.*;
 import ventanaTarea.InterfaceObserversSistema;
 
-public class Sistema  {
+public class Sistema {
 
 	private static Sistema instance = null;
 	private Vector<Proyecto> proyectos;
@@ -61,10 +58,10 @@ public class Sistema  {
 	 */
 	public void crearUnUsuario(String nombre, String email) {
 
-	 this.getUsuarios().add(new Usuario(nombre, email));
-	 notificarObservadores();
+		this.getUsuarios().add(new Usuario(nombre, email));
+		notificarObservadores();
 	}
-	
+
 	/**
 	 * Este metodo quita de una lista de usuarios un usuario especifico pasado
 	 * por parametro.
@@ -78,15 +75,15 @@ public class Sistema  {
 	}
 
 	/**
-	 * Este metodo quita de una lista de proyectos un proyecto especifico
-	 * pasado por parametro.
+	 * Este metodo quita de una lista de proyectos un proyecto especifico pasado
+	 * por parametro.
 	 * 
 	 * @param usuario
 	 */
 	public void eliminarProyecto(Proyecto proyecto) {
 		this.getProyectos().remove(proyecto);
-		 notificarObservadores();
-		
+		notificarObservadores();
+
 	}
 
 	public Vector<Proyecto> getProyectos() {
@@ -101,26 +98,44 @@ public class Sistema  {
 	public void setUsuarios(Vector<Usuario> usuarios) {
 		this.usuarios = usuarios;
 
-	
 	}
 
 	public void setProyectos(Vector<Proyecto> proyectos) {
 		this.proyectos = proyectos;
 
 	}
+
+	/**
+	 * notifica a todos los observadores que hubo un cambio recorriendo la lista
+	 * de observadores.
+	 */
 	public void notificarObservadores() {
-	
+
 		for (InterfaceObserversSistema obs : this.observadores) {
-			
+
 			obs.actualizarObservadores(this);
 		}
-		
+
 	}
-	
+
+	/**
+	 * agrega un observador a la lista de observadores.
+	 * 
+	 * @param un
+	 *            observer que implemente la interfaz
+	 *            'InterfaceObserversSistema'
+	 */
 	public void agregarObservador(InterfaceObserversSistema obs) {
 		observadores.add(obs);
 	}
 
+	/**
+	 * elimina un observador de la lista de observadores.
+	 * 
+	 * @param un
+	 *            observer que implemente la interfaz
+	 *            'InterfaceObserversSistema'
+	 */
 	public void eliminarObservador(InterfaceObserversSistema obs) {
 		observadores.remove(obs);
 	}

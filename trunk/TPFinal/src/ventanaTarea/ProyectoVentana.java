@@ -31,7 +31,8 @@ import proyectoYSistema.Proyecto;
 import proyectoYSistema.Sistema;
 import usuarioMiembroYFecha.Usuario;
 
-public class ProyectoVentana extends JPanel implements InterfaceObserversSistema {
+public class ProyectoVentana extends JPanel implements
+		InterfaceObserversSistema {
 
 	// las variables que se encargan de manejar la lista
 	private Vector<Proyecto> listaProyectosVector = new Vector<Proyecto>();
@@ -228,7 +229,7 @@ public class ProyectoVentana extends JPanel implements InterfaceObserversSistema
 		public void actionPerformed(ActionEvent e) {
 
 			listaProyectosVector.remove(listaProyectosJList.getSelectedValue());
-			
+
 			sistema.notificarObservadores();
 		}
 	}
