@@ -21,7 +21,7 @@ public class PanelTareaC extends PanelTarea {
 
 	}
 
-	@Override
+	
 	public void onAcept() {
 		if (!(tNombre.getText().isEmpty())
 				& !(tDescripcion.getText().isEmpty())
@@ -47,19 +47,19 @@ public class PanelTareaC extends PanelTarea {
 
 	}
 
-	@Override
+	
 	public JButton inicializarBoton() {
 		agregarTareas.setVisible(true);
 		return agregarTareas;
 	}
 
-	@Override
+	
 	public void onAgregarT() {
 		new AsignarTareas(padre, tarea);
 
 	}
 
-	@Override
+	
 	public void conOrden() {
 		
 		
