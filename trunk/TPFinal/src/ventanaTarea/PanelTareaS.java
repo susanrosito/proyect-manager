@@ -22,7 +22,7 @@ public class PanelTareaS extends PanelTarea {
 		if (!(tNombre.getText().isEmpty())
 				& !(tDescripcion.getText().isEmpty())
 				& !(tFechaEFinalizacion.getDate() == null)) {
-			if (JOptionPane.showConfirmDialog(baceptar, "�Esta seguro?") == 0) {
+			if (JOptionPane.showConfirmDialog(baceptar, "¿Esta seguro?") == 0) {
 				String nombre = tNombre.getText();
 				String descr = tDescripcion.getText();
 				Fecha fecha = new Fecha();

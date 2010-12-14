@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Dialog.ModalExclusionType;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -15,6 +16,7 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -65,7 +67,6 @@ public class AdministradorDeTareas extends JFrame implements VentanaTareaObserve
         this.listaObservadores= observadores;
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.init();
-		
 	}
 
 	/**
@@ -182,22 +183,19 @@ public class AdministradorDeTareas extends JFrame implements VentanaTareaObserve
 	 * Declara las acciones de los botones y otros componentes.
 	 */
 	public void addAction() {
+		;// la accion cuando seleccionas un elemento de la Tabla
 		tableTareas.getSelectionModel().addListSelectionListener(
-				new SelectionTablaListener());// // la accion cuando seleccionas
-												// un elemento de la Tabla
-		bCrear.addActionListener(new ActionCrearListener()); // la Accion del
-																// boton Crear
-		bVer.addActionListener(new ActionAbrirListener()); // la Accion del
-															// boton Ver
-		bBorrar.addActionListener(new ActionBorrarListener()); // la Accion del
-																// boton Borrar
-		bAsignarMiembro.addActionListener(new ActionAsignarListener()); // la
-																		// Accion
-																		// del
-																		// boton
-																		// AsignarMiembro
-		bVolver.addActionListener(new ActionVolverListener()); // la Accion del
-																// boton Volver
+				new SelectionTablaListener());
+		// la Accion del boton Crear
+		bCrear.addActionListener(new ActionCrearListener()); 
+		// la Accion del boton Ver
+		bVer.addActionListener(new ActionAbrirListener()); 
+		// la Accion del boton Borrar													// boton Ver
+		bBorrar.addActionListener(new ActionBorrarListener()); 
+		// la Accion del boton AsignarMiembro														// boton Borrar
+		bAsignarMiembro.addActionListener(new ActionAsignarListener());
+		// la Accion del boton Volver 
+		bVolver.addActionListener(new ActionVolverListener()); 
 	}
 
 	/**
@@ -221,9 +219,11 @@ public class AdministradorDeTareas extends JFrame implements VentanaTareaObserve
 	class SelectionTablaListener implements ListSelectionListener {
 
 		@Override
-		public void valueChanged(ListSelectionEvent e) { // crear otra clase que diga.. sobre esto
-			if (tableTareas.getSelectedRow() >= 0 &  AdministradorDeTareas.this.tableModelo
-					.getSelected(tableTareas.getSelectedRow()).sosTareaSimple() ) {
+		public void valueChanged(ListSelectionEvent e) { 
+			int row = tableTareas.getSelectedRow();
+			if (row >= 0 &&  (AdministradorDeTareas.this.tableModelo
+					.getSelected(row).sosTareaSimple() && !AdministradorDeTareas.this.tableModelo
+					.getSelected(row).tieneOrden()) ) {
 
 				bAsignarMiembro.setEnabled(true);
 				bVer.setEnabled(true);
@@ -232,7 +232,6 @@ public class AdministradorDeTareas extends JFrame implements VentanaTareaObserve
 
 				bAsignarMiembro.setEnabled(false);
 				bVer.setEnabled(false);
-				bBorrar.setEnabled(false);
 			}
 
 		}
