@@ -239,26 +239,34 @@ public class ModificarProyectoVentana extends JFrame implements
 
 		public void actionPerformed(ActionEvent e) {
 
-			if (!textoRolMiembro.getText().isEmpty()) {
-				Usuario user = (Usuario) jlistUsuario.getSelectedValue();
-				try {
-					proyectoActual.agregarMiembro(user, textoRolMiembro
-							.getText());
-					proyectoActual.notificarObservadores();
-				} catch (UsuarioYaTieneRolExepcion e1) {
+			if (!jlistUsuario.isSelectionEmpty()) {
 
-					JOptionPane
-							.showMessageDialog(
-									crearMiembro,
-									"Ya existe un miembro creado a partir de ese usuario.",
-									"Error", JOptionPane.WARNING_MESSAGE);
+				if (!textoRolMiembro.getText().isEmpty()) {
+					Usuario user = (Usuario) jlistUsuario.getSelectedValue();
+					try {
+						proyectoActual.agregarMiembro(user, textoRolMiembro
+								.getText());
+						proyectoActual.notificarObservadores();
+					} catch (UsuarioYaTieneRolExepcion e1) {
 
+						JOptionPane
+								.showMessageDialog(
+										crearMiembro,
+										"Ya existe un miembro creado a partir de ese usuario.",
+										"Error", JOptionPane.WARNING_MESSAGE);
+
+					}
+
+				} else {
+					JOptionPane.showMessageDialog(crearMiembro,
+							"Te falta ingresar un rol.", "Error",
+							JOptionPane.WARNING_MESSAGE);
 				}
 
 			} else {
 				JOptionPane.showMessageDialog(crearMiembro,
-						"Te falta ingresar un rol.", "Error",
-						JOptionPane.WARNING_MESSAGE);
+						"Primero tenes que tener seleccionado un usuario.",
+						"Error", JOptionPane.WARNING_MESSAGE);
 			}
 
 		}

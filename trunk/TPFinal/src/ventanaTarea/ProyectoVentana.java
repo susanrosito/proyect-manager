@@ -52,13 +52,13 @@ public class ProyectoVentana extends JPanel implements
 	private JButton crear = new JButton("crear");
 	private JButton modificar = new JButton("modificar");
 	private JButton eliminar = new JButton("eliminar");
-	private JButton modificarProyecto = new JButton("modificarProyecto ");
+	private JButton modificarProyecto = new JButton("Administrar Proyecto ");
 
 	// botones de la parte inferior de la ventana
 	JPanel panelBotonesInferiores = new JPanel();
 
 	// private JButton reabrir = new JButton("reabrir");
-	// private JButton cerrar = new JButton("cerrar");
+	 private JButton cerrar = new JButton("cerrar");
 
 	public ProyectoVentana(Sistema sis) {
 		sistema = sis;
@@ -89,9 +89,10 @@ public class ProyectoVentana extends JPanel implements
 		eliminar.setEnabled(false);
 
 		// el panel de los botones modificarProyecto
-		panelBotonesInferiores.setLayout(new GridLayout(2, 2));
+		panelBotonesInferiores.setLayout(new BoxLayout(panelBotonesInferiores, BoxLayout.Y_AXIS));
 		panelBotonesInferiores.add(modificarProyecto);
-
+		panelBotonesInferiores.add(cerrar);
+		
 		// el panel de datos
 		panelDatos.setLayout(new GridLayout(4, 2));
 		panelDatos.add(labelNombreProyecto);

@@ -95,6 +95,7 @@ public class Proyecto {
 
 	/**
 	 * cierra el proyecto y todas sus tareas.
+	 * @param nota
 	 */
 	public void cerrarProyecto(String nota) {
 
@@ -223,7 +224,11 @@ public class Proyecto {
 	public void setListaDeMiembros(Vector<Miembro> listaDeMiembros) {
 		this.listaDeMiembros = listaDeMiembros;
 	}
-
+/**
+ * agrega un observador a la lista de observadores.El observador debe 
+ * implementar la interface  InterfaceObserversProyecto
+ * @param obs
+ */
 	public void agregarObservador(InterfaceObserversProyecto obs) {
 		observers.add(obs);
 	}
