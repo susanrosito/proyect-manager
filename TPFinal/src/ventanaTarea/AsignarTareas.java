@@ -26,8 +26,8 @@ import tareas.TareaCompuesta;
 public class AsignarTareas extends JFrame {
 
 	private TareaCompuesta tareaParaAsignar;
-	private List<AdministradorTarea> listaTareas;
-	private List<AdministradorTarea> listaTareasEnTarea;
+	private List<AdministradorTarea> listaTareas = new ArrayList<AdministradorTarea>();
+	private List<AdministradorTarea> listaTareasEnTarea= new ArrayList<AdministradorTarea>();
 	private JLabel lNombreTarea = new JLabel();
 	private JTable tablaTareas = new JTable();
 	private JTable tablaTareasEnTarea = new JTable();
@@ -47,9 +47,10 @@ public class AsignarTareas extends JFrame {
 	public AsignarTareas(CrearTarea crearT,
 			AdministradorTarea tarea) {
 		this.listaObservadores.add(crearT);
-		this.listaTareas = crearT.listaTareasAselec;
+		this.listaTareas.addAll(crearT.listaTareasAselec);
 		this.tareaParaAsignar = (TareaCompuesta) tarea;
 		this.listaTareasEnTarea = tareaParaAsignar.getTareasQueLaComponenen();
+		this.listaTareas.removeAll(listaTareasEnTarea);
 		this.init(crearT);
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
