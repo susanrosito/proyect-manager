@@ -90,14 +90,14 @@ public abstract class PanelTarea extends JPanel {
 	}
 
 	class MiActionAgregarTareaListener implements ActionListener {
-		@Override
+		
 		public void actionPerformed(ActionEvent e) {
 			onAgregarT();
 		}
 	}
 
 	class MiActionAgregarListener implements ActionListener {
-		@Override
+		
 		public void actionPerformed(ActionEvent e) {
 			onAcept();
 		}
@@ -116,7 +116,7 @@ public abstract class PanelTarea extends JPanel {
 	public abstract void onAcept();
 
 	class MiActionCancelarListener implements ActionListener {
-		@Override
+		
 		public void actionPerformed(ActionEvent e) {
 			if (JOptionPane.showConfirmDialog(bcancelar,
 					"Desea cancelar la operacion?") == 0) {

@@ -16,7 +16,7 @@ public class PanelTareaS extends PanelTarea {
 		this.agregarTareas.setVisible(false);
 	}
 
-	@Override
+	
 	public void onAcept() {
 
 		if (!(tNombre.getText().isEmpty())
@@ -47,18 +47,18 @@ public class PanelTareaS extends PanelTarea {
 		}
 	}
 
-	@Override
+	
 	public JButton inicializarBoton() {
 		this.agregarTareas.setVisible(false);
 		return agregarTareas;
 	}
 
-	@Override
+	
 	public void onAgregarT() {
 
 	}
 
-	@Override
+	
 	public void conOrden() {
 		// TODO Auto-generated method stub
 
