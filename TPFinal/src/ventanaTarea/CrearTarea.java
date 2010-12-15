@@ -1,6 +1,7 @@
 package ventanaTarea;
 
 import java.awt.Button;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -128,7 +129,9 @@ public class CrearTarea extends JFrame {
 		this.add(pestaniaTabbedPane, component1);
 
 		model.setData(listaTareasAselec);
-		tabla.setModel(model);	
+		tabla.setModel(model);
+		tabla.setBackground(Color.ORANGE);
+		tabla.setForeground(Color.BLACK);
 		scroll.setViewportView(tabla);
 		scroll.setSize(200,200);
 		restricciones.gridx = 7;

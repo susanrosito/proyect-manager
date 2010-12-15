@@ -78,15 +78,15 @@ public class AdministradorDeTareas extends JFrame implements VentanaTareaObserve
 		// seteo propiedades a la ventana
 		this.setTitle("Administrador de Tareas");
 		this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
-
+		
 		// tabla de tareas Actuales en el proyecto
 		tableModelo.setData(listaTareas);
 		tableTareas.setModel(tableModelo);
 
 		// seteoColores
-		tableTareas.setBackground(Color.CYAN);
-		tableTareas.setForeground(Color.BLUE);
-
+		tableTareas.setBackground(Color.ORANGE);
+		tableTareas.setForeground(Color.BLACK);
+		
 		// al scroll le seteo la tabla!!
 		scroll.setViewportView(tableTareas);
 
@@ -103,11 +103,11 @@ public class AdministradorDeTareas extends JFrame implements VentanaTareaObserve
 
 		// panel con la tabla, propidades
 		pConTabla.setLayout(new BorderLayout());
-		pConTabla.setOpaque(true);
+		pConTabla.setOpaque(false);
 		pConTabla.add(scroll, BorderLayout.CENTER);
 		pConTabla.add(Box.createHorizontalStrut(50), BorderLayout.EAST);
 		pConTabla.add(Box.createHorizontalStrut(50), BorderLayout.WEST);
-
+		
 		// otras propiedades de la ventana
 		this.setSize(400, 400);
 		this.setResizable(false);
@@ -123,12 +123,12 @@ public class AdministradorDeTareas extends JFrame implements VentanaTareaObserve
 
 		// otro Panel que va a tener a dentro 2 paneles
 		pContenedor.setLayout(new GridLayout(1, 2));
-		pContenedor.setOpaque(true);
+		
 
 		// primerPanel sus propiedades
 		pPrimerasAcciones.setLayout(new BoxLayout(pPrimerasAcciones,
 				BoxLayout.Y_AXIS));
-		pPrimerasAcciones.setOpaque(true);
+		
 
 		pPrimerasAcciones.setBorder(BorderFactory
 				.createTitledBorder("Acciones:"));
@@ -142,9 +142,10 @@ public class AdministradorDeTareas extends JFrame implements VentanaTareaObserve
 		// segundo panel sus propiedades
 		pSegundasAcciones.setLayout(new BoxLayout(pSegundasAcciones,
 				BoxLayout.Y_AXIS));
+		
 		pSegundasAcciones.setBorder(BorderFactory
 				.createTitledBorder("Otras Acciones:"));
-		pSegundasAcciones.setOpaque(true);
+	
 		pSegundasAcciones.add(Box.createVerticalStrut(10));
 		pSegundasAcciones.add(bVer);
 		pSegundasAcciones.add(Box.createVerticalStrut(10));
@@ -152,11 +153,11 @@ public class AdministradorDeTareas extends JFrame implements VentanaTareaObserve
 		pSegundasAcciones.add(Box.createVerticalStrut(10));
 		pSegundasAcciones.add(bVolver);
 		pSegundasAcciones.add(Box.createVerticalStrut(10));
-
+		
 		// aca agrego los 2 paneles al panelContenedor
 		pContenedor.add(pPrimerasAcciones);
 		pContenedor.add(pSegundasAcciones);
-
+		
 		// aca agrego el panel a la ventana
 		this.add(pContenedor);
 
