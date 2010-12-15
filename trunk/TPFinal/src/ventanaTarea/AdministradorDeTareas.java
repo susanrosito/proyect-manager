@@ -330,32 +330,14 @@ public class AdministradorDeTareas extends JFrame implements VentanaTareaObserve
 		this.proyectoActual = proyectoActual;
 	}
 
-	public static void main(String[] args) throws UsuarioYaTieneRolExepcion {
-		Proyecto proyecto = new Proyecto("AAA", "BBB", null);
-		Usuario usuario1 = new Usuario("Susana", "rosito.susana@gmail.com");
-		Usuario usuario2 = new Usuario("Tatiana", "tati@gmail.com");
-		Usuario usuario3 = new Usuario("Federico", "fede@gmail.com");
-		TareaSimple tarea1 = new TareaSimple("Tarea1", "ahhhh", new Fecha(
-				"12-03-2010"));
-		TareaSimple tarea2 = new TareaSimple("Tarea2", "ehhh", new Fecha(
-				"20-10-2010"));
-		TareaSimple tarea3 = new TareaSimple("Tarea3", "ihhh", new Fecha(
-				"04-01-2010"));
-		
-		proyecto.agregarTarea(tarea1);
-		proyecto.agregarTarea(tarea2);
-		proyecto.agregarTarea(tarea3);
-
-		proyecto.agregarMiembro(usuario1, "Desarollador");
-		proyecto.agregarMiembro(usuario3, "Testeador");
-		proyecto.agregarMiembro(usuario2, "Diseñador");
-		new AdministradorDeTareas(proyecto,null);
-	}
-
 
 	public void cambioElEstadoLaTarea(AdministradorTarea unaTarea) {
-		
-		
+		int indice = tableTareas.getSelectedRow();
+		AdministradorTarea tareActial = (AdministradorTarea) tableModelo
+		.getSelected(tableTareas.getSelectedRow());
+		proyectoActual.eliminarTarea(tareActial);
+		proyectoActual.getListaTareas().add(indice, unaTarea);
+		AdministradorDeTareas.this.seAgregoTarea();
 	}
 
 	
@@ -374,5 +356,27 @@ public class AdministradorDeTareas extends JFrame implements VentanaTareaObserve
 	public void seReabrioLaTarea(AdministradorTarea tarea) {
 		
 		
+	}
+	
+	public static void main(String[] args) throws UsuarioYaTieneRolExepcion {
+		Proyecto proyecto = new Proyecto("AAA", "BBB", null);
+		Usuario usuario1 = new Usuario("Susana", "rosito.susana@gmail.com");
+		Usuario usuario2 = new Usuario("Tatiana", "tati@gmail.com");
+		Usuario usuario3 = new Usuario("Federico", "fede@gmail.com");
+		TareaSimple tarea1 = new TareaSimple("Tarea1", "ahhhh", new Fecha(
+		"12-03-2010"));
+		TareaSimple tarea2 = new TareaSimple("Tarea2", "ehhh", new Fecha(
+		"20-10-2010"));
+		TareaSimple tarea3 = new TareaSimple("Tarea3", "ihhh", new Fecha(
+		"04-01-2010"));
+		
+		proyecto.agregarTarea(tarea1);
+		proyecto.agregarTarea(tarea2);
+		proyecto.agregarTarea(tarea3);
+		
+		proyecto.agregarMiembro(usuario1, "Desarollador");
+		proyecto.agregarMiembro(usuario3, "Testeador");
+		proyecto.agregarMiembro(usuario2, "Diseñador");
+		new AdministradorDeTareas(proyecto,null);
 	}
 }
