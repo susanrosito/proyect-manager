@@ -81,7 +81,7 @@ public class ModificarProyectoVentana extends JFrame implements
 	public void inicializarVentana() {
 		//setea una posicion de inicio 
 		
-		this.setLocation(250, 150);
+		this.setLocation(650, 150);
 		// lista, agregarle el scroll y el color de fondo
 
 		scroll.setViewportView(jlistMiembro);

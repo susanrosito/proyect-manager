@@ -18,7 +18,7 @@ public class VentanaSistema extends JFrame {
 
 		this.add(panelConPestanias);
 		this.pack();
-		this.setLocation(250, 150);
+		this.setLocation(100, 150);
 		this.setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
