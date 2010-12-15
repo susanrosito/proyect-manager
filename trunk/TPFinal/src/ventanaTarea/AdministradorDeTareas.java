@@ -342,6 +342,7 @@ public class AdministradorDeTareas extends JFrame implements VentanaTareaObserve
 				"20-10-2010"));
 		TareaSimple tarea3 = new TareaSimple("Tarea3", "ihhh", new Fecha(
 				"04-01-2010"));
+		
 		proyecto.agregarTarea(tarea1);
 		proyecto.agregarTarea(tarea2);
 		proyecto.agregarTarea(tarea3);
