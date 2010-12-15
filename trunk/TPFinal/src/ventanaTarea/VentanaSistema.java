@@ -5,7 +5,7 @@ import javax.swing.*;
 import proyectoYSistema.*;
 
 public class VentanaSistema extends JFrame {
-	// el panel de las pestanhas
+		// el panel de las pestanhas
 	private JTabbedPane panelConPestanias = new JTabbedPane();
 	private Sistema sistema;
 
