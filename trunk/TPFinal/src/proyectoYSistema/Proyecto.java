@@ -96,7 +96,8 @@ public class Proyecto {
 	}
 
 	/**
-	 * cierra el proyecto y todas sus tareas.
+	 * cierra el proyecto y todas sus tareas.Modifica la variable
+	 * estaCerrada a true.
 	 * @param nota
 	 */
 	public void cerrarProyecto(String nota) {
@@ -185,7 +186,6 @@ public class Proyecto {
 	/**reabre el proyecto,modificando el valor de la variable estaCerrado
 	 * a false
 	 */
-
 	public void reabrirProyecto(String nota) {
 	
 		for (AdministradorTarea t : this.getListaTareas()) {

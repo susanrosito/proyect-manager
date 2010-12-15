@@ -88,7 +88,10 @@ public class Sistema {
 		notificarObservadores();
 
 	}
-
+/**
+ * crea un estado inicial del sistema,creando un proyecto con algunas tareas simples
+ * y agregando al sistema 2 usuarios.
+ */
 	private void inicializarSistema() {
 		this.crearUnUsuario("Carlos", "carlosElCapo@hotmail.com");
 		this.crearUnUsuario("Ivan", "elTerrible@hotmail.com");
@@ -102,16 +105,11 @@ public class Sistema {
 		proyecto1.agregarTarea(new TareaSimple("Limpiar Aulas",
 				"El portero recorre todas las aulas y las barre ", new Fecha(
 						"2010-12-15")));
-		proyecto1.agregarTarea(new TareaSimple("Cambiar Lamparitas",
+		proyecto1.agregarTarea(new TareaSimple("Cambiar La Lamparita",
 				"Cambiar la lamparita del aula 200", new Fecha("2010-12-15")));
 		proyecto1.agregarTarea(new TareaSimple("Cortar la luz",
 				"Se debe corta la luz antes de cambiar la lamparita ",
 				new Fecha("2010-12-15")));
-		proyecto1
-				.agregarTarea(new TareaCompuesta(
-						"Reparar la lamparita",
-						"Contiene todas las tareas necesarias para arreglar la lamparita ",
-						new Fecha("2010-12-15")));
 
 	}
 

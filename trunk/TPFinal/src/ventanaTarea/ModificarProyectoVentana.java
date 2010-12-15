@@ -38,12 +38,13 @@ public class ModificarProyectoVentana extends JFrame implements
 	JScrollPane scroll = new JScrollPane();
 	
 
-	// panel de datos con los campos de texto
+	// panel de datos con los campos de texto y los Jlabel
 	private JPanel panelDatos = new JPanel();
+	//text fields
 	private TextField textoNombreMiembro = new TextField();
 	private TextField textoEmailMiembro = new TextField();
 	private TextField textoRolMiembro = new TextField();
-
+	//JLabels
 	private JLabel labelNombreMiembro = new JLabel("Nombre Miembro");
 	private JLabel labelEmailMiembro = new JLabel("Email Miembro");
 	private JLabel labelRolMiembro = new JLabel("Rol Miembro");
@@ -75,14 +76,15 @@ public class ModificarProyectoVentana extends JFrame implements
 	}
 
 	/**
-	 * es el metodo que inicializa la ventana
+	 * es el metodo que inicializa la ventana,agregando 
+	 * todos sus componentes.
 	 */
 	public void inicializarVentana() {
 				
 		//setea una posicion de inicio 
-		
 		this.setLocation(300, 150);
-		// lista, agregarle el scroll y el color de fondo
+		
+		// A la lista le agrega el scroll y el color de fondo
 
 		scroll.setViewportView(jlistMiembro);
 		this.jlistMiembro.setBackground(Color.ORANGE);
@@ -103,6 +105,10 @@ public class ModificarProyectoVentana extends JFrame implements
 	    //agrego elementos a este panel
 		panelBotonesEntreListas.add(crearMiembro);
 		panelBotonesEntreListas.add(eliminarMiembro);
+		panelBotonesEntreListas.setLayout(new BoxLayout(
+				panelBotonesEntreListas, BoxLayout.Y_AXIS));
+		//este boton no esta disponible al principio
+		eliminarMiembro.setEnabled(false);
 
 		//agrego los elementos al panel
 		panelDatos.add(labelNombreMiembro);
@@ -112,12 +118,10 @@ public class ModificarProyectoVentana extends JFrame implements
 		panelDatos.add(labelRolMiembro);
 		panelDatos.add(textoRolMiembro);
 		panelDatos.setLayout(new GridLayout(6, 2));
+		//le agrego esta propiedad a los campos de texto
 		textoNombreMiembro.setEditable(false);
 		textoEmailMiembro.setEditable(false);
-		// //
-		panelBotonesEntreListas.setLayout(new BoxLayout(
-				panelBotonesEntreListas, BoxLayout.Y_AXIS));
-
+			
 		//agrego los componentes de la ventana
 		this.add(jlistMiembro);
 		this.add(panelBotonesEntreListas);
@@ -126,9 +130,8 @@ public class ModificarProyectoVentana extends JFrame implements
 		this.add(panelBotonesInferiores);
 		this.setLayout(new GridLayout(2, 3));
 
+		
 		addActions();
-
-		eliminarMiembro.setEnabled(false);
 		pack();
 		setVisible(true);
 
@@ -282,7 +285,7 @@ public class ModificarProyectoVentana extends JFrame implements
 	}
 
 	class EliminarMiembro implements ActionListener {
-
+		//elimina un miembro de la lista de miembros del proyecto
 		public void actionPerformed(ActionEvent e) {
 
 			proyectoActual.getListaDeMiembros().remove(
@@ -295,7 +298,7 @@ public class ModificarProyectoVentana extends JFrame implements
 	class AdministrarTareas implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-
+			// crea otra ventana que sirve para administrar las tareas
 			new AdministradorDeTareas(proyectoActual, null);
 
 		}
