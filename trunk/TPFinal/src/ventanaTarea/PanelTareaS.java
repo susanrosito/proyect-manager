@@ -28,7 +28,7 @@ public class PanelTareaS extends PanelTarea {
 				Fecha fecha = new Fecha();
 				fecha.setFecha(tFechaEFinalizacion.getDate());
 				TareaSimple tarea = new TareaSimple(nombre, descr, fecha);
-				if (padre.cBConOrden.isSelected()) {
+				if (padre.rBConOrden.isSelected()) {
 					AdministradorTarea tareaAnterior = padre.model
 							.getSelected(padre.tabla.getSelectedRow());
 					this.proyectoActual.agregarTarea(new OrganizadorTarea(

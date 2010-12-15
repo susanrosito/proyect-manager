@@ -105,9 +105,9 @@ public class Fecha {
 		}
 	
 	public static void main(String[] args) {
-		Fecha fe = new Fecha("02-07-2010");
-		Fecha fa = new Fecha("05-07-2010");
-		Fecha ft = new Fecha("01-03-2010");
+		Fecha fe = new Fecha("2010-07-02");
+		Fecha fa = new Fecha("2010-07-06");
+		Fecha ft = new Fecha("2010-03-20");
 		System.out.println(ft.fechasDiferenciaEnDias(fa.getFecha(),fe.getFecha()));
 	}
 }
