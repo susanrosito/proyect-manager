@@ -25,10 +25,11 @@ import tareas.AdministradorTarea;
 import tareas.TareaCompuesta;
 
 public class AsignarTareas extends JFrame {
-
+	//modelo
 	private TareaCompuesta tareaParaAsignar;
 	private List<AdministradorTarea> listaTareas = new ArrayList<AdministradorTarea>();
 	private List<AdministradorTarea> listaTareasEnTarea= new ArrayList<AdministradorTarea>();
+	//componentes
 	private JLabel lNombreTarea = new JLabel();
 	private JTable tablaTareas = new JTable();
 	private JTable tablaTareasEnTarea = new JTable();
@@ -47,17 +48,23 @@ public class AsignarTareas extends JFrame {
 
 	public AsignarTareas(CrearTarea crearT,
 			AdministradorTarea tarea) {
+		// agrego como observador a crearTarea
 		this.listaObservadores.add(crearT);
 		this.listaTareas.addAll(crearT.listaTareasAselec);
+		// trabajo con una tarea compuesta
 		this.tareaParaAsignar = (TareaCompuesta) tarea;
+		// obtengo la lista de las tareas que las componen
 		this.listaTareasEnTarea = tareaParaAsignar.getTareasQueLaComponenen();
+		// esta es la lista de las tareas del sistema, 
+		//uso una copia ya que quiero reflejar las que he asignado a la tarea.
 		this.listaTareas.removeAll(listaTareasEnTarea);
 		this.init(crearT);
+		// esto es cuando la quiero cerrar. quiero que se valla pero que no muera el proceso.
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
 
 	public void init(CrearTarea adm) {
-
+		
 		this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
 
 		modeloTareaEnTarea.setData(listaTareasEnTarea);
@@ -97,9 +104,7 @@ public class AsignarTareas extends JFrame {
 		panelConDosListas.add(scrollEnTarea);
 		panelConDosListas.add(Box.createHorizontalStrut(20));
 		this.add(panelInfo);
-		// this.add(Box.createHorizontalStrut(20));
-		// this.add(panelList);
-		// this.add(panelDAcciones);
+		
 		this.add(panelConDosListas);
 		bAgregar.setEnabled(false);
 		bCancelar.setEnabled(false);

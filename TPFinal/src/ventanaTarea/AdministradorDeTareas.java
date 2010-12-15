@@ -169,10 +169,6 @@ public class AdministradorDeTareas extends JFrame implements
 		// agrego las acciones de los botones y demas
 		this.addAction();
 
-		// this.setSize(400, 400);
-		// this.setResizable(true);
-		// this.pack();
-
 		// le digo donde tiene que aparecer la ventana!!
 		this.setLocation(250, 150);
 		this.setVisible(true);
@@ -183,7 +179,7 @@ public class AdministradorDeTareas extends JFrame implements
 	 * Declara las acciones de los botones y otros componentes.
 	 */
 	public void addAction() {
-		;// la accion cuando seleccionas un elemento de la Tabla
+		// la accion cuando seleccionas un elemento de la Tabla
 		tableTareas.getSelectionModel().addListSelectionListener(
 				new SelectionTablaListener());
 		// la Accion del boton Crear
@@ -199,19 +195,23 @@ public class AdministradorDeTareas extends JFrame implements
 	}
 
 	/**
-	 * Mensaje especifico para la view, aviso de agregoTarea.
+	 * Mensaje especifico para la view, aviso de que se agregoTarea.
 	 */
 	public void seAgregoTarea() {
 		tableModelo.setData(this.proyectoActual.getListaTareas());
 		tableTareas.updateUI();
 	}
 
+	/**
+	 * Mensaje especifico para la view, aviso de que se borroTarea.
+	 */
 	public void seBorroTarea() {
 		tableTareas.clearSelection();
 		tableTareas.updateUI();
 	}
 
 	/**
+	 * Clase que implementa ListSelectionListener para la tabla
 	 * 
 	 * @author susy
 	 * 
@@ -240,6 +240,7 @@ public class AdministradorDeTareas extends JFrame implements
 	}
 
 	/**
+	 * Clase que implementa actionListener para los botones
 	 * 
 	 * @author susy
 	 * 
@@ -255,6 +256,7 @@ public class AdministradorDeTareas extends JFrame implements
 	}
 
 	/**
+	 * Clase que implementa actionListener para los botones
 	 * 
 	 * @author susy
 	 * 
@@ -273,6 +275,7 @@ public class AdministradorDeTareas extends JFrame implements
 	}
 
 	/**
+	 * Clase que implementa actionListener para los botones
 	 * 
 	 * @author susy
 	 * 
@@ -288,6 +291,7 @@ public class AdministradorDeTareas extends JFrame implements
 	}
 
 	/**
+	 * Clase que implementa actionListener para los botones
 	 * 
 	 * @author susy
 	 * 
@@ -307,6 +311,7 @@ public class AdministradorDeTareas extends JFrame implements
 	}
 
 	/**
+	 * Clase que implementa actionListener para los botones
 	 * 
 	 * @author susy
 	 * 
@@ -328,65 +333,49 @@ public class AdministradorDeTareas extends JFrame implements
 	public void setProyectoActual(Proyecto proyectoActual) {
 		this.proyectoActual = proyectoActual;
 	}
-
-	public void cambioElEstadoLaTarea(AdministradorTarea unaTarea) {
+	/**
+	 * Mensaje especifico para la view, aviso de que  se modifico una tarea.
+	 */
+	public void modificoTarea(AdministradorTarea unaTarea){
 		int indice = tableTareas.getSelectedRow();
 		AdministradorTarea tareActial = (AdministradorTarea) tableModelo
 				.getSelected(tableTareas.getSelectedRow());
 		proyectoActual.eliminarTarea(tareActial);
 		proyectoActual.getListaTareas().add(indice, unaTarea);
+			
+	}
+	/**
+	 * Mensaje especifico para la view, aviso de que una Tarea cambio su estado.
+	 */
+	public void cambioElEstadoLaTarea(AdministradorTarea unaTarea) {
+		AdministradorDeTareas.this.modificoTarea(unaTarea);
 		AdministradorDeTareas.this.seAgregoTarea();
 	}
 
+	/**
+	 * Mensaje especifico para la view, aviso de que una tarea se Cerro.
+	 */
 	public void seCerroLaTarea(AdministradorTarea tarea) {
-		int indice = tableTareas.getSelectedRow();
-		AdministradorTarea tareActial = (AdministradorTarea) tableModelo
-				.getSelected(tableTareas.getSelectedRow());
-		proyectoActual.eliminarTarea(tareActial);
-		proyectoActual.getListaTareas().add(indice, tarea);
+		AdministradorDeTareas.this.modificoTarea(tarea);		
 		AdministradorDeTareas.this.seAgregoTarea();
 
 	}
 
+	/**
+	 * Mensaje especifico para la view, aviso de que una tarea cambio su porcetaje de realizacion.
+	 */
 	public void aumentoElPorcentageDeFinalizacion(AdministradorTarea tarea) {
-		int indice = tableTareas.getSelectedRow();
-		AdministradorTarea tareActial = (AdministradorTarea) tableModelo
-				.getSelected(tableTareas.getSelectedRow());
-		proyectoActual.eliminarTarea(tareActial);
-		proyectoActual.getListaTareas().add(indice, tarea);
+		AdministradorDeTareas.this.modificoTarea(tarea);
 		AdministradorDeTareas.this.seAgregoTarea();
 
 	}
 
+	/**
+	 * Mensaje especifico para la view, aviso de que una tarea se reabrio.
+	 */
 	public void seReabrioLaTarea(AdministradorTarea tarea) {
-		int indice = tableTareas.getSelectedRow();
-		AdministradorTarea tareActial = (AdministradorTarea) tableModelo
-				.getSelected(tableTareas.getSelectedRow());
-		proyectoActual.eliminarTarea(tareActial);
-		proyectoActual.getListaTareas().add(indice, tarea);
+		AdministradorDeTareas.this.modificoTarea(tarea);
 		AdministradorDeTareas.this.seAgregoTarea();
 
-	}
-
-	public static void main(String[] args) throws UsuarioYaTieneRolExepcion {
-		Proyecto proyecto = new Proyecto("AAA", "BBB", null);
-		Usuario usuario1 = new Usuario("Susana", "rosito.susana@gmail.com");
-		Usuario usuario2 = new Usuario("Tatiana", "tati@gmail.com");
-		Usuario usuario3 = new Usuario("Federico", "fede@gmail.com");
-		TareaSimple tarea1 = new TareaSimple("Tarea1", "ahhhh", new Fecha(
-				"12-03-2010"));
-		TareaSimple tarea2 = new TareaSimple("Tarea2", "ehhh", new Fecha(
-				"20-10-2010"));
-		TareaSimple tarea3 = new TareaSimple("Tarea3", "ihhh", new Fecha(
-				"04-01-2010"));
-
-		proyecto.agregarTarea(tarea1);
-		proyecto.agregarTarea(tarea2);
-		proyecto.agregarTarea(tarea3);
-
-		proyecto.agregarMiembro(usuario1, "Desarollador");
-		proyecto.agregarMiembro(usuario3, "Testeador");
-		proyecto.agregarMiembro(usuario2, "Diseñador");
-		new AdministradorDeTareas(proyecto, null);
 	}
 }
