@@ -218,7 +218,6 @@ public class AdministradorDeTareas extends JFrame implements
 	 */
 	class SelectionTablaListener implements ListSelectionListener {
 
-		@Override
 		public void valueChanged(ListSelectionEvent e) {
 			int row = tableTareas.getSelectedRow();
 			if (row >= 0
@@ -247,7 +246,6 @@ public class AdministradorDeTareas extends JFrame implements
 	 */
 	class ActionAsignarListener implements ActionListener {
 
-		@Override
 		public void actionPerformed(ActionEvent e) {
 			AdministradorTarea tareaSeleccionada = AdministradorDeTareas.this.tableModelo
 					.getSelected(tableTareas.getSelectedRow());
@@ -263,7 +261,6 @@ public class AdministradorDeTareas extends JFrame implements
 	 */
 	class ActionAbrirListener implements ActionListener {
 
-		@Override
 		public void actionPerformed(ActionEvent e) {
 			AdministradorTarea tarea = (AdministradorTarea) tableModelo
 					.getSelected(tableTareas.getSelectedRow());
@@ -282,7 +279,6 @@ public class AdministradorDeTareas extends JFrame implements
 	 */
 	class ActionCrearListener implements ActionListener {
 
-		@Override
 		public void actionPerformed(ActionEvent e) {
 			new CrearTarea(AdministradorDeTareas.this);
 
@@ -298,7 +294,6 @@ public class AdministradorDeTareas extends JFrame implements
 	 */
 	class ActionBorrarListener implements ActionListener {
 
-		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (tableTareas.getSelectedRow() >= 0) {
 				AdministradorTarea tareaSeleccionada = (AdministradorTarea) tableModelo
@@ -318,7 +313,6 @@ public class AdministradorDeTareas extends JFrame implements
 	 */
 	class ActionVolverListener implements ActionListener {
 
-		@Override
 		public void actionPerformed(ActionEvent e) {
 
 			dispose();
@@ -333,17 +327,19 @@ public class AdministradorDeTareas extends JFrame implements
 	public void setProyectoActual(Proyecto proyectoActual) {
 		this.proyectoActual = proyectoActual;
 	}
+
 	/**
-	 * Mensaje especifico para la view, aviso de que  se modifico una tarea.
+	 * Mensaje especifico para la view, aviso de que se modifico una tarea.
 	 */
-	public void modificoTarea(AdministradorTarea unaTarea){
+	public void modificoTarea(AdministradorTarea unaTarea) {
 		int indice = tableTareas.getSelectedRow();
 		AdministradorTarea tareActial = (AdministradorTarea) tableModelo
 				.getSelected(tableTareas.getSelectedRow());
 		proyectoActual.eliminarTarea(tareActial);
 		proyectoActual.getListaTareas().add(indice, unaTarea);
-			
+
 	}
+
 	/**
 	 * Mensaje especifico para la view, aviso de que una Tarea cambio su estado.
 	 */
@@ -356,13 +352,14 @@ public class AdministradorDeTareas extends JFrame implements
 	 * Mensaje especifico para la view, aviso de que una tarea se Cerro.
 	 */
 	public void seCerroLaTarea(AdministradorTarea tarea) {
-		AdministradorDeTareas.this.modificoTarea(tarea);		
+		AdministradorDeTareas.this.modificoTarea(tarea);
 		AdministradorDeTareas.this.seAgregoTarea();
 
 	}
 
 	/**
-	 * Mensaje especifico para la view, aviso de que una tarea cambio su porcetaje de realizacion.
+	 * Mensaje especifico para la view, aviso de que una tarea cambio su
+	 * porcetaje de realizacion.
 	 */
 	public void aumentoElPorcentageDeFinalizacion(AdministradorTarea tarea) {
 		AdministradorDeTareas.this.modificoTarea(tarea);

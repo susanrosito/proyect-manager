@@ -30,7 +30,7 @@ import tareas.TareaSimple;
 import usuarioMiembroYFecha.Miembro;
 
 public class AsignarMiembro extends JFrame {
-	//Modelo 
+	// Modelo
 	private List<AdministradorDeTareas> listaObservadores = new ArrayList<AdministradorDeTareas>();
 	private TareaSimple tareaParaAsignar;
 	private List<Miembro> listaMiembros;
@@ -44,7 +44,7 @@ public class AsignarMiembro extends JFrame {
 	private JButton bAceptar = new JButton("Aceptar");
 	private JButton bVolver = new JButton("Atras");
 	private JPanel panelList = new JPanel();
-	
+
 	public AsignarMiembro(AdministradorDeTareas adm, AdministradorTarea tarea) {
 		this.listaObservadores.add(adm);
 		this.listaMiembros = adm.getProyectoActual().getListaDeMiembros();
@@ -52,13 +52,15 @@ public class AsignarMiembro extends JFrame {
 		this.init(adm);
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
+
 	/**
 	 * Inicializa la ventana,con sus propiedades especificas, crea sus
 	 * componentes, y hasta sus acciones.
 	 */
 	public void init(AdministradorDeTareas adm) {
 		this.setTitle("Seleccionar un miembro para la Tarea");
-		// defino la tabla y el modelo que voy a usar.. junto con sus propiedades
+		// defino la tabla y el modelo que voy a usar.. junto con sus
+		// propiedades
 		modeloMiembro.setData(listaMiembros);
 		tablaMiembros.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tablaMiembros.setModel(modeloMiembro);
@@ -72,20 +74,21 @@ public class AsignarMiembro extends JFrame {
 		lNombreTarea.setText("Nombre de Tarea: " + "   "
 				+ tareaParaAsignar.getNombre());
 		panelInfo.add(lNombreTarea);
-		
+
 		// declaro el panel de la lista con sus propiedades
 		panelList.setLayout(new BorderLayout());
 		panelList.add(Box.createHorizontalStrut(20), BorderLayout.EAST);
 		panelList.add(scroll);
 		panelList.add(Box.createHorizontalStrut(20), BorderLayout.WEST);
-		
+
 		// declaro el panel de acciones junto con sus propiedades.
 		panelDAcciones.setLayout(new FlowLayout());
 		panelDAcciones.setBorder(BorderFactory.createTitledBorder("Acciones"));
 		panelDAcciones.add(bAceptar);
 		panelDAcciones.add(bVolver);
-		
-		// para diceñar esta ventana utilize el layout group, es por eso que se ve tan
+
+		// para diceñar esta ventana utilize el layout group, es por eso que se
+		// ve tan
 		// armado. fue para colocar los componentes donde yo queria.
 		GroupLayout layout = new GroupLayout(this.getContentPane());
 		this.setLayout(layout);
@@ -108,7 +111,8 @@ public class AsignarMiembro extends JFrame {
 								.addComponent(panelDAcciones, -1, 50, 50)
 
 				)));
-		// especifico que este boton va a estar inhabilitado cuando aparesca la ventana.
+		// especifico que este boton va a estar inhabilitado cuando aparesca la
+		// ventana.
 		bAceptar.setEnabled(false);
 		// le agrego las acciones,de los componentes
 		this.addAction();
@@ -118,25 +122,29 @@ public class AsignarMiembro extends JFrame {
 		this.setLocation(380, 200);
 		this.setVisible(true);
 	}
+
 	/**
 	 * Declara las acciones de los botones y otros componentes.
 	 */
 	public void addAction() {
 		// la accion cuando seleccionas un elemento de la Tabla
-		tablaMiembros.getSelectionModel().addListSelectionListener(new MiSelectionAListener());
+		tablaMiembros.getSelectionModel().addListSelectionListener(
+				new MiSelectionAListener());
 		// la Accion del boton Aceptar
 		bAceptar.addActionListener(new MiAceptarListener());
 		// la Accion del boton Volver
 		bVolver.addActionListener(new MiVolverListener());
 	}
+
 	/**
 	 * Notifica a sus observer de los cambios que ocurren.
 	 */
-	public void notificarObserver(){
+	public void notificarObserver() {
 		for (AdministradorDeTareas observer : listaObservadores) {
 			observer.seAgregoTarea();
 		}
 	}
+
 	/**
 	 * Clase que implementa ActionListener para el Boton Volver
 	 * 
@@ -145,22 +153,21 @@ public class AsignarMiembro extends JFrame {
 	 */
 	class MiVolverListener implements ActionListener {
 
-		@Override
 		public void actionPerformed(ActionEvent e) {
 
 			dispose();
 
 		}
 	}
+
 	/**
-	 * Clase que implementa ActionListener para el Boton Aceptar	  
-	 *
+	 * Clase que implementa ActionListener para el Boton Aceptar
+	 * 
 	 * @author susy
 	 * 
 	 */
 	class MiAceptarListener implements ActionListener {
 
-		@Override
 		public void actionPerformed(ActionEvent e) {
 
 			Miembro miembro = modeloMiembro.getSelected(tablaMiembros
@@ -189,7 +196,7 @@ public class AsignarMiembro extends JFrame {
 			}
 		}
 	}
-	
+
 	/**
 	 * Clase que implementa ListSelectionListener para la tabla
 	 * 
@@ -197,7 +204,7 @@ public class AsignarMiembro extends JFrame {
 	 * 
 	 */
 	class MiSelectionAListener implements ListSelectionListener {
-		@Override
+
 		public void valueChanged(ListSelectionEvent e) {
 			if (tablaMiembros.getSelectedRow() >= 0) {
 
