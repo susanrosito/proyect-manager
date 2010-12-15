@@ -137,6 +137,8 @@ public class ProyectoVentana extends JPanel implements
 
 		modificarProyecto.addActionListener(new ModificarProyectoActual());
 		
+		reabrir.addActionListener(new ReabrirProyecto());
+		
 		cerrar.addActionListener(new CerrarProyecto());
 	}
 
@@ -247,6 +249,15 @@ public class ProyectoVentana extends JPanel implements
 	}
 	
 	class CerrarProyecto implements ActionListener {
+
+		public void actionPerformed(ActionEvent e) {
+			if (! listaProyectosJList.isSelectionEmpty())
+			((Proyecto)listaProyectosJList.getSelectedValue()).cerrarProyecto(textoNotaCierreProyecto.getText());
+		}
+
+	}
+	
+	class ReabrirProyecto implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
 			if (! listaProyectosJList.isSelectionEmpty())
