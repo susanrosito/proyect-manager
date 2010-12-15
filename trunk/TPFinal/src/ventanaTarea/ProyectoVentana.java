@@ -1,19 +1,13 @@
 package ventanaTarea;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dialog;
 import java.awt.GridLayout;
-import java.awt.ScrollPane;
 import java.awt.TextArea;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.image.CropImageFilter;
-import java.util.Observable;
-import java.util.Observer;
 import java.util.Vector;
 
 import javax.swing.BoxLayout;
@@ -28,11 +22,11 @@ import javax.swing.JScrollPane;
 
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.plaf.BorderUIResource;
+
 
 import proyectoYSistema.Proyecto;
 import proyectoYSistema.Sistema;
-import usuarioMiembroYFecha.Usuario;
+
 
 public class ProyectoVentana extends JPanel implements
 		InterfaceObserversSistema {
