@@ -25,11 +25,11 @@ import tareas.AdministradorTarea;
 import tareas.TareaCompuesta;
 
 public class AsignarTareas extends JFrame {
-	//modelo
+	// modelo
 	private TareaCompuesta tareaParaAsignar;
 	private List<AdministradorTarea> listaTareas = new ArrayList<AdministradorTarea>();
-	private List<AdministradorTarea> listaTareasEnTarea= new ArrayList<AdministradorTarea>();
-	//componentes
+	private List<AdministradorTarea> listaTareasEnTarea = new ArrayList<AdministradorTarea>();
+	// componentes
 	private JLabel lNombreTarea = new JLabel();
 	private JTable tablaTareas = new JTable();
 	private JTable tablaTareasEnTarea = new JTable();
@@ -46,47 +46,61 @@ public class AsignarTareas extends JFrame {
 	private List<CrearTarea> listaObservadores = new ArrayList<CrearTarea>();
 	private JPanel panelConDosListas = new JPanel();
 
-	public AsignarTareas(CrearTarea crearT,
-			AdministradorTarea tarea) {
+	public AsignarTareas(CrearTarea crearT, AdministradorTarea tarea) {
+
 		// agrego como observador a crearTarea
 		this.listaObservadores.add(crearT);
 		this.listaTareas.addAll(crearT.listaTareasAselec);
+
 		// trabajo con una tarea compuesta
 		this.tareaParaAsignar = (TareaCompuesta) tarea;
+
 		// obtengo la lista de las tareas que las componen
 		this.listaTareasEnTarea = tareaParaAsignar.getTareasQueLaComponenen();
-		// esta es la lista de las tareas del sistema, 
-		//uso una copia ya que quiero reflejar las que he asignado a la tarea.
+
+		// esta es la lista de las tareas del sistema,
+		// uso una copia ya que quiero reflejar las que he asignado a la tarea.
 		this.listaTareas.removeAll(listaTareasEnTarea);
 		this.init(crearT);
-		// esto es cuando la quiero cerrar. quiero que se valla pero que no muera el proceso.
+
+		// esto es cuando la quiero cerrar. quiero que se valla pero que no
+		// muera el proceso.
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
 
+	/**
+	 * Inicializa la ventana,con sus propiedades especificas, crea sus
+	 * componentes, y hasta sus acciones.
+	 */
 	public void init(CrearTarea adm) {
-		
-		this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
 
+		this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
+		// declaro los modelos y las tablas que voy a usar, junto con sus
+		// propiedades
 		modeloTareaEnTarea.setData(listaTareasEnTarea);
 		tablaTareasEnTarea.setModel(modeloTareaEnTarea);
+		// las propiedades como tamaño y color de fondo y fuente
 		tablaTareasEnTarea.setSize(80, 80);
 		tablaTareasEnTarea.setBackground(Color.ORANGE);
 		tablaTareasEnTarea.setForeground(Color.BLACK);
+
 		scrollEnTarea.setViewportView(tablaTareasEnTarea);
 
 		modelotarea.setData(listaTareas);
 		tablaTareas.setModel(modelotarea);
 		tablaTareas.setSize(90, 90);
 		scroll.setViewportView(tablaTareas);
-
+		// defino el panelinfo junto con sus propiedades
 		panelInfo.setLayout(new FlowLayout());
 		lNombreTarea.setText("Nombre de Tarea: " + "   "
 				+ tareaParaAsignar.getNombre());
 		panelInfo.add(lNombreTarea);
+		// declaro el panel de la lista con sus propiedades
 		panelList.setLayout(new BorderLayout());
 		panelList.add(Box.createHorizontalStrut(20), BorderLayout.EAST);
 		panelList.add(scroll);
 		panelList.add(Box.createHorizontalStrut(20), BorderLayout.WEST);
+		// panel cn primeras acciones con sus propiedades
 		panelDAcciones
 				.setLayout(new BoxLayout(panelDAcciones, BoxLayout.Y_AXIS));
 		panelDAcciones.setBorder(BorderFactory.createTitledBorder("Acciones"));
@@ -95,6 +109,7 @@ public class AsignarTareas extends JFrame {
 		panelDAcciones.add(bCancelar);
 		panelDAcciones.add(Box.createVerticalStrut(20));
 		panelDAcciones.add(bVolver);
+		// panel con las dos Tablas con sus propiedades
 		panelConDosListas.setLayout(new BoxLayout(panelConDosListas,
 				BoxLayout.X_AXIS));
 
@@ -103,18 +118,27 @@ public class AsignarTareas extends JFrame {
 		panelConDosListas.add(Box.createHorizontalStrut(20));
 		panelConDosListas.add(scrollEnTarea);
 		panelConDosListas.add(Box.createHorizontalStrut(20));
+		// agrego el panel info a la vista
 		this.add(panelInfo);
-		
+		// agrego el panel con las dos tablas a la vista
 		this.add(panelConDosListas);
+		// especifico que estos botones va a estar inhabilitados cuando aparesca
+		// la ventana.
 		bAgregar.setEnabled(false);
 		bCancelar.setEnabled(false);
+		// agrego las acciones a la vista
 		this.addAction();
+
+		// defino propiedades de la vista
 		this.setSize(200, 200);
 		pack();
-		this.setLocation(0,150);
+		this.setLocation(0, 150);
 		this.setVisible(true);
 	}
 
+	/**
+	 * Declara las acciones de los botones y otros componentes.
+	 */
 	public void addAction() {
 		tablaTareas.getSelectionModel().addListSelectionListener(
 				new MiSelectionAListener());
@@ -126,9 +150,14 @@ public class AsignarTareas extends JFrame {
 
 	}
 
+	/**
+	 * Clase que implementa ActionListener para el Boton Cancelar.
+	 * 
+	 * @author susy
+	 * 
+	 */
 	class MiCancelarListener implements ActionListener {
 
-		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (tablaTareasEnTarea.getSelectedRow() >= 0) {
 				AdministradorTarea tarea = modeloTareaEnTarea
@@ -145,9 +174,14 @@ public class AsignarTareas extends JFrame {
 
 	}
 
+	/**
+	 * Clase que implementa ActionListener para el Boton Volver.
+	 * 
+	 * @author susy
+	 * 
+	 */
 	class MiVolverListener implements ActionListener {
 
-		@Override
 		public void actionPerformed(ActionEvent e) {
 
 			dispose();
@@ -156,9 +190,14 @@ public class AsignarTareas extends JFrame {
 
 	}
 
+	/**
+	 * Clase que implementa ActionListener para el Boton Aceptar.
+	 * 
+	 * @author susy
+	 * 
+	 */
 	class MiAceptarListener implements ActionListener {
 
-		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (tablaTareas.getSelectedRow() >= 0) {
 				AdministradorTarea tarea = modelotarea.getSelected(tablaTareas
@@ -176,8 +215,14 @@ public class AsignarTareas extends JFrame {
 		}
 	}
 
+	/**
+	 * Clase que implementa ListSelectionListener para la tablaTareasEnTarea.
+	 * 
+	 * @author susy
+	 * 
+	 */
 	class MiSelectionCListener implements ListSelectionListener {
-		@Override
+
 		public void valueChanged(ListSelectionEvent e) {
 			if (tablaTareasEnTarea.getSelectedRow() >= 0) {
 
@@ -193,8 +238,14 @@ public class AsignarTareas extends JFrame {
 
 	}
 
+	/**
+	 * Clase que implementa ListSelectionListener para la tablaTareas.
+	 * 
+	 * @author susy
+	 * 
+	 */
 	class MiSelectionAListener implements ListSelectionListener {
-		@Override
+
 		public void valueChanged(ListSelectionEvent e) {
 			if (tablaTareas.getSelectedRow() >= 0) {
 
