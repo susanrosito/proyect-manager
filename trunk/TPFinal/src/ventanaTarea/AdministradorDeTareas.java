@@ -342,19 +342,34 @@ public class AdministradorDeTareas extends JFrame implements VentanaTareaObserve
 
 	
 	public void seCerroLaTarea(AdministradorTarea tarea) {
-		
+		int indice = tableTareas.getSelectedRow();
+		AdministradorTarea tareActial = (AdministradorTarea) tableModelo
+		.getSelected(tableTareas.getSelectedRow());
+		proyectoActual.eliminarTarea(tareActial);
+		proyectoActual.getListaTareas().add(indice, tarea);
+		AdministradorDeTareas.this.seAgregoTarea();
 		
 	}
 
 	
 	public void aumentoElPorcentageDeFinalizacion(AdministradorTarea tarea) {
-		
+		int indice = tableTareas.getSelectedRow();
+		AdministradorTarea tareActial = (AdministradorTarea) tableModelo
+		.getSelected(tableTareas.getSelectedRow());
+		proyectoActual.eliminarTarea(tareActial);
+		proyectoActual.getListaTareas().add(indice, tarea);
+		AdministradorDeTareas.this.seAgregoTarea();
 		
 	}
 
 	
 	public void seReabrioLaTarea(AdministradorTarea tarea) {
-		
+		int indice = tableTareas.getSelectedRow();
+		AdministradorTarea tareActial = (AdministradorTarea) tableModelo
+		.getSelected(tableTareas.getSelectedRow());
+		proyectoActual.eliminarTarea(tareActial);
+		proyectoActual.getListaTareas().add(indice, tarea);
+		AdministradorDeTareas.this.seAgregoTarea();
 		
 	}
 	
