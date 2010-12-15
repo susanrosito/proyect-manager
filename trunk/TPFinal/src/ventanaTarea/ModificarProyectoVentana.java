@@ -52,12 +52,9 @@ public class ModificarProyectoVentana extends JFrame implements
 	private JButton administrarTareasProyecto = new JButton(
 			"Administrar Tareas Del Proyecto");
 	private JButton volver = new JButton("volver");
-
 	private JPanel panelBotonesInferiores = new JPanel();
-
 	private JButton crearMiembro = new JButton("Crear Miembro");
 	private JButton eliminarMiembro = new JButton("Eliminar Miembro");
-
 	private JPanel panelBotonesEntreListas = new JPanel();
 
 	/**
