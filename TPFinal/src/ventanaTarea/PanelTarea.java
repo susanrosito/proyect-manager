@@ -89,10 +89,7 @@ public abstract class PanelTarea extends JPanel {
 		// seteo su tamaño
 		this.setSize(400, 400);
 	}
-	/**
-	 * Metodo abstracto.
-	 */
-	public abstract void conOrden();
+
 	
 	/**
 	 * Metodo abstracto.

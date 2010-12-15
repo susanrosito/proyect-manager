@@ -201,8 +201,7 @@ public class CrearTarea extends JFrame {
 
 		public void valueChanged(ListSelectionEvent arg0) {
 			if (tabla.getSelectedRow() >= 0) {
-
-			} else {
+				
 
 			}
 		}

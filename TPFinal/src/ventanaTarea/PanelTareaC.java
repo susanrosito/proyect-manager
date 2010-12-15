@@ -17,10 +17,23 @@ public class PanelTareaC extends PanelTarea {
 		this.tarea = new TareaCompuesta();
 
 	}
+
 	/**
 	 * Declaro la accion del boton aceptar en el panel de Compuesta.
 	 */
 	public void onAcept() {
+		/*Aca la accion de boton aceptar, primero se fija si todos los campos
+		 * estan llenos, entonces nos dice si estamos seguros?, 
+		 * pero si esta seleccionado el boton de que quiere con orden
+		 * entonces tenemos que selecionar una tarea de la lista que nos muestra
+		 * al costado, si no selecciona, entonces te dice que si o si tenes que 
+		 * seleccionar. y bueno cuando seleccionas agrega la tarea y arma el
+		 * organizador de tarea .Si los campos estan vacios o alguno falta, te dice
+		 * que tenes que completar la informacion, primero tiene que estar
+		 * todos los datos antes de que te avise que te falta algo.
+		 * Tambien podemos agregarle las tareas que las componen.
+		 *  
+		 * */
 		if (!(tNombre.getText().isEmpty())
 				& !(tDescripcion.getText().isEmpty())
 				& !(tFechaEFinalizacion.getDate() == null)) {
@@ -56,24 +69,20 @@ public class PanelTareaC extends PanelTarea {
 		}
 
 	}
+
 	/**
-	 *  inicializo el boton agregar, en este caso lo quiero visible.
+	 * inicializo el boton agregar, en este caso lo quiero visible.
 	 */
 	public JButton inicializarBoton() {
 		agregarTareas.setVisible(true);
 		return agregarTareas;
 	}
+
 	/**
 	 * le agrego la accion al boton agregar.
 	 */
 	public void onAgregarT() {
 		new AsignarTareas(padre, tarea);
-
-	}
-	/**
-	 * 
-	 */
-	public void conOrden() {
 
 	}
 
