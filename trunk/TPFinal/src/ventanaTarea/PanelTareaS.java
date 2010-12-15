@@ -14,9 +14,9 @@ public class PanelTareaS extends PanelTarea {
 		super(adm, crearTarea);
 
 		this.agregarTareas.setVisible(false);
+
 	}
 
-	
 	public void onAcept() {
 
 		if (!(tNombre.getText().isEmpty())
@@ -47,20 +47,17 @@ public class PanelTareaS extends PanelTarea {
 		}
 	}
 
-	
 	public JButton inicializarBoton() {
 		this.agregarTareas.setVisible(false);
 		return agregarTareas;
 	}
 
-	
 	public void onAgregarT() {
 
 	}
 
-	
 	public void conOrden() {
-		// TODO Auto-generated method stub
+		
 
 	}
 

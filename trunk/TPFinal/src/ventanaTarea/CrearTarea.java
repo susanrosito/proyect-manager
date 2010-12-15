@@ -1,6 +1,5 @@
 package ventanaTarea;
 
-
 import java.awt.Color;
 import java.awt.FlowLayout;
 
@@ -23,6 +22,7 @@ import javax.swing.JCheckBox;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -38,25 +38,20 @@ public class CrearTarea extends JFrame {
 	protected List<AdministradorTarea> listaTareasAselec = new ArrayList<AdministradorTarea>();
 	private JTabbedPane pestaniaTabbedPane = new JTabbedPane();
 	private JPanel panelcheckBox = new JPanel();
-	protected JRadioButton rBConOrden = new JRadioButton("Si",false);
-	protected JRadioButton rBSinOrden = new JRadioButton("No",true);
-	
+	protected JRadioButton rBConOrden = new JRadioButton("Si", false);
+	protected JRadioButton rBSinOrden = new JRadioButton("No", true);
+
 	private ButtonGroup groub = new ButtonGroup();
-	
-	private JLabel ltareasASeleccionar = new JLabel(
-			"Elegir la anterior Tarea:");
+
+	private JLabel ltareasASeleccionar = new JLabel("Elegir la anterior Tarea:");
 	protected JTable tabla = new JTable();
 	protected TareaTablaModel model = new TareaTablaModel();
 	protected JScrollPane scroll = new JScrollPane();
 	private List<AdministradorDeTareas> listaObservadores = new ArrayList<AdministradorDeTareas>();
-	private JButton bAceptar = new JButton("  Aceptar  ");
-	private JButton bCancelar = new JButton("  Cancelar  ");
 	
-	
-
 	private PanelTarea panelCompuesta;
 	private PanelTarea panelSimple;
-	
+
 	public CrearTarea(AdministradorDeTareas adm) {
 		listaObservadores.add(adm);
 		listaTareasAselec = adm.listaTareas;
@@ -70,9 +65,7 @@ public class CrearTarea extends JFrame {
 		this.getContentPane().setLayout(new GridBagLayout());
 		this.setSize(640, 400);
 		this.setResizable(false);
-		
-		//lorden.setFont(new Font("Arial", Font.BOLD, 20));
-		//lorden.setAlignmentX(JLabel.RIGHT_ALIGNMENT);
+
 		GridBagConstraints restricciones = new GridBagConstraints();
 		restricciones.gridx = 1;
 		restricciones.gridy = 1;
@@ -82,25 +75,22 @@ public class CrearTarea extends JFrame {
 
 		restricciones.gridx = 2;
 		restricciones.gridy = 2;
-		restricciones.gridwidth = 1;// GridBagConstraints.ABOVE_BASELINE;
+		restricciones.gridwidth = 1;
 		restricciones.gridheight = 1;
-		// restricciones.fill = GridBagConstraints.NORTH;
-		// restricciones.weightx = 1.0;
-		// restricciones.weighty = 1.0;
-		//this.add(lorden, restricciones);
 
 		restricciones.gridx = 7;
 		restricciones.gridy = 2;
-		restricciones.gridwidth = 1;// GridBagConstraints.REMAINDER;
+		restricciones.gridwidth = 1;
 		restricciones.gridheight = 1;
-		// restricciones.weighty = 1.0;
+
 		restricciones.fill = GridBagConstraints.NORTH;
 
 		this.add(ltareasASeleccionar, restricciones);
 
 		this.panelcheckBox.setAlignmentX(JPanel.CENTER_ALIGNMENT);
 		this.panelcheckBox.setLayout(new FlowLayout());
-		this.panelcheckBox.setBorder(BorderFactory.createTitledBorder("Desea que la tarea tenga orden?"));
+		this.panelcheckBox.setBorder(BorderFactory
+				.createTitledBorder("Desea que la tarea tenga orden?"));
 		this.groub.add(rBConOrden);
 		this.groub.add(rBSinOrden);
 		this.panelcheckBox.add(rBConOrden);
@@ -109,7 +99,7 @@ public class CrearTarea extends JFrame {
 		restricciones.gridy = 3;
 		restricciones.fill = GridBagConstraints.HORIZONTAL;
 		this.add(panelcheckBox, restricciones);
-		//restricciones.weighty = 0.0;
+
 		restricciones.gridx = 1;
 		restricciones.gridy = 3;
 		restricciones.gridheight = 1;
@@ -121,14 +111,11 @@ public class CrearTarea extends JFrame {
 		component1.gridy = 4;
 		component1.gridwidth = 3;
 		component1.gridheight = 3;
-		// component1.fill = GridBagConstraints.SOUTH;
-		//component1.weightx = 1.0;
-		// component1.weighty = 2.0;
-		// component1.weightx = 1.0;
+
 		this.panelCompuesta = new PanelTareaC(adm, this);
 		this.panelSimple = new PanelTareaS(adm, this);
-		
-		this.pestaniaTabbedPane.add("Simple", panelSimple );
+
+		this.pestaniaTabbedPane.add("Simple", panelSimple);
 		this.pestaniaTabbedPane.add("Compuesta", panelCompuesta);
 		this.add(pestaniaTabbedPane, component1);
 
@@ -137,59 +124,60 @@ public class CrearTarea extends JFrame {
 		tabla.setBackground(Color.ORANGE);
 		tabla.setForeground(Color.BLACK);
 		scroll.setViewportView(tabla);
-		scroll.setSize(200,200);
+		scroll.setSize(200, 200);
 		restricciones.gridx = 7;
 		restricciones.gridy = 3;
-		restricciones.gridwidth = 5;// GridBagConstraints.ABOVE_BASELINE;
+		restricciones.gridwidth = 5;
 		restricciones.gridheight = 5;
-		// restricciones.fill = GridBagConstraints.EAST;
-		// restricciones.weightx = 0.0;
-		// restricciones.weighty = 1.0;
+
 		this.add(scroll, restricciones);
-		
+
 		this.addAction();
 
-		// this.setResizable(false);
-		
 		this.tabla.setVisible(false);
 		this.pack();
 		this.setLocation(100, 150);
 		this.setVisible(true);
 	}
-	
-	
+
 	public void addAction() {
 		tabla.getSelectionModel().addListSelectionListener(
 				new MiSelectionListener());
 		rBConOrden.addActionListener(new SelectionRadioButton());
 		rBSinOrden.addActionListener(new SelectionRadioButton());
 	}
-	
-	
-	class SelectionRadioButton implements ActionListener{
-		
+
+	class SelectionRadioButton implements ActionListener {
+
 		public void actionPerformed(ActionEvent e) {
-			if (e.getSource() == rBConOrden){
-				tabla.setVisible(true);
-				
+			if (e.getSource() == rBConOrden) {
+				if (model.getRowCount() == 0) {
+					JOptionPane
+							.showMessageDialog(null,
+									"No hay tareas para poder ordenar.Intentalo mas tarde.");
+					rBConOrden.setSelected(false);
+					rBSinOrden.setSelected(true);
+				} else {
+					tabla.setVisible(true);
+				}
 			}
-			
-			if(e.getSource() == rBSinOrden){
+
+			if (e.getSource() == rBSinOrden) {
 				tabla.setVisible(false);
 			}
 		}
-		
+
 	}
-	
+
 	class MiSelectionListener implements ListSelectionListener {
 
 		@Override
 		public void valueChanged(ListSelectionEvent arg0) {
-			if (tabla.getSelectedRow() >= 0 ) {
-				// cambiar el fondo!!
+			if (tabla.getSelectedRow() >= 0) {
+
 			} else {
 
-					}
+			}
 		}
 
 	}
