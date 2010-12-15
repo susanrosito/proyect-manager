@@ -1,5 +1,7 @@
 package ventanaTarea;
 
+import java.awt.Color;
+
 import javax.swing.*;
 
 import proyectoYSistema.*;
@@ -21,6 +23,7 @@ public class VentanaSistema extends JFrame {
 		this.setLocation(100, 150);
 		this.setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+			
 	}
 
 	public static void main(String[] args) {

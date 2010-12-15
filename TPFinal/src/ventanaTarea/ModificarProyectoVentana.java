@@ -79,6 +79,7 @@ public class ModificarProyectoVentana extends JFrame implements
 	 * es el metodo que inicializa la ventana
 	 */
 	public void inicializarVentana() {
+				
 		//setea una posicion de inicio 
 		
 		this.setLocation(300, 150);
@@ -95,7 +96,7 @@ public class ModificarProyectoVentana extends JFrame implements
 				BoxLayout.Y_AXIS));
 		panelBotonesInferiores.add(administrarTareasProyecto);
 		panelBotonesInferiores.add(volver);
-
+		
 		// ///////
 		panelBotonesEntreListas.add(crearMiembro);
 
@@ -109,25 +110,23 @@ public class ModificarProyectoVentana extends JFrame implements
 		panelDatos.add(labelRolMiembro);
 		panelDatos.add(textoRolMiembro);
 		panelDatos.setLayout(new GridLayout(6, 2));
-
 		textoNombreMiembro.setEditable(false);
 		textoEmailMiembro.setEditable(false);
 		// //
 		panelBotonesEntreListas.setLayout(new BoxLayout(
 				panelBotonesEntreListas, BoxLayout.Y_AXIS));
 
-		administrarTareasProyecto.addActionListener(new AdministrarTareas());
-
+		//agrego los componentes de la ventana
 		this.add(jlistMiembro);
 		this.add(panelBotonesEntreListas);
 		this.add(jlistUsuario);
 		this.add(panelDatos);
 		this.add(panelBotonesInferiores);
-
 		this.setLayout(new GridLayout(2, 3));
 
 		addActions();
 
+		eliminarMiembro.setEnabled(false);
 		pack();
 		setVisible(true);
 
@@ -148,6 +147,8 @@ public class ModificarProyectoVentana extends JFrame implements
 		jlistUsuario
 				.addListSelectionListener(new SeleccionarElementoJListUsuario());
 		jlistUsuario.addMouseListener(new DeseleccionarElementoJListUsuario());
+		
+		administrarTareasProyecto.addActionListener(new AdministrarTareas());
 	}
 
 	class SeleccionarElementoJListUsuario implements ListSelectionListener {
@@ -204,6 +205,7 @@ public class ModificarProyectoVentana extends JFrame implements
 							.setText(miembro.getUsuario().getNombre());
 					textoEmailMiembro.setText(miembro.getUsuario().getEmail());
 					textoRolMiembro.setText(miembro.getRol());
+					eliminarMiembro.setEnabled(true);
 				}
 
 			} catch (NullPointerException ex) {
@@ -221,6 +223,7 @@ public class ModificarProyectoVentana extends JFrame implements
 				textoNombreMiembro.setText("");
 				textoEmailMiembro.setText("");
 				textoRolMiembro.setText("");
+				eliminarMiembro.setEnabled(false);
 			}
 		}
 

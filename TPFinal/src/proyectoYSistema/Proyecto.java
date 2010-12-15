@@ -105,6 +105,7 @@ public class Proyecto {
 
 			this.cerrarTarea(t,nota);
 		}
+		this.setDescripcion(this.getDescripcion()+"\n"+nota);
 		this.setEstaCerrada(true);
 	}
 
@@ -191,6 +192,7 @@ public class Proyecto {
 
 			this.cerrarTarea(t,nota);
 		}
+		this.setDescripcion(this.getDescripcion()+"\n"+nota);
 		this.setEstaCerrada(false);
 		
 	}
@@ -264,7 +266,7 @@ public class Proyecto {
 		this.listaDeMiembros = listaDeMiembros;
 	}
 	
-	public boolean isEstaCerrada() {
+	public boolean getEstaCerrada() {
 		return estaCerrado;
 	}
 
