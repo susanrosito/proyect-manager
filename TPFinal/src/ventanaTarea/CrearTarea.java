@@ -40,8 +40,7 @@ public class CrearTarea extends JFrame {
 	private JPanel panelcheckBox = new JPanel();
 	protected JRadioButton rBConOrden = new JRadioButton("Si",false);
 	protected JRadioButton rBSinOrden = new JRadioButton("No",true);
-	//	protected JCheckBox cBConOrden = new JCheckBox("Si");
-	//	protected JCheckBox cBSinOrden = new JCheckBox("No");
+	
 	private ButtonGroup groub = new ButtonGroup();
 	
 	private JLabel ltareasASeleccionar = new JLabel(
@@ -151,8 +150,7 @@ public class CrearTarea extends JFrame {
 		this.addAction();
 
 		// this.setResizable(false);
-		this.bAceptar.setEnabled(false);
-		this.bCancelar.setEnabled(false);
+		
 		this.tabla.setVisible(false);
 		this.pack();
 		this.setLocation(100, 150);
@@ -164,59 +162,21 @@ public class CrearTarea extends JFrame {
 		tabla.getSelectionModel().addListSelectionListener(
 				new MiSelectionListener());
 		rBConOrden.addActionListener(new SelectionRadioButton());
-	//	cBSinOrden.addActionListener(new SelectionCheckBoxSin());
+		rBSinOrden.addActionListener(new SelectionRadioButton());
 	}
-	/*class SelectionCheckBoxSin implements ActionListener{
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			if (cBSinOrden.isSelected()){
-				tabla.setVisible(false);
-			}
-			
-		}
-		
-	}
-	class SelectionCheckBoxCon implements ActionListener{
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			if (cBConOrden.isSelected()){
-				tabla.setVisible(true);
-				cBSinOrden.setSelected(false);
-			}
-			
-		}
-		
-	}*/
+	
 	
 	class SelectionRadioButton implements ActionListener{
-
-//		@Override
-//		public void itemStateChanged(ItemEvent e) {
-//			boolean isSelected;
-//			isSelected = e.getStateChange() == ItemEvent.SELECTED;
-//			if(e.getItemSelectable() == rBConOrden){
-//				
-//				if(isSelected){
-//					
-//					tabla.setVisible(true);
-//					bAceptar.setEnabled(true);
-//					bCancelar.setEnabled(true);
-//					
-//				}
-//				else{
-//					tabla.setVisible(false);
-//					bAceptar.setEnabled(false);
-//					bCancelar.setEnabled(false);
-//				}
-//			}
-//		}
-
 		
 		public void actionPerformed(ActionEvent e) {
+			if (e.getSource() == rBConOrden){
+				tabla.setVisible(true);
+				
+			}
 			
-			
+			if(e.getSource() == rBSinOrden){
+				tabla.setVisible(false);
+			}
 		}
 		
 	}
