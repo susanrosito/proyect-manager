@@ -22,7 +22,6 @@ public class PanelTareaS extends PanelTarea {
 		if (!(tNombre.getText().isEmpty())
 				& !(tDescripcion.getText().isEmpty())
 				& !(tFechaEFinalizacion.getDate() == null)) {
-			if (JOptionPane.showConfirmDialog(baceptar, "¿Esta seguro?") == 0) {
 				String nombre = tNombre.getText();
 				String descr = tDescripcion.getText();
 				Fecha fecha = new Fecha();
@@ -34,12 +33,14 @@ public class PanelTareaS extends PanelTarea {
 								.showMessageDialog(null,
 										"Tiene que seleccionar la siguiente tarea Para poder completar la operacion.");
 					} else {
+						if (JOptionPane.showConfirmDialog(baceptar, "¿Esta seguro?") == 0) {
 						AdministradorTarea tareaAnterior = padre.model
 								.getSelected(padre.tabla.getSelectedRow());
 						this.proyectoActual.agregarTarea(new OrganizadorTarea(
 								tareaAnterior, tarea));
 						this.notifyObserver();
 						this.padre.dispose();
+						}
 					}
 				} else {
 					this.proyectoActual.agregarTarea(tarea);
@@ -48,7 +49,7 @@ public class PanelTareaS extends PanelTarea {
 				}
 
 			}
-		} else {
+		 else {
 
 			JOptionPane.showMessageDialog(baceptar,
 					"Tiene que todos completar los campos");
