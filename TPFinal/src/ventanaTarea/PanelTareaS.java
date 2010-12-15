@@ -16,7 +16,9 @@ public class PanelTareaS extends PanelTarea {
 		this.agregarTareas.setVisible(false);
 
 	}
-
+	/**
+	 * Declaro la accion del boton aceptar en el panel de Simple.
+	 */
 	public void onAcept() {
 
 		if (!(tNombre.getText().isEmpty())
@@ -55,16 +57,22 @@ public class PanelTareaS extends PanelTarea {
 					"Tiene que todos completar los campos");
 		}
 	}
-
+	/**
+	 * inicializo el boton agregar, en este caso lo quiero invisible.
+	 */
 	public JButton inicializarBoton() {
 		this.agregarTareas.setVisible(false);
 		return agregarTareas;
 	}
-
+	/**
+	 * 
+	 */
 	public void onAgregarT() {
 
 	}
-
+	/**
+	 * 
+	 */
 	public void conOrden() {
 
 	}

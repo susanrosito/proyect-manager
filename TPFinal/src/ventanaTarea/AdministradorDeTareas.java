@@ -59,7 +59,7 @@ public class AdministradorDeTareas extends JFrame implements
 	/**
 	 * Constructor de la ventana AdministradorDeTareas.
 	 * 
-	 * @param proyecto
+	 * @param proyecto Proyecto
 	 */
 	public AdministradorDeTareas(Proyecto proyecto,
 			ArrayList<VentanaTareaObserver> observadores) {

@@ -17,7 +17,9 @@ public class PanelTareaC extends PanelTarea {
 		this.tarea = new TareaCompuesta();
 
 	}
-
+	/**
+	 * Declaro la accion del boton aceptar en el panel de Compuesta.
+	 */
 	public void onAcept() {
 		if (!(tNombre.getText().isEmpty())
 				& !(tDescripcion.getText().isEmpty())
@@ -54,17 +56,23 @@ public class PanelTareaC extends PanelTarea {
 		}
 
 	}
-
+	/**
+	 *  inicializo el boton agregar, en este caso lo quiero visible.
+	 */
 	public JButton inicializarBoton() {
 		agregarTareas.setVisible(true);
 		return agregarTareas;
 	}
-
+	/**
+	 * le agrego la accion al boton agregar.
+	 */
 	public void onAgregarT() {
 		new AsignarTareas(padre, tarea);
 
 	}
-
+	/**
+	 * 
+	 */
 	public void conOrden() {
 
 	}

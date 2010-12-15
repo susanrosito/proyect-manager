@@ -44,7 +44,11 @@ public class CrearTarea extends JFrame {
 	protected JScrollPane scroll = new JScrollPane();
 	private PanelTarea panelCompuesta;
 	private PanelTarea panelSimple;
-
+	/**
+	 * Constructor de la ventana CrearTarea.
+	 * 
+	 * @param adm AdministradorDeTareas
+	 */
 	public CrearTarea(AdministradorDeTareas adm) {
 		listaObservadores.add(adm);
 		listaTareasAselec = adm.listaTareas;
