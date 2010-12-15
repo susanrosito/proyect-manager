@@ -31,10 +31,12 @@ public class ModificarProyectoVentana extends JFrame implements
 
 	// el proyecto actual
 	private Proyecto proyectoActual;
-	// las listas de miembros y usuarios
+	// las listas de miembros y usuarios 
 	JList jlistMiembro = new JList();
 	JList jlistUsuario = new JList();
-	private JScrollPane scroll = new JScrollPane();
+	//el scroll
+	JScrollPane scroll = new JScrollPane();
+	
 
 	// panel de datos con los campos de texto
 	private JPanel panelDatos = new JPanel();
@@ -86,23 +88,26 @@ public class ModificarProyectoVentana extends JFrame implements
 		// lista, agregarle el scroll y el color de fondo
 
 		scroll.setViewportView(jlistMiembro);
-		this.jlistUsuario.setCellRenderer(new UsuarioRenderer());
 		this.jlistMiembro.setBackground(Color.ORANGE);
+		this.jlistMiembro.setToolTipText("Miembros");
+		
 		scroll.setViewportView(jlistUsuario);
 		this.jlistUsuario.setBackground(Color.ORANGE);
+		this.jlistUsuario.setToolTipText("Usuarios");
+		this.jlistUsuario.setCellRenderer(new UsuarioRenderer());
 
-		// botones
+		
+		//agrego los botones al panel
 		panelBotonesInferiores.setLayout(new BoxLayout(panelBotonesInferiores,
 				BoxLayout.Y_AXIS));
 		panelBotonesInferiores.add(administrarTareasProyecto);
 		panelBotonesInferiores.add(volver);
 		
-		// ///////
+	    //agrego elementos a este panel
 		panelBotonesEntreListas.add(crearMiembro);
-
 		panelBotonesEntreListas.add(eliminarMiembro);
 
-		// /////
+		//agrego los elementos al panel
 		panelDatos.add(labelNombreMiembro);
 		panelDatos.add(textoNombreMiembro);
 		panelDatos.add(labelEmailMiembro);
