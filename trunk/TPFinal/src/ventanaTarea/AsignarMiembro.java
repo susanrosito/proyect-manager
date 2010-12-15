@@ -40,9 +40,10 @@ public class AsignarMiembro extends JFrame {
 	private JPanel panelDAcciones = new JPanel();
 	private JButton bAceptar = new JButton("Aceptar");
 	private JButton bCancelar = new JButton("Cancelar");
+	private JButton bVolver = new JButton("Volver");
 	private JPanel panelList = new JPanel();
 	private List<AdministradorDeTareas> listaObservadores = new ArrayList<AdministradorDeTareas>();
-
+	
 	public AsignarMiembro(AdministradorDeTareas adm, AdministradorTarea tarea) {
 		this.listaObservadores.add(adm);
 		this.listaMiembros = adm.getProyectoActual().getListaDeMiembros();
@@ -64,12 +65,7 @@ public class AsignarMiembro extends JFrame {
 		lNombreTarea.setText("Nombre de Tarea: " + "   "
 				+ tareaParaAsignar.getNombre());
 		panelInfo.add(lNombreTarea);
-
-		panelDAcciones.setLayout(new FlowLayout());
-		panelDAcciones.setBorder(BorderFactory.createTitledBorder("Acciones"));
-		panelDAcciones.add(bAceptar);
-		panelDAcciones.add(bCancelar);
-
+		
 		panelList.setLayout(new BorderLayout());
 		panelList.add(Box.createHorizontalStrut(20), BorderLayout.EAST);
 		panelList.add(scroll);
@@ -78,7 +74,7 @@ public class AsignarMiembro extends JFrame {
 		panelDAcciones.setBorder(BorderFactory.createTitledBorder("Acciones"));
 		panelDAcciones.add(bAceptar);
 		panelDAcciones.add(bCancelar);
-
+		panelDAcciones.add(bVolver);
 		GroupLayout layout = new GroupLayout(this.getContentPane());
 		this.setLayout(layout);
 
@@ -117,7 +113,7 @@ public class AsignarMiembro extends JFrame {
 		this.addAction();
 		this.setSize(200, 200);
 		pack();
-		this.setLocation(250, 150);
+		this.setLocation(380, 200);
 		this.setVisible(true);
 	}
 
@@ -126,6 +122,7 @@ public class AsignarMiembro extends JFrame {
 				new MiSelectionAListener());
 		bAceptar.addActionListener(new MiAceptarListener());
 		bCancelar.addActionListener(new MiCancelarListener());
+		bVolver.addActionListener(new MiVolverListener());
 	}
 
 	class MiCancelarListener implements ActionListener {
@@ -138,7 +135,15 @@ public class AsignarMiembro extends JFrame {
 		}
 
 	}
+	class MiVolverListener implements ActionListener {
 
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			
+			dispose();
+
+			}
+	}
 	class MiAceptarListener implements ActionListener {
 
 		@Override
