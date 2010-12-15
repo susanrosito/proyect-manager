@@ -169,7 +169,15 @@ public class AsignarMiembro extends JFrame {
 	class MiAceptarListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-
+			/*Aca es la accion aceptar en esta ventana
+			 * Agarro el miembro que esta  selecionado y me fijo que la tarea 
+			 * a la cual le voy a asignar el miembro, si tiene un miembro ya.
+			 * Si no tiene, entonces se lo asigno al que esta selecionado.
+			 * Si tiene, entonces pregunto si es el mismo miembro que el que 
+			 * voy a asignarle y si es asi le aviso que ya esta asignado y 
+			 * espero hasta que seleccione otro.Y si no es le mismo se lo asigno.
+			 * por ultimo aviso los cambios y salgo. 
+			 * */
 			Miembro miembro = modeloMiembro.getSelected(tablaMiembros
 					.getSelectedRow());
 			if (!(tareaParaAsignar.getMiembroAsignado() == null)) {
