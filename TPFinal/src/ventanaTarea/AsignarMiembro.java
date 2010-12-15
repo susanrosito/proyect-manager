@@ -143,13 +143,22 @@ public class AsignarMiembro extends JFrame {
 			if (JOptionPane.showConfirmDialog(bAceptar, "¿Esta seguro?") == 0) {
 				Miembro miembro = modeloMiembro.getSelected(tablaMiembros
 						.getSelectedRow());
-				if ((tareaParaAsignar.getMiembroAsignado() == null)){
-						
+				if (!(tareaParaAsignar.getMiembroAsignado() == null)){
+					if (tareaParaAsignar.getMiembroAsignado().getUsuario().equals(miembro.getUsuario())){
+						JOptionPane.showMessageDialog(bAceptar,
+						"Este miembro esta asignado a esta Tarea. Eliga otro por favor.");
+					}
+					else{
+					tareaParaAsignar.modificarMiembroAsignado(miembro);
+					AsignarMiembro.this.setVisible(false);
+					dispose();
+					}
 				}
-				tareaParaAsignar.modificarMiembroAsignado(miembro);
-				AsignarMiembro.this.setVisible(false);
-				dispose();
-
+				else{
+					tareaParaAsignar.modificarMiembroAsignado(miembro);
+					AsignarMiembro.this.setVisible(false);
+					dispose();
+				}
 			}
 
 		}
