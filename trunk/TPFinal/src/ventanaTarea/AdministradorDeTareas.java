@@ -68,7 +68,7 @@ public class AdministradorDeTareas extends JFrame implements VentanaTareaObserve
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.init();
 	}
-
+   
 	/**
 	 * Inicializa la ventana,con sus propiedades especificas, crea sus
 	 * componentes, y hasta sus acciones.
