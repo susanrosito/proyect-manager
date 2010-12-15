@@ -55,7 +55,7 @@ public class UsuarioVentana extends JPanel implements InterfaceObserversSistema{
 		// poner a punto la lista
 		listaUsuarioJList = new JList(listaUsuarioVector);
 		scrollUsuario.setViewportView(listaUsuarioJList);
-
+		this.listaUsuarioJList.setToolTipText("Usuarios");
 		// setear color de fondo
 		this.listaUsuarioJList.setBackground(Color.ORANGE);
 

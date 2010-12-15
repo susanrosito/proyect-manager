@@ -69,13 +69,11 @@ public class ProyectoVentana extends JPanel implements
 	}
 
 	private void inicializarVentana() {
-		// this.setBackground(Color.black);
-
 		// le creo una Jlist con el vector a mostrar
 		listaProyectosJList = new JList(listaProyectosVector);
 		// seteo el scroll para la Jlist
 		scrollProyectos.setViewportView(listaProyectosJList);
-
+		this.listaProyectosJList.setToolTipText("Proyectos");
 		this.listaProyectosJList.setBackground(Color.ORANGE);
 
 		// aca compongo y seteo todos los paneles
