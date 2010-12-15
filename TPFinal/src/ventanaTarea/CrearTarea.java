@@ -1,14 +1,12 @@
 package ventanaTarea;
 
-import java.awt.Button;
+
 import java.awt.Color;
 import java.awt.FlowLayout;
-import java.awt.Font;
+
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Dialog.ModalExclusionType;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
@@ -20,7 +18,7 @@ import javax.swing.Box;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JDialog;
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -31,7 +29,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import tareas.AdministradorTarea;
-//
+
 public class CrearTarea extends JFrame {
 
 	protected List<AdministradorTarea> listaTareasAselec = new ArrayList<AdministradorTarea>();
@@ -40,7 +38,7 @@ public class CrearTarea extends JFrame {
 	protected JCheckBox cBConOrden = new JCheckBox("Si");
 	protected JCheckBox cBSinOrden = new JCheckBox("No");
 	private ButtonGroup groub = new ButtonGroup();
-	//private JLabel lorden = new JLabel("Con orden?:");
+	
 	private JLabel ltareasASeleccionar = new JLabel(
 			"Elegir la anterior Tarea:");
 	protected JTable tabla = new JTable();
@@ -49,7 +47,9 @@ public class CrearTarea extends JFrame {
 	private List<AdministradorDeTareas> listaObservadores = new ArrayList<AdministradorDeTareas>();
 	private JButton bAceptar = new JButton("  Aceptar  ");
 	private JButton bCancelar = new JButton("  Cancelar  ");
-	private JPanel panelAcciones = new JPanel();
+	
+	
+
 	private PanelTarea panelCompuesta;
 	private PanelTarea panelSimple;
 	
@@ -142,15 +142,6 @@ public class CrearTarea extends JFrame {
 		// restricciones.weightx = 0.0;
 		// restricciones.weighty = 1.0;
 		this.add(scroll, restricciones);
-		this.panelAcciones.setLayout(new FlowLayout());
-		this.panelAcciones.add(Box.createHorizontalStrut(80));
-		this.panelAcciones.add(bAceptar);
-		this.panelAcciones.add(bCancelar);
-		restricciones.gridx = 7;
-		restricciones.gridy = 9;
-		restricciones.gridwidth = 2;// GridBagConstraints.ABOVE_BASELINE;
-		restricciones.gridheight = 2;
-		this.add(panelAcciones,restricciones);
 		
 		this.addAction();
 
