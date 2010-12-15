@@ -7,6 +7,8 @@ import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
@@ -22,6 +24,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
@@ -35,8 +38,10 @@ public class CrearTarea extends JFrame {
 	protected List<AdministradorTarea> listaTareasAselec = new ArrayList<AdministradorTarea>();
 	private JTabbedPane pestaniaTabbedPane = new JTabbedPane();
 	private JPanel panelcheckBox = new JPanel();
-	protected JCheckBox cBConOrden = new JCheckBox("Si");
-	protected JCheckBox cBSinOrden = new JCheckBox("No");
+	protected JRadioButton rBConOrden = new JRadioButton("Si",false);
+	protected JRadioButton rBSinOrden = new JRadioButton("No",true);
+	//	protected JCheckBox cBConOrden = new JCheckBox("Si");
+	//	protected JCheckBox cBSinOrden = new JCheckBox("No");
 	private ButtonGroup groub = new ButtonGroup();
 	
 	private JLabel ltareasASeleccionar = new JLabel(
@@ -97,10 +102,10 @@ public class CrearTarea extends JFrame {
 		this.panelcheckBox.setAlignmentX(JPanel.CENTER_ALIGNMENT);
 		this.panelcheckBox.setLayout(new FlowLayout());
 		this.panelcheckBox.setBorder(BorderFactory.createTitledBorder("Desea que la tarea tenga orden?"));
-		this.groub.add(cBConOrden);
-		this.groub.add(cBSinOrden);
-		this.panelcheckBox.add(cBConOrden);
-		this.panelcheckBox.add(cBSinOrden);
+		this.groub.add(rBConOrden);
+		this.groub.add(rBSinOrden);
+		this.panelcheckBox.add(rBConOrden);
+		this.panelcheckBox.add(rBSinOrden);
 		restricciones.gridx = 2;
 		restricciones.gridy = 3;
 		restricciones.fill = GridBagConstraints.HORIZONTAL;
@@ -158,7 +163,7 @@ public class CrearTarea extends JFrame {
 	public void addAction() {
 		tabla.getSelectionModel().addListSelectionListener(
 				new MiSelectionListener());
-		cBConOrden.addItemListener(new SelectionCheckBox());
+		rBConOrden.addActionListener(new SelectionRadioButton());
 	//	cBSinOrden.addActionListener(new SelectionCheckBoxSin());
 	}
 	/*class SelectionCheckBoxSin implements ActionListener{
@@ -185,27 +190,33 @@ public class CrearTarea extends JFrame {
 		
 	}*/
 	
-	class SelectionCheckBox implements ItemListener{
+	class SelectionRadioButton implements ActionListener{
+
+//		@Override
+//		public void itemStateChanged(ItemEvent e) {
+//			boolean isSelected;
+//			isSelected = e.getStateChange() == ItemEvent.SELECTED;
+//			if(e.getItemSelectable() == rBConOrden){
+//				
+//				if(isSelected){
+//					
+//					tabla.setVisible(true);
+//					bAceptar.setEnabled(true);
+//					bCancelar.setEnabled(true);
+//					
+//				}
+//				else{
+//					tabla.setVisible(false);
+//					bAceptar.setEnabled(false);
+//					bCancelar.setEnabled(false);
+//				}
+//			}
+//		}
 
 		@Override
-		public void itemStateChanged(ItemEvent e) {
-			boolean isSelected;
-			isSelected = e.getStateChange() == ItemEvent.SELECTED;
-			if(e.getItemSelectable() == cBConOrden){
-				
-				if(isSelected){
-					
-					tabla.setVisible(true);
-					bAceptar.setEnabled(true);
-					bCancelar.setEnabled(true);
-					
-				}
-				else{
-					tabla.setVisible(false);
-					bAceptar.setEnabled(false);
-					bCancelar.setEnabled(false);
-				}
-			}
+		public void actionPerformed(ActionEvent e) {
+			
+			
 		}
 		
 	}
