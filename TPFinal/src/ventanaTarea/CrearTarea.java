@@ -192,16 +192,20 @@ public class CrearTarea extends JFrame {
 			boolean isSelected;
 			isSelected = e.getStateChange() == ItemEvent.SELECTED;
 			if(e.getItemSelectable() == cBConOrden){
+				
 				if(isSelected){
-					tabla.setVisible(true);
-					bAceptar.setEnabled(true);
-					bCancelar.setEnabled(true);
+					if (!(tabla.getSelectedRow() < 0)){
+						tabla.setVisible(true);
+						
+					} 
+					else{
+						
+					}
 					
 				}
 				else{
 					tabla.setVisible(false);
-					bAceptar.setEnabled(false);
-					bCancelar.setEnabled(false);
+					
 				}
 			}
 		}
