@@ -2,6 +2,8 @@ package proyectoYSistema;
 
 import java.util.Vector;
 
+import tareas.TareaCompuesta;
+import tareas.TareaSimple;
 import usuarioMiembroYFecha.*;
 import ventanaTarea.InterfaceObserversSistema;
 
@@ -20,6 +22,7 @@ public class Sistema {
 		this.proyectos = new Vector<Proyecto>();
 		this.usuarios = new Vector<Usuario>();
 		this.observadores = new Vector<InterfaceObserversSistema>();
+		this.inicializarSistema();
 	}
 
 	/**
@@ -86,22 +89,29 @@ public class Sistema {
 
 	}
 
-	public Vector<Proyecto> getProyectos() {
-
-		return this.proyectos;
-	}
-
-	public Vector<Usuario> getUsuarios() {
-		return usuarios;
-	}
-
-	public void setUsuarios(Vector<Usuario> usuarios) {
-		this.usuarios = usuarios;
-
-	}
-
-	public void setProyectos(Vector<Proyecto> proyectos) {
-		this.proyectos = proyectos;
+	private void inicializarSistema() {
+		this.crearUnUsuario("Carlos", "carlosElCapo@hotmail.com");
+		this.crearUnUsuario("Ivan", "elTerrible@hotmail.com");
+		this
+				.crearUnProyecto(
+						"Administrar Escuela",
+						"Este proyecto se encarga de "
+								+ "administrar las tareas como la limpieza,iluminacion, etc.",
+						null);
+		Proyecto proyecto1 = this.getProyectos().get(0);
+		proyecto1.agregarTarea(new TareaSimple("Limpiar Aulas",
+				"El portero recorre todas las aulas y las barre ", new Fecha(
+						"2010-12-15")));
+		proyecto1.agregarTarea(new TareaSimple("Cambiar Lamparitas",
+				"Cambiar la lamparita del aula 200", new Fecha("2010-12-15")));
+		proyecto1.agregarTarea(new TareaSimple("Cortar la luz",
+				"Se debe corta la luz antes de cambiar la lamparita ",
+				new Fecha("2010-12-15")));
+		proyecto1
+				.agregarTarea(new TareaCompuesta(
+						"Reparar la lamparita",
+						"Contiene todas las tareas necesarias para arreglar la lamparita ",
+						new Fecha("2010-12-15")));
 
 	}
 
@@ -140,4 +150,23 @@ public class Sistema {
 		observadores.remove(obs);
 	}
 
+	// geters y seters
+	public Vector<Proyecto> getProyectos() {
+
+		return this.proyectos;
+	}
+
+	public Vector<Usuario> getUsuarios() {
+		return usuarios;
+	}
+
+	public void setUsuarios(Vector<Usuario> usuarios) {
+		this.usuarios = usuarios;
+
+	}
+
+	public void setProyectos(Vector<Proyecto> proyectos) {
+		this.proyectos = proyectos;
+
+	}
 }
