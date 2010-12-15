@@ -43,11 +43,11 @@ public class ProyectoVentana extends JPanel implements
 	private JScrollPane scrollProyectos = new JScrollPane();
 	// el panel de datos que contiene los campos de texto y los labels
 	private JPanel panelDatos = new JPanel();
-	
-	private TextArea textoNotaCierreProyecto= new TextArea(null,2,1,1);
-	
+
+	private TextArea textoNotaCierreProyecto = new TextArea(null, 2, 1, 1);
+
 	private TextField textoNombreProyecto = new TextField();
-	private TextArea textoDescripcionProyecto = new TextArea(null,2,4,1);
+	private TextArea textoDescripcionProyecto = new TextArea(null, 2, 4, 1);
 	private JLabel labelNombreProyecto = new JLabel("NombreProyecto");
 	private JLabel labelDescripcionProyecto = new JLabel("DescripcionProyecto");
 
@@ -63,8 +63,8 @@ public class ProyectoVentana extends JPanel implements
 	// botones de la parte inferior de la ventana
 	JPanel panelBotonesInferiores = new JPanel();
 
-	 private JButton reabrir = new JButton("reabrir");
-	 private JButton cerrar = new JButton("cerrar");
+	private JButton reabrir = new JButton("reabrir");
+	private JButton cerrar = new JButton("cerrar");
 
 	public ProyectoVentana(Sistema sis) {
 		sistema = sis;
@@ -75,6 +75,7 @@ public class ProyectoVentana extends JPanel implements
 	}
 
 	private void inicializarVentana() {
+		// this.setBackground(Color.black);
 
 		// le creo una Jlist con el vector a mostrar
 		listaProyectosJList = new JList(listaProyectosVector);
@@ -95,13 +96,13 @@ public class ProyectoVentana extends JPanel implements
 		eliminar.setEnabled(false);
 
 		// el panel de los botones modificarProyecto
-		panelBotonesInferiores.setLayout(new BoxLayout(panelBotonesInferiores, BoxLayout.Y_AXIS));
+		panelBotonesInferiores.setLayout(new BoxLayout(panelBotonesInferiores,
+				BoxLayout.Y_AXIS));
 		panelBotonesInferiores.add(modificarProyecto);
 		panelBotonesInferiores.add(reabrir);
 		panelBotonesInferiores.add(cerrar);
 		panelBotonesInferiores.add(textoNotaCierreProyecto);
-		
-		
+
 		// el panel de datos
 		panelDatos.setLayout(new GridLayout(4, 2));
 		panelDatos.add(labelNombreProyecto);
@@ -120,6 +121,13 @@ public class ProyectoVentana extends JPanel implements
 		this.add(panelBotonesInferiores);
 
 		// agrego las acciones de la lista y de los botones de proyecto
+		// y el estado inicial de los botones
+		this.modificar.setEnabled(false);
+		this.eliminar.setEnabled(false);
+		this.cerrar.setEnabled(false);
+		this.reabrir.setEnabled(false);
+		modificarProyecto.setEnabled(false);
+
 		this.addAcions();
 
 	}
@@ -136,9 +144,9 @@ public class ProyectoVentana extends JPanel implements
 		eliminar.addActionListener(new EliminarProyecto());
 
 		modificarProyecto.addActionListener(new ModificarProyectoActual());
-		
+
 		reabrir.addActionListener(new ReabrirProyecto());
-		
+
 		cerrar.addActionListener(new CerrarProyecto());
 	}
 
@@ -150,6 +158,8 @@ public class ProyectoVentana extends JPanel implements
 				if (listaProyectosJList.isSelectionEmpty()) {
 					modificar.setEnabled(false);
 					eliminar.setEnabled(false);
+					cerrar.setEnabled(false);
+					reabrir.setEnabled(false);
 				} else {
 					Proyecto proyecto = (Proyecto) listaProyectosJList
 							.getSelectedValue();
@@ -157,6 +167,17 @@ public class ProyectoVentana extends JPanel implements
 					textoDescripcionProyecto.setText(proyecto.getDescripcion());
 					modificar.setEnabled(true);
 					eliminar.setEnabled(true);
+					if (proyecto.getEstaCerrada()) {
+
+						cerrar.setEnabled(false);
+						reabrir.setEnabled(true);
+						modificarProyecto.setEnabled(false);
+
+					} else {
+						cerrar.setEnabled(true);
+						reabrir.setEnabled(false);
+						modificarProyecto.setEnabled(true);
+					}
 
 				}
 
@@ -203,6 +224,7 @@ public class ProyectoVentana extends JPanel implements
 			textoNombreProyecto.setText("");
 			textoDescripcionProyecto.setText("");
 			sistema.notificarObservadores();
+
 		}
 
 	}
@@ -243,33 +265,50 @@ public class ProyectoVentana extends JPanel implements
 		public void actionPerformed(ActionEvent e) {
 
 			listaProyectosVector.remove(listaProyectosJList.getSelectedValue());
-
+			textoNombreProyecto.setText("");
+			textoDescripcionProyecto.setText("");
 			sistema.notificarObservadores();
 		}
 	}
-	
+
 	class CerrarProyecto implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			if (! listaProyectosJList.isSelectionEmpty())
-			((Proyecto)listaProyectosJList.getSelectedValue()).cerrarProyecto(textoNotaCierreProyecto.getText());
+			if (!listaProyectosJList.isSelectionEmpty()) {
+				Proyecto proyecto = ((Proyecto) listaProyectosJList
+						.getSelectedValue());
+				proyecto.cerrarProyecto(textoNotaCierreProyecto.getText());
+				sistema.notificarObservadores();
+				textoDescripcionProyecto.setText(proyecto.getDescripcion());
+				textoNotaCierreProyecto.setText("");
+				modificarProyecto.setEnabled(false);
+			}
 		}
-
 	}
-	
+
 	class ReabrirProyecto implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			if (! listaProyectosJList.isSelectionEmpty())
-			((Proyecto)listaProyectosJList.getSelectedValue()).cerrarProyecto(textoNotaCierreProyecto.getText());
-		}
 
+			if (!listaProyectosJList.isSelectionEmpty()) {
+
+				Proyecto pro = ((Proyecto) listaProyectosJList
+						.getSelectedValue());
+
+				pro.reabrirProyecto(textoNotaCierreProyecto.getText());
+
+				sistema.notificarObservadores();
+				textoDescripcionProyecto.setText(pro.getDescripcion());
+				textoNotaCierreProyecto.setText("");
+			}
+
+		}
 	}
-	
 
 	public void actualizarObservadores(Sistema sistema) {
 
 		listaProyectosJList.setListData(sistema.getProyectos());
+
 	}
 
 }
