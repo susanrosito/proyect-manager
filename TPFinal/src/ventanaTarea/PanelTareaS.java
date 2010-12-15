@@ -29,15 +29,23 @@ public class PanelTareaS extends PanelTarea {
 				fecha.setFecha(tFechaEFinalizacion.getDate());
 				TareaSimple tarea = new TareaSimple(nombre, descr, fecha);
 				if (padre.rBConOrden.isSelected()) {
-					AdministradorTarea tareaAnterior = padre.model
-							.getSelected(padre.tabla.getSelectedRow());
-					this.proyectoActual.agregarTarea(new OrganizadorTarea(
-							tareaAnterior, tarea));
+					if (padre.tabla.getSelectedRow() < 0) {
+						JOptionPane
+								.showMessageDialog(null,
+										"Tiene que seleccionar la siguiente tarea Para poder completar la operacion.");
+					} else {
+						AdministradorTarea tareaAnterior = padre.model
+								.getSelected(padre.tabla.getSelectedRow());
+						this.proyectoActual.agregarTarea(new OrganizadorTarea(
+								tareaAnterior, tarea));
+						this.notifyObserver();
+						this.padre.dispose();
+					}
 				} else {
 					this.proyectoActual.agregarTarea(tarea);
+					this.notifyObserver();
+					this.padre.dispose();
 				}
-				this.notifyObserver();
-				this.padre.dispose();
 
 			}
 		} else {
@@ -57,7 +65,6 @@ public class PanelTareaS extends PanelTarea {
 	}
 
 	public void conOrden() {
-		
 
 	}
 
