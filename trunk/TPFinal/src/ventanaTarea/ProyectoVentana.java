@@ -4,11 +4,14 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dialog;
 import java.awt.GridLayout;
+import java.awt.ScrollPane;
+import java.awt.TextArea;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.CropImageFilter;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Vector;
@@ -40,8 +43,11 @@ public class ProyectoVentana extends JPanel implements
 	private JScrollPane scrollProyectos = new JScrollPane();
 	// el panel de datos que contiene los campos de texto y los labels
 	private JPanel panelDatos = new JPanel();
+	
+	private TextArea textoNotaCierreProyecto= new TextArea(null,2,1,1);
+	
 	private TextField textoNombreProyecto = new TextField();
-	private TextField textoDescripcionProyecto = new TextField();
+	private TextArea textoDescripcionProyecto = new TextArea(null,2,4,1);
 	private JLabel labelNombreProyecto = new JLabel("NombreProyecto");
 	private JLabel labelDescripcionProyecto = new JLabel("DescripcionProyecto");
 
@@ -57,7 +63,7 @@ public class ProyectoVentana extends JPanel implements
 	// botones de la parte inferior de la ventana
 	JPanel panelBotonesInferiores = new JPanel();
 
-	// private JButton reabrir = new JButton("reabrir");
+	 private JButton reabrir = new JButton("reabrir");
 	 private JButton cerrar = new JButton("cerrar");
 
 	public ProyectoVentana(Sistema sis) {
@@ -91,7 +97,10 @@ public class ProyectoVentana extends JPanel implements
 		// el panel de los botones modificarProyecto
 		panelBotonesInferiores.setLayout(new BoxLayout(panelBotonesInferiores, BoxLayout.Y_AXIS));
 		panelBotonesInferiores.add(modificarProyecto);
+		panelBotonesInferiores.add(reabrir);
 		panelBotonesInferiores.add(cerrar);
+		panelBotonesInferiores.add(textoNotaCierreProyecto);
+		
 		
 		// el panel de datos
 		panelDatos.setLayout(new GridLayout(4, 2));
@@ -127,6 +136,8 @@ public class ProyectoVentana extends JPanel implements
 		eliminar.addActionListener(new EliminarProyecto());
 
 		modificarProyecto.addActionListener(new ModificarProyectoActual());
+		
+		cerrar.addActionListener(new CerrarProyecto());
 	}
 
 	class SeleccionarElemento implements ListSelectionListener {
@@ -234,6 +245,16 @@ public class ProyectoVentana extends JPanel implements
 			sistema.notificarObservadores();
 		}
 	}
+	
+	class CerrarProyecto implements ActionListener {
+
+		public void actionPerformed(ActionEvent e) {
+			if (! listaProyectosJList.isSelectionEmpty())
+			((Proyecto)listaProyectosJList.getSelectedValue()).cerrarProyecto(textoNotaCierreProyecto.getText());
+		}
+
+	}
+	
 
 	public void actualizarObservadores(Sistema sistema) {
 

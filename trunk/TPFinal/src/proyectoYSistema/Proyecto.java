@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
 import ventanaTarea.InterfaceObserversProyecto;
-import ventanaTarea.InterfaceObserversSistema;
 import tareas.*;
 import usuarioMiembroYFecha.*;
 
@@ -15,6 +14,8 @@ public class Proyecto {
 	private Vector<AdministradorTarea> listaTareas;
 	private Vector<Miembro> listaDeMiembros;
 	private Vector<InterfaceObserversProyecto> observers;
+	//agregado despues de entregar el modelo
+	private boolean estaCerrado;
 	/**
 	 * El constructor de la clase proyecto.
 	 * 
@@ -30,6 +31,7 @@ public class Proyecto {
 		this.setListaTareas(new Vector<AdministradorTarea>());
 		this.setListaDeMiembros(new Vector<Miembro>());
 		this.observers = new Vector<InterfaceObserversProyecto>();
+		this.estaCerrado = false;
 	}
 
 	/**
@@ -103,7 +105,7 @@ public class Proyecto {
 
 			this.cerrarTarea(t,nota);
 		}
-
+		this.setEstaCerrada(true);
 	}
 
 	/**
@@ -178,6 +180,43 @@ public class Proyecto {
 		tarea.modificarMiembroAsignado(miembro1);
 
 	}
+	////////// Metodos agregados despues de la entrega del modelo ////////////////////////
+	/**reabre el proyecto,modificando el valor de la variable estaCerrado
+	 * a false
+	 */
+
+	public void reabrirProyecto(String nota) {
+	
+		for (AdministradorTarea t : this.getListaTareas()) {
+
+			this.cerrarTarea(t,nota);
+		}
+		this.setEstaCerrada(false);
+		
+	}
+
+	
+	/**
+	 * agrega un observador a la lista de observadores.El observador debe 
+	 * implementar la interface  InterfaceObserversProyecto
+	 * @param obs
+	 */
+		public void agregarObservador(InterfaceObserversProyecto obs) {
+			observers.add(obs);
+		}
+
+		
+
+		public void eliminarObservador(InterfaceObserversProyecto obs) {
+			observers.remove(obs);
+		}
+		public void notificarObservadores() {
+		
+			for (InterfaceObserversProyecto obs : observers) {
+				obs.actualizarObservadores(this);
+			}
+			
+		}
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
@@ -224,23 +263,13 @@ public class Proyecto {
 	public void setListaDeMiembros(Vector<Miembro> listaDeMiembros) {
 		this.listaDeMiembros = listaDeMiembros;
 	}
-/**
- * agrega un observador a la lista de observadores.El observador debe 
- * implementar la interface  InterfaceObserversProyecto
- * @param obs
- */
-	public void agregarObservador(InterfaceObserversProyecto obs) {
-		observers.add(obs);
+	
+	public boolean isEstaCerrada() {
+		return estaCerrado;
 	}
 
-	public void eliminarObservador(InterfaceObserversProyecto obs) {
-		observers.remove(obs);
+		public void setEstaCerrada(boolean estaCerrada) {
+		this.estaCerrado = estaCerrada;
 	}
-	public void notificarObservadores() {
-	
-		for (InterfaceObserversProyecto obs : observers) {
-			obs.actualizarObservadores(this);
-		}
-		
-	}
+
 }

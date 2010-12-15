@@ -79,6 +79,9 @@ public class ModificarProyectoVentana extends JFrame implements
 	 * es el metodo que inicializa la ventana
 	 */
 	public void inicializarVentana() {
+		//setea una posicion de inicio 
+		
+		this.setLocation(250, 150);
 		// lista, agregarle el scroll y el color de fondo
 
 		scroll.setViewportView(jlistMiembro);
@@ -238,9 +241,9 @@ public class ModificarProyectoVentana extends JFrame implements
 	class CrearMiembro implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-
+			//chequea si ahi algun usuario seleccionado
 			if (!jlistUsuario.isSelectionEmpty()) {
-
+				//chequea si se ingreso un rol en el campo donde se debe ingresar
 				if (!textoRolMiembro.getText().isEmpty()) {
 					Usuario user = (Usuario) jlistUsuario.getSelectedValue();
 					try {
@@ -302,6 +305,9 @@ public class ModificarProyectoVentana extends JFrame implements
 
 	}
 
+
+	
+	//// metodos para manejar los observers
 	public void actualizarObservadores(Sistema sistema) {
 		jlistUsuario.setListData(sistema.getUsuarios());
 
