@@ -12,7 +12,8 @@ public class VentanaSistema extends JFrame {
 	private Sistema sistema;
 
 	public VentanaSistema() {
-
+			// es la ventana Inicial
+		
 		super("Sistema");
 		sistema = Sistema.GetInstance();
 		panelConPestanias.addTab("Proyectos", new ProyectoVentana(sistema));
