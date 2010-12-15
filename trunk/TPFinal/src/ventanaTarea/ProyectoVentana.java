@@ -42,23 +42,23 @@ public class ProyectoVentana extends JPanel implements
 
 	private TextField textoNombreProyecto = new TextField();
 	private TextArea textoDescripcionProyecto = new TextArea(null, 2, 4, 1);
-	private JLabel labelNombreProyecto = new JLabel("NombreProyecto");
-	private JLabel labelDescripcionProyecto = new JLabel("DescripcionProyecto");
+	private JLabel labelNombreProyecto = new JLabel("Nombre Del Proyecto Actual");
+	private JLabel labelDescripcionProyecto = new JLabel("Descripcion Del Proyecto Actual");
 
 	private Sistema sistema;
 
 	// botones de la pestanha proyecto
 	private JPanel panelBotones = new JPanel();
-	private JButton crear = new JButton("crear");
-	private JButton modificar = new JButton("modificar");
-	private JButton eliminar = new JButton("eliminar");
+	private JButton crear = new JButton("Crear Proyecto");
+	private JButton modificar = new JButton("Modificar Proyecto");
+	private JButton eliminar = new JButton("Eliminar Proyecto");
 	private JButton modificarProyecto = new JButton("Administrar Proyecto ");
 
 	// botones de la parte inferior de la ventana
 	JPanel panelBotonesInferiores = new JPanel();
 
-	private JButton reabrir = new JButton("reabrir");
-	private JButton cerrar = new JButton("cerrar");
+	private JButton reabrir = new JButton("Reabrir Proyecto");
+	private JButton cerrar = new JButton("Cerrar Proyecto");
 
 	public ProyectoVentana(Sistema sis) {
 		sistema = sis;

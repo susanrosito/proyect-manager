@@ -1,5 +1,6 @@
 package ventanaTarea;
 
+import java.awt.Checkbox;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.TextField;
@@ -35,8 +36,8 @@ public class UsuarioVentana extends JPanel implements InterfaceObserversSistema{
 	private JPanel panelDatos = new JPanel();
 	private TextField textoNombreUsuario = new TextField();
 	private TextField textoEmailUsuario = new TextField();
-	private JLabel labelNombreUsuario = new JLabel("NombreUsuario");
-	private JLabel labelEmailUsuario = new JLabel("EmailUsuario");
+	private JLabel labelNombreUsuario = new JLabel("Nombre Del Usuario Actual");
+	private JLabel labelEmailUsuario = new JLabel("Email Del Usuario Actual");
 
 	// botones de la pestanha Usuario
 	private JPanel panelBotones = new JPanel();
@@ -88,8 +89,7 @@ public class UsuarioVentana extends JPanel implements InterfaceObserversSistema{
 
 		// agrego las acciones de la lista y de los botones de proyecto
 		this.addAcions();
-
-	}
+		}
 
 	protected void addAcions() {
 		listaUsuarioJList.addListSelectionListener(new SeleccionarElemento());
