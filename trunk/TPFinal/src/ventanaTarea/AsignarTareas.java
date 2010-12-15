@@ -1,6 +1,7 @@
 package ventanaTarea;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -62,6 +63,8 @@ public class AsignarTareas extends JFrame {
 		modeloTareaEnTarea.setData(listaTareasEnTarea);
 		tablaTareasEnTarea.setModel(modeloTareaEnTarea);
 		tablaTareasEnTarea.setSize(80, 80);
+		tablaTareasEnTarea.setBackground(Color.ORANGE);
+		tablaTareasEnTarea.setForeground(Color.BLACK);
 		scrollEnTarea.setViewportView(tablaTareasEnTarea);
 
 		modelotarea.setData(listaTareas);

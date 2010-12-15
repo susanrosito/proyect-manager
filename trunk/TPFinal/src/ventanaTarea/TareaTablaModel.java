@@ -19,7 +19,7 @@ public class TareaTablaModel extends AbstractTableModel {
 		if (col == 0)
 			return "Nombre";
 		else
-			return "Descripcion";
+			return "Estado Actual";
 
 	}
 
@@ -34,7 +34,7 @@ public class TareaTablaModel extends AbstractTableModel {
 			return ((AdministradorTarea) this.listTareas.get(row)).getNombre();
 		else
 			return ((AdministradorTarea) this.listTareas.get(row))
-					.getDescripcion();
+					.verEstado();
 	}
 
 	public int getRowCount() {

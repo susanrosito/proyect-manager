@@ -1,6 +1,7 @@
 package ventanaTarea;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -39,8 +40,7 @@ public class AsignarMiembro extends JFrame {
 	private JScrollPane scroll = new JScrollPane();
 	private JPanel panelDAcciones = new JPanel();
 	private JButton bAceptar = new JButton("Aceptar");
-	private JButton bCancelar = new JButton("Cancelar");
-	private JButton bVolver = new JButton("Volver");
+	private JButton bVolver = new JButton("Atras");
 	private JPanel panelList = new JPanel();
 	private List<AdministradorDeTareas> listaObservadores = new ArrayList<AdministradorDeTareas>();
 	
@@ -59,6 +59,10 @@ public class AsignarMiembro extends JFrame {
 		modeloMiembro.setData(listaMiembros);
 		tablaMiembros.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tablaMiembros.setModel(modeloMiembro);
+		
+		tablaMiembros.setBackground(Color.ORANGE);
+		tablaMiembros.setForeground(Color.BLACK);
+		
 		scroll.setViewportView(tablaMiembros);
 
 		panelInfo.setLayout(new FlowLayout());
@@ -73,7 +77,6 @@ public class AsignarMiembro extends JFrame {
 		panelDAcciones.setLayout(new FlowLayout());
 		panelDAcciones.setBorder(BorderFactory.createTitledBorder("Acciones"));
 		panelDAcciones.add(bAceptar);
-		panelDAcciones.add(bCancelar);
 		panelDAcciones.add(bVolver);
 		GroupLayout layout = new GroupLayout(this.getContentPane());
 		this.setLayout(layout);
@@ -121,20 +124,9 @@ public class AsignarMiembro extends JFrame {
 		tablaMiembros.getSelectionModel().addListSelectionListener(
 				new MiSelectionAListener());
 		bAceptar.addActionListener(new MiAceptarListener());
-		bCancelar.addActionListener(new MiCancelarListener());
 		bVolver.addActionListener(new MiVolverListener());
 	}
 
-	class MiCancelarListener implements ActionListener {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-
-			dispose();
-
-		}
-
-	}
 	class MiVolverListener implements ActionListener {
 
 		@Override
