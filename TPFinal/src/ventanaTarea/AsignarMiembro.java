@@ -117,6 +117,7 @@ public class AsignarMiembro extends JFrame {
 		this.addAction();
 		this.setSize(200, 200);
 		pack();
+		this.setLocation(250, 150);
 		this.setVisible(true);
 	}
 

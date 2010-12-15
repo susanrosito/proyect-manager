@@ -156,7 +156,7 @@ public class CrearTarea extends JFrame {
 		this.bCancelar.setEnabled(false);
 		this.tabla.setVisible(false);
 		this.pack();
-
+		this.setLocation(250, 150);
 		this.setVisible(true);
 	}
 	
