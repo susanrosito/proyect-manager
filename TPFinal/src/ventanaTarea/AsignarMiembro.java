@@ -43,7 +43,7 @@ public class AsignarMiembro extends JFrame {
 	private JButton bVolver = new JButton("Atras");
 	private JPanel panelList = new JPanel();
 	private List<AdministradorDeTareas> listaObservadores = new ArrayList<AdministradorDeTareas>();
-	
+
 	public AsignarMiembro(AdministradorDeTareas adm, AdministradorTarea tarea) {
 		this.listaObservadores.add(adm);
 		this.listaMiembros = adm.getProyectoActual().getListaDeMiembros();
@@ -54,22 +54,21 @@ public class AsignarMiembro extends JFrame {
 
 	public void init(AdministradorDeTareas adm) {
 		this.setTitle("Seleccionar un miembro para la Tarea");
-		// this.setLayout(new BoxLayout(this.getContentPane(),
-		// BoxLayout.Y_AXIS));
+
 		modeloMiembro.setData(listaMiembros);
 		tablaMiembros.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tablaMiembros.setModel(modeloMiembro);
-		
+
 		tablaMiembros.setBackground(Color.ORANGE);
 		tablaMiembros.setForeground(Color.BLACK);
-		
+
 		scroll.setViewportView(tablaMiembros);
 
 		panelInfo.setLayout(new FlowLayout());
 		lNombreTarea.setText("Nombre de Tarea: " + "   "
 				+ tareaParaAsignar.getNombre());
 		panelInfo.add(lNombreTarea);
-		
+
 		panelList.setLayout(new BorderLayout());
 		panelList.add(Box.createHorizontalStrut(20), BorderLayout.EAST);
 		panelList.add(scroll);
@@ -81,36 +80,25 @@ public class AsignarMiembro extends JFrame {
 		GroupLayout layout = new GroupLayout(this.getContentPane());
 		this.setLayout(layout);
 
-		layout.setHorizontalGroup(layout
-				.createParallelGroup()
+		layout.setHorizontalGroup(layout.createParallelGroup().addGroup(
+				layout.createParallelGroup().addComponent(lNombreTarea, -1, 5,
+						5).addGap(11, 11, 11)
+						.addComponent(scroll, -1, 250, 250))
+
+		.addGroup(
+				layout.createParallelGroup().addGap(21, 21, 21).addComponent(
+						panelDAcciones, -1, 50, 50)));
+		layout.setVerticalGroup(layout.createSequentialGroup().addGroup(
+				layout.createSequentialGroup().addComponent(lNombreTarea, -1,
+						5, 5).addGap(11, 11, 11).addComponent(scroll, -1, 250,
+						250)
+
 				.addGroup(
-						layout.createParallelGroup()
-								.addComponent(lNombreTarea, -1, 5, 5)
-								.addGap(11, 11, 11)
-								.addComponent(scroll, -1, 250, 250))
-								
-				.addGroup(
-						layout.createParallelGroup()
-						.addGap(21, 21,21)
-								.addComponent(panelDAcciones,-1, 50, 50)
-								));
-		layout.setVerticalGroup(layout.createSequentialGroup()
-				.addGroup(layout.createSequentialGroup()
-						.addComponent(lNombreTarea, -1, 5, 5)
-						.addGap(11, 11, 11)
-						.addComponent(scroll,-1, 250, 250)
+						layout.createSequentialGroup().addGap(21, 21, 21)
+								.addComponent(panelDAcciones, -1, 50, 50)
 
-						.addGroup(
-								layout.createSequentialGroup()
-										.addGap(21, 21, 21)
-										.addComponent(panelDAcciones,-1, 50, 50)
+				)));
 
-						)));
-
-		// this.add(panelInfo);
-		// this.add(Box.createHorizontalStrut(20));
-		// this.add(panelList);
-		// this.add(panelDAcciones);
 		bAceptar.setEnabled(false);
 
 		this.addAction();
@@ -126,41 +114,51 @@ public class AsignarMiembro extends JFrame {
 		bAceptar.addActionListener(new MiAceptarListener());
 		bVolver.addActionListener(new MiVolverListener());
 	}
-
+	
+	public void notificarObserver(){
+		for (AdministradorDeTareas observer : listaObservadores) {
+			observer.seAgregoTarea();
+		}
+	}
 	class MiVolverListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			
+
 			dispose();
 
-			}
+		}
 	}
+
 	class MiAceptarListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (JOptionPane.showConfirmDialog(bAceptar, "¿Esta seguro?") == 0) {
-				Miembro miembro = modeloMiembro.getSelected(tablaMiembros
-						.getSelectedRow());
-				if (!(tareaParaAsignar.getMiembroAsignado() == null)){
-					if (tareaParaAsignar.getMiembroAsignado().getUsuario().equals(miembro.getUsuario())){
-						JOptionPane.showMessageDialog(bAceptar,
-						"Este miembro esta asignado a esta Tarea. Eliga otro por favor.");
+
+			Miembro miembro = modeloMiembro.getSelected(tablaMiembros
+					.getSelectedRow());
+			if (!(tareaParaAsignar.getMiembroAsignado() == null)) {
+				if (tareaParaAsignar.getMiembroAsignado().getUsuario().equals(
+						miembro.getUsuario())) {
+					JOptionPane
+							.showMessageDialog(bAceptar,
+									"Este miembro esta asignado a esta Tarea. Eliga otro por favor.");
+				} else {
+					if (JOptionPane
+							.showConfirmDialog(bAceptar, "¿Esta seguro?") == 0) {
+						tareaParaAsignar.modificarMiembroAsignado(miembro);
+						AsignarMiembro.this.notificarObserver();
+						dispose();
 					}
-					else{
-					tareaParaAsignar.modificarMiembroAsignado(miembro);
-					AsignarMiembro.this.setVisible(false);
-					dispose();
-					}
+
 				}
-				else{
+			} else {
+				if (JOptionPane.showConfirmDialog(bAceptar, "¿Esta seguro?") == 0) {
 					tareaParaAsignar.modificarMiembroAsignado(miembro);
-					AsignarMiembro.this.setVisible(false);
+					AsignarMiembro.this.notificarObserver();
 					dispose();
 				}
 			}
-
 		}
 	}
 

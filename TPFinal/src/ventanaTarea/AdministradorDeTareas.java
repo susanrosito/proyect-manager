@@ -32,9 +32,10 @@ import tareas.TareaSimple;
 import usuarioMiembroYFecha.Fecha;
 import usuarioMiembroYFecha.Usuario;
 
-public class AdministradorDeTareas extends JFrame implements VentanaTareaObserver {
+public class AdministradorDeTareas extends JFrame implements
+		VentanaTareaObserver {
 
-	protected ArrayList <VentanaTareaObserver>listaObservadores;
+	protected ArrayList<VentanaTareaObserver> listaObservadores;
 	// modelo
 	protected Proyecto proyectoActual;
 	protected List<AdministradorTarea> listaTareas = new ArrayList<AdministradorTarea>();
@@ -60,14 +61,15 @@ public class AdministradorDeTareas extends JFrame implements VentanaTareaObserve
 	 * 
 	 * @param proyecto
 	 */
-	public AdministradorDeTareas(Proyecto proyecto, ArrayList<VentanaTareaObserver> observadores) {
+	public AdministradorDeTareas(Proyecto proyecto,
+			ArrayList<VentanaTareaObserver> observadores) {
 		this.proyectoActual = proyecto;
 		this.listaTareas = proyectoActual.getListaTareas();
-        this.listaObservadores= observadores;
+		this.listaObservadores = observadores;
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.init();
 	}
-   
+
 	/**
 	 * Inicializa la ventana,con sus propiedades especificas, crea sus
 	 * componentes, y hasta sus acciones.
@@ -77,7 +79,7 @@ public class AdministradorDeTareas extends JFrame implements VentanaTareaObserve
 		// seteo propiedades a la ventana
 		this.setTitle("Administrador de Tareas");
 		this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
-		
+
 		// tabla de tareas Actuales en el proyecto
 		tableModelo.setData(listaTareas);
 		tableTareas.setModel(tableModelo);
@@ -85,7 +87,7 @@ public class AdministradorDeTareas extends JFrame implements VentanaTareaObserve
 		// seteoColores
 		tableTareas.setBackground(Color.ORANGE);
 		tableTareas.setForeground(Color.BLACK);
-		
+
 		// al scroll le seteo la tabla!!
 		scroll.setViewportView(tableTareas);
 
@@ -106,7 +108,7 @@ public class AdministradorDeTareas extends JFrame implements VentanaTareaObserve
 		pConTabla.add(scroll, BorderLayout.CENTER);
 		pConTabla.add(Box.createHorizontalStrut(50), BorderLayout.EAST);
 		pConTabla.add(Box.createHorizontalStrut(50), BorderLayout.WEST);
-		
+
 		// otras propiedades de la ventana
 		this.setSize(400, 400);
 		this.setResizable(false);
@@ -122,12 +124,10 @@ public class AdministradorDeTareas extends JFrame implements VentanaTareaObserve
 
 		// otro Panel que va a tener a dentro 2 paneles
 		pContenedor.setLayout(new GridLayout(1, 2));
-		
 
 		// primerPanel sus propiedades
 		pPrimerasAcciones.setLayout(new BoxLayout(pPrimerasAcciones,
 				BoxLayout.Y_AXIS));
-		
 
 		pPrimerasAcciones.setBorder(BorderFactory
 				.createTitledBorder("Acciones:"));
@@ -141,10 +141,10 @@ public class AdministradorDeTareas extends JFrame implements VentanaTareaObserve
 		// segundo panel sus propiedades
 		pSegundasAcciones.setLayout(new BoxLayout(pSegundasAcciones,
 				BoxLayout.Y_AXIS));
-		
+
 		pSegundasAcciones.setBorder(BorderFactory
 				.createTitledBorder("Otras Acciones:"));
-	
+
 		pSegundasAcciones.add(Box.createVerticalStrut(10));
 		pSegundasAcciones.add(bVer);
 		pSegundasAcciones.add(Box.createVerticalStrut(10));
@@ -152,11 +152,11 @@ public class AdministradorDeTareas extends JFrame implements VentanaTareaObserve
 		pSegundasAcciones.add(Box.createVerticalStrut(10));
 		pSegundasAcciones.add(bVolver);
 		pSegundasAcciones.add(Box.createVerticalStrut(10));
-		
+
 		// aca agrego los 2 paneles al panelContenedor
 		pContenedor.add(pPrimerasAcciones);
 		pContenedor.add(pSegundasAcciones);
-		
+
 		// aca agrego el panel a la ventana
 		this.add(pContenedor);
 
@@ -187,15 +187,15 @@ public class AdministradorDeTareas extends JFrame implements VentanaTareaObserve
 		tableTareas.getSelectionModel().addListSelectionListener(
 				new SelectionTablaListener());
 		// la Accion del boton Crear
-		bCrear.addActionListener(new ActionCrearListener()); 
+		bCrear.addActionListener(new ActionCrearListener());
 		// la Accion del boton Ver
-		bVer.addActionListener(new ActionAbrirListener()); 
-		// la Accion del boton Borrar													
-		bBorrar.addActionListener(new ActionBorrarListener()); 
-		// la Accion del boton AsignarMiembro														
+		bVer.addActionListener(new ActionAbrirListener());
+		// la Accion del boton Borrar
+		bBorrar.addActionListener(new ActionBorrarListener());
+		// la Accion del boton AsignarMiembro
 		bAsignarMiembro.addActionListener(new ActionAsignarListener());
-		// la Accion del boton Volver 
-		bVolver.addActionListener(new ActionVolverListener()); 
+		// la Accion del boton Volver
+		bVolver.addActionListener(new ActionVolverListener());
 	}
 
 	/**
@@ -219,11 +219,12 @@ public class AdministradorDeTareas extends JFrame implements VentanaTareaObserve
 	class SelectionTablaListener implements ListSelectionListener {
 
 		@Override
-		public void valueChanged(ListSelectionEvent e) { 
+		public void valueChanged(ListSelectionEvent e) {
 			int row = tableTareas.getSelectedRow();
-			if (row >= 0 &&  (AdministradorDeTareas.this.tableModelo
-					.getSelected(row).sosTareaSimple() && !AdministradorDeTareas.this.tableModelo
-					.getSelected(row).tieneOrden()) ) {
+			if (row >= 0
+					&& (AdministradorDeTareas.this.tableModelo.getSelected(row)
+							.sosTareaSimple() && !AdministradorDeTareas.this.tableModelo
+							.getSelected(row).tieneOrden())) {
 
 				bAsignarMiembro.setEnabled(true);
 				bVer.setEnabled(true);
@@ -249,12 +250,10 @@ public class AdministradorDeTareas extends JFrame implements VentanaTareaObserve
 		public void actionPerformed(ActionEvent e) {
 			AdministradorTarea tareaSeleccionada = AdministradorDeTareas.this.tableModelo
 					.getSelected(tableTareas.getSelectedRow());
-			new AsignarMiembro(AdministradorDeTareas.this,
-						tareaSeleccionada);
-			  }
+			new AsignarMiembro(AdministradorDeTareas.this, tareaSeleccionada);
 		}
+	}
 
-	
 	/**
 	 * 
 	 * @author susy
@@ -266,8 +265,8 @@ public class AdministradorDeTareas extends JFrame implements VentanaTareaObserve
 		public void actionPerformed(ActionEvent e) {
 			AdministradorTarea tarea = (AdministradorTarea) tableModelo
 					.getSelected(tableTareas.getSelectedRow());
-			 
-			 new VentanaTareas(tarea, AdministradorDeTareas.this);
+
+			new VentanaTareas(tarea, AdministradorDeTareas.this);
 
 		}
 
@@ -330,68 +329,64 @@ public class AdministradorDeTareas extends JFrame implements VentanaTareaObserve
 		this.proyectoActual = proyectoActual;
 	}
 
-
 	public void cambioElEstadoLaTarea(AdministradorTarea unaTarea) {
 		int indice = tableTareas.getSelectedRow();
 		AdministradorTarea tareActial = (AdministradorTarea) tableModelo
-		.getSelected(tableTareas.getSelectedRow());
+				.getSelected(tableTareas.getSelectedRow());
 		proyectoActual.eliminarTarea(tareActial);
 		proyectoActual.getListaTareas().add(indice, unaTarea);
 		AdministradorDeTareas.this.seAgregoTarea();
 	}
 
-	
 	public void seCerroLaTarea(AdministradorTarea tarea) {
 		int indice = tableTareas.getSelectedRow();
 		AdministradorTarea tareActial = (AdministradorTarea) tableModelo
-		.getSelected(tableTareas.getSelectedRow());
+				.getSelected(tableTareas.getSelectedRow());
 		proyectoActual.eliminarTarea(tareActial);
 		proyectoActual.getListaTareas().add(indice, tarea);
 		AdministradorDeTareas.this.seAgregoTarea();
-		
+
 	}
 
-	
 	public void aumentoElPorcentageDeFinalizacion(AdministradorTarea tarea) {
 		int indice = tableTareas.getSelectedRow();
 		AdministradorTarea tareActial = (AdministradorTarea) tableModelo
-		.getSelected(tableTareas.getSelectedRow());
+				.getSelected(tableTareas.getSelectedRow());
 		proyectoActual.eliminarTarea(tareActial);
 		proyectoActual.getListaTareas().add(indice, tarea);
 		AdministradorDeTareas.this.seAgregoTarea();
-		
+
 	}
 
-	
 	public void seReabrioLaTarea(AdministradorTarea tarea) {
 		int indice = tableTareas.getSelectedRow();
 		AdministradorTarea tareActial = (AdministradorTarea) tableModelo
-		.getSelected(tableTareas.getSelectedRow());
+				.getSelected(tableTareas.getSelectedRow());
 		proyectoActual.eliminarTarea(tareActial);
 		proyectoActual.getListaTareas().add(indice, tarea);
 		AdministradorDeTareas.this.seAgregoTarea();
-		
+
 	}
-	
+
 	public static void main(String[] args) throws UsuarioYaTieneRolExepcion {
 		Proyecto proyecto = new Proyecto("AAA", "BBB", null);
 		Usuario usuario1 = new Usuario("Susana", "rosito.susana@gmail.com");
 		Usuario usuario2 = new Usuario("Tatiana", "tati@gmail.com");
 		Usuario usuario3 = new Usuario("Federico", "fede@gmail.com");
 		TareaSimple tarea1 = new TareaSimple("Tarea1", "ahhhh", new Fecha(
-		"12-03-2010"));
+				"12-03-2010"));
 		TareaSimple tarea2 = new TareaSimple("Tarea2", "ehhh", new Fecha(
-		"20-10-2010"));
+				"20-10-2010"));
 		TareaSimple tarea3 = new TareaSimple("Tarea3", "ihhh", new Fecha(
-		"04-01-2010"));
-		
+				"04-01-2010"));
+
 		proyecto.agregarTarea(tarea1);
 		proyecto.agregarTarea(tarea2);
 		proyecto.agregarTarea(tarea3);
-		
+
 		proyecto.agregarMiembro(usuario1, "Desarollador");
 		proyecto.agregarMiembro(usuario3, "Testeador");
 		proyecto.agregarMiembro(usuario2, "Diseñador");
-		new AdministradorDeTareas(proyecto,null);
+		new AdministradorDeTareas(proyecto, null);
 	}
 }
