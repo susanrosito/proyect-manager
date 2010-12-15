@@ -219,6 +219,12 @@ public class AdministradorDeTareas extends JFrame implements
 	class SelectionTablaListener implements ListSelectionListener {
 
 		public void valueChanged(ListSelectionEvent e) {
+			/* cuando selecciono un elemento de la tabla me fijo si
+			 * si esta selecionado, y si es una tarea simple, y si no tiene orden,
+			 * ya que no puedo ver una tarea con orden ni compuesta.
+			 * si todo da true, entonces me habilita los botones.
+			 * si no, me los deshabilita.
+			 */
 			int row = tableTareas.getSelectedRow();
 			if (row >= 0
 					&& (AdministradorDeTareas.this.tableModelo.getSelected(row)
@@ -247,6 +253,10 @@ public class AdministradorDeTareas extends JFrame implements
 	class ActionAsignarListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
+			/*Aca es la accion de asignarle un miembro a la tarea
+			 * Agarro la tarea que esta selecionada y se la paso a la nueva ventana
+			 * que es AsignarMiembro, junto con esta ventana, asi avisa los cambios.
+			 * */
 			AdministradorTarea tareaSeleccionada = AdministradorDeTareas.this.tableModelo
 					.getSelected(tableTareas.getSelectedRow());
 			new AsignarMiembro(AdministradorDeTareas.this, tareaSeleccionada);
@@ -260,8 +270,12 @@ public class AdministradorDeTareas extends JFrame implements
 	 * 
 	 */
 	class ActionAbrirListener implements ActionListener {
-
+		
 		public void actionPerformed(ActionEvent e) {
+			/*Aca es la accion de ver una tarea
+			 * Agarro la tarea que esta selecionada y se la paso a la nueva ventana
+			 * que es VentanaTareas, junto con esta ventana, asi avisa los cambios.
+			 * */
 			AdministradorTarea tarea = (AdministradorTarea) tableModelo
 					.getSelected(tableTareas.getSelectedRow());
 
