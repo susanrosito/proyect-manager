@@ -303,6 +303,7 @@ public class VentanaTareas extends JFrame {
 		this.setSize(500, 650);
 		this.setResizable(true);
 		this.pack();
+		this.setLocation(250, 150);
 		this.setVisible(true);
 	}
 	
